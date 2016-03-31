@@ -7,13 +7,19 @@ Installation de LAMP : Linux, Apache, MySQL, PHP5
     sudo apt-get update
     sudo apt-get install apache2 php5 mysql-server php5-mysql phpmyadmin
 
+Pendant l'installation, il faudra choisir un mot de passe root pour MySQL, tapez `root`.
+
 ## Configuration
 
 ### Apache
 
-Ajouter un utilisateur apache :
+Ajouter l'utilisateur apache dans votre groupe (ici `gtsi`) :
 
-    sudo chown -R www-data:pi /var/www/html/
-    sudo chmod -R 770 /var/www/html/
+    sudo adduser www-data gtsi
 
-[A finir]
+Modifier le répertorie par défaut d'apache :
+
+Dans le fichier `/etc/apache2/apache2.conf` modifier `/var/www` pour que ça pointe dans le dossier web de votre copie locale du GitHub. (Pour moi `/home/vsasyan/Documents/TSIc/Symfony/web`.)
+
+Dans le fichier `/etc/apache2/sites-available/000-default.conf` modifier `/var/www/html` pour que ça pointe dans le dossier web de votre copie locale du GitHub. (Pour moi `/home/vsasyan/Documents/TSIc/Symfony/web`.)
+
