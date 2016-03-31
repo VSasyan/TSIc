@@ -1,14 +1,38 @@
 30/03/2016 – Réunion avec Alain Chaumet
 =======================================
 
+Contexte
+--------
+
+Ce projet s'inscrit dans le cadre d'un projet européen, l'EIP (pour
+*European ITS Platform*). Ce projet européen à pour but d'anticiper le
+développement des systèmes de transport intelligents en unifiant la
+mise à disposition de données quasi-temps-réel. En France, la
+possession des données sur le réseau routier est désorganisée : le
+réseau national est géré par l'État et plusieurs concessionnaires, le
+réseau régional par les départements, et le réseau communal par les
+trente-six mille communes ; chaque instance ayant sa propre modélisation.
+
+Notre projet cible d'une part les employés des collectivités
+territoriales, afin qu'ils aient une interface unifiée, et d'autre
+part le grand public, qui est capable de remonter rapidement des
+informations de terrain.
+
+
 **Objectif du projet :** créer un service en ligne permettant aux
   utilisateurs (particuliers ou professionnels) de signaler tous types
   d'évènements ayant une influence sur le trafic routier.
 
-Le service devra présenter une interface de saisie
-cartographique. Elle sera complétée par des données « opendata »
-ajoutant des objets (gares, arrêt de covoiturage, …). Les différents
-objets possibles sont ceux listés dans la directive INSPIRE.
+
+Fonctionnalités
+---------------
+
+Le service devra présenter une interface de saisie d'informations,
+unifiée et ergonomique, présentant une cartographie. Elle sera
+complétée par des données « opendata » ajoutant des objets (gares,
+arrêt de covoiturage, …). Les différents objets possibles sont ceux
+listés dans la directive INSPIRE, concernant le réseau routier et si
+possible les réseaux ferroviaire et aérien.
 
 Ce service permettra donc de saisir des évènements, on distingue deux
 types d'évènements principaux :
@@ -31,6 +55,9 @@ annuler leur confirmation d'un évènement.
 
 A terme le service doit permettre d'intégrer facilement les
 informations saisies dans des services de calcul d'itinéraires
-routiers (par exemple). Pour le moment l'interface doit simplement
+routiers (par exemple) et les systèmes intelligents embarqués. Une
+grande réactivité est demandée au service : pour les évènements les
+plus urgents, la durée entre la saisie et la publication ne doit pas
+excéder quinze minutes. Pour le moment l'interface doit simplement
 lister ces données et afficher un aperçu. On se concentre sur la
 saisie des informations.
