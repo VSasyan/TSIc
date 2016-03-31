@@ -1,0 +1,36 @@
+30/03/2016 – Réunion avec Alain Chaumet
+=======================================
+
+**Objectif du projet :** créer un service en ligne permettant aux
+  utilisateurs (particuliers ou professionnels) de signaler tous types
+  d'évènements ayant une influence sur le trafic routier.
+
+Le service devra présenter une interface de saisie
+cartographique. Elle sera complétée par des données « opendata »
+ajoutant des objets (gares, arrêt de covoiturage, …). Les différents
+objets possibles sont ceux listés dans la directive INSPIRE.
+
+Ce service permettra donc de saisir des évènements, on distingue deux
+types d'évènements principaux :
+- les évènements urgents (accidents, incidents, …) ;
+- les évènements prévus (travaux, déviation, …).
+
+Les évènements pourront concerner un problème à court terme (accident,
+…), moyen terme (déviation = conséquences durant des travaux) ou un
+problème au long terme (l'ajout, la modification ou la suppression
+d'un objet = conséquences à la fin des travaux). Ils seront definis
+par une date de création (sur la plateforme) et une date de mise en
+usage (sur le terrain).  
+Ils seront toujours rattachés à la personne qui les a créé.  
+Si la personne créant l'évènement est « professionnelle », il est
+immédiatement accepté, sinon il devra être validé par un autre
+utilisateur.  
+Un professionnel peut supprimer un évènement à tout instant.  
+Les particuliers peuvent supprimer les évènements qu'ils ont créé ou
+annuler leur confirmation d'un évènement.
+
+A terme le service doit permettre d'intégrer facilement les
+informations saisies dans des services de calcul d'itinéraires
+routiers (par exemple). Pour le moment l'interface doit simplement
+lister ces données et afficher un aperçu. On se concentre sur la
+saisie des informations.
