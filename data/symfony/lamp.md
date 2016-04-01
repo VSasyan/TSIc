@@ -38,3 +38,9 @@ Ajouter les permission d'ecriture dans les dossier `cache` et `log` :
     cd TSIc/Symfony/app
     chmod -R 777 logs
     chmod -R 777 cache
+
+## Terminé !
+
+Lancer appache2. Vous pouvez verifier que tout fonctionne ici :
+* http://127.0.0.1/config.php
+* http://127.0.0.1/app_dev.php
