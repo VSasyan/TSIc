@@ -39,6 +39,12 @@ Ajouter les permission d'ecriture dans les dossier `cache` et `log` :
     chmod -R 777 logs
     chmod -R 777 cache
 
+Git ne sauvegarde pas les dépendances de Symfony, il faut faire :
+
+    composer install
+
+(Pensez à le refaire si le site ne fonctionne pas : le ficheir composer.json a dû être modifié : il faut remettre à jour les dépendances.)
+
 ## Terminé !
 
 Lancer appache2. Vous pouvez verifier que tout fonctionne ici :
