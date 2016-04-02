@@ -1,13 +1,21 @@
-# LAMP
+# README Symfony
 
-Installation de LAMP : Linux, Apache, MySQL, PHP5
 
-## Installation des logiciels
+
+## Installations
+
+### Installation de LAMP : Linux, Apache, MySQL, PHP5
 
     sudo apt-get update
     sudo apt-get install apache2 php5 mysql-server php5-mysql phpmyadmin
 
 Pendant l'installation, il faudra choisir un mot de passe root pour MySQL, tapez `root`.
+
+### Installation de composer
+
+Composer gère toutes les dépendances de vote projet Symfony. Elles sont toutes stockées dans le fichier `composer.json`.
+
+https://getcomposer.org/doc/00-intro.md
 
 ## Configuration
 
