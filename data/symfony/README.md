@@ -1,7 +1,6 @@
 # README Symfony
 
 
-
 ## Installations
 
 ### Installation de LAMP : Linux, Apache, MySQL, PHP5
@@ -16,6 +15,7 @@ Pendant l'installation, il faudra choisir un mot de passe root pour MySQL, tapez
 Composer gère toutes les dépendances de votre projet Symfony. Elles sont toutes stockées dans le fichier `composer.json`.
 
 https://getcomposer.org/doc/00-intro.md
+
 
 ## Configuration
 
