@@ -60,4 +60,12 @@ Ajouter un utilisateur symfony :
 
     create role symfony WITH createdb login;
 
+### de PHP
+
+Ajouter dans les fichiers `/etc/php5/apache2/php.ini` (et `/etc/php/7.0/cli/php.ini` si besoin) :
+
+    extension=pdo.so
+    extension=php_pdo.so
+    extension=php_pdo_pgsql.so
+
 C'est terminé ?
