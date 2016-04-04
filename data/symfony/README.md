@@ -62,7 +62,7 @@ Ajouter les permission d'ecriture dans les dossier `cache` et `log` :
 
 Git ne sauvegarde pas les dépendances de Symfony, il faut faire :
 
-    composer install
+    php composer.phar install
 
 (Pensez à le refaire si le site ne fonctionne pas : le fichier composer.json a dû être modifié : il faut remettre à jour les dépendances.)
 
