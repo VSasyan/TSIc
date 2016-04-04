@@ -13,11 +13,24 @@ Pendant l'installation, il faudra choisir un mot de passe root pour MySQL, tapez
 ### Installation de composer
 
 Composer gère toutes les dépendances de votre projet Symfony. Elles sont toutes stockées dans le fichier `composer.json`.
+Pour appeler composer il faudra se mettre dans le dossier `TSIc/Symfony` et lancer via la commande :
 
-https://getcomposer.org/doc/00-intro.md
+    php composer.phar [commande]
 
+## Cloner le projet
+
+Vous devez cloner ce repository. Le repertoire `TSIc/` représente ci-dessous le dossier parent en local (pour moi `/home/vsasyan/Documents/TSIc`).
 
 ## Configuration
+
+### Proxy
+
+Il faut configurer le proxy, ajoutez dans `~/.bashrc` :
+
+    export http_proxy="http://10.0.4.2:3128"
+    export https_proxy="http://10.0.4.2:3128"
+    export HTTP_PROXY=$http_proxy
+    export HTTPS_PROXY=$https_proxy
 
 ### Apache
 
@@ -38,8 +51,6 @@ Vous devez préciser le fuseau horaire dans `/etc/php5/apache2/php.ini`,
     date.timezone = "Europe/Paris"
 
 ### Symfony
-
-Vous devez cloner ce repository. Le repertoire `TSIc/` représente ci-dessous le dossier parent en local (pour moi `/home/vsasyan/Documents/TSIc`).
 
 Ajouter les permission d'ecriture dans les dossier `cache` et `log` :
 
