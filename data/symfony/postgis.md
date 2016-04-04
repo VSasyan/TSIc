@@ -1,7 +1,7 @@
-## Instalaltion de PostGIS
+## Installation de PostGIS
 
     sudo apt-get update
-    sudo apt-get install postgresql-9.5-postgis-2.2 -y
+    sudo apt-get install postgresql-9.5-postgis-2.2 php5-pgsql -y
 
 Informations sur l'installation :
 
@@ -52,6 +52,15 @@ Après la ligne :
 
     local   all             postgres                                peer
 
+Et la ligne :
+
+    host    all             symfony         0.0.0.0/0               trust
+
+Après les lignes :
+
+    # IPv4 local connections:
+    host    all             all             127.0.0.1/32            md5
+
 Passer en utilisateur posgres :
 
     sudo su postgres
@@ -60,4 +69,20 @@ Ajouter un utilisateur symfony :
 
     create role symfony WITH createdb login;
 
-C'est terminé ?
+Ajouter la base `tsic` :
+
+    create database tsic WITH owner symfony;
+
+### de PHP
+
+Ajouter dans les fichiers `/etc/php5/apache2/php.ini` :
+
+    extension=pdo.so
+    extension=php_pdo.so
+    extension=php_pdo_pgsql.so
+
+## Problème php7
+
+Il y a parfois php 7 qui fait des misères... Il faut tester si php7 est installé : `php --version`. Si oui :
+* ou vous appelez toujours `php5` et plus `php` ;
+* ou vous désinstallez php7 : `sudo apt-get remove php7-cli`.
