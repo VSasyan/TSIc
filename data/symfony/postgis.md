@@ -1,4 +1,4 @@
-## Instalaltion de PostGIS
+## Installation de PostGIS
 
     sudo apt-get update
     sudo apt-get install postgresql-9.5-postgis-2.2 php5-pgsql -y
@@ -75,10 +75,14 @@ Ajouter la base `tsic` :
 
 ### de PHP
 
-Ajouter dans les fichiers `/etc/php5/apache2/php.ini` (et `/etc/php/7.0/cli/php.ini` si besoin) :
+Ajouter dans les fichiers `/etc/php5/apache2/php.ini` :
 
     extension=pdo.so
     extension=php_pdo.so
     extension=php_pdo_pgsql.so
 
-C'est terminé ?
+## Problème php7
+
+Il y a parfois php 7 qui fait des misères... Il faut tester si php7 est installé : `php --version`. Si oui :
+* ou vous appelez toujours `php5` et plus `php` ;
+* ou vous désinstallez php7 : `sudo apt-get remove php7-cli`.
