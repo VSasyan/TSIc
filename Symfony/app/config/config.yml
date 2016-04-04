@@ -40,7 +40,7 @@ twig:
 # Doctrine Configuration
 doctrine:
     dbal:
-        driver:   pdo_mysql
+        driver:   "%database_driver%"
         host:     "%database_host%"
         port:     "%database_port%"
         dbname:   "%database_name%"
@@ -58,6 +58,9 @@ doctrine:
         auto_generate_proxy_classes: "%kernel.debug%"
         naming_strategy: doctrine.orm.naming_strategy.underscore
         auto_mapping: true
+        dql:
+            string_functions:
+                ST_Distance: Jsor\Doctrine\PostGIS\Functions\ST_Distance
 
 # Swiftmailer Configuration
 swiftmailer:
