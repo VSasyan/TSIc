@@ -30,6 +30,7 @@ Dans le fichier `TSIc/Symfony/config/parameters.yml` :
 
     # This file is auto-generated during the composer install
     parameters:
+        database_driver: pdo_pgsql
         database_host: 127.0.0.1
         database_port: 5432
         database_name: tsic
