@@ -52,6 +52,15 @@ Après la ligne :
 
     local   all             postgres                                peer
 
+Et la ligne :
+
+    host    all             symfony         0.0.0.0/0               trust
+
+Après les lignes :
+
+    # IPv4 local connections:
+    host    all             all             127.0.0.1/32            md5
+
 Passer en utilisateur posgres :
 
     sudo su postgres
