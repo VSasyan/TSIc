@@ -43,7 +43,7 @@ Vous devez cloner ce repository. Le repertoire `TSIc/` représente ci-dessous le
 
 Ajouter les permission d'ecriture dans les dossier `cache` et `log` :
 
-    cd TSIc/Symfony/app
+    cd TSIc/Symfony/var
     chmod -R 777 logs
     chmod -R 777 cache
 
