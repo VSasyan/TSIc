@@ -37,4 +37,4 @@
 /build/
 
 # Composer PHAR
-/composer.phar
+#/composer.phar
