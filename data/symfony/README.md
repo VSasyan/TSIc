@@ -10,6 +10,8 @@
 
 Pendant l'installation, il faudra choisir un mot de passe root pour MySQL, tapez `root`.
 
+Installation pour Debian Wheezy : [Voir ici](update-debian.md)
+
 ### Installation de composer
 
 Composer gère toutes les dépendances de votre projet Symfony. Elles sont toutes stockées dans le fichier `composer.json`.
