@@ -5,6 +5,9 @@ namespace AppBundle\Form;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\EmailType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 
 class ParticulierType extends AbstractType
 {
@@ -15,13 +18,12 @@ class ParticulierType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('username')
-            ->add('email')
-            ->add('password')
-            ->add('name')
-            ->add('lastname')
-            ->add('signinDate', 'datetime')
-            ->add('activated')
+            ->add('username', TextType::class)  
+            ->add('email', EmailType::class)
+            ->add('password', PasswordType::class)
+            ->add('name',TextType::class)
+            ->add('lastname',TextType::class)
+            
         ;
     }
     
