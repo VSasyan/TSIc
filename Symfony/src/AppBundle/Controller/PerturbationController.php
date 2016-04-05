@@ -72,7 +72,25 @@ class PerturbationController extends Controller {
 
 	public function showAction($id){
 
-		return new Response('<html><body>Salut!</body></html>');
+        $perturbation = array(
+            'id' => 1,
+            'creation_date' => '5/04/2016',
+            'valid' => true,
+            'formulations' => array(array(
+                'name' => 'coucou',
+                'center' => 'center',
+                'type' => array(
+                    'name' => 'Type',
+                    'logo' => 'logo',
+                    'description' => 'Coucou type'
+                ),
+                'creation_date' => '16:18',
+                'begin_date' => '16:20',
+                'end_date' => '16:21'
+            ))
+        );
+
+        return $this->render('AppBundle:Perturbation:show.html.twig', array('perturbation' => $perturbation));
 		
 	}
 
