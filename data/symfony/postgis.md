@@ -44,7 +44,11 @@ Dans le fichier `TSIc/Symfony/config/parameters.yml` :
 
 ### de Postgres
 
-Dans le fichier `sudo vim /etc/postgresql/9.5/main/pg_hba.conf`, ajouter la ligne :
+Dans le fichier :
+* `/etc/postgresql/9.4/main/pg_hba.conf` (Debian Jessie)
+* `/etc/postgresql/9.5/main/pg_hba.conf` (Debian Testing)
+
+Ajouter la ligne :
 
     local   all             symfony                                 trust
 
