@@ -51,7 +51,6 @@ class PerturbationController extends Controller {
 	/**
     * @Route("/perturbation/add", name="perturbation_add")
     */
-
 	public function addAction(){
 
 		return new Response('<html><body>Salut!</body></html>');
@@ -61,7 +60,6 @@ class PerturbationController extends Controller {
 	/**
     * @Route("/perturbation/vote/{id_perturbation}/{id_message}", name="perturbation_vote")
     */
-
 	public function voteAction(){
 
 		return new Response('<html><body>Salut!</body></html>');
@@ -81,7 +79,6 @@ class PerturbationController extends Controller {
 	/**
     * @Route("/perturbation/archive/{id}}", name="perturbation_archive")
     */
-
 	public function archiveAction(){
 
 		return new Response('<html><body>Salut!</body></html>');
@@ -91,7 +88,6 @@ class PerturbationController extends Controller {
 	/**
     * @Route("/perturbation/edit/{id}}", name="perturbation_edit")
     */
-
 	public function editAction($id){
 
 		return new Response('<html><body>Salut!</body></html>');
