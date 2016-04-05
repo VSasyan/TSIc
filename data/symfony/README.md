@@ -20,6 +20,9 @@ Pour appeler composer il faudra se mettre dans le dossier `TSIc/Symfony` et lanc
 ## Cloner le projet
 
 Vous devez cloner ce repository. Le repertoire `TSIc/` représente ci-dessous le dossier parent en local (pour moi `/home/vsasyan/Documents/TSIc`).
+Git ne doit pas changer les droits des fichiers :
+
+    git config core.fileMode false
 
 ## Configuration
 
