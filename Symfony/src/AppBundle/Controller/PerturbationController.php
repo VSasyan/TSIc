@@ -34,7 +34,11 @@ class PerturbationController extends Controller {
     */
 	public function listNearestAction($position){
 
-		return $this->render('AppBundle:Perturbation:show.html.twig', array('position' => $position));
+		$perturbations = array(
+			'name' => 'Coucou',
+		);
+
+		return $this->render('AppBundle:Perturbation:listNearest.html.twig', array('perturbations' => $perturbations));
 
 	}
 
