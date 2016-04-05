@@ -12,7 +12,7 @@ use Symfony\Bridge\Doctrine\Security\User\UserLoaderInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Doctrine\ORM\EntityRepository;
 
-class particulierRepository extends \Doctrine\ORM\EntityRepository implements UserLoaderInterface
+class ParticulierRepository extends \Doctrine\ORM\EntityRepository implements UserLoaderInterface
 {
 
 	public function loadUserByUsername($username)
