@@ -12,7 +12,12 @@ class UserController extends Controller {
 	 *
 	 * return information about the given user
 	*/
-	public function showAction($id){
+
+	/**
+    * @Route("/user/show/{id}")
+    */
+	public function showUserAction($id){
+
 		$repository = $this->getDoctrine()->getManager()->getRepository('AppBundle:Particulier');
 		$user = $repository->find($id);
 		
@@ -26,5 +31,36 @@ class UserController extends Controller {
 
 		return $this->render('AppBundle:User:show.html.twig', $info);
 	}
+
+	/**
+    * @Route("/user/list")
+    */
+	public function listUsersAction(){
+
+		$repository = $this->getDoctrine()->getManager()->getRepository('AppBundle:Particulier');
+		$users = $repository->findAll();
+
+		if (!users){
+			throw $this->createNotFoundException(
+        	    'No product found for id '
+        	);
+
+		}
+
+		return $this->render('AppBundle:User:show.html.twig', $users); 
+
+	}
+
+	/*
+    * @Route("/user/upgrade/{id_user}/{id_status}")
+	*/
+
+	/*
+	public function upgradeUserAction($id){
+
+
+
+	}
+*/
 
 }
