@@ -53,7 +53,7 @@ class UserController extends Controller {
 	 *
 	 * return information about the given user
 	 *
-     * @Route("/user/show/{id}")
+     * @Route("/user/show/{id}", name="user_show")
      */
 	public function showUserAction($id){
 
@@ -72,7 +72,7 @@ class UserController extends Controller {
 	}
 
 	/**
-    * @Route("/user/list")
+    * @Route("/user/list", name="user_list")
     */
 	public function listUsersAction(){
 
@@ -91,15 +91,11 @@ class UserController extends Controller {
 	}
 
 	/*
-    * @Route("/user/upgrade/{id_user}/{id_status}")
+    * @Route("/user/upgrade/{id_user}/{id_status}", name="user_upgrade")
 	*/
-
-	/*
-	public function upgradeUserAction($id){
-
-
-
+	public function upgradeUserAction($id_user, $id_status){
+        
+        return new Response('<html><body>upgradeUserAction!</body></html>');        
 	}
-*/
 
 }
