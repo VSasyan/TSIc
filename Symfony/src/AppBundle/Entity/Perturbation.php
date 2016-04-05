@@ -167,5 +167,80 @@ class Perturbation
     {
         return $this->creationDate;
     }
-}
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->formulations = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->votes = new \Doctrine\Common\Collections\ArrayCollection();
+    }
 
+    /**
+     * Add formulation
+     *
+     * @param \AppBundle\Entity\Formulation $formulation
+     *
+     * @return Perturbation
+     */
+    public function addFormulation(\AppBundle\Entity\Formulation $formulation)
+    {
+        $this->formulations[] = $formulation;
+
+        return $this;
+    }
+
+    /**
+     * Remove formulation
+     *
+     * @param \AppBundle\Entity\Formulation $formulation
+     */
+    public function removeFormulation(\AppBundle\Entity\Formulation $formulation)
+    {
+        $this->formulations->removeElement($formulation);
+    }
+
+    /**
+     * Get formulations
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getFormulations()
+    {
+        return $this->formulations;
+    }
+
+    /**
+     * Add vote
+     *
+     * @param \AppBundle\Entity\Vote $vote
+     *
+     * @return Perturbation
+     */
+    public function addVote(\AppBundle\Entity\Vote $vote)
+    {
+        $this->votes[] = $vote;
+
+        return $this;
+    }
+
+    /**
+     * Remove vote
+     *
+     * @param \AppBundle\Entity\Vote $vote
+     */
+    public function removeVote(\AppBundle\Entity\Vote $vote)
+    {
+        $this->votes->removeElement($vote);
+    }
+
+    /**
+     * Get votes
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getVotes()
+    {
+        return $this->votes;
+    }
+}

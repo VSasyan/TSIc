@@ -267,5 +267,76 @@ class Formulation
     {
         return $this->endDate;
     }
-}
 
+    /**
+     * Set particulier
+     *
+     * @param \AppBundle\Entity\Particulier $particulier
+     *
+     * @return Formulation
+     */
+    public function setParticulier(\AppBundle\Entity\Particulier $particulier)
+    {
+        $this->particulier = $particulier;
+
+        return $this;
+    }
+
+    /**
+     * Get particulier
+     *
+     * @return \AppBundle\Entity\Particulier
+     */
+    public function getParticulier()
+    {
+        return $this->particulier;
+    }
+
+    /**
+     * Set perturbation
+     *
+     * @param \AppBundle\Entity\Perturbation $perturbation
+     *
+     * @return Formulation
+     */
+    public function setPerturbation(\AppBundle\Entity\Perturbation $perturbation)
+    {
+        $this->perturbation = $perturbation;
+
+        return $this;
+    }
+
+    /**
+     * Get perturbation
+     *
+     * @return \AppBundle\Entity\Perturbation
+     */
+    public function getPerturbation()
+    {
+        return $this->perturbation;
+    }
+
+    /**
+     * Set type
+     *
+     * @param \AppBundle\Entity\Type $type
+     *
+     * @return Formulation
+     */
+    public function setType(\AppBundle\Entity\Type $type)
+    {
+        $this->type = $type;
+
+        return $this;
+    }
+
+    /**
+     * Get type
+     *
+     * @return \AppBundle\Entity\Type
+     */
+    public function getType()
+    {
+        return $this->type;
+    }
+}

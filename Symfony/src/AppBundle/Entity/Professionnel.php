@@ -94,4 +94,3 @@ class Professionnel
         return $this->poste;
     }
 }
-

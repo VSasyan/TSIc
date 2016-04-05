@@ -354,4 +354,120 @@ class Particulier implements AdvancedUserInterface, \Serializable
     {
         return $this->activated;
     }
+
+    /**
+     * Add formulation
+     *
+     * @param \AppBundle\Entity\Formulation $formulation
+     *
+     * @return Particulier
+     */
+    public function addFormulation(\AppBundle\Entity\Formulation $formulation)
+    {
+        $this->formulations[] = $formulation;
+
+        return $this;
+    }
+
+    /**
+     * Remove formulation
+     *
+     * @param \AppBundle\Entity\Formulation $formulation
+     */
+    public function removeFormulation(\AppBundle\Entity\Formulation $formulation)
+    {
+        $this->formulations->removeElement($formulation);
+    }
+
+    /**
+     * Get formulations
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getFormulations()
+    {
+        return $this->formulations;
+    }
+
+    /**
+     * Add vote
+     *
+     * @param \AppBundle\Entity\Vote $vote
+     *
+     * @return Particulier
+     */
+    public function addVote(\AppBundle\Entity\Vote $vote)
+    {
+        $this->votes[] = $vote;
+
+        return $this;
+    }
+
+    /**
+     * Remove vote
+     *
+     * @param \AppBundle\Entity\Vote $vote
+     */
+    public function removeVote(\AppBundle\Entity\Vote $vote)
+    {
+        $this->votes->removeElement($vote);
+    }
+
+    /**
+     * Get votes
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getVotes()
+    {
+        return $this->votes;
+    }
+
+    /**
+     * Set professionnal
+     *
+     * @param \AppBundle\Entity\Professionnel $professionnal
+     *
+     * @return Particulier
+     */
+    public function setProfessionnal(\AppBundle\Entity\Professionnel $professionnal = null)
+    {
+        $this->professionnal = $professionnal;
+
+        return $this;
+    }
+
+    /**
+     * Get professionnal
+     *
+     * @return \AppBundle\Entity\Professionnel
+     */
+    public function getProfessionnal()
+    {
+        return $this->professionnal;
+    }
+
+    /**
+     * Set admin
+     *
+     * @param \AppBundle\Entity\Admin $admin
+     *
+     * @return Particulier
+     */
+    public function setAdmin(\AppBundle\Entity\Admin $admin = null)
+    {
+        $this->admin = $admin;
+
+        return $this;
+    }
+
+    /**
+     * Get admin
+     *
+     * @return \AppBundle\Entity\Admin
+     */
+    public function getAdmin()
+    {
+        return $this->admin;
+    }
 }

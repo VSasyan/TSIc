@@ -81,5 +81,76 @@ class Vote
     {
         return $this->date;
     }
-}
 
+    /**
+     * Set particulier
+     *
+     * @param \AppBundle\Entity\Particulier $particulier
+     *
+     * @return Vote
+     */
+    public function setParticulier(\AppBundle\Entity\Particulier $particulier)
+    {
+        $this->particulier = $particulier;
+
+        return $this;
+    }
+
+    /**
+     * Get particulier
+     *
+     * @return \AppBundle\Entity\Particulier
+     */
+    public function getParticulier()
+    {
+        return $this->particulier;
+    }
+
+    /**
+     * Set perturbation
+     *
+     * @param \AppBundle\Entity\Perturbation $perturbation
+     *
+     * @return Vote
+     */
+    public function setPerturbation(\AppBundle\Entity\Perturbation $perturbation)
+    {
+        $this->perturbation = $perturbation;
+
+        return $this;
+    }
+
+    /**
+     * Get perturbation
+     *
+     * @return \AppBundle\Entity\Perturbation
+     */
+    public function getPerturbation()
+    {
+        return $this->perturbation;
+    }
+
+    /**
+     * Set message
+     *
+     * @param \AppBundle\Entity\Message $message
+     *
+     * @return Vote
+     */
+    public function setMessage(\AppBundle\Entity\Message $message)
+    {
+        $this->message = $message;
+
+        return $this;
+    }
+
+    /**
+     * Get message
+     *
+     * @return \AppBundle\Entity\Message
+     */
+    public function getMessage()
+    {
+        return $this->message;
+    }
+}
