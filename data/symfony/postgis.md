@@ -99,4 +99,4 @@ Cette ligne vous affiche les modifications à effectuer pour mettre à jour la b
 
     php bin/console doctrine:schema:update --force
 
-L'ensemsemble (?) des commandes est disponible ici : [Liste des commandes](commandes.md)
+L'ensemble (?) des commandes est disponible ici : [Liste des commandes](commandes.md)
