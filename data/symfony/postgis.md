@@ -27,7 +27,7 @@ Pas besoin de lme faire car le `composer.json` est synchronisé avec git, il fau
 
 Ensuite, il faut donner les paramètres de configuration de la base :
 
-Dans le fichier `TSIc/Symfony/config/parameters.yml` :
+Dans le fichier `TSIc/Symfony/app/config/parameters.yml` :
 
     # This file is auto-generated during the composer install
     parameters:
@@ -42,6 +42,8 @@ Dans le fichier `TSIc/Symfony/config/parameters.yml` :
         mailer_user: null
         mailer_password: null
         secret: ThisTokenIsNotSoSecretChangeIt
+
+**ATTENTION** : il faut bien copier la ligne **database_driver**.
 
 ### de Postgres
 
@@ -86,11 +88,25 @@ Ajouter dans les fichiers `/etc/php5/apache2/php.ini` :
     extension=php_pdo.so
     extension=php_pdo_pgsql.so
 
-## Problème php7
+# Problème php7
 
 Il y a parfois php 7 qui fait des misères... Il faut tester si php7 est installé : `php --version`. Si oui :
 * ou vous appelez toujours `php5` et plus `php` ;
 * ou vous désinstallez php7 : `sudo apt-get remove php7-cli`.
+
+## C'est terminé !
+
+Redémarrer les services :
+
+Debian 7 :
+
+    sudo service postgresql restart
+    sudo service apache2 restart
+
+Debian 9 :
+
+    sudo systemctl restart postgresql
+    sudo systemctl restart apache2
 
 Synchroniser le repository git, allez dans le dossier `TSIc/Symfony` et tapez :
 
