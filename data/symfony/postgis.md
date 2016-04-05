@@ -44,7 +44,7 @@ Dans le fichier `TSIc/Symfony/config/parameters.yml` :
 
 ### de Postgres
 
-Dans le fichier `sudo vim pg_hba.conf`, ajouter la ligne :
+Dans le fichier `sudo vim /etc/postgresql/9.5/main/pg_hba.conf`, ajouter la ligne :
 
     local   all             symfony                                 trust
 
@@ -86,3 +86,13 @@ Ajouter dans les fichiers `/etc/php5/apache2/php.ini` :
 Il y a parfois php 7 qui fait des misères... Il faut tester si php7 est installé : `php --version`. Si oui :
 * ou vous appelez toujours `php5` et plus `php` ;
 * ou vous désinstallez php7 : `sudo apt-get remove php7-cli`.
+
+Synchroniser le repository git, allez dans le dossier `TSIc/Symfony` et tapez :
+
+    php app/console doctrine:schema:update --dump-sql
+
+Cette ligne vous affiche les modifications à effectuer pour mettre à jour la base par rapport aux Entities que nous avions faites. Pour effectivement mettre à jour tapez :
+
+    php app/console doctrine:schema:update --force
+
+L'ensemsemble (?) des commandes est disponible ici : [Liste des commandes](commandes.md)
