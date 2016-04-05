@@ -31,9 +31,9 @@ class PerturbationController extends Controller {
 	}
 
 	/**
-    * @Route("/perturbation/list/nearest/{position}", name="perturbation_list_nearest")
+    * @Route("/perturbation/list/nearest/{position}/{rayon}", name="perturbation_list_nearest")
     */
-	public function listNearestAction($position){
+	public function listNearestAction($position, $rayon = 1000){
 
 		$perturbations = array(
             array(
