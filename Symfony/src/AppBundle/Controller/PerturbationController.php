@@ -11,7 +11,7 @@ class PerturbationController extends Controller {
 
 
 	/**
-    @Route("/perturbation/list/all")
+    * @Route("/perturbation/list/all", name="perturbation_list_all")
     */	
 	public function listAllAction(){
 
@@ -30,7 +30,7 @@ class PerturbationController extends Controller {
 	}
 
 	/**
-    * @Route("/perturbation/list/nearest/{position}")
+    * @Route("/perturbation/list/nearest/{position}", name="perturbation_list_nearest")
     */
 	public function listNearestAction($position){
 
@@ -39,7 +39,7 @@ class PerturbationController extends Controller {
 	}
 
 	/**
-    * @Route("/perturbation/add")
+    * @Route("/perturbation/add", name="perturbation_add")
     */
 
 	public function addAction(){
@@ -49,7 +49,7 @@ class PerturbationController extends Controller {
 	}
 
 	/**
-    * @Route("/perturbation/vote/{id_perturbation}/{id_vote}")
+    * @Route("/perturbation/vote/{id_perturbation}/{id_vote}", name="perturbation_vote")
     */
 
 	public function voteAction(){
@@ -59,7 +59,7 @@ class PerturbationController extends Controller {
 	}
 
 	/**
-    * @Route("/perturbation/archive/{id}}")
+    * @Route("/perturbation/archive/{id}}", name="perturbation_archive")
     */
 
 	public function archiveAction(){
@@ -69,7 +69,7 @@ class PerturbationController extends Controller {
 	}
 
 	/**
-    * @Route("/perturbation/edit/{id}}")
+    * @Route("/perturbation/edit/{id}}", name="perturbation_edit")
     */
 
 	public function editAction($id){
