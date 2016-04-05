@@ -11,24 +11,32 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 class PerturbationController extends Controller {
 
 
-	/**
+    /**
+    * @Route("/perturbation/list/all", name="perturbation_index")
+    */  
+    public function indexAction(){
+        return $this->render('AppBundle:Perturbations:index.html.twig');
+    }
+
+
+    /**
     * @Route("/perturbation/list/all", name="perturbation_list_all")
-    */	
-	public function listAllAction(){
+    */  
+    public function listAllAction(){
 
-		$repository = $this->getDoctrine()->getManager()->getRepository('AppBundle:Perturbations');
-		$perturbations = $repository->findAll();
+        $repository = $this->getDoctrine()->getManager()->getRepository('AppBundle:Perturbations');
+        $perturbations = $repository->findAll();
 
-		if (!perturbations){
-			throw $this->createNotFoundException(
-        	    'No perturbations '
-        	);
+        if (!perturbations){
+            throw $this->createNotFoundException(
+                'No perturbations '
+            );
 
-		}
+        }
 
-		return $this->render('AppBundle:Perturbations:show.html.twig', $perturbations); 
+        return $this->render('AppBundle:Perturbations:show.html.twig', $perturbations); 
 
-	}
+    }
 
 	/**
     * @Route("/perturbation/list/nearest/{position}/{rayon}", name="perturbation_list_nearest")
