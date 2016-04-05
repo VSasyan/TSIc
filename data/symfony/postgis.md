@@ -22,6 +22,7 @@ Normalement, il faut ajouter la dépendance dans composer (ici non !):
 
 Pas besoin de lme faire car le `composer.json` est synchronisé avec git, il faut donc juste synchroniser :
 
+    git pull origin master
     php composer.phar update
 
 Ensuite, il faut donner les paramètres de configuration de la base :
