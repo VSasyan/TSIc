@@ -36,7 +36,12 @@ class PerturbationController extends Controller {
 	public function listNearestAction($position){
 
 		$perturbations = array(
-			'name' => 'Coucou',
+            array(
+                'id' => 1,
+                'name' => 'Coucou',
+                'center' => 'center',
+                'type' => array('logo' => 'logo')
+            )
 		);
 
 		return $this->render('AppBundle:Perturbation:listNearest.html.twig', array('perturbations' => $perturbations));
@@ -54,10 +59,20 @@ class PerturbationController extends Controller {
 	}
 
 	/**
-    * @Route("/perturbation/vote/{id_perturbation}/{id_vote}", name="perturbation_vote")
+    * @Route("/perturbation/vote/{id_perturbation}/{id_message}", name="perturbation_vote")
     */
 
 	public function voteAction(){
+
+		return new Response('<html><body>Salut!</body></html>');
+		
+	}
+
+    /**
+    * @Route("/perturbation/show/{id}", name="perturbation_show")
+    */
+
+	public function showAction($id){
 
 		return new Response('<html><body>Salut!</body></html>');
 		
