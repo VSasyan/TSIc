@@ -2,19 +2,31 @@
 # http://symfony.com/doc/current/book/security.html
 security:
 
+    encoders:
+        AppBundle\Entity\Particulier:
+            algorithm: bcrypt
+
     # http://symfony.com/doc/current/book/security.html#where-do-users-come-from-user-providers
     providers:
-        in_memory:
-            memory: ~
+         our_db_provider:
+            entity:
+                class: AppBundle:Particulier
+                #property: username,email
 
     firewalls:
-        # disables authentication for assets and the profiler, adapt it according to your needs
-        dev:
-            pattern: ^/(_(profiler|wdt)|css|images|js)/
-            security: false
 
         main:
-            anonymous: ~
+            pattern:    ^/
+            http_basic: ~
+            provider: our_db_provider
+
+        # disables authentication for assets and the profiler, adapt it according to your needs
+       # dev:
+           # pattern: ^/(_(profiler|wdt)|css|images|js)/
+           # security: false
+
+        #main:
+          #  anonymous: ~
             # activate different ways to authenticate
 
             # http_basic: ~
