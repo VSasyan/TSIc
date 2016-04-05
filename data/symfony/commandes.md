@@ -20,11 +20,11 @@
 
 ### Generation getter/setter
 
-    php bin/console doctrine:generate:entities SearchBundle:User
+    php bin/console doctrine:generate:entities AppBundle:Particulier
 
 ### Creation de formulaire :
 
-    php bin/console doctrine:generate:form SearchBundle:Client
+    php bin/console doctrine:generate:form AppBundle:Particulier
 
 ## Cache
 
