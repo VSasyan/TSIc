@@ -3,14 +3,14 @@
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-
+use Symfony\Component\Security\Core\User\AdvancedUserInterface;
 /**
  * particulier
  *
  * @ORM\Table(name="particulier")
  * @ORM\Entity(repositoryClass="AppBundle\Repository\particulierRepository")
  */
-class Particulier
+class Particulier implements AdvancedUserInterface, \Serializable
 {
     /**
      * @var int
@@ -21,6 +21,13 @@ class Particulier
      */
     private $id;
 
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="username", type="string", length=255, unique=true)
+     */
+
+    private $username;
     /**
      * @var string
      *
@@ -62,7 +69,87 @@ class Particulier
      * @ORM\Column(name="activated", type="boolean")
      */
     private $activated;
+    /**
+    *
+    *Implements methods
+    *
+    *
+    */
+    public function __construct()
+    {
+        $this->activated = true;
+        // may not be needed, see section on salt below
+        // $this->salt = md5(uniqid(null, true));
+    }
 
+    public function getSalt()
+    {
+        // you *may* need a real salt depending on your encoder
+        // see section on salt below
+        return null;
+    }
+
+    public function getRoles()
+    {
+        return array('ROLE_USER');
+    }
+
+    public function eraseCredentials()
+    {
+    }
+
+    /** @see \Serializable::serialize() */
+    public function serialize()
+    {
+        return serialize(array(
+            $this->id,
+            $this->email,
+            $this->password,
+            $this->isActive
+            // see section on salt below
+            // $this->salt,
+        ));
+    }
+
+    /** @see \Serializable::unserialize() */
+    public function unserialize($serialized)
+    {
+        list (
+            $this->id,
+            $this->email,
+            $this->password,
+            $this->isActive
+        
+            // see section on salt below
+            // $this->salt
+        ) = unserialize($serialized);
+    }
+    /**
+    *
+    *Methods to Forbid Inactive Users
+    *
+    *
+    */
+    public function isAccountNonExpired()
+    {
+        return true;
+    }
+
+    public function isAccountNonLocked()
+    {
+        return true;
+    }
+
+    public function isCredentialsNonExpired()
+    {
+        return true;
+    }
+
+    public function isEnabled()
+    {
+        return $this->isActive;
+    }
+    /** * ** */
 
     /**
      * Get id
@@ -85,6 +172,29 @@ class Particulier
     {
         $this->email = $email;
 
+        return $this;
+    }
+
+    /**
+     * Get username
+     *
+     * @return string
+     */
+    
+     public function getUsername()
+    {
+        return $this->username;
+    }
+
+    /**
+     * Set username
+     *
+     * @return string
+     */
+    
+     public function setUsername()
+    {
+        $this->username = $username;
         return $this;
     }
 
