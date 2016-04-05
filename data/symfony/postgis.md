@@ -22,11 +22,12 @@ Normalement, il faut ajouter la dépendance dans composer (ici non !):
 
 Pas besoin de lme faire car le `composer.json` est synchronisé avec git, il faut donc juste synchroniser :
 
+    git pull origin master
     php composer.phar update
 
 Ensuite, il faut donner les paramètres de configuration de la base :
 
-Dans le fichier `TSIc/Symfony/config/parameters.yml` :
+Dans le fichier `TSIc/Symfony/app/config/parameters.yml` :
 
     # This file is auto-generated during the composer install
     parameters:
@@ -42,9 +43,15 @@ Dans le fichier `TSIc/Symfony/config/parameters.yml` :
         mailer_password: null
         secret: ThisTokenIsNotSoSecretChangeIt
 
+**ATTENTION** : il faut bien copier la ligne **database_driver**.
+
 ### de Postgres
 
-Dans le fichier `sudo vim pg_hba.conf`, ajouter la ligne :
+Dans le fichier :
+* `/etc/postgresql/9.4/main/pg_hba.conf` (Debian Jessie)
+* `/etc/postgresql/9.5/main/pg_hba.conf` (Debian Testing)
+
+Ajouter la ligne :
 
     local   all             symfony                                 trust
 
@@ -81,8 +88,32 @@ Ajouter dans les fichiers `/etc/php5/apache2/php.ini` :
     extension=php_pdo.so
     extension=php_pdo_pgsql.so
 
-## Problème php7
+# Problème php7
 
 Il y a parfois php 7 qui fait des misères... Il faut tester si php7 est installé : `php --version`. Si oui :
 * ou vous appelez toujours `php5` et plus `php` ;
 * ou vous désinstallez php7 : `sudo apt-get remove php7-cli`.
+
+## C'est terminé !
+
+Redémarrer les services :
+
+Debian 7 :
+
+    sudo service postgresql restart
+    sudo service apache2 restart
+
+Debian 9 :
+
+    sudo systemctl restart postgresql
+    sudo systemctl restart apache2
+
+Synchroniser le repository git, allez dans le dossier `TSIc/Symfony` et tapez :
+
+    php bin/console doctrine:schema:update --dump-sql
+
+Cette ligne vous affiche les modifications à effectuer pour mettre à jour la base par rapport aux Entities que nous avions faites. Pour effectivement mettre à jour tapez :
+
+    php bin/console doctrine:schema:update --force
+
+L'ensemble (?) des commandes est disponible ici : [Liste des commandes](commandes.md)

@@ -6,9 +6,7 @@
 ### Installation de LAMP : Linux, Apache, MySQL, PHP5
 
     sudo apt-get update
-    sudo apt-get install apache2 php5 mysql-server php5-mysql phpmyadmin
-
-Pendant l'installation, il faudra choisir un mot de passe root pour MySQL, tapez `root`.
+    sudo apt-get install apache2 php5 mysql-server postgresql-9.5-postgis-2.2 php5-pgsql
 
 Installation pour Debian Wheezy : [Voir ici](update-debian.md)
 
@@ -22,6 +20,9 @@ Pour appeler composer il faudra se mettre dans le dossier `TSIc/Symfony` et lanc
 ## Cloner le projet
 
 Vous devez cloner ce repository. Le repertoire `TSIc/` représente ci-dessous le dossier parent en local (pour moi `/home/vsasyan/Documents/TSIc`).
+Git ne doit pas changer les droits des fichiers :
+
+    git config core.fileMode false
 
 ## Configuration
 
@@ -65,6 +66,10 @@ Git ne sauvegarde pas les dépendances de Symfony, il faut faire :
     php composer.phar install
 
 (Pensez à le refaire si le site ne fonctionne pas : le fichier composer.json a dû être modifié : il faut remettre à jour les dépendances.)
+
+### Base de données
+
+[Voir ici.](postgis.md)
 
 ## Terminé !
 

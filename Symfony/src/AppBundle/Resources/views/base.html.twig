@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<title>{% block title %}ArtisanExpert{% endblock %}</title>
+		<link rel="icon" type="image/png" href="{{ asset('favicon.png') }}">
+		<link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css' />
+		<link href='https://fonts.googleapis.com/css?family=Roboto+Condensed' rel='stylesheet' type='text/css' />
+		<link href="{{ asset('bundles/Search/fa/css/font-awesome.min.css') }}" rel="stylesheet" type="text/css" />
+		<link href="{{ asset('bundles/Search/less/main.less') }}" rel="stylesheet/less" type="text/css" />
+		<link href="{{ asset('bundles/Search/less/mobile.less') }}" rel="stylesheet/less" type="text/css" />
+		<link href="{{ asset('bundles/Search/less/typeStyle.less') }}" rel="stylesheet/less" type="text/css" />
+		<link href="{{ asset('bundles/Search/less/tableStyle.less') }}" rel="stylesheet/less" type="text/css" />
+		<link href="{{ asset('bundles/Search/less/formStyle.less') }}" rel="stylesheet/less" type="text/css" />
+		{% block stylesheets %}{% endblock %}
+
+	    <script src="{{ asset('bundles/Search/js/jquery.min.js') }}"></script>
+	    <script src="{{ asset('bundles/Search/js/init.js') }}"></script>
+	    <script src="{{ asset('bundles/Search/js/autosize.js') }}"></script>
+	    <script src="//cdnjs.cloudflare.com/ajax/libs/less.js/2.5.3/less.min.js"></script>
+		{% block javascripts %}{% endblock %}
+	</head>
+
+	<body>
+		<div id="header">
+			<div>
+				<h1><a href="{{ asset('') }}"><img src="{{ asset('bundles/Search/images/logo.png') }}" title="ArtisanExpert.com"/></a></h1>
+				<nav class="help">
+					<span><a href="#">Contactez-nous</a></span>
+					<span class="dr">|</span>
+					<span><a href="#">Besoin d'aide ?</a></span>
+					<span class="dr">|</span>
+					<span><a href="#">English</a></span>
+				</nav>
+
+				<nav class="main">
+					<label for="show-menu" class="show-menu"><span id="hamburger"></span></label>
+					<input type="checkbox" id="show-menu" role="button" />
+
+					{% set currentPath = app.request.attributes.get('_route') %}
+
+					<ul>
+						<li class="{% if currentPath == 'offres' %}current{% endif %}"><a href="{{ path('offres') }}">Notre offre</a></li>
+						<li class="{% if currentPath == 'blog' %}current{% endif %}"><a href="{{ path('blog') }}">Le Blog</a></li>
+							
+						{% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+						
+							<li class="parent {% if currentPath == 'user_afficher' %}current{% endif %}">
+								<a href="{{ path('mon_compte') }}">{{ app.user.username }}</a>
+								<ul class="menu_level_1">
+									<li><a href="{{ path('mon_compte') }}">Mon compte</a></li>
+									<li><a href="{{ path('fos_user_security_logout') }}">{{ 'Logout'|trans({}, 'FOSUserBundle') }}</a></li>
+								</ul>
+							</li>
+
+						{% else %}
+
+							<li class="{% if currentPath == 'fos_user_security_login' %}current{% endif %}"><a href="{{ path('fos_user_security_login') }}">{{ 'Connexion'|trans({}, 'FOSUserBundle') }}</a></li>
+							<li class="{% if currentPath == 'devenez_partenaire' %}current{% endif %}"><a href="{{ path('devenez_partenaire') }}">Devenez Partenaire</a></li>
+
+						{% endif %}
+
+					</ul>
+				</nav>
+			</div>
+		</div>
+
+		{% for type, messages in app.session.flashBag.all %}
+			{% for message in messages %}
+				<div class="{{ type }}">
+					{{ message|trans({}, 'FOSUserBundle') }}
+				</div>
+			{% endfor %}
+		{% endfor %}
+
+		{% block body %}{% endblock %}
+
+		<div id="footerSection">
+				<section>
+					<div class="table">
+						<div class="row">
+							<div class="cell">
+								<div class="table">
+									<div class="row">
+										<div class="cell">
+											<div>
+												<h2>ArtisanExpert</h2>
+												<div class="links">
+													<a href="#">À propos</a>
+													<a href="#">Comment ça marche ?</a>
+													<a href="#">Charte Qualité & Transparence</a>
+													<a href="#">Le Blog ArtisantExpert</a>
+													<a href="#">Nous rejoindre</a>
+													<a href="#">Média - Presse</a>
+													<a href="#">Partenariats et affiliation</a>
+													<a href="#">Programme de fidélité</a>
+													<a href="#">Propose une ville ou un artisan</a>
+												</div>
+											</div>
+										</div>
+										<div class="cell">
+											<div>
+												<h2>les plus demandés</h2>
+												<div class="links">
+													<a href="#">Rénovation cuisine</a>
+													<a href="#">Rénovation salle de bain</a>
+													<a href="#">Peinture & Parquet</a>
+													<a href="#">Plomberie & Chauffage</a>
+													<a href="#">Électricité & Domotique</a>
+													<a href="#">Couverture & Façade</a>
+													<a href="#">Monter des meubles</a>
+													<a href="#">Jardin & Extérieur</a>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="cell">
+								<div class="table">
+									<div class="row">
+										<div class="cell">
+											<div>
+												<h2>besoin d'aide ?</h2>
+												<div class="links">
+													<a href="#">Contactez-nous</a>
+													<a href="#">FAQ</a>
+													<a href="#">Mot de passe oublié</a>
+													<a href="#">Inscription</a>
+													<a href="#">Connexion</a>
+													<a href="#">CGU et Mentions légales</a>
+												</div>
+											</div>
+										</div>
+										<div class="cell">
+											<div>
+												<h2>espace prestataire</h2>
+												<div class="links">
+													<a href="#">Connexion</a>
+													<a href="#">Postuler</a>
+													<a href="#">Assurance</a>
+													<a href="#">Mot de passe oublié</a>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="cell">
+								<div>
+									<h2>applications mobiles</h2>
+									<div class="links">
+										<a href="#"><i class="appli apple"></i></a>
+										<a href="#"><i class="appli google"></i></a>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="network">
+						<a href="#"><i class="fa fa-twitter-square"></i></a>
+						<a href="#"><i class="fa fa-linkedin-square"></i></a>
+						<a href="#"><i class="fa fa-google-plus-square"></i></a>
+						<a href="#"><i class="fa fa-facebook-square"></i></a>
+					</div>
+				</section>
+			</div>
+
+	</body>
+
+</html>
