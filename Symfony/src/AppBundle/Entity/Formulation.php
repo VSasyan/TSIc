@@ -72,6 +72,25 @@ class Formulation
 
 
     /**
+    * @ORM\ManyToOne(targetEntity="Particulier", inversedBy="formulations")
+    * @ORM\JoinColumn(nullable=false)
+    */
+    private $particulier;
+
+    /**
+    * @ORM\ManyToOne(targetEntity="Perturbation", inversedBy="formulations")
+    * @ORM\JoinColumn(nullable=false)
+    */
+    private $perturbation;
+
+    /**
+    * @ORM\OneToOne(targetEntity="Type", cascade={"persist"})
+    * @ORM\JoinColumn(nullable=false)
+    */
+    private $type;
+
+
+    /**
      * Get id
      *
      * @return int

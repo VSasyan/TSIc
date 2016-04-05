@@ -49,6 +49,18 @@ class Perturbation
      */
     private $creationDate;
 
+    /**
+    * @ORM\OneToMany(targetEntity="Formulation", mappedBy="perturbation")
+    * @ORM\JoinColumn(nullable=false)
+    */
+    private $formulations;
+
+    /**
+    * @ORM\OneToMany(targetEntity="Vote", mappedBy="perturbation")
+    * @ORM\JoinColumn(nullable=false)
+    */
+    private $votes;
+
 
     /**
      * Get id

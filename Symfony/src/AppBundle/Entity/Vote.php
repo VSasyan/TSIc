@@ -30,6 +30,25 @@ class Vote
 
 
     /**
+    * @ORM\ManyToOne(targetEntity="Particulier", inversedBy="formulations")
+    * @ORM\JoinColumn(nullable=false)
+    */
+    private $particulier;
+
+    /**
+    * @ORM\ManyToOne(targetEntity="Perturbation", inversedBy="formulations")
+    * @ORM\JoinColumn(nullable=false)
+    */
+    private $perturbation;
+
+    /**
+    * @ORM\OneToOne(targetEntity="Message", cascade={"persist"})
+    * @ORM\JoinColumn(nullable=false)
+    */
+    private $message;
+
+
+    /**
      * Get id
      *
      * @return int

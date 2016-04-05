@@ -26,8 +26,8 @@ class Particulier implements AdvancedUserInterface, \Serializable
      *
      * @ORM\Column(name="username", type="string", length=255, unique=true)
      */
-
     private $username;
+
     /**
      * @var string
      *
@@ -69,6 +69,33 @@ class Particulier implements AdvancedUserInterface, \Serializable
      * @ORM\Column(name="activated", type="boolean")
      */
     private $activated;
+
+    /**
+    * @ORM\OneToMany(targetEntity="Formulation", mappedBy="particulier")
+    * @ORM\JoinColumn(nullable=false)
+    */
+    private $formulations;
+
+    /**
+    * @ORM\OneToMany(targetEntity="Vote", mappedBy="particulier")
+    * @ORM\JoinColumn(nullable=false)
+    */
+    private $votes;
+
+    /**
+    * @ORM\OneToOne(targetEntity="Professionnel", cascade={"persist"})
+    * @ORM\JoinColumn(nullable=true)
+    */
+    private $professionnal;
+
+    /**
+    * @ORM\OneToOne(targetEntity="Admin", cascade={"persist"})
+    * @ORM\JoinColumn(nullable=true)
+    */
+    private $admin;
+
+
+
     /**
     *
     *Implements methods
