@@ -4,9 +4,9 @@
 
 ### Explications
 
-Liste des routes : [à voir ici](../routes/routes_sprint1.pdf)
+Liste des routes : [à voir ici](routes/routes_sprint1.pdf)
 
-Détails des controllers : [à voir ici](../controllers/controllers_sprint1.pdf)
+Détails des controllers : [à voir ici](controllers/controllers_sprint1.pdf)
 
 ### Diagrammes
 
