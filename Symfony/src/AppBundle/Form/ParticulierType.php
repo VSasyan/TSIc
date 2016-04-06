@@ -8,6 +8,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 
 class ParticulierType extends AbstractType
 {
@@ -23,8 +24,11 @@ class ParticulierType extends AbstractType
             ->add('password', PasswordType::class)
             ->add('name',TextType::class)
             ->add('lastname',TextType::class)
+            ->add('save', SubmitType::class, array('label' => 'sauver'))
+            ->getForm();
+           # ->add('save', 'submit', array('label' => 'Sauver'))
             
-        ;
+        
     }
     
     /**

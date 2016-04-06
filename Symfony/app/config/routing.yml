@@ -1,3 +1,9 @@
 app:
     resource: "@AppBundle/Controller/"
     type:     annotation
+accueil:
+    path:      /
+    defaults:  { _controller: AppBundle:Perturbation:listNearest }
+#app_routing:
+#    resource: "@AppBundle/Resources/config/routing.yml"
+#    type:     yml

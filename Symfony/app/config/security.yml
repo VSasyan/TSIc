@@ -14,11 +14,22 @@ security:
                 #property: username,email
 
     firewalls:
-
-        main:
-            pattern:    ^/
+        main_login:
+            pattern:  ^/
+            # ^/register$     
+            anonymous: true # On autorise alors les anonymes sur ce pare-feu
             http_basic: ~
             provider: our_db_provider
+        #main:
+            #pattern:   ^/
+            #anonymous: false
+            #http_basic: ~
+            #provider: our_db_provider
+
+       #main:
+            #pattern:    ^/
+            #http_basic: ~
+            #provider: our_db_provider
 
         # disables authentication for assets and the profiler, adapt it according to your needs
        # dev:
