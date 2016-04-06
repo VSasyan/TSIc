@@ -7,3 +7,7 @@ accueil:
 #app_routing:
 #    resource: "@AppBundle/Resources/config/routing.yml"
 #    type:     yml
+
+# Client-side routing
+fos_js_routing:
+    resource: "@FOSJsRoutingBundle/Resources/config/routing/routing.xml"
