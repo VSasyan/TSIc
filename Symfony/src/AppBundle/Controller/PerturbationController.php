@@ -41,10 +41,22 @@ class PerturbationController extends Controller {
     }
 
 	/**
-    * @Route("/perturbation/list/nearest/{position}/{rayon}", name="perturbation_list_nearest")
+    * @Route("/perturbation/list/nearest/{position}/{radius}", name="perturbation_list_nearest", defaults={
+    *     "position": false,
+    *     "radius": 1000
+    * })
     */
-	public function listNearestAction($position, $rayon = 1000){
+	public function listNearestAction($position, $radius){
 
+        // Bad position
+        if($position == false) {
+            return $this->render('AppBundle:Ajax:index.html.twig', array(
+                'function' => 'listNearest',
+                'title'    => "Liste des perturbations",
+            ));
+        }
+
+        // For test purpose
 		$perturbations = array(
             array(
                 'id' => 1,
@@ -54,7 +66,16 @@ class PerturbationController extends Controller {
             )
 		);
 
-		return $this->render('AppBundle:Perturbation:listNearest.html.twig', array('perturbations' => $perturbations));
+        // Generating from template
+        $template = $this->container->get('templating')->render(
+            'AppBundle:Perturbation:listNearest.html.twig', array('perturbations' => $perturbations));
+
+        $response = new Response(json_encode(array(
+            'title'   => "Liste des perturbations",
+            'content' => $template,
+        )));
+        $response->headers->set('Content-Type', 'application/json');
+		return $response;
 
 	}
 
