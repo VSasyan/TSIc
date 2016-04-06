@@ -72,6 +72,10 @@ Passer en utilisateur posgres :
 
     sudo su postgres
 
+Se connecter à la base via psql :
+
+    psql
+
 Ajouter un utilisateur symfony :
 
     create role symfony WITH createdb login;
@@ -79,6 +83,11 @@ Ajouter un utilisateur symfony :
 Ajouter la base `tsic` :
 
     create database tsic WITH owner symfony;
+
+Ajouter l'extension spatiale dans la base `tsic` :
+
+    \connect tsic
+    CREATE EXTENSION postgis;
 
 ### de PHP
 
