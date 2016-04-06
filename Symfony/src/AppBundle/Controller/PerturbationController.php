@@ -8,7 +8,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 
-class PerturbationController extends Controller {
+class PerturbationController extends StatutController {
 
 
 	/**
@@ -25,6 +25,12 @@ class PerturbationController extends Controller {
         	);
 
 		}
+
+		//order by ?
+	    // public function findAll()
+    	// {
+     //    	return $this->findBy(array(), array('date' => 'ASC'));
+    	// }
 
 		return $this->render('AppBundle:Perturbations:show.html.twig', $perturbations); 
 
@@ -46,17 +52,34 @@ class PerturbationController extends Controller {
 	/**
     * @Route("/perturbation/add", name="perturbation_add")
     */
+	public function addAction(Request $request){
 
-	public function addAction(){
+		$formulation = new Formulation();
+        $form = $this->get('form.factory')->create(new FormulationType, $formulation);
 
-		return new Response('<html><body>Salut!</body></html>');
+        if ($form->handleRequest($request)->isValid()) {
+            $em = $this->getDoctrine()->getManager();
 
+            // Ajout du lien societe - artisan :
+            $perturbation = new Perturbation();
+            $perturbation->addFormulation($formulation);
+            $this->getUser()->addFormulation($formulation);
+            //modification en cascade?
+            $em->persist($this->getUser());
+            $em->persist($perturbation);
+            $em->persist($formulation);
+            $em->flush();
+            
+            $request->getSession()->getFlashBag()->add('info', 'Perturbation bien enregistrée.');
+
+            return $this->redirect($this->generateUrl('perturbation_show', array('id' => $perturbation->getId())));
+        }
+        return $this->render('AppBundle:Pertubation:add.html.twig', array('form' => $form->createView()));
 	}
 
 	/**
     * @Route("/perturbation/vote/{id_perturbation}/{id_vote}", name="perturbation_vote")
     */
-
 	public function voteAction(){
 
 		return new Response('<html><body>Salut!</body></html>');
@@ -67,17 +90,23 @@ class PerturbationController extends Controller {
     * @Route("/perturbation/archive/{id}}", name="perturbation_archive")
     */
 
-	public function archiveAction(){
+	public function archiveAction($id){
 
-		return new Response('<html><body>Salut!</body></html>');
+		$repository = $this->getDoctrine()->getManager()->getRepository('AppBundle:Perturbations');
+		$perturbation = $repository->findById($id);
+		$perturbation->setArchived(true);
+
+		return new Response('<html><body>action archivée</body></html>');
 		
 	}
 
 	/**
-    * @Route("/perturbation/edit/{id}}", name="perturbation_edit")
+    * @Route("/perturbation/edit/{id}", name="perturbation_edit")
     */
 
-	public function editAction($id){
+	public function editAction($id, Request $request){
+
+
 
 		return new Response('<html><body>Salut!</body></html>');
 		
