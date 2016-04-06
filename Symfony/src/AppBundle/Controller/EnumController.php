@@ -13,18 +13,48 @@ class EnumController extends Controller {
 	/**
     * @Route("/type/add", name="type_add")
     */
-	public function typeAddAction(){
+	public function typeAddAction(Request $request){
 
-		return new Response('<html><body>typeAddAction!</body></html>');
+		$type = new Type();
+	    $form = $this->get('form.factory')->create(new TypeType(), $type);
+
+	    if ($form->handleRequest($request)->isValid()) {
+	      $em = $this->getDoctrine()->getManager();
+	      $em->persist($type);
+	      $em->flush();
+
+	      return $this->redirect($this->generateUrl('type_edit', array('id' => $type->getId())));
+	    }
+
+	    return $this->render('AppBundle:Type:add.html.twig', array(
+	      'form' => $form->createView(),
+	    ));
 
 	}
 
 	/**
     * @Route("/type/edit/{id}", name="type_edit")
     */
-	public function typeEditAction($id){
+	public function typeEditAction(Request $request, $id){
 
-		return new Response('<html><body>typeEditAction!</body></html>');
+		$em = $this->getDoctrine()->getManager();
+		$type = $em()->getRepository('AppBundle:Type')->find($id);
+
+		if ($type != null) {
+		    $form = $this->get('form.factory')->create(new TypeType(), $type);
+
+		    if ($form->handleRequest($request)->isValid()) {
+		      $em->persist($type);
+		      $em->flush();
+
+		      return $this->redirect($this->generateUrl('type_edit', array('id' => $type->getId())));
+		    }
+
+		    return $this->redirect($this->generateUrl('type_edit', array('id' => $type->getId())));
+		}
+		return $this->render('AppBundle:Type:add.html.twig', array(
+		  'form' => $form->createView(),
+		    ));
 
 	}
 
@@ -33,16 +63,50 @@ class EnumController extends Controller {
     */
 	public function typeDeleteAction($id){
 
-		return new Response('<html><body>typeDeleteAction!</body></html>');
+		$em = $this->getDoctrine()->getManager();
+		$type = $em()->getRepository('AppBundle:Type')->find($id);
+
+		if ($type != null) {
+		    $form = $this->get('form.factory')->create(new TypeType(), $type);
+
+		    if ($form->handleRequest($request)->isValid()) {
+		      $em->remove($type);
+		      $em->flush();
+
+		      return $this->render('AppBundle:Type:add.html.twig', array(
+		  		'form' => $form->createView(),
+		    	  ));
+		    }
+
+		    return $this->render('AppBundle:Type:add.html.twig', array(
+		  	'form' => $form->createView(),
+		      ));
+		}
+		return $this->render('AppBundle:Type:add.html.twig', array(
+		  'form' => $form->createView(),
+		    ));
 
 	}
 
 	/**
     * @Route("/message/add", name="message_add")
     */
-	public function messageAddAction(){
+	public function messageAddAction(Request $request){
 
-		return new Response('<html><body>messageAddAction!</body></html>');
+		$message = new Message();
+	    $form = $this->get('form.factory')->create(new MessageType(), $message);
+
+	    if ($form->handleRequest($request)->isValid()) {
+	      $em = $this->getDoctrine()->getManager();
+	      $em->persist($message);
+	      $em->flush();
+
+	      return $this->redirect($this->generateUrl('message_edit', array('id' => $message->getId())));
+	    }
+
+	    return $this->render('AppBundle:Message:add.html.twig', array(
+	      'form' => $form->createView(),
+	    ));
 
 	}
 
@@ -50,9 +114,26 @@ class EnumController extends Controller {
 	/**
     * @Route("/message/edit/{id}", name="message_edit")
     */
-	public function messageEditAction($id){
+	public function messageEditAction(Request $request, $id){
+	    
+	    $em = $this->getDoctrine()->getManager();
+		$message = $em()->getRepository('AppBundle:Message')->find($id);
 
-		return new Response('<html><body>messageEditAction!</body></html>');
+		if ($message != null) {
+		    $form = $this->get('form.factory')->create(new MessageType(), $message);
+
+		    if ($form->handleRequest($request)->isValid()) {
+		      $em->persist($message);
+		      $em->flush();
+
+		      return $this->redirect($this->generateUrl('message_edit', array('id' => $message->getId())));
+		    }
+
+		    return $this->redirect($this->generateUrl('message_edit', array('id' => $message->getId())));
+		}
+		return $this->render('AppBundle:Message:add.html.twig', array(
+		  'form' => $form->createView(),
+		    ));
 
 	}
 
@@ -62,11 +143,30 @@ class EnumController extends Controller {
     */
 	public function messageDeleteAction($id){
 
-		return new Response('<html><body>messageDeleteAction!</body></html>');
+		$em = $this->getDoctrine()->getManager();
+		$message = $em()->getRepository('AppBundle:Message')->find($id);
+
+		if ($message != null) {
+		    $form = $this->get('form.factory')->create(new MessageType(), $message);
+
+		    if ($form->handleRequest($request)->isValid()) {
+		      $em->remove($message);
+		      $em->flush();
+
+		      return $this->render('AppBundle:Message:add.html.twig', array(
+		  		'form' => $form->createView(),
+		    	  ));
+		    }
+
+		    return $this->render('AppBundle:Message:add.html.twig', array(
+		  	'form' => $form->createView(),
+		      ));
+		}
+		return $this->render('AppBundle:Message:add.html.twig', array(
+		  'form' => $form->createView(),
+		    ));
 
 	}
-
-
 }
 
 
