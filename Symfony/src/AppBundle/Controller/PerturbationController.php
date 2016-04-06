@@ -11,38 +11,47 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 class PerturbationController extends StatutController {
 
 
-	/**
+    /**
+    * @Route("/perturbation/list/all", name="perturbation_index")
+    */  
+    public function indexAction(){
+        return $this->render('AppBundle:Perturbations:index.html.twig');
+    }
+
+
+    /**
     * @Route("/perturbation/list/all", name="perturbation_list_all")
-    */	
-	public function listAllAction(){
+    */  
+    public function listAllAction(){
 
-		$repository = $this->getDoctrine()->getManager()->getRepository('AppBundle:Perturbations');
-		$perturbations = $repository->findAll();
+        $repository = $this->getDoctrine()->getManager()->getRepository('AppBundle:Perturbations');
+        $perturbations = $repository->findAll();
 
-		if (!perturbations){
-			throw $this->createNotFoundException(
-        	    'No perturbations '
-        	);
+        if (!perturbations){
+            throw $this->createNotFoundException(
+                'No perturbations '
+            );
 
-		}
+        }
 
-		//order by ?
-	    // public function findAll()
-    	// {
-     //    	return $this->findBy(array(), array('date' => 'ASC'));
-    	// }
 
 		return $this->render('AppBundle:Perturbations:show.html.twig', $perturbations); 
+        return $this->render('AppBundle:Perturbations:show.html.twig', $perturbations); 
 
-	}
+    }
 
 	/**
-    * @Route("/perturbation/list/nearest/{position}", name="perturbation_list_nearest")
+    * @Route("/perturbation/list/nearest/{position}/{rayon}", name="perturbation_list_nearest")
     */
-	public function listNearestAction($position){
+	public function listNearestAction($position, $rayon = 1000){
 
 		$perturbations = array(
-			'name' => 'Coucou',
+            array(
+                'id' => 1,
+                'name' => 'Coucou',
+                'center' => 'center',
+                'type' => array('logo' => 'logo')
+            )
 		);
 
 		return $this->render('AppBundle:Perturbation:listNearest.html.twig', array('perturbations' => $perturbations));
@@ -78,11 +87,39 @@ class PerturbationController extends StatutController {
 	}
 
 	/**
-    * @Route("/perturbation/vote/{id_perturbation}/{id_vote}", name="perturbation_vote")
+    * @Route("/perturbation/vote/{id_perturbation}/{id_message}", name="perturbation_vote")
     */
 	public function voteAction(){
 
 		return new Response('<html><body>Salut!</body></html>');
+		
+	}
+
+    /**
+    * @Route("/perturbation/show/{id}", name="perturbation_show")
+    */
+
+	public function showAction($id){
+
+        $perturbation = array(
+            'id' => 1,
+            'creation_date' => '5/04/2016',
+            'valid' => true,
+            'formulations' => array(array(
+                'name' => 'coucou',
+                'center' => 'center',
+                'type' => array(
+                    'name' => 'Type',
+                    'logo' => 'logo',
+                    'description' => 'Coucou type'
+                ),
+                'creation_date' => '16:18',
+                'begin_date' => '16:20',
+                'end_date' => '16:21'
+            ))
+        );
+
+        return $this->render('AppBundle:Perturbation:show.html.twig', array('perturbation' => $perturbation));
 		
 	}
 
@@ -97,15 +134,12 @@ class PerturbationController extends StatutController {
 		$perturbation->setArchived(true);
 
 		return new Response('<html><body>action archivée</body></html>');
-		
 	}
 
 	/**
     * @Route("/perturbation/edit/{id}", name="perturbation_edit")
     */
-
 	public function editAction($id, Request $request){
-
 
 
 		return new Response('<html><body>Salut!</body></html>');

@@ -174,6 +174,11 @@ class Perturbation
     {
         $this->formulations = new \Doctrine\Common\Collections\ArrayCollection();
         $this->votes = new \Doctrine\Common\Collections\ArrayCollection();
+
+        $this->activated = true;
+        $this->valid = false;
+        $this->archived = false;
+        $this->creationDate = new \DateTime();
     }
 
     /**
@@ -186,6 +191,7 @@ class Perturbation
     public function addFormulation(\AppBundle\Entity\Formulation $formulation)
     {
         $this->formulations[] = $formulation;
+        $formulation->setPerturbation($this);
 
         return $this;
     }
@@ -220,6 +226,7 @@ class Perturbation
     public function addVote(\AppBundle\Entity\Vote $vote)
     {
         $this->votes[] = $vote;
+        $vote->setPerturbation($this);
 
         return $this;
     }
