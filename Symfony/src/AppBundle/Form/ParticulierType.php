@@ -20,15 +20,12 @@ class ParticulierType extends AbstractType
     {
         $builder
             ->add('username', TextType::class)  
-            ->add('email', EmailType::class)
+            ->add('email',    EmailType::class)
             ->add('password', PasswordType::class)
-            ->add('name',TextType::class)
-            ->add('lastname',TextType::class)
-            ->add('save', SubmitType::class, array('label' => 'sauver'))
+            ->add('name',     TextType::class)
+            ->add('lastname', TextType::class)
+            ->add('save',     SubmitType::class, array('label' => 'sauver'))
             ->getForm();
-           # ->add('save', 'submit', array('label' => 'Sauver'))
-            
-        
     }
     
     /**

@@ -92,7 +92,7 @@ class Formulation
     private $perturbation;
 
     /**
-    * @ORM\OneToOne(targetEntity="Type", cascade={"persist"})
+    * @ORM\OneToOne(targetEntity="TypePerturbation", cascade={"persist"})
     * @ORM\JoinColumn(nullable=false)
     */
     private $type;

@@ -2,21 +2,26 @@
 
 namespace AppBundle\Controller;
 
-use SearchBundle\Entity\Particulier;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use AppBundle\Entity\Message;
+use AppBundle\Entity\TypePerturbation;
+use AppBundle\Form\MessageType;
+use AppBundle\Form\TypePerturbationType;
+use AppBundle\Repository\MessageRepository;
+use AppBundle\Repository\TypePerturbationRepository;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 
 class EnumController extends Controller {
 
 	/**
-	* @Route("/type/add", name="type_add")
+	* @Route("/type-perturbation/add", name="type_perturbation_add")
 	*/
-	public function typeAddAction(Request $request){
+	public function typePerturbationAddAction(Request $request){
 
-		$type = new Type();
-		$form = $this->get('form.factory')->create(new TypeType(), $type);
+		$type = new TypePerturbation();
+		$form = $this->createForm(TypePerturbationType::class, $type);
 
 		if ($form->handleRequest($request)->isValid()) {
 			$em = $this->getDoctrine()->getManager();
@@ -29,37 +34,38 @@ class EnumController extends Controller {
 		}
 
 		return $this->render('AppBundle:Enum:add.html.twig', array(
-			'rm' => $form->createView(),
+			'form' => $form->createView(),
 			'title' => 'Ajouter un type de perturbation'
 		));
 
 	}
 
 	/**
-	* @Route("/type/list", name="type_list")
+	* @Route("/type-perturbation/list", name="type_perturbation_list")
 	*/
-	public function mtypeListAction(Request $request, $id){
+	public function typePerturbationListAction(Request $request){
 
 		$em = $this->getDoctrine()->getManager();
-		$elements = $em()->getRepository('AppBundle:Type')->findAll());
+		$elements = $em->getRepository('AppBundle:TypePerturbation')->findAll();
 
-		return $this->render('AppBundle:Enum:edit.html.twig', array(
+		return $this->render('AppBundle:Enum:list.html.twig', array(
 			'elements' => $elements,
-			'title' => 'Liste des types'
+			'title' => 'Liste des types',
+			'route_edit' => 'type_edit'
 		));
 
 	}
 
 	/**
-	* @Route("/type/edit/{id}", name="type_edit")
+	* @Route("/type-perturbation/edit/{id}", name="type_perturbation_edit")
 	*/
-	public function typeEditAction(Request $request, $id){
+	public function typePerturbationEditAction(Request $request, $id){
 
 		$em = $this->getDoctrine()->getManager();
-		$type = $em()->getRepository('AppBundle:Type')->find($id);
+		$type = $em->getRepository('AppBundle:TypePerturbation')->find($id);
 
 		if ($type != null) {
-			$form = $this->get('form.factory')->create(new TypeType(), $type);
+			$form = $this->createForm(TypePerturbationType::class, $type);
 
 			if ($form->handleRequest($request)->isValid()) {
 				$em->persist($type);
@@ -79,16 +85,16 @@ class EnumController extends Controller {
 	}
 
 	/**
-	* @Route("/type/delete/{id}", name="type_delete")
+	* @Route("/type-perturbation/delete/{id}", name="type_perturbation_delete")
 	*/
-	public function typeDeleteAction($id){
+	public function typePerturbationDeleteAction($id){
 
 		$em = $this->getDoctrine()->getManager();
-		$type = $em()->getRepository('AppBundle:Type')->find($id);
+		$type = $em->getRepository('AppBundle:TypePerturbation')->find($id);
 
 		if ($type != null) {
-			$em()->remove($type);
-			$em()->flush();
+			$em->remove($type);
+			$em->flush();
 			$request->getSession()->getFlashBag()->add('success', 'Type bien supprimé.');
 		} else {
 			$request->getSession()->getFlashBag()->add('error', 'Type non trouvé.');
@@ -104,8 +110,8 @@ class EnumController extends Controller {
 	*/
 	public function messageAddAction(Request $request){
 
-		$message = new Message();
-		$form = $this->get('form.factory')->create(new MessageType(), $message);
+		$message = new Message;
+		$form = $this->createForm(MessageType::class, $message);
 
 		if ($form->handleRequest($request)->isValid()) {
 			$em = $this->getDoctrine()->getManager();
@@ -126,14 +132,15 @@ class EnumController extends Controller {
 	/**
 	* @Route("/message/list", name="message_list")
 	*/
-	public function messageListAction(Request $request, $id){
+	public function messageListAction(Request $request){
 
 		$em = $this->getDoctrine()->getManager();
-		$elements = $em()->getRepository('AppBundle:Message')->findAll());
+		$elements = $em->getRepository('AppBundle:Message')->findAll();
 
-		return $this->render('AppBundle:Enum:edit.html.twig', array(
+		return $this->render('AppBundle:Enum:list.html.twig', array(
 			'elements' => $elements,
-			'title' => 'Liste des messages'
+			'title' => 'Liste des messages',
+			'route_edit' => 'message_edit'
 		));
 
 	}
@@ -144,10 +151,10 @@ class EnumController extends Controller {
 	public function messageEditAction(Request $request, $id){
 			
 		$em = $this->getDoctrine()->getManager();
-		$message = $em()->getRepository('AppBundle:Message')->find($id);
+		$message = $em->getRepository('AppBundle:Message')->find($id);
 
 		if ($message != null) {
-			$form = $this->get('form.factory')->create(new MessageType(), $message);
+			$form = $this->createForm(MessageType::class, $message);
 
 			if ($form->handleRequest($request)->isValid()) {
 				$em->persist($message);
@@ -171,11 +178,11 @@ class EnumController extends Controller {
 	public function messageDeleteAction(Request $request, $id){
 
 		$em = $this->getDoctrine()->getManager();
-		$message = $em()->getRepository('AppBundle:Message')->find($id);
+		$message = $em->getRepository('AppBundle:Message')->find($id);
 
 		if ($message != null) {
-			$em()->remove($message);
-			$em()->flush();
+			$em->remove($message);
+			$em->flush();
 			$request->getSession()->getFlashBag()->add('success', 'Message bien supprimé.');
 		} else {
 			$request->getSession()->getFlashBag()->add('error', 'Message non trouvé.');
