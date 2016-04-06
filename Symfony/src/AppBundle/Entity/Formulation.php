@@ -3,11 +3,16 @@
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+//use Doctrine\Common\Annotations\Index;
 
 /**
  * Formulation
  *
- * @ORM\Table(name="formulation")
+ * @ORM\Table(name="formulation",
+ *     indexes={
+ *         @ORM\Index(name="idx_center", columns={"center"}, flags={"SPATIAL"})
+ *     }
+ * )
  * @ORM\Entity(repositoryClass="AppBundle\Repository\FormulationRepository")
  */
 class Formulation
@@ -38,7 +43,7 @@ class Formulation
     /**
      * @var string
      *
-     * @ORM\Column(name="center", type="string", length=255)
+     * @ORM\Column(type="geometry", options={"geometry_type"="POINT", "srid"=4326})
      */
     private $center;
 

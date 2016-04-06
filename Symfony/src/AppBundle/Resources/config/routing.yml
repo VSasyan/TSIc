@@ -1,3 +1,3 @@
 accueil:
     path:      /
-    defaults:  { _controller: AppBundle:Perturbation:listNearest }
+    defaults:  { _controller: AppBundle:Perturbation:index }

@@ -366,6 +366,7 @@ class Particulier implements AdvancedUserInterface, \Serializable
     public function addFormulation(\AppBundle\Entity\Formulation $formulation)
     {
         $this->formulations[] = $formulation;
+        $formulation->setParticulier($this);
 
         return $this;
     }
@@ -400,6 +401,7 @@ class Particulier implements AdvancedUserInterface, \Serializable
     public function addVote(\AppBundle\Entity\Vote $vote)
     {
         $this->votes[] = $vote;
+        $vote->setParticulier($this);
 
         return $this;
     }
