@@ -105,7 +105,7 @@ class Particulier implements AdvancedUserInterface, \Serializable
     public function __construct()
     {
         $this->activated = true;
-        $this->signinDate = "";
+        $this->signinDate = new \DateTime();
         // may not be needed, see section on salt below
         // $this->salt = md5(uniqid(null, true));
     }
@@ -133,7 +133,7 @@ class Particulier implements AdvancedUserInterface, \Serializable
             $this->id,
             $this->email,
             $this->password,
-            $this->isActive
+            $this->activated
             // see section on salt below
             // $this->salt,
         ));
@@ -146,7 +146,7 @@ class Particulier implements AdvancedUserInterface, \Serializable
             $this->id,
             $this->email,
             $this->password,
-            $this->isActive
+            $this->activated
         
             // see section on salt below
             // $this->salt
@@ -175,7 +175,7 @@ class Particulier implements AdvancedUserInterface, \Serializable
 
     public function isEnabled()
     {
-        return $this->isActive;
+        return $this->activated;
     }
     /** * ** */
 
@@ -207,9 +207,8 @@ class Particulier implements AdvancedUserInterface, \Serializable
      * Get username
      *
      * @return string
-     */
-    
-     public function getUsername()
+     */    
+    public function getUsername()
     {
         return $this->username;
     }
@@ -217,10 +216,11 @@ class Particulier implements AdvancedUserInterface, \Serializable
     /**
      * Set username
      *
+     * @param string $username
+     *
      * @return string
-     */
-    
-     public function setUsername()
+     */    
+    public function setUsername($username)
     {
         $this->username = $username;
         return $this;

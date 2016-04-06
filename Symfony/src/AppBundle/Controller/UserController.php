@@ -2,10 +2,10 @@
 
 namespace AppBundle\Controller;
 
-use SearchBundle\Entity\Particulier;
+use AppBundle\Entity\Particulier;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
-
+use AppBundle\Form\ParticulierType;
 use AppBundle\Form\UserType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\Request;
@@ -20,7 +20,7 @@ class UserController extends Controller {
     {
         // 1) build the form
         $user = new Particulier();
-        $form = $this->createForm(UserType::class, $user);
+        $form = $this->createForm(ParticulierType::class, $user);
 
         // 2) handle the submit (will only happen on POST)
         $form->handleRequest($request);
@@ -43,7 +43,7 @@ class UserController extends Controller {
         }
 
         return $this->render(
-            'registration/register.html.twig',
+            'AppBundle:User:register.html.twig',
             array('form' => $form->createView())
         );
     }
