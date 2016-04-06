@@ -3,7 +3,10 @@
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-//use Doctrine\Common\Annotations\Index;
+use Jsor\Doctrine\PostGIS\Types\PostGISType;
+
+\Doctrine\DBAL\Types\Type::addType("geometry", "Jsor\Doctrine\PostGIS\Types\GeometryType");
+//\Doctrine\DBAL\Types\Type::addType("geography", "Jsor\Doctrine\PostGIS\Types\GeographyType");
 
 /**
  * Formulation
