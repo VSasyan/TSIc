@@ -6,9 +6,11 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 
-class MessageType extends AbstractType
+class TypePerturbationType extends AbstractType
 {
     /**
      * @param FormBuilderInterface $builder
@@ -17,8 +19,10 @@ class MessageType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('name', TextType::class,   array('label' => 'Nom'))
-            ->add('save', SubmitType::class, array('label' => 'Sauver'))
+            ->add('name',         TextType::class,     array('label' => 'Nom'))
+            ->add('description',  TextareaType::class, array('label' => 'Description'))
+            //->add('typeLogoPath', FileType::class,     array('label' => 'Logo', 'required' => false))
+            ->add('save',         SubmitType::class,   array('label' => 'Sauver'))
             ->getForm();
     }
     
@@ -28,7 +32,7 @@ class MessageType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'AppBundle\Entity\Message'
+            'data_class' => 'AppBundle\Entity\TypePerturbation'
         ));
     }
 }

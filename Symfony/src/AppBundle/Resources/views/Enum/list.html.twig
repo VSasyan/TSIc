@@ -1,10 +1,26 @@
-<div>
-	<h2>{{ titre }}</h2>
-	<div class="elements">
-		{% for e in elements %}
-			<div class="element">
-				<a href="{{ path(route_edit, {id : e.id}) }}">{{ e.nom }}</a>
-			</div>
-		{% endfor %}
+{% extends 'AppBundle::base.html.twig' %}
+
+{% block title %}
+	{{ title }}
+{% endblock %}
+
+{% block stylesheets %}
+{% endblock %}
+
+{% block javascripts %}
+{% endblock %}
+
+{% block body %}
+
+	<div>
+		<h2>{{ title }}</h2>
+		<div class="elements">
+			{% for e in elements %}
+				<div class="element">
+					<a href="{{ path(route_edit, {id : e.id}) }}">{{ e.name }}</a>
+				</div>
+			{% endfor %}
+		</div>
 	</div>
-</div>
+
+{% endblock %}
