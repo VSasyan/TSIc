@@ -34,9 +34,7 @@ class PerturbationController extends StatutController {
 
         }
 
-
 		return $this->render('AppBundle:Perturbations:show.html.twig', $perturbations); 
-        return $this->render('AppBundle:Perturbations:show.html.twig', $perturbations); 
 
     }
 
@@ -45,6 +43,33 @@ class PerturbationController extends StatutController {
     */
 	public function listNearestAction($position, $rayon = 1000){
 
+		//example
+		$position = ST_GeomFromText('POINT(-72.1235 42.3521)',4326);
+
+        $em = $this->getDoctrine()->getManager();
+
+        $repository = $em->getRepository('OCPlatformBundle:Perturbation');
+
+        $perturbations = $repository->findNearest($position, $rayon);
+/*
+        $qb = $this->createQueryBuilder('a');
+		
+  		$qb->where('ST_DISTANCE('.a.center', '.$position.') < :rayon')
+  		     ->setParameter('rayon', $rayon)
+  		   ->where('a.valid_formulation =: valid')
+  		     ->setParameter('valid', true)
+  		   ->orderBy('a.date', 'DESC')
+  		   ->setMaxResults(100);
+		
+		$formulations = $qb->getQuery()->getResult();
+		$perturbations = array();
+
+    	foreach ($formulations as $formulation) {
+
+    		array_push($perturbations, $formulation->getPerturbation());
+			
+	    }
+*/	
 		$perturbations = array(
             array(
                 'id' => 1,
@@ -64,12 +89,12 @@ class PerturbationController extends StatutController {
 	public function addAction(Request $request){
 
 		$formulation = new Formulation();
-        $form = $this->get('form.factory')->create(new FormulationType, $formulation);
+        $form = $this->createForm(FormulationType::class, $user);
 
         if ($form->handleRequest($request)->isValid()) {
             $em = $this->getDoctrine()->getManager();
 
-            // Ajout du lien societe - artisan :
+            // Ajout des liens perturbation user formulation :
             $perturbation = new Perturbation();
             $perturbation->addFormulation($formulation);
             $this->getUser()->addFormulation($formulation);
@@ -89,16 +114,47 @@ class PerturbationController extends StatutController {
 	/**
     * @Route("/perturbation/vote/{id_perturbation}/{id_message}", name="perturbation_vote")
     */
-	public function voteAction(){
+	public function voteAction($id_perturbation, $id_message){
 
-		return new Response('<html><body>Salut!</body></html>');
-		
+		$em = $this->getDoctrine()->getManager();
+
+		$perturbation = $em->getRepository('AppBundle:Perturbations')->find($id_perturbation);
+
+		switch ($id_message) {
+		    case 1:
+		    	//perturbation incorrecte
+		    	$perturbation->setActivated(false);
+		    	$em->flush();
+		    	//on redirige vers la liste de toutes les perturbations 
+		    	return $this->redirect($this->generateUrl('perturbation_list_all'));
+		        break;
+		    case 2:
+		    	//l'événement a bien eu lieu mais est terminé
+		    	$perturbation->setActivated(false);
+		    	$perturbation->setValidated(true);
+		    	$em->flush();
+		    	//on redirige vers la route d'archivage
+		 		return $this->redirect($this->generateUrl('perturbation_archive', array('id' => $perturbation->getId())));   	
+		        break;
+		    case 3:
+		    	//validation, l'évènement a bien lieu
+		    	$perturbation->setActivated(true);
+		    	$perturbation->setValidated(true);
+		    	$em->flush();
+		    	//on redirige vers la liste de toutes les perturbations 
+		    	return $this->redirect($this->generateUrl('perturbation_list_all'));
+		        break;
+		    default:
+		    	//on redirige vers la liste de toutes les perturbations 
+		    	return $this->redirect($this->generateUrl('perturbation_list_all'));
+		        break;
+		}
+	
 	}
 
     /**
     * @Route("/perturbation/show/{id}", name="perturbation_show")
     */
-
 	public function showAction($id){
 
         $perturbation = array(
@@ -126,14 +182,17 @@ class PerturbationController extends StatutController {
 	/**
     * @Route("/perturbation/archive/{id}}", name="perturbation_archive")
     */
-
 	public function archiveAction($id){
 
-		$repository = $this->getDoctrine()->getManager()->getRepository('AppBundle:Perturbations');
-		$perturbation = $repository->findById($id);
+		$em = $this->getDoctrine()->getManager();
+
+		$perturbation = $em->getRepository('AppBundle:Perturbations')->find($id);
 		$perturbation->setArchived(true);
 
-		return new Response('<html><body>action archivée</body></html>');
+		$em->flush();
+
+		//retourne vers la liste des évènements archivés
+        return $this->redirect($this->generateUrl('perturbation_show', array('id' => $perturbation->getId())));
 	}
 
 	/**
@@ -141,8 +200,46 @@ class PerturbationController extends StatutController {
     */
 	public function editAction($id, Request $request){
 
+		//nouvelle formulation
+		$formulation = new Formulation();
+        //on récupère le formulaire associé à la nouvelle perturbation
+        $form = $this->createForm(FormulationType::class, $formulation);
 
-		return new Response('<html><body>Salut!</body></html>');
+        //si le formulaire est correct
+        if ($form->handleRequest($request)->isValid()) {
+            $em = $this->getDoctrine()->getManager();
+
+            //on récupère l'entity associée à l'id
+    		$perturbation = $this->getDoctrine()
+    		  ->getManager()
+    		  ->getRepository('AppBundle:Perturbation')
+    		  ->find($id)
+    		;
+
+    		//récupérer tous les anciennes formulations des perturbations et les mettre à false
+    		$formulations = $perturbation->getFormulations();
+    		foreach ($formulations as $formulation) {
+      			$formulation->setValid_formulation(false);
+		    }
+
+		    //ajout des liens
+            $perturbation->addFormulation($formulation);
+            $this->getUser()->addFormulation($formulation);
+            //modification en cascade?
+            //pas besoin de persister les données qui juste été modifiées
+            //$em->persist($this->getUser());
+            //$em->persist($perturbation);
+            $em->persist($formulation);
+            $em->flush();
+            
+            //affichage message d'info
+            $request->getSession()->getFlashBag()->add('info', 'Perturbation bien enregistrée.');
+
+            //on retourne vers la route de vue de la perturbation
+            return $this->redirect($this->generateUrl('perturbation_show', array('id' => $perturbation->getId())));
+        }
+        //si le formulaire n'est pas valide, on revient à la vue de siasie du formulaire
+        return $this->render('AppBundle:Pertubation:add.html.twig', array('form' => $form->createView()));
 		
 	}
 

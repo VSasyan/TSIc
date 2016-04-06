@@ -80,6 +80,13 @@ class Formulation
 
 
     /**
+     * @var bool
+     *
+     * @ORM\Column(name="valid_formulation", type="boolean")
+     */
+    private $valid_formulation;
+
+    /**
     * @ORM\ManyToOne(targetEntity="Particulier", inversedBy="formulations")
     * @ORM\JoinColumn(nullable=false)
     */
@@ -346,5 +353,29 @@ class Formulation
     public function getType()
     {
         return $this->type;
+    }
+
+    /**
+     * Set validFormulation
+     *
+     * @param boolean $validFormulation
+     *
+     * @return Formulation
+     */
+    public function setValidFormulation($validFormulation)
+    {
+        $this->valid_formulation = $validFormulation;
+
+        return $this;
+    }
+
+    /**
+     * Get validFormulation
+     *
+     * @return boolean
+     */
+    public function getValidFormulation()
+    {
+        return $this->valid_formulation;
     }
 }
