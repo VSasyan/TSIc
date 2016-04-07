@@ -3,9 +3,8 @@
 
     <div id="list" class="child">
 	{% for p in perturbations %}
-	    <div class="element" data-id="{{ p.id }}" data-name="{{ p.name }}" data-center="{{ p.center }}" data-logo="{{ p.type.logo }}">
+	    <div class="element" data-id="{{ p.id }}" data-name="{{ p.name }}" data-center="{{ p.center }}">
 		<a href="{{ path("perturbation_show", { id: p.id }) }}">
-		    <img alt="{{ p.type.logo }}"/>
 		    <p>{{ p.name }}</p>
 		</a>
 		<span class="button validate"  data-path="{{ path("perturbation_vote", { id_perturbation: p.id, id_message: 3}) }}" title="Confirmer la perturbation"></span>

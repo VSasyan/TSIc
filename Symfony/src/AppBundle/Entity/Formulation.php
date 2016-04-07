@@ -88,7 +88,7 @@ class Formulation
 
     /**
     * @ORM\ManyToOne(targetEntity="Particulier", inversedBy="formulations")
-    * @ORM\JoinColumn(nullable=false)
+    * @ORM\JoinColumn(nullable=true)
     */
     private $particulier;
 
@@ -99,7 +99,7 @@ class Formulation
     private $perturbation;
 
     /**
-    * @ORM\OneToOne(targetEntity="TypePerturbation", cascade={"persist"})
+    * @ORM\ManyToOne(targetEntity="TypePerturbation", cascade={"persist"})
     * @ORM\JoinColumn(nullable=false)
     */
     private $type;
@@ -378,4 +378,8 @@ class Formulation
     {
         return $this->valid_formulation;
     }
+
 }
+
+
+
