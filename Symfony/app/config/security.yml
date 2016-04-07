@@ -29,6 +29,6 @@ security:
 
         main:
             pattern: ^/
-            anonymous: false
+            anonymous: true
             http_basic: ~
             provider: our_db_provider
