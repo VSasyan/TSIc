@@ -36,7 +36,7 @@
 			<h1><span class="perturbation-name">{{ f.name }}</span> :
 			    <span class="perturbation-type" title="{{ f.type.description }}">{{ f.type.name }}</span></h1>
 			<p>Modifiée : {{ f.creation_date }}</p>
-			<p class="perturbation-dates">Depuis {{ f.begin_date }} ; fin estimée à {{ f.end_date }}</p>
+			<p class="perturbation-dates">Depuis {{ f.beginDate }} ; fin estimée à {{ f.endDate }}</p>
 			<p class="perturbation-description">{{ f.description }}</p>
 		    </div>
 		{% endfor %}
