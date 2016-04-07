@@ -88,7 +88,7 @@ class Formulation
 
     /**
     * @ORM\ManyToOne(targetEntity="Particulier", inversedBy="formulations")
-    * @ORM\JoinColumn(nullable=false)
+    * @ORM\JoinColumn(nullable=true)
     */
     private $particulier;
 
@@ -100,7 +100,7 @@ class Formulation
 
     /**
     * @ORM\OneToOne(targetEntity="TypePerturbation", cascade={"persist"})
-    * @ORM\JoinColumn(nullable=false)
+    * @ORM\JoinColumn(nullable=true)
     */
     private $type;
 
@@ -378,4 +378,31 @@ class Formulation
     {
         return $this->valid_formulation;
     }
+
+    //cette fonction récupère un tableau des plus proches perturbations et retourne les dernières formulations correspondant aux perturbations
+    public function returnLastFormulation($perturbations)
+    {
+        //tableau des résultats
+        $valid_formulations = array();
+
+        foreach ($p as $perturbations) {
+            
+            $formulations = $p->getFormulations();
+            foreach ($f as $formulations) {
+               
+                if ($f->getValidFormulation())
+                {
+                    //si la formualtion est le dernière à jour, alors on l'ajoute dans le tableau des résultats
+                    array_push($valid_formulations, $f);
+                }
+            }
+        }
+
+        return $valid_formulations;
+
+    }
+
 }
+
+
+

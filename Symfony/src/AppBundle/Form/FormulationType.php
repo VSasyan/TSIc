@@ -5,6 +5,10 @@ namespace AppBundle\Form;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
+use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 
 class FormulationType extends AbstractType
 {
@@ -15,16 +19,15 @@ class FormulationType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('name', 'text', array('label' => 'Nom'))
-            ->add('description', 'textarea', array('label' => 'Description'))
+            ->add('name', TextType::class, array('label' => 'Nom'))
+            ->add('description', TextareaType::class, array('label' => 'Description'))
             //->add('center')
-            //->add('geoJSON')
-            -//>add('creationDate', 'datetime')
-            ->add('beginDate', 'datetime', array('label' => 'Début'))
-            ->add('endDate', 'datetime', array('label' => 'Fin estimée'))
+            ->add('geoJSON')
+            ->add('beginDate', DateTimeType::class, array('label' => 'Début'))
+            ->add('endDate', DateTimeType::class, array('label' => 'Fin estimée'))
             //->add('type')
-            ->add('save', 'submit', array('label' => 'Sauver'))
-        ;
+            ->add('save', SubmitType::class, array('label' => 'Sauver'))
+            ->getForm();
     }
     
     /**
