@@ -22,7 +22,6 @@ function locationError(error) {
     /* Development on a machine without capabilities: simulate success */
     //$('#ajax_loader').load("erreur");
     listNearest({ coords: { latitude: 42.3521, longitude: -72.1235 },});
-    navigator.geolocation.clearWatch(positionWatchID);
     /* End of development portion */
 }
 
@@ -51,17 +50,17 @@ function getPage(route) {
     });
 }
 
-var listNearestCallback = listNearest;
 
 function listNearest(pos) {
     getPage(
 	Routing.generate("perturbation_list_nearest", { position : coordinatesToWKT(pos.coords), radius : 1000 })
     );
-    listNearestCallback = setLocation;
+    navigator.geolocation.clearWatch(positionWatchID);
+    positionWatchID = false;
 }
 
 var functions = {
-    listNearest : function() { geolocation(listNearestCallback); },
+    listNearest : function() { geolocation(listNearest); },
 };
 
 document.addEventListener("DOMContentLoaded", function() {
