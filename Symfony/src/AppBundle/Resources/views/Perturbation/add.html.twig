@@ -10,6 +10,7 @@
 
 {% block javascripts %}
 	<script src="{{ asset('js/init_add_perturbation.js') }}"></script>
+	<script src="{{ asset('init_ajax.js') }}"></script>
 {% endblock %}
 
 {% block body %}
@@ -17,8 +18,20 @@
 	<div>
 		<h2>{{ title }}</h2>
 		{{ form_start(form) }}
-			<div id="map" class="float right"></div>
 			<div>
+			{{ form_errors(form) }}
+			{{ form_row(form.name) }}
+			{{ form_row(form.type) }}
+			{{ form_row(form.description) }}
+			</div>
+			<div>
+				<div>
+					<label class="required" for="formulation_center">Position</label>
+					<div id="map" class="float right"></div>
+					{{ form_row(form.center) }}
+				</div>
+			</div>
+			{{ form_widget(form) }}
 		{{ form_end(form) }}
 	</div>
 
