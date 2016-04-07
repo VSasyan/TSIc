@@ -1,18 +1,24 @@
 @import "constantes";
 
-.flex {
+.parent {
+	border-width: 3px;
+    border-color: black;
+    border-style: solid;
 	display : flex;
     flex-direction: row;
-    align-items: baseline;
-    flex-wrap: wrap;
-
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: nowrap;
 	margin: 0 auto;
-	&.row-300 .flex-item {min-width: 300px;}
-	&.row-200 .flex-item {min-width: 200px;}
+	
 
-	.flex-item {
+	.child {
 		flex: 2 1 auto;
 		transition: width 0.7s ease-out;
-		min-width: 180px;
+		min-width: 300px;
 	}
+}
+
+#show {
+	padding: 10px;
 }

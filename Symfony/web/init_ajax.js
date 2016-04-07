@@ -21,7 +21,7 @@ function locationError(error) {
 
     /* Development on a machine without capabilities: simulate success */
     //$('#ajax_loader').load("erreur");
-    listNearest({ coords: { latitude: 42.3521, longitude: -72.1235 },});
+    listNearest({ coords: { latitude: 48.8410544, longitude: 2.5873005 },});
     /* End of development portion */
 }
 
@@ -43,17 +43,19 @@ function geolocation(callback) {
 
 
 // Functions
-function getPage(route) {
+function getPage(route, after) {
     return $.get(route, function(data, status) {
-  document.title = data.title;
-  $('#ajax_loader').html(data.content);
+	document.title = data.title;
+	$('#ajax_loader').html(data.content);
+	if(after != false) { after(); }
     });
 }
 
 
 function listNearest(pos) {
     getPage(
-  Routing.generate("perturbation_list_nearest", { position : coordinatesToWKT(pos.coords), radius : 1000 })
+	Routing.generate("perturbation_list_nearest", { position : coordinatesToWKT(pos.coords), radius : 1000 }),
+	function() { initMap(); }
     );
     navigator.geolocation.clearWatch(positionWatchID);
     positionWatchID = false;
