@@ -6,52 +6,29 @@ security:
         AppBundle\Entity\Particulier:
             algorithm: bcrypt
 
-    # http://symfony.com/doc/current/book/security.html#where-do-users-come-from-user-providers
     providers:
          our_db_provider:
             entity:
                 class: AppBundle:Particulier
-                #property: username,email
 
     firewalls:
+        dev:
+            pattern: ^/(_(profiler|wdt)|css|images|js)/
+            security: false
+        
+        accueil:
+            pattern: ^/$
+            anonymous: true 
+            provider: our_db_provider
+
         register:
-            pattern:  ^/register$
+            pattern:  ^/(register|login|js)$
             anonymous: true 
             http_basic: ~
             provider: our_db_provider
-
-        login: 
-            pattern: ^/login$
-            anonymous: true 
-            http_basic: ~
-            provider: our_db_provider
-
-       # logout: true 
-        #logout:
-            #path : logout
 
         main:
-            pattern:   /
+            pattern: ^/
             anonymous: false
             http_basic: ~
             provider: our_db_provider
-
-       #main:
-            #pattern:    ^/
-            #http_basic: ~
-            #provider: our_db_provider
-
-        # disables authentication for assets and the profiler, adapt it according to your needs
-        dev:
-           pattern: ^/(_(profiler|wdt)|css|images|js)/
-           security: false
-
-        #main:
-          #  anonymous: ~
-            # activate different ways to authenticate
-
-            # http_basic: ~
-            # http://symfony.com/doc/current/book/security.html#a-configuring-how-your-users-will-authenticate
-
-            # form_login: ~
-            # http://symfony.com/doc/current/cookbook/security/form_login_setup.html
