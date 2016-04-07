@@ -99,7 +99,7 @@ class Formulation
     private $perturbation;
 
     /**
-    * @ORM\OneToOne(targetEntity="TypePerturbation", cascade={"persist"})
+    * @ORM\ManyToOne(targetEntity="TypePerturbation", cascade={"persist"})
     * @ORM\JoinColumn(nullable=false)
     */
     private $type;
