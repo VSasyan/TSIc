@@ -13,7 +13,7 @@ class StatutController extends Controller
 	 * return the logged user (null there is not logged user)
 	*/
 	public function getCurrentUser(){
-		return $this->container->get('security.context')->getToken()->getUser();
+		return $this->container->get('security.token_storage')->getToken()->getUser();
 	}
 
 	/*

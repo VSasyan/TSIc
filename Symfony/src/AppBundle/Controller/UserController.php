@@ -4,42 +4,39 @@ namespace AppBundle\Controller;
 
 use AppBundle\Entity\Particulier;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-
+use AppBundle\Repository\ParticulierRepository;
 use AppBundle\Form\ParticulierType;
 use AppBundle\Form\UserType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\Request;
 
 
-class UserController extends Controller {
+class UserController extends StatutController {
 
     /**
      * @Route("/register", name="user_registration")
      */
     public function registerAction(Request $request)
     {
-        // 1) build the form
+        // 
         $user = new Particulier();
         $form = $this->createForm(ParticulierType::class, $user);
 
-        // 2) handle the submit (will only happen on POST)
+        // 
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
 
-            // 3) Encode the password (you could also do this via Doctrine listener)
+            // 
             $password = $this->get('security.password_encoder')
                 ->encodePassword($user, $user->getPassword());
             $user->setPassword($password);
 
-            // 4) save the User!
+            // 
             $em = $this->getDoctrine()->getManager();
             $em->persist($user);
             $em->flush();
 
-            // ... do any other work - like sending them an email, etc
-            // maybe set a "flash" success message for the user
-
-            return $this->redirectToRoute('accueil');
+            return $this->redirectToRoute('login');
         }
 
         return $this->render(
@@ -47,6 +44,36 @@ class UserController extends Controller {
             array('form' => $form->createView())
         );
     }
+
+    /**
+     * @Route("/login", name="login")
+     */
+    public function loginAction(Request $request)
+    {
+        $user = new Particulier();
+        $form = $this->createForm(ParticulierType::class, $user);
+
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isAuth()) {
+            return $this->redirectToRoute('accueil');
+            
+        }
+
+        $authenticationUtils = $this->get('security.authentication_utils');
+
+        $error = $authenticationUtils->getLastAuthenticationError();
+
+        $lastUsername = $authenticationUtils->getLastUsername();
+
+        return $this->render(
+            'AppBundle:User:login.html.twig',
+            array(
+                'last_username' => $lastUsername,
+                'error'         => $error,
+            )
+        );
+        }
+
 
 	/*
 	 * show

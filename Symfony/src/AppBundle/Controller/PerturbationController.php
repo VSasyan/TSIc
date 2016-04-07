@@ -15,7 +15,7 @@ class PerturbationController extends StatutController {
 
 
     /**
-    * @Route("/perturbation/list/all", name="perturbation_index")
+    * @Route("/perturbation/list", name="perturbation_index")
     */  
     public function indexAction(){
         return $this->render('AppBundle:Perturbation:index.html.twig');
@@ -46,8 +46,8 @@ class PerturbationController extends StatutController {
 
 	/**
     * @Route("/perturbation/list/nearest/{position}/{radius}", name="perturbation_list_nearest", defaults={
-    *	   "position" : false,
-    *      "radius": 1000
+    *	  "position" : false,
+    *     "radius": 1000
     * })
     */
 	public function listNearestAction($position, $radius){
@@ -82,6 +82,16 @@ class PerturbationController extends StatutController {
 		// );
 
 		$formulations = returnLastFormulation($perturbations);
+
+        // For test purpose
+		$perturbations = array(
+            array(
+                'id' => 1,
+                'name' => 'Coucou',
+                'center' => 'center',
+                'type' => array('logo' => 'logo')
+            )
+		);
 
         // Generating from template
         $template = $this->container->get('templating')->render(
@@ -181,7 +191,7 @@ class PerturbationController extends StatutController {
 /*
         $perturbation = array(
             'id' => 1,
-            'creation_date' => '5/04/2016',
+            'creationDate' => '5/04/2016',
             'valid' => true,
             'formulations' => array(array(
                 'name' => 'coucou',
@@ -191,9 +201,10 @@ class PerturbationController extends StatutController {
                     'logo' => 'logo',
                     'description' => 'Coucou type'
                 ),
-                'creation_date' => '16:18',
-                'begin_date' => '16:20',
-                'end_date' => '16:21'
+                'creationDate' => '16:18',
+                'beginDate' => '16:20',
+                'endDate' => '16:21',
+                'description' => 'A very lengthy text lorem ipsum et cætera',
             ))
         );
 */

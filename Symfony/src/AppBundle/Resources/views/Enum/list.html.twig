@@ -5,9 +5,11 @@
 {% endblock %}
 
 {% block stylesheets %}
+	<link href="{{ asset('bundles/App/less/enumStyle.less') }}" rel="stylesheet/less" type="text/css" />
 {% endblock %}
 
 {% block javascripts %}
+	<script src="{{ asset('bundles/App/js/init_enum.js') }}"></script>
 {% endblock %}
 
 {% block body %}
@@ -17,7 +19,11 @@
 		<div class="elements">
 			{% for e in elements %}
 				<div class="element">
+					{% if route_logo != false %}
+						<img src="{{ path(route_logo, {id : e.id}) }}" class="logo"/>
+					{% endif %}
 					<a href="{{ path(route_edit, {id : e.id}) }}">{{ e.name }}</a>
+					<span class="delete" data-url="{{ path(route_delete, {id : e.id}) }}"/>
 				</div>
 			{% endfor %}
 		</div>
