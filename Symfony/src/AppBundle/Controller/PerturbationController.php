@@ -15,7 +15,10 @@ class PerturbationController extends StatutController {
     * @Route("/perturbation/list", name="perturbation_index")
     */  
     public function indexAction(){
-        return $this->render('AppBundle:Perturbations:index.html.twig');
+        return $this->render('AppBundle:Ajax:index.html.twig', array(
+            'title' => '',
+            'function' => ''
+        ));
     }
 
 

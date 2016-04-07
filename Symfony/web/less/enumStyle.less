@@ -1,0 +1,41 @@
+@import "constantes";
+
+.elements {
+	div:not(.success):not(.notice):not(.error) {
+		display: block;
+		background-color: fade(@lblue, 25%);
+		border: 1px solid @blue;
+		padding: 5px;
+		text-align: left;
+		cursor: pointer;
+		border-radius: 4px;
+		margin-bottom: 4px;
+
+		img.logo {
+			max-width: 15px;
+			maw-height: 15px;
+		}
+
+		span.delete {
+			float: right;
+			width: 20px;
+			height: 20px;
+			background-color: red;
+			background-image: url('delete.png');
+			background-size: 20px 20px;
+			background-position: center;
+			background-repeat: no-repeat;
+			opacity: 0;
+			transition: All 0.4s;
+		}
+
+		&:hover {
+			background-color: @lblue;
+
+			span.delete {
+				opacity: 0.5;
+				&:hover {opacity: 1;}
+			}
+		}
+	}
+}

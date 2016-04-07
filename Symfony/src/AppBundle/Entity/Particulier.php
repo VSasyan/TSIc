@@ -107,7 +107,7 @@ class Particulier implements AdvancedUserInterface, \Serializable
         $this->activated = true;
         $this->signinDate = new \DateTime();
         // may not be needed, see section on salt below
-        // $this->salt = md5(uniqid(null, true));
+        //$this->salt = md5(uniqid(null, true));
     }
 
     public function getSalt()
