@@ -145,6 +145,28 @@ On a un nouvel objet de type :
     perturbation.nom
     perturbation.center
     perturbation.geoJSON
-    perturbation. autre ?
+    perturbation.type
+
+Les attributs suplémentaires par rapport à la classe `Perturbation` de base sont récupérés sur la dernière `Formulation`.
+
+
+### listAll
+
+Permet à l'administrateur, de lister toutes les perturbations.
+
+    Controller : PerturbationController:listAllAction
+    Url : /perturbation/list/all
+    Route : perturbation_list_all
+    Vues : Perturbation:all.html.twig
+
+Entrée vue :
+* perturbations : liste des perturbations retravaillée
+
+On a un nouvel objet de type :
+
+    perturbation.id
+    perturbation.nom
+    perturbation.center
+    perturbation.type
 
 Les attributs suplémentaires par rapport à la classe `Perturbation` de base sont récupérés sur la dernière `Formulation`.
