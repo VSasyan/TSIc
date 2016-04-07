@@ -13,7 +13,7 @@ accueil:
 login:
     path: /login 
     defaults:  { _controller: AppBundle:User:login }
+    # Client-side routing
 
-# Client-side routing
 fos_js_routing:
     resource: "@FOSJsRoutingBundle/Resources/config/routing/routing.xml"

@@ -31,7 +31,7 @@ security:
             #path : logout
 
         main:
-            pattern:   ^/
+            pattern:   /
             anonymous: false
             http_basic: ~
             provider: our_db_provider
