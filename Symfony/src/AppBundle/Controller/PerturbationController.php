@@ -117,7 +117,8 @@ class PerturbationController extends Controller {
                 ),
                 'creation_date' => '16:18',
                 'begin_date' => '16:20',
-                'end_date' => '16:21'
+                'end_date' => '16:21',
+                'description' => 'A very lengthy text lorem ipsum et cætera',
             ))
         );
 
