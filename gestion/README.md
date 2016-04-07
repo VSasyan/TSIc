@@ -4,7 +4,7 @@
 
 ### Explications
 
-Liste des vues : [à voir ici](vues/vues_sprint1.pdf)
+Liste des vues : [à voir ici](vues/vues_sprint1.md)
 
 Liste des routes : [à voir ici](routes/routes_sprint1.pdf)
 
