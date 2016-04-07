@@ -1,3 +1,6 @@
 accueil:
     path:      /
     defaults:  { _controller: AppBundle:Perturbation:index }
+
+logout:
+    path: /logout

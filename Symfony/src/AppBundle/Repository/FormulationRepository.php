@@ -10,4 +10,30 @@ namespace AppBundle\Repository;
  */
 class FormulationRepository extends \Doctrine\ORM\EntityRepository
 {
+
+	public function findNearest($position, $rayon)
+	{
+
+        $qb = $this->createQueryBuilder('a');
+		
+  		$qb->where('ST_DISTANCE(a.center, '.$position.') < :rayon')
+  		     ->setParameter('rayon', $rayon)
+  		   ->where('a.valid_formulation =: valid')
+  		     ->setParameter('valid', true)
+  		   ->orderBy('a.date', 'DESC')
+  		   ->setMaxResults(100);
+		
+		$formulations = $qb->getQuery()->getResult();
+		$perturbations = array();
+
+    	foreach ($formulations as $formulation) {
+
+    		array_push($perturbations, $formulation->getPerturbation());
+			
+	    }
+
+	    return $perturbations;
+
+	}
+
 }
