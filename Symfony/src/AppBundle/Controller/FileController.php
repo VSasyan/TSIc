@@ -18,12 +18,12 @@ class FileController extends StatutController {
 	public function logoTypePerturbationAction($id = 0) {
 		$dir_logo = __DIR__ . '/../../../upload/logo_type_perturbation/';
 		$type = $this->getDoctrine()->getManager()->getRepository('AppBundle:TypePerturbation')->find($id);
-		$filename = 'default.png';
+		$filename = '../logo_type_perturbation_default.png';
 		if ($type && $type->getLogoPicturePath()){
 			$filename = $type->getLogoPicturePath();
 		}
 		if (!file_exists($dir_logo . $filename)) {
-			$filename = 'default.png';
+			$filename = '../logo_type_perturbation_default.png';
 		}
 		$path =  $dir_logo . $filename;
 
