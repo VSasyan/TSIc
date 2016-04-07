@@ -39,16 +39,16 @@ class PerturbationController extends StatutController {
     }
 
 	/**
-    * @Route("/perturbation/list/nearest/{position}/{rayon}", name="perturbation_list_nearest")
+    * @Route("/perturbation/list/nearest/{rayon}", name="perturbation_list_nearest")
     */
-	public function listNearestAction($position, $rayon = 1000){
+	public function listNearestAction($rayon = 1000){
 
 		//example
-		$position = ST_GeomFromText('POINT(-72.1235 42.3521)',4326);
+		$position = "ST_GeomFromText('POINT(-72.1235 42.3521)',4326)";
 
         $em = $this->getDoctrine()->getManager();
 
-        $repository = $em->getRepository('OCPlatformBundle:Perturbation');
+        $repository = $em->getRepository('AppBundle:Formulation');
 
         $perturbations = $repository->findNearest($position, $rayon);
 /*

@@ -16,7 +16,7 @@ class FormulationRepository extends \Doctrine\ORM\EntityRepository
 
         $qb = $this->createQueryBuilder('a');
 		
-  		$qb->where('ST_DISTANCE('.a.center', '.$position.') < :rayon')
+  		$qb->where('ST_DISTANCE(a.center, '.$position.') < :rayon')
   		     ->setParameter('rayon', $rayon)
   		   ->where('a.valid_formulation =: valid')
   		     ->setParameter('valid', true)
