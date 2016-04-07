@@ -7,6 +7,8 @@
 		<title>{% block title %}Basic View{% endblock %}</title>
 		<link rel="icon" type="image/png" href="{{ asset('favicon.png') }}" />
 
+		<link rel="stylesheet" type="text/css" href="{{ asset('base.css') }}"/>
+
 		<link href="{{ asset('bundles/App/less/typeStyle.less') }}" rel="stylesheet/less" type="text/css" />
 		<link href="{{ asset('bundles/App/less/messageStyle.less') }}" rel="stylesheet/less" type="text/css" />
 		{% block stylesheets %}{% endblock %}
@@ -20,6 +22,12 @@
 	</head>
 
 	<body>
+	    <nav>
+		<a href="{{ path('perturbation_list_nearest') }}">Perturbations</a>
+		<a href="{{ path('perturbation_add') }}">Ajouter perturbation</a>
+		<a href="{{ path('login') }}">Login</a>
+		<a href="{{ path('perturbation_list_all') }}">Liste perturbations</a>
+	    </nav>
 
 		{% for type, messages in app.session.flashBag.all %}
 			{% for message in messages %}
@@ -29,6 +37,7 @@
 			{% endfor %}
 		{% endfor %}
 		
+
 		{% block body %}{% endblock %}
 
 	</body>
