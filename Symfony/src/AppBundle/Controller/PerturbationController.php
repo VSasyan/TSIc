@@ -40,6 +40,7 @@ class PerturbationController extends StatutController {
 
 	/**
     * @Route("/perturbation/list/nearest/{position}/{radius}", name="perturbation_list_nearest", defaults={
+    *     "position" : false,
     *     "radius": 1000
     * })
     */
@@ -61,6 +62,7 @@ class PerturbationController extends StatutController {
                 'title'    => "Liste des perturbations",
             ));
         }
+
 
         // For test purpose
 		$perturbations = array(
@@ -161,7 +163,7 @@ class PerturbationController extends StatutController {
 
         $perturbation = array(
             'id' => 1,
-            'creation_date' => '5/04/2016',
+            'creationDate' => '5/04/2016',
             'valid' => true,
             'formulations' => array(array(
                 'name' => 'coucou',
@@ -171,9 +173,9 @@ class PerturbationController extends StatutController {
                     'logo' => 'logo',
                     'description' => 'Coucou type'
                 ),
-                'creation_date' => '16:18',
-                'begin_date' => '16:20',
-                'end_date' => '16:21',
+                'creationDate' => '16:18',
+                'beginDate' => '16:20',
+                'endDate' => '16:21',
                 'description' => 'A very lengthy text lorem ipsum et cætera',
             ))
         );
