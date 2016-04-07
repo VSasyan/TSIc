@@ -5,7 +5,7 @@ var positionWatchID = false;
 
 function coordinatesToWKT(coords) {
     if('latitude' in coords && 'longitude' in coords) {
-	return "POINT(" + coords.longitude + " , " + coords.latitude + ")";
+	return "POINT(" + coords.longitude + " " + coords.latitude + ")";
     } else {
 	console.error("Bad conversion from coordinate object.");
 	return false;
@@ -21,8 +21,7 @@ function locationError(error) {
 
     /* Development on a machine without capabilities: simulate success */
     //$('#ajax_loader').load("erreur");
-    listNearest({ coords: { latitude: 66, longitude: 3 },});
-    navigator.geolocation.clearWatch(positionWatchID);
+    listNearest({ coords: { latitude: 42.3521, longitude: -72.1235 },});
     /* End of development portion */
 }
 
@@ -51,17 +50,17 @@ function getPage(route) {
     });
 }
 
-var listNearestCallback = listNearest;
 
 function listNearest(pos) {
     getPage(
 	Routing.generate("perturbation_list_nearest", { position : coordinatesToWKT(pos.coords), radius : 1000 })
     );
-    listNearestCallback = setLocation;
+    navigator.geolocation.clearWatch(positionWatchID);
+    positionWatchID = false;
 }
 
 var functions = {
-    listNearest : function() { geolocation(listNearestCallback); },
+    listNearest : function() { geolocation(listNearest); },
 };
 
 document.addEventListener("DOMContentLoaded", function() {

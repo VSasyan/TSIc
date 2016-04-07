@@ -4,7 +4,7 @@ app:
 
 accueil:
     path:      /
-    defaults:  { _controller: AppBundle:Perturbation:listNearest }
+    defaults:  { _controller: AppBundle:Perturbation:index }
 
 logo_type_perturbation:
     path:      /file/logo-type-perturbation/{id}
@@ -13,6 +13,10 @@ logo_type_perturbation:
 #app_routing:
 #    resource: "@AppBundle/Resources/config/routing.yml"
 #    type:     yml
+
+login:
+    path: /login 
+    defaults:  { _controller: AppBundle:User:login }
 
 # Client-side routing
 fos_js_routing:
