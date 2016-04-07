@@ -6,7 +6,8 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
 		<title>{% block title %}Basic View{% endblock %}</title>
 		<link rel="icon" type="image/png" href="{{ asset('favicon.png') }}" />
-		<link href="{{ asset('bundles/App/less/typeStyle.less') }}" rel="stylesheet/less" type="text/css" />
+		<!--link href="{{ asset('bundles/App/less/typeStyle.less') }}" rel="stylesheet/less" type="text/css" /-->
+		<link rel="stylesheet" type="text/css" href="{{ asset('base.css') }}"/>
 
 		{% block stylesheets %}{% endblock %}
 
@@ -20,7 +21,12 @@
 	</head>
 
 	<body>
-		
+	    <nav>
+		<a href="{{ path('perturbation_list_nearest') }}">Perturbations</a>
+		<a href="{{ path('perturbation_add') }}">Ajouter perturbation</a>
+		<a href="{{ path('login') }}">Login</a>
+		<a href="{{ path('perturbation_list_all') }}">Liste perturbations</a>
+	    </nav>
 		{% block body %}{% endblock %}
 
 	</body>
