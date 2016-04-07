@@ -7,23 +7,58 @@ form {
 	background-color: #FFF;
 	padding: 20px;
 	border: 1px solid darken(@lgrey, 10%);
-}
 
-form label {
-	display: block;
-	text-align: left;
-	color: @blue;
-}
+	>div>div {
+		>label {
+			display: block;
+			text-align: left;
+			color: @blue;
+		}
+		>input, >textarea, >select {
+			display: block;
+			width: 100%;
+			border: 0px;
+			border-bottom: 1px solid #000;
+			background-color: transparent;
+			margin-bottom: 15px;
+			padding: 8px;
+			box-sizing: border-box;
 
-form input, form textarea {
-	display: block;
-	width: 100%;
-	border: 0px;
-	border-bottom: 1px solid #000;
-	background-color: transparent;
-	margin-bottom: 15px;
-	padding: 8px;
-	box-sizing: border-box;
+			&:hover {
+				border-bottom: 1px solid @blue;
+			}
+		}
+
+		select {outline:none;}
+
+		>div {
+			border-bottom: 1px solid #000;
+				margin-bottom: 15px;
+
+			&:hover {
+				border-bottom: 1px solid @blue;
+			}
+
+			>div {
+				display: inline-block;
+
+				&[id$='time']:before {
+					margin-left: 6px;
+					content: " à ";
+					position: relative;
+					top: 4px;
+				}
+
+				>input, >textarea, >select {
+					display: inline-block;
+					border: 0px;
+					background-color: transparent;
+					padding: 8px;
+					box-sizing: border-box;
+				}
+			}
+		}
+	}
 }
 
 form input[type="checkbox"] {
@@ -35,18 +70,6 @@ form input[type="checkbox"] {
 form input:hover, form textarea:hover,
 form input:hover, form textarea:hover {
 	border-bottom: 1px solid @blue;
-}
-
-form select {
-	display: block;
-	width: 100%;
-	border: 0px;
-	border-bottom: 1px solid #000;
-	background-color: transparent;
-	margin-bottom: 15px;
-	padding: 8px;
-	box-sizing: border-box;
-	outline:none;
 }
 
 form input[type=submit],
