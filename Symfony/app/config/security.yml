@@ -30,11 +30,11 @@ security:
         #logout:
             #path : logout
 
-        main:
-            pattern:   ^/
-            anonymous: false
-            http_basic: ~
-            provider: our_db_provider
+       # main:
+          #  pattern:   ^/
+           # anonymous: false
+           # #http_basic: ~
+           # provider: our_db_provider
 
        #main:
             #pattern:    ^/
