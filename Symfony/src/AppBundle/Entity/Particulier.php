@@ -8,7 +8,7 @@ use Symfony\Component\Security\Core\User\AdvancedUserInterface;
  * particulier
  *
  * @ORM\Table(name="particulier")
- * @ORM\Entity(repositoryClass="AppBundle\Repository\ParticulierRepository")
+ * @ORM\Entity(repositoryClass="AppBundle\Repository\particulierRepository")
  */
 class Particulier implements AdvancedUserInterface, \Serializable
 {
@@ -119,7 +119,10 @@ class Particulier implements AdvancedUserInterface, \Serializable
 
     public function getRoles()
     {
-        return array('ROLE_USER');
+        $statuts = array('ROLE_USER');
+        if ($this->getProfessionnal() != null) {$statuts[] = 'ROLE_PROFESSIONNAL';}
+        if ($this->getAdmin() != null) {$statuts[] = 'ROLE_ADMIN';}
+        return $statuts;
     }
 
     public function eraseCredentials()
