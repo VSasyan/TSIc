@@ -19,10 +19,9 @@
 
     <div class="parent">
 	<div id="map" class="child"></div>
+	<div id="show" class="child" data-id="{{ perturbation.id }}" data-date="{{ perturbation.creationDate|date('Y-m-d') }}">
 
-	<div id="show" class="child" data-id="{{ perturbation.id }}" data-date="{{ perturbation.creationDate }}">
-
-	    <p>Perturbation créée le {{ perturbation.creationDate }}.
+	    <p>Perturbation créée le {{ perturbation.creationDate|date('Y-m-d') }}.
 		{% if perturbation.valid %}
 		    <span class="perturbation-valid-tag">Validée</span>
 		{% endif %}
@@ -36,12 +35,12 @@
 
 	    <div class="elements formulations first">
 		{% for f in perturbation.formulations %} <!-- Inverser -->
-		    <div class="element" data-name="{{ f.name }}" data-center="{{ f.center }}" data-logo="{{ f.type.logo }}">
+		    <div class="element" data-name="{{ f.name }}" data-center="{{ f.center }}" data-logo="{{ f.type.id }}">
 
 			<h1><span class="perturbation-name">{{ f.name }}</span> :
 			    <span class="perturbation-type" title="{{ f.type.description }}">{{ f.type.name }}</span></h1>
-			<p>Modifiée : {{ f.creationDate }}</p>
-			<p class="perturbation-dates">Depuis {{ f.beginDate }} ; fin estimée à {{ f.endDate }}</p>
+			<p>Modifiée : {{ f.creationDate|date('Y-m-d') }}</p>
+			<p class="perturbation-dates">Depuis {{ f.beginDate|date('Y-m-d') }} ; fin estimée à {{ f.endDate|date('Y-m-d') }}</p>
 			<p class="perturbation-description">{{ f.description }}</p>
 		    </div>
 		{% endfor %}

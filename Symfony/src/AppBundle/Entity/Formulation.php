@@ -88,7 +88,7 @@ class Formulation
 
     /**
     * @ORM\ManyToOne(targetEntity="Particulier", inversedBy="formulations")
-    * @ORM\JoinColumn(nullable=false)
+    * @ORM\JoinColumn(nullable=true)
     */
     private $particulier;
 
@@ -378,4 +378,8 @@ class Formulation
     {
         return $this->valid_formulation;
     }
+
 }
+
+
+
