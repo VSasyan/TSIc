@@ -18,7 +18,12 @@ class PerturbationController extends StatutController {
     * @Route("/perturbation/list", name="perturbation_index")
     */  
     public function indexAction(){
-        return $this->render('AppBundle:Perturbation:index.html.twig');
+
+        return $this->render('AppBundle:Ajax:index.html.twig', array(
+            'title' => 'Perturbations à proximité',
+            'function' => 'listNearest'
+        ));
+
     }
 
 
@@ -73,6 +78,7 @@ class PerturbationController extends StatutController {
 
 		//example
 		$position = "ST_GeomFromText('" . $position . "',4326)";
+		/*$position = "ST_GeomFromText('POINT(-72.1235 42.3521)',4326)";*/
 
         $em = $this->getDoctrine()->getManager();
 
@@ -88,7 +94,6 @@ class PerturbationController extends StatutController {
         	}
         }
         
-
   //       // For test purpose
 		// $perturbations = array(
   //           array(
@@ -100,16 +105,6 @@ class PerturbationController extends StatutController {
 		// );
 
 		//$formulations = returnLastFormulation($perturbations);
-
-        // For test purpose
-		// $perturbations = array(
-  //           array(
-  //               'id' => 1,
-  //               'name' => 'Coucou',
-  //               'center' => 'center',
-  //               'type' => array('logo' => 'logo')
-  //           )
-		// );
 
         // Generating from template
         $template = $this->container->get('templating')->render(
@@ -209,7 +204,7 @@ class PerturbationController extends StatutController {
 /*
         $perturbation = array(
             'id' => 1,
-            'creationDate' => '5/04/2016',
+            'creation_date' => '5/04/2016',
             'valid' => true,
             'formulations' => array(array(
                 'name' => 'coucou',
@@ -219,10 +214,9 @@ class PerturbationController extends StatutController {
                     'logo' => 'logo',
                     'description' => 'Coucou type'
                 ),
-                'creationDate' => '16:18',
-                'beginDate' => '16:20',
-                'endDate' => '16:21',
-                'description' => 'A very lengthy text lorem ipsum et cætera',
+                'creation_date' => '16:18',
+                'begin_date' => '16:20',
+                'end_date' => '16:21'
             ))
         );
 */

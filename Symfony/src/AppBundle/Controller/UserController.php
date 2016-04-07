@@ -6,9 +6,12 @@ use AppBundle\Entity\Particulier;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use AppBundle\Repository\ParticulierRepository;
 use AppBundle\Form\ParticulierType;
+use AppBundle\Form\LoginType;
+use Symfony\Component\Security\Core\Exception\UsernameNotFoundException;
 use AppBundle\Form\UserType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
 
 
 class UserController extends StatutController {
@@ -51,28 +54,35 @@ class UserController extends StatutController {
     public function loginAction(Request $request)
     {
         $user = new Particulier();
-        $form = $this->createForm(ParticulierType::class, $user);
+        $form = $this->createForm(LoginType::class, $user);
 
         $form->handleRequest($request);
-        if ($form->isSubmitted() && $form->isAuth()) {
-            return $this->redirectToRoute('accueil');
-            
+        if ($form->isSubmitted() && $form->isValid()) {
+            $em = $this->getDoctrine();
+            $repo  = $em->getRepository("AppBundle:Particulier");
+
+            $user_base = $repo->loadUserByUsername($user->getUsername());
+
+            if($user_base != null){
+                $EncodedPassword = $user_base->getPassword();
+                $password = password_verify($user->getPassword(), $EncodedPassword);
+
+                if($password == true){
+                    $token = new UsernamePasswordToken($user_base, null, 'login', $user_base->getRoles());
+                    $this->get("security.token_storage")->setToken($token); //now the user is logged in
+                    //
+                    return $this->redirectToRoute('accueil');
+                     
+                }
+            }
+            $request->getSession()->getFlashBag()->add('error', 'incorrect identification');
         }
-
-        $authenticationUtils = $this->get('security.authentication_utils');
-
-        $error = $authenticationUtils->getLastAuthenticationError();
-
-        $lastUsername = $authenticationUtils->getLastUsername();
 
         return $this->render(
             'AppBundle:User:login.html.twig',
-            array(
-                'last_username' => $lastUsername,
-                'error'         => $error,
-            )
+            array('form' => $form->createView())
         );
-        }
+    }
 
 
 	/*
