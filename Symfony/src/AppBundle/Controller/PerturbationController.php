@@ -16,8 +16,8 @@ class PerturbationController extends StatutController {
     */  
     public function indexAction(){
         return $this->render('AppBundle:Ajax:index.html.twig', array(
-            'title' => '',
-            'function' => ''
+            'title' => 'Perturbations à proximité',
+            'function' => 'listNearest'
         ));
     }
 
