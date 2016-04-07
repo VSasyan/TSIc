@@ -334,11 +334,11 @@ class Formulation
     /**
      * Set type
      *
-     * @param \AppBundle\Entity\Type $type
+     * @param \AppBundle\Entity\TypePerturbation $type
      *
      * @return Formulation
      */
-    public function setType(\AppBundle\Entity\Type $type)
+    public function setType(\AppBundle\Entity\TypePerturbation $type)
     {
         $this->type = $type;
 
@@ -348,7 +348,7 @@ class Formulation
     /**
      * Get type
      *
-     * @return \AppBundle\Entity\Type
+     * @return \AppBundle\Entity\TypePerturbation
      */
     public function getType()
     {
