@@ -6,10 +6,10 @@ var marker = false;
 
 function coordinatesToWKT(coords) {
     if('latitude' in coords && 'longitude' in coords) {
-  return "POINT(" + coords.longitude + " " + coords.latitude + ")";
+        return "POINT(" + coords.longitude + " " + coords.latitude + ")";
     } else {
-  console.error("Bad conversion from coordinate object.");
-  return false;
+        console.error("Bad conversion from coordinate object.");
+        return false;
     }
 }
 
