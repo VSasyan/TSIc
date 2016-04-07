@@ -44,7 +44,7 @@ class Formulation
     private $description;
 
     /**
-     * @var string
+     * @var geometry
      *
      * @ORM\Column(type="geometry", options={"geometry_type"="POINT", "srid"=4326})
      */

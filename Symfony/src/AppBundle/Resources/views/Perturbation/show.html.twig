@@ -5,32 +5,48 @@
 {% endblock %}
 
 {% block stylesheets %}
+	<link rel="stylesheet" href="{{ asset('css/map.css') }}" />
+    <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.7.2/leaflet.css" />
 {% endblock %}
 
 {% block javascripts %}
+	<script src="http://cdn.leafletjs.com/leaflet-0.7.2/leaflet.js"></script>
+    <script src="{{ asset('js/map.js') }}"></script>
 {% endblock %}
 
 {% block body %}
 
     <div class="parent">
 	<div id="map" class="child"></div>
-	<div class="child" data-id="{{ perturbation.id }}" data-date="{{ perturbation.creation_date }}">
 
-	    <p>Perturbation créée le {{ perturbation.creation_date }}.
+	<div id="show" class="child" data-id="{{ perturbation.id }}" data-date="{{ perturbation.creationDate }}">
+
+	    <p>Perturbation créée le {{ perturbation.creationDate }}.
 		{% if perturbation.valid %}
 		    <span class="perturbation-valid-tag">Validée</span>
 		{% endif %}
 	    </p>
 
-	    {% for f in perturbation.formulations %}
-		<div class="element" data-name="{{ f.name }}" data-center="{{ f.center }}" data-logo="{{ f.type.logo }}">
+	    <div>
+		<span class="button validate"  data-path="{{ path("perturbation_vote", { id_perturbation: perturbation.id, id_message: 3}) }}" title="Confirmer la perturbation">Confirmer</span>
+		<span class="button inhibate"  data-path="{{ path("perturbation_vote", { id_perturbation: perturbation.id, id_message: 1}) }}" title="Annuler la perturbation">Inhiber</span>
+		<span class="button terminate" data-path="{{ path("perturbation_vote", { id_perturbation: perturbation.id, id_message: 2}) }}" title="La perturbation est terminée.">Terminer</span>
+	    </div>
 
-		    <h1><span class="perturbation-name">{{ f.name }}</span> :
-			<span class="perturbation-type" title="{{ f.type.description }}">{{ f.type.name }}</span></h1>
-		    <p>Modifiée : {{ f.creation_date }}</p>
-		    <p class="perturbation-dates">Depuis {{ f.begin_date }} ; fin estimée à {{ f.end_date }}</p>
-		</div>
-	    {% endfor %}
+	    <div class="elements formulations first">
+		{% for f in perturbation.formulations %} <!-- Inverser -->
+		    <div class="element" data-name="{{ f.name }}" data-center="{{ f.center }}" data-logo="{{ f.type.logo }}">
+
+			<h1><span class="perturbation-name">{{ f.name }}</span> :
+			    <span class="perturbation-type" title="{{ f.type.description }}">{{ f.type.name }}</span></h1>
+			<p>Modifiée : {{ f.creationDate }}</p>
+			<p class="perturbation-dates">Depuis {{ f.beginDate }} ; fin estimée à {{ f.endDate }}</p>
+			<p class="perturbation-description">{{ f.description }}</p>
+		    </div>
+		{% endfor %}
+		<button id="all">Afficher plus</button><!-- Changer la classe en 'all' -->
+		<button id="first">Masquer</button>
+	    </div>
 	</div>
     </div>
 

@@ -27,10 +27,13 @@ class EnumController extends Controller {
 			$em = $this->getDoctrine()->getManager();
 			$em->persist($type);
 			$em->flush();
+
+			$type->uploadLogoPicture();
+			$em->flush();
 			
 			$request->getSession()->getFlashBag()->add('success', 'Type de perturbation bien créé.');
 
-			return $this->redirect($this->generateUrl('type_edit', array('id' => $type->getId())));
+			return $this->redirect($this->generateUrl('type_perturbation_edit', array('id' => $type->getId())));
 		}
 
 		return $this->render('AppBundle:Enum:add.html.twig', array(
@@ -51,7 +54,9 @@ class EnumController extends Controller {
 		return $this->render('AppBundle:Enum:list.html.twig', array(
 			'elements' => $elements,
 			'title' => 'Liste des types',
-			'route_edit' => 'type_edit'
+			'route_edit' => 'type_perturbation_edit',
+			'route_logo' => 'logo_type_perturbation',
+			'route_delete' => 'type_perturbation_delete'
 		));
 
 	}
@@ -68,13 +73,14 @@ class EnumController extends Controller {
 			$form = $this->createForm(TypePerturbationType::class, $type);
 
 			if ($form->handleRequest($request)->isValid()) {
+				$type->uploadLogoPicture();
 				$em->persist($type);
 				$em->flush();
 				$request->getSession()->getFlashBag()->add('success', 'Type de perturbation bien edité.');
 			}
 		} else {
 			$request->getSession()->getFlashBag()->add('error', 'Type de perturbation non trouvé.');
-			return $this->redirect($this->generateUrl('type_list'));
+			return $this->redirect($this->generateUrl('type_perturbation_list'));
 		}
 
 		return $this->render('AppBundle:Enum:edit.html.twig', array(
@@ -87,7 +93,7 @@ class EnumController extends Controller {
 	/**
 	* @Route("/type-perturbation/delete/{id}", name="type_perturbation_delete")
 	*/
-	public function typePerturbationDeleteAction($id){
+	public function typePerturbationDeleteAction(Request $request, $id){
 
 		$em = $this->getDoctrine()->getManager();
 		$type = $em->getRepository('AppBundle:TypePerturbation')->find($id);
@@ -100,8 +106,7 @@ class EnumController extends Controller {
 			$request->getSession()->getFlashBag()->add('error', 'Type non trouvé.');
 		}
 
-		return $this->redirect($this->generateUrl('type_list'));
-
+		return $this->render('AppBundle:Ajax:confirmation.html.twig');
 	}
 
 
@@ -140,7 +145,9 @@ class EnumController extends Controller {
 		return $this->render('AppBundle:Enum:list.html.twig', array(
 			'elements' => $elements,
 			'title' => 'Liste des messages',
-			'route_edit' => 'message_edit'
+			'route_edit' => 'message_edit',
+			'route_logo' => false,
+			'route_delete' => 'message_delete'
 		));
 
 	}

@@ -1,0 +1,30 @@
+{% extends 'AppBundle::base.html.twig' %}
+
+{% block title %}
+	{{ title }}
+{% endblock %}
+
+{% block stylesheets %}
+{% endblock %}
+
+{% block javascripts %}
+{% endblock %}
+
+{% block body %}
+
+	<div>
+		<h2>{{ title }}</h2>
+		<div class="elements">
+			{% for p in perturbations %}
+				<div
+					class="element"
+					data-center="{{ p.center }}"
+					data-type="{{ p.type }}"
+					data-geoJSON="{{ p.geoJSON }}">
+					<a href="{{ path('perturbation_show', {id : p.id}) }}">{{ p.name }}</a>
+				</div>
+			{% endfor %}
+		</div>
+	</div>
+
+{% endblock %}
