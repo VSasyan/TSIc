@@ -62,6 +62,7 @@ doctrine:
         dql:
             string_functions:
                 ST_Distance: Jsor\Doctrine\PostGIS\Functions\ST_Distance
+                ST_GeomFromText: Jsor\Doctrine\PostGIS\Functions\ST_GeomFromText
 
 # Swiftmailer Configuration
 swiftmailer:
@@ -70,3 +71,7 @@ swiftmailer:
     username:  "%mailer_user%"
     password:  "%mailer_password%"
     spool:     { type: memory }
+
+# FOSJs routing (client-side routing) needs exposed routes
+fos_js_routing:
+    routes_to_expose: [ perturbation_list_nearest ]

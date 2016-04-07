@@ -1,14 +1,19 @@
 app:
     resource: "@AppBundle/Controller/"
     type:     annotation
+
 accueil:
     path:      /
-    defaults:  { _controller: AppBundle:Perturbation:listNearest }
+    defaults:  { _controller: AppBundle:Perturbation:index }
+
 #app_routing:
 #    resource: "@AppBundle/Resources/config/routing.yml"
 #    type:     yml
+
 login:
     path: /login 
     defaults:  { _controller: AppBundle:User:login }
-accueil:
-    path: /
+
+# Client-side routing
+fos_js_routing:
+    resource: "@FOSJsRoutingBundle/Resources/config/routing/routing.xml"

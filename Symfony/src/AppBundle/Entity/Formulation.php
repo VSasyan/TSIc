@@ -3,7 +3,10 @@
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-//use Doctrine\Common\Annotations\Index;
+use Jsor\Doctrine\PostGIS\Types\PostGISType;
+
+\Doctrine\DBAL\Types\Type::addType("geometry", "Jsor\Doctrine\PostGIS\Types\GeometryType");
+//\Doctrine\DBAL\Types\Type::addType("geography", "Jsor\Doctrine\PostGIS\Types\GeographyType");
 
 /**
  * Formulation
@@ -77,6 +80,13 @@ class Formulation
 
 
     /**
+     * @var bool
+     *
+     * @ORM\Column(name="valid_formulation", type="boolean")
+     */
+    private $valid_formulation;
+
+    /**
     * @ORM\ManyToOne(targetEntity="Particulier", inversedBy="formulations")
     * @ORM\JoinColumn(nullable=false)
     */
@@ -89,7 +99,7 @@ class Formulation
     private $perturbation;
 
     /**
-    * @ORM\OneToOne(targetEntity="Type", cascade={"persist"})
+    * @ORM\OneToOne(targetEntity="TypePerturbation", cascade={"persist"})
     * @ORM\JoinColumn(nullable=false)
     */
     private $type;
@@ -343,5 +353,29 @@ class Formulation
     public function getType()
     {
         return $this->type;
+    }
+
+    /**
+     * Set validFormulation
+     *
+     * @param boolean $validFormulation
+     *
+     * @return Formulation
+     */
+    public function setValidFormulation($validFormulation)
+    {
+        $this->valid_formulation = $validFormulation;
+
+        return $this;
+    }
+
+    /**
+     * Get validFormulation
+     *
+     * @return boolean
+     */
+    public function getValidFormulation()
+    {
+        return $this->valid_formulation;
     }
 }

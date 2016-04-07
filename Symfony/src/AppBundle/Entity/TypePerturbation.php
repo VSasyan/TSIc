@@ -5,12 +5,12 @@ namespace AppBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Type
+ * TypePerturbation
  *
- * @ORM\Table(name="type")
- * @ORM\Entity(repositoryClass="AppBundle\Repository\TypeRepository")
+ * @ORM\Table(name="type_perturbation")
+ * @ORM\Entity(repositoryClass="AppBundle\Repository\TypePerturbationRepository")
  */
-class Type
+class TypePerturbation
 {
     /**
      * @var int
@@ -38,7 +38,7 @@ class Type
     /**
      * @var string
      *
-     * @ORM\Column(name="logo", type="string", length=255)
+     * @ORM\Column(name="logo", type="string", length=255, nullable=true)
      */
     private $logo;
 
