@@ -22,10 +22,10 @@ class FormulationType extends AbstractType
     {
         $builder
             ->add('name', TextType::class, array('label' => 'Nom'))
-            // ->add('type',        EntityType::class, array(
-            //     'class' =>       'AppBundle:TypePerturbation',
-            //     'choice_label' => 'name',
-            // ))
+            ->add('type', EntityType::class, array(
+                'class' => 'AppBundle:TypePerturbation',
+                'choice_label' => 'name',
+            ))
             ->add('description', TextareaType::class, array('label' => 'Description'))
             //->add('center')
             ->add('geoJSON')

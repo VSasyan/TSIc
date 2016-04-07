@@ -37,11 +37,22 @@ class PerturbationController extends StatutController {
         }
         else
         {
-        	$formulations = returnLastFormulation($perturbations);
-        }
 
-		return $this->render('AppBundle:Perturbation:listAll.html.twig', $formulations); 
+	        foreach ($perturbations as $p) {
+	        	$virtualPerturbation = $p->returnVirtualPerturbation();
+	        	if ($virtualPerturbation != false) {
+	        		echo "OK";
+	        		$virtualPerturbations[] = $virtualPerturbation;
+	        	}
+	        }
 
+       	}
+
+       	return $this->render('AppBundle:Perturbation:listAll.html.twig', array(
+           'perturbations' => $virtualPerturbations,
+           'title'    => "Liste des perturbations",
+        ));
+		
     }
 
 	/**

@@ -99,7 +99,7 @@ class Formulation
     private $perturbation;
 
     /**
-    * @ORM\OneToOne(targetEntity="TypePerturbation", cascade={"persist"})
+    * @ORM\ManyToOne(targetEntity="TypePerturbation", cascade={"persist"})
     * @ORM\JoinColumn(nullable=true)
     */
     private $type;
@@ -334,11 +334,11 @@ class Formulation
     /**
      * Set type
      *
-     * @param \AppBundle\Entity\Type $type
+     * @param \AppBundle\Entity\TypePerturbation $type
      *
      * @return Formulation
      */
-    public function setType(\AppBundle\Entity\Type $type)
+    public function setType(\AppBundle\Entity\TypePerturbation $type)
     {
         $this->type = $type;
 
@@ -348,7 +348,7 @@ class Formulation
     /**
      * Get type
      *
-     * @return \AppBundle\Entity\Type
+     * @return \AppBundle\Entity\TypePerturbation
      */
     public function getType()
     {
@@ -380,27 +380,27 @@ class Formulation
     }
 
     //cette fonction récupère un tableau des plus proches perturbations et retourne les dernières formulations correspondant aux perturbations
-    public function returnLastFormulation($perturbations)
-    {
-        //tableau des résultats
-        $valid_formulations = array();
+    // public function returnLastFormulation($perturbations)
+    // {
+    //     //tableau des résultats
+    //     $valid_formulations = array();
 
-        foreach ($p as $perturbations) {
+    //     foreach ($p as $perturbations) {
             
-            $formulations = $p->getFormulations();
-            foreach ($f as $formulations) {
+    //         $formulations = $p->getFormulations();
+    //         foreach ($f as $formulations) {
                
-                if ($f->getValidFormulation())
-                {
-                    //si la formualtion est le dernière à jour, alors on l'ajoute dans le tableau des résultats
-                    array_push($valid_formulations, $f);
-                }
-            }
-        }
+    //             if ($f->getValidFormulation())
+    //             {
+    //                 //si la formualtion est le dernière à jour, alors on l'ajoute dans le tableau des résultats
+    //                 array_push($valid_formulations, $f);
+    //             }
+    //         }
+    //     }
 
-        return $valid_formulations;
+    //     return $valid_formulations;
 
-    }
+    // }
 
 }
 
