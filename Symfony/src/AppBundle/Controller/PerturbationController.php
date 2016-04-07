@@ -46,7 +46,7 @@ class PerturbationController extends StatutController {
 	public function listNearestAction($position, $radius){
 
 		//example
-		$position = "ST_GeomFromText('POINT(-72.1235 42.3521)',4326)";
+		/*$position = "ST_GeomFromText('POINT(-72.1235 42.3521)',4326)";
 
         $em = $this->getDoctrine()->getManager();
 
@@ -60,7 +60,7 @@ class PerturbationController extends StatutController {
                 'function' => 'listNearest',
                 'title'    => "Liste des perturbations",
             ));
-        }
+        }*/
 
         // For test purpose
 		$perturbations = array(

@@ -19,10 +19,10 @@ class TypePerturbationType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('name',         TextType::class,     array('label' => 'Nom'))
-            ->add('description',  TextareaType::class, array('label' => 'Description'))
-            //->add('typeLogoPath', FileType::class,     array('label' => 'Logo', 'required' => false))
-            ->add('save',         SubmitType::class,   array('label' => 'Sauver'))
+            ->add('name',            TextType::class,     array('label' => 'Nom'))
+            ->add('description',     TextareaType::class, array('label' => 'Description'))
+            ->add('logoPictureFile', FileType::class,     array('label' => 'Logo', 'required' => true))
+            ->add('save',            SubmitType::class,   array('label' => 'Sauver'))
             ->getForm();
     }
     
@@ -32,6 +32,7 @@ class TypePerturbationType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
+            //'csrf_protection'   => false,
             'data_class' => 'AppBundle\Entity\TypePerturbation'
         ));
     }

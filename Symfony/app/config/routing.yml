@@ -1,9 +1,15 @@
 app:
     resource: "@AppBundle/Controller/"
     type:     annotation
+
 accueil:
     path:      /
     defaults:  { _controller: AppBundle:Perturbation:listNearest }
+
+logo_type_perturbation:
+    path:      /file/logo-type-perturbation/{id}
+    defaults:  { _controller: AppBundle:File:logoTypePerturbation }
+
 #app_routing:
 #    resource: "@AppBundle/Resources/config/routing.yml"
 #    type:     yml
