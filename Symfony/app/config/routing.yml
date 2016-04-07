@@ -7,3 +7,8 @@ accueil:
 #app_routing:
 #    resource: "@AppBundle/Resources/config/routing.yml"
 #    type:     yml
+login:
+    path: /login 
+    defaults:  { _controller: AppBundle:User:login }
+accueil:
+    path: /

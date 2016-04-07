@@ -27,8 +27,6 @@ class ParticulierType extends AbstractType
             ->add('save', SubmitType::class, array('label' => 'sauver'))
             ->getForm();
            # ->add('save', 'submit', array('label' => 'Sauver'))
-            
-        
     }
     
     /**
