@@ -39,9 +39,12 @@ class PerturbationController extends StatutController {
     }
 
 	/**
-    * @Route("/perturbation/list/nearest/{rayon}", name="perturbation_list_nearest")
+    * @Route("/perturbation/list/nearest/{position}/{radius}", name="perturbation_list_nearest", defaults={
+    *     "position": false,
+    *     "radius": 1000
+    * })
     */
-	public function listNearestAction($rayon = 1000){
+	public function listNearestAction($position, $radius){
 
 		//example
 		$position = "ST_GeomFromText('POINT(-72.1235 42.3521)',4326)";
@@ -51,25 +54,16 @@ class PerturbationController extends StatutController {
         $repository = $em->getRepository('AppBundle:Formulation');
 
         $perturbations = $repository->findNearest($position, $rayon);
-/*
-        $qb = $this->createQueryBuilder('a');
-		
-  		$qb->where('ST_DISTANCE('.a.center', '.$position.') < :rayon')
-  		     ->setParameter('rayon', $rayon)
-  		   ->where('a.valid_formulation =: valid')
-  		     ->setParameter('valid', true)
-  		   ->orderBy('a.date', 'DESC')
-  		   ->setMaxResults(100);
-		
-		$formulations = $qb->getQuery()->getResult();
-		$perturbations = array();
 
-    	foreach ($formulations as $formulation) {
+        // Bad position
+        if($position == false) {
+            return $this->render('AppBundle:Ajax:index.html.twig', array(
+                'function' => 'listNearest',
+                'title'    => "Liste des perturbations",
+            ));
+        }
 
-    		array_push($perturbations, $formulation->getPerturbation());
-			
-	    }
-*/	
+        // For test purpose
 		$perturbations = array(
             array(
                 'id' => 1,
@@ -79,7 +73,16 @@ class PerturbationController extends StatutController {
             )
 		);
 
-		return $this->render('AppBundle:Perturbation:listNearest.html.twig', array('perturbations' => $perturbations));
+        // Generating from template
+        $template = $this->container->get('templating')->render(
+            'AppBundle:Perturbation:listNearest.html.twig', array('perturbations' => $perturbations));
+
+        $response = new Response(json_encode(array(
+            'title'   => "Liste des perturbations",
+            'content' => $template,
+        )));
+        $response->headers->set('Content-Type', 'application/json');
+		return $response;
 
 	}
 
