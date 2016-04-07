@@ -5,7 +5,7 @@ var positionWatchID = false;
 
 function coordinatesToWKT(coords) {
     if('latitude' in coords && 'longitude' in coords) {
-	return "POINT(" + coords.longitude + " , " + coords.latitude + ")";
+	return "POINT(" + coords.longitude + " " + coords.latitude + ")";
     } else {
 	console.error("Bad conversion from coordinate object.");
 	return false;
@@ -21,7 +21,7 @@ function locationError(error) {
 
     /* Development on a machine without capabilities: simulate success */
     //$('#ajax_loader').load("erreur");
-    listNearest({ coords: { latitude: 66, longitude: 3 },});
+    listNearest({ coords: { latitude: 42.3521, longitude: -72.1235 },});
     navigator.geolocation.clearWatch(positionWatchID);
     /* End of development portion */
 }
