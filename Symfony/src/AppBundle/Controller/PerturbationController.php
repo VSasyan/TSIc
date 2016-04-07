@@ -12,7 +12,7 @@ class PerturbationController extends StatutController {
 
 
     /**
-    * @Route("/perturbation/list/all", name="perturbation_index")
+    * @Route("/perturbation/list", name="perturbation_index")
     */  
     public function indexAction(){
         return $this->render('AppBundle:Perturbations:index.html.twig');
@@ -40,7 +40,6 @@ class PerturbationController extends StatutController {
 
 	/**
     * @Route("/perturbation/list/nearest/{position}/{radius}", name="perturbation_list_nearest", defaults={
-    *     "position": false,
     *     "radius": 1000
     * })
     */
