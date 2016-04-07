@@ -46,6 +46,15 @@ class PerturbationController extends StatutController {
     */
 	public function listNearestAction($position, $radius){
 
+		//example
+		$position = "ST_GeomFromText('POINT(-72.1235 42.3521)',4326)";
+
+        $em = $this->getDoctrine()->getManager();
+
+        $repository = $em->getRepository('AppBundle:Formulation');
+
+        $perturbations = $repository->findNearest($position, $rayon);
+
         // Bad position
         if($position == false) {
             return $this->render('AppBundle:Ajax:index.html.twig', array(
@@ -53,15 +62,6 @@ class PerturbationController extends StatutController {
                 'title'    => "Liste des perturbations",
             ));
         }
-
-		//example
-		/*$position = "ST_GeomFromText(". $position .",4326)";
-
-        $em = $this->getDoctrine()->getManager();
-
-        $repository = $em->getRepository('AppBundle:Formulation');
-
-        $perturbations = $repository->findNearest($position, $radius);*/
 
 
         // For test purpose
