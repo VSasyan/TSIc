@@ -5,10 +5,10 @@ var positionWatchID = false;
 
 function coordinatesToWKT(coords) {
     if('latitude' in coords && 'longitude' in coords) {
-	return "POINT(" + coords.longitude + " " + coords.latitude + ")";
+  return "POINT(" + coords.longitude + " " + coords.latitude + ")";
     } else {
-	console.error("Bad conversion from coordinate object.");
-	return false;
+  console.error("Bad conversion from coordinate object.");
+  return false;
     }
 }
 
@@ -27,17 +27,17 @@ function locationError(error) {
 
 function geolocation(callback) {
     if ("geolocation" in navigator) {
-	/* geolocation is available */
-	var options = {
-	    enableHighAccuracy : true,
-	    timeout : 60000, // 1 minute
-	    maximumAge : 60000 // 1 minute
-	};
-	positionWatchID = navigator.geolocation.watchPosition(callback, locationError, options);
-	return true;
+  /* geolocation is available */
+  var options = {
+      enableHighAccuracy : true,
+      timeout : 60000, // 1 minute
+      maximumAge : 60000 // 1 minute
+  };
+  positionWatchID = navigator.geolocation.watchPosition(callback, locationError, options);
+  return true;
     } else {
-	/* geolocation IS NOT available */
-	return false;
+  /* geolocation IS NOT available */
+  return false;
     }
 }
 

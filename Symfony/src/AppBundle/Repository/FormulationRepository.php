@@ -18,10 +18,12 @@ class FormulationRepository extends \Doctrine\ORM\EntityRepository
 		
   		$qb->where('ST_DISTANCE(a.center, '.$position.') < :rayon')
   		     ->setParameter('rayon', $rayon)
-  		   ->where('a.valid_formulation =: valid')
+  		   ->andwhere('a.valid_formulation = :valid')
   		     ->setParameter('valid', true)
-  		   ->orderBy('a.date', 'DESC')
+  		   //->orderBy('a.creation_date', 'DESC')
   		   ->setMaxResults(100);
+
+  		//echo $qb->getQuery()->getResult();
 		
 		$formulations = $qb->getQuery()->getResult();
 		$perturbations = array();
