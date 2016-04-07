@@ -1,5 +1,6 @@
 document.addEventListener("DOMContentLoaded", function() {
 	$(document).ready(function() {
-		initMap();
+	    initMap();
+	    geolocation(setLocation);
 	});
 });

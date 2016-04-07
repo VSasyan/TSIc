@@ -2,6 +2,7 @@
 
 var position = false; // type Coordinate
 var positionWatchID = false;
+var marker = false;
 
 function coordinatesToWKT(coords) {
     if('latitude' in coords && 'longitude' in coords) {
