@@ -30,7 +30,7 @@
 
 	    <div class="elements formulations first">
 		{% for f in perturbation.formulations %} <!-- Inverser -->
-		    <div class="element" data-name="{{ f.name }}" data-center="{{ f.center }}" data-logo="{{ f.type.logo }}">
+		    <div class="element" data-name="{{ f.name }}" data-center="{{ f.center }}" data-logo="{{ f.type.id }}">
 
 			<h1><span class="perturbation-name">{{ f.name }}</span> :
 			    <span class="perturbation-type" title="{{ f.type.description }}">{{ f.type.name }}</span></h1>

@@ -1,29 +1,10 @@
-{# <div class="parent">
+<div class="parent">
     <div id="map" class="child"></div>
 
     <div id="list" class="child">
 	{% for p in perturbations %}
-	    <div class="element" data-id="{{ p.id }}" data-name="{{ p.GetFormulations[0].name }}" data-center="{{ p.GetFormulations[0].center }}">
+	    <div class="element" data-id="{{ p.id }}" data-name="{{ p.name }}" data-center="{{ p.center }}">
 		<a href="{{ path("perturbation_show", { id: p.id }) }}">
-		    <p>{{ p.GetFormulations[0].name }}</p>
-		</a>
-		<span class="button validate"  data-path="{{ path("perturbation_vote", { id_perturbation: p.id, id_message: 3}) }}" title="Confirmer la perturbation"></span>
-		<span class="button inhibate"  data-path="{{ path("perturbation_vote", { id_perturbation: p.id, id_message: 1}) }}" title="Annuler la perturbation"></span>
-		<span class="button terminate" data-path="{{ path("perturbation_vote", { id_perturbation: p.id, id_message: 2}) }}" title="La perturbation est terminée."></span>
-	    </div>
-	{% endfor %}
-    </div>
-</div>
- #}
-
- <div class="parent">
-    <div id="map" class="child"></div>
-
-    <div id="list" class="child">
-	{% for p in perturbations %}
-	    <div class="element" data-id="{{ p.id }}" data-name="{{ p.name }}" data-center="{{ p.center }}" data-logo="{{ p.type.logo }}">
-		<a href="{{ path("perturbation_show", { id: p.id }) }}">
-		    <img alt="{{ p.type.logo }}"/>
 		    <p>{{ p.name }}</p>
 		</a>
 		<span class="button validate"  data-path="{{ path("perturbation_vote", { id_perturbation: p.id, id_message: 3}) }}" title="Confirmer la perturbation"></span>

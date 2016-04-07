@@ -27,20 +27,20 @@ class PerturbationController extends StatutController {
     */  
     public function listAllAction(){
 
-        $repository = $this->getDoctrine()->getManager()->getRepository('AppBundle:Perturbations');
+        $repository = $this->getDoctrine()->getManager()->getRepository('AppBundle:Perturbation');
         $perturbations = $repository->findAll();
 
-        if (!perturbations){
+        if (!$perturbations){
             throw $this->createNotFoundException(
                 'No perturbations '
             );
-
-            $formulations = returnLastFormulation($perturbations);
-
-
+        }
+        else
+        {
+        	$formulations = returnLastFormulation($perturbations);
         }
 
-		return $this->render('AppBundle:Perturbation:all.html.twig', $formulations); 
+		return $this->render('AppBundle:Perturbation:listAll.html.twig', $formulations); 
 
     }
 
@@ -69,6 +69,13 @@ class PerturbationController extends StatutController {
 
         $perturbations = $repository->findNearest($position, $radius);
         //$perturbations = array();
+        $virtualPerturbations = array();
+        foreach ($perturbations as $p) {
+        	$virtualPerturbation = $p->returnVirtualPerturbation();
+        	if ($virtualPerturbation != false) {
+        		$virtualPerturbations[] = $virtualPerturbation;
+        	}
+        }
         
 
   //       // For test purpose
@@ -81,21 +88,21 @@ class PerturbationController extends StatutController {
   //           )
 		// );
 
-		$formulations = returnLastFormulation($perturbations);
+		//$formulations = returnLastFormulation($perturbations);
 
         // For test purpose
-		$perturbations = array(
-            array(
-                'id' => 1,
-                'name' => 'Coucou',
-                'center' => 'center',
-                'type' => array('logo' => 'logo')
-            )
-		);
+		// $perturbations = array(
+  //           array(
+  //               'id' => 1,
+  //               'name' => 'Coucou',
+  //               'center' => 'center',
+  //               'type' => array('logo' => 'logo')
+  //           )
+		// );
 
         // Generating from template
         $template = $this->container->get('templating')->render(
-            'AppBundle:Perturbation:listNearest.html.twig', array('perturbations' => $formulations));
+            'AppBundle:Perturbation:listNearest.html.twig', array('perturbations' => $virtualPerturbations));
 
         $response = new Response(json_encode(array(
             'title'   => "Liste des perturbations",

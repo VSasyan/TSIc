@@ -250,4 +250,29 @@ class Perturbation
     {
         return $this->votes;
     }
+
+
+
+    //cette fonction récupère un tableau des plus proches perturbations et retourne les dernières formulations correspondant aux perturbations
+    public function returnVirtualPerturbation()
+    {
+        //tableau des résultats
+        $virtualPerturbation = array();
+            
+        $formulations = $this->getFormulations();
+        foreach ($formulations as $f) {
+           
+            if ($f->getValidFormulation()) {
+                $virtualPerturbation['id'] = $f->getId();
+                $virtualPerturbation['name'] = $f->getName();
+                $virtualPerturbation['type'] = $f->getType();
+                $virtualPerturbation['geoJSON'] = $f->getGeoJSON();
+                $virtualPerturbation['center'] = $f->getCenter();
+                return $virtualPerturbation;
+            }
+        }
+
+        return false;
+
+    }
 }
