@@ -27,11 +27,10 @@ class FormulationType extends AbstractType
                 'choice_label' => 'name',
             ))
             ->add('description', TextareaType::class, array('label' => 'Description'))
-            //->add('center')
-            ->add('geoJSON')
+            //->add('center', HiddenType::class)
+            //->add('geoJSON', HiddenType::class)
             ->add('beginDate', DateTimeType::class, array('label' => 'Début'))
             ->add('endDate', DateTimeType::class, array('label' => 'Fin estimée'))
-            //->add('type')
             ->add('save', SubmitType::class, array('label' => 'Sauver'))
             ->getForm();
     }

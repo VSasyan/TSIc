@@ -1,0 +1,25 @@
+{% extends 'AppBundle::base.html.twig' %}
+
+{% block title %}
+	{{ title }}
+{% endblock %}
+
+{% block stylesheets %}
+		<link href="{{ asset('less/addPerturbation.less') }}" rel="stylesheet/less" type="text/css" />
+{% endblock %}
+
+{% block javascripts %}
+	<script src="{{ asset('js/init_add_perturbation.js') }}"></script>
+{% endblock %}
+
+{% block body %}
+
+	<div>
+		<h2>{{ title }}</h2>
+		{{ form_start(form) }}
+			<div id="map" class="float right"></div>
+			<div>
+		{{ form_end(form) }}
+	</div>
+
+{% endblock %}
