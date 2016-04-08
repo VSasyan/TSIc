@@ -10,8 +10,15 @@
 {% block javascripts %}
 {% endblock %}
 
+{% block titleblock %}	
+	<h1>Login</h1>
+{% endblock %}
+
 {% block body %}
 
-    {{ form (form) }}
+	{{ form_start(form) }}
+		<h3>Connectez-vous pour participer !</h3>
+		{{ form_widget(form) }}
+	{{ form_end(form) }}
 
 {% endblock %}

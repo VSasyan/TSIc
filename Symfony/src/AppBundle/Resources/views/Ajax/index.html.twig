@@ -16,6 +16,10 @@
     <script src="{{ asset('js/map.js') }}"></script>
 {% endblock %}
 
+{% block titleblock %}	
+	<h1>{{ title }}</h1>
+{% endblock %}
+
 {% block body %}
 
     <div id="ajax_loader" data-function="{{ function }}">
