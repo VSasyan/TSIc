@@ -28,7 +28,8 @@ function setMarqueur() {
 		marqueur.setLatLng(position);
 	}
 	// On met à jour le champs :
-	$('#formulation_center').val("POINT(" + position.lng + " " + position.lat + ")");
+	$('#formulation_center').val("SRID=4326;POINT(" + position.lng + " " + position.lat + ")");
+	$('#formulation_geoJSON').val("POINT(" + position.lng + " " + position.lat + ")");
 }
 
 function coordinatesToWKT(coords) {

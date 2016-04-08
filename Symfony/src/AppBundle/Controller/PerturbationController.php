@@ -129,8 +129,9 @@ class PerturbationController extends StatutController {
 
         if ($form->handleRequest($request)->isValid()) {
             $em = $this->getDoctrine()->getManager();
+            //$formulation->setCenter(\ST_GeomFromText($formulation->getCenter(),4326));
             //$formulation->setCenter(\ST_GeomFromText('POINT(-72.1235 42.3521)',4326));
-            $formulation->setCenter('SRID=4326;POINT(37.4220761 -122.0845187)');
+            //$formulation->setCenter('SRID=4326;POINT(37.4220761 -122.0845187)');
             $formulation->setCreationDate(new \DateTime);
             $formulation->setValidFormulation(true);
             //"ST_GeomFromText('POINT(-72.1235 42.3521)',4326)"

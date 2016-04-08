@@ -28,7 +28,7 @@ class FormulationType extends AbstractType
             ))
             ->add('description', TextareaType::class, array('label' => 'Description'))
             ->add('center', HiddenType::class)
-            //->add('geoJSON', HiddenType::class)
+            ->add('geoJSON', HiddenType::class)
             ->add('beginDate', DateTimeType::class, array('label' => 'Début'))
             ->add('endDate', DateTimeType::class, array('label' => 'Fin estimée'))
             ->add('save', SubmitType::class, array('label' => 'Sauver'))
