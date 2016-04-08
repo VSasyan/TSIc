@@ -1,5 +1,6 @@
 // Functions
 function getPage(route, after) {
+	var after = after || false;
 	return $.get(route, function(data, status) {
 		document.title = data.title;
 		$('#ajax_loader').html(data.content);
