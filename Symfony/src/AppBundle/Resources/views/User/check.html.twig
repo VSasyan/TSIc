@@ -1,0 +1,28 @@
+{% extends 'AppBundle::base.html.twig' %}
+
+{% block title %}
+	User
+{% endblock %}
+
+{% block stylesheets %}
+{% endblock %}
+
+{% block javascripts %}
+{% endblock %}
+
+{% block titleblock %}	
+	<h1>User</h1>
+{% endblock %}
+
+{% block body %}
+
+	<p>{{ user.username }}</p>
+	<p>{{ admin }}</p>
+	<p>{{ pro }}</p>
+	<h4>Roles</h4>
+	{% for r in user.getRoles %}
+		<p>{{ r }}</p>
+	{% endfor %}
+
+
+{% endblock %}

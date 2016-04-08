@@ -12,81 +12,83 @@ use AppBundle\Form\UserType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
+use Symfony\Component\Security\Http\Event\InteractiveLoginEvent;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 
 
 class UserController extends StatutController {
 
-    /**
-     * @Route("/register", name="user_registration")
-     */
-    public function registerAction(Request $request)
-    {
-        // 
-        $user = new Particulier();
-        $form = $this->createForm(ParticulierType::class, $user);
+	/**
+	 * @Route("/register", name="register")
+	 */
+	public function registerAction(Request $request)
+	{
+		// 
+		$user = new Particulier();
+		$form = $this->createForm(ParticulierType::class, $user);
 
-        // 
-        $form->handleRequest($request);
-        if ($form->isSubmitted() && $form->isValid()) {
+		// 
+		$form->handleRequest($request);
+		if ($form->isSubmitted() && $form->isValid()) {
 
-            // 
-            $password = $this->get('security.password_encoder')
-                ->encodePassword($user, $user->getPassword());
-            $user->setPassword($password);
+			// 
+			$password = $this->get('security.password_encoder')
+				->encodePassword($user, $user->getPassword());
+			$user->setPassword($password);
 
-            // 
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($user);
-            $em->flush();
+			// 
+			$em = $this->getDoctrine()->getManager();
+			$em->persist($user);
+			$em->flush();
 
-            return $this->redirectToRoute('login');
-        }
+			return $this->redirectToRoute('login');
+		}
 
-        return $this->render(
-            'AppBundle:User:register.html.twig',
-            array('form' => $form->createView())
-        );
-    }
+		return $this->render(
+			'AppBundle:User:register.html.twig',
+			array('form' => $form->createView())
+		);
+	}
 
     /**
      * @Route("/login", name="login")
      */
     public function loginAction(Request $request)
     {
-        if($this->isAuth()){
-            return $this->redirectToRoute('accueil');
-        }
+        $session = $request->getSession();
 
-        $user = new Particulier();
-        $form = $this->createForm(LoginType::class, $user);
+        $helper = $this->get('security.authentication_utils');
 
-        $form->handleRequest($request);
-        if ($form->isSubmitted() && $form->isValid()) {
-            $em = $this->getDoctrine();
-            $repo  = $em->getRepository("AppBundle:Particulier");
+        /*if ($request->attributes->has($helper->getLastAuthenticationError())) {
+            $error = $request->attributes->get($helper->getLastAuthenticationError());
+        } else {
+            $error = $session->get($helper->getLastAuthenticationError());
+            $session->remove($helper->getLastAuthenticationError());
+        }*/
 
-            $user_base = $repo->loadUserByUsername($user->getUsername());
-
-            if($user_base != null){
-                $EncodedPassword = $user_base->getPassword();
-                $password = password_verify($user->getPassword(), $EncodedPassword);
-
-                if($password == true){
-                    $token = new UsernamePasswordToken($user_base, null, 'our_provider', $user_base->getRoles());
-                    $this->get("security.token_storage")->setToken($token); 
-                    $this->get('session')->set('_security_secured_area', serialize($token));
-                    //$this->get("security.context")->isGranted('IS_AUTHENTICATED_REMEMBERED');
-                    return $this->redirectToRoute('accueil');
-                     
-                }
-            }
-            $request->getSession()->getFlashBag()->add('error', 'incorrect identification');
-        }
-
-        return $this->render(
-            'AppBundle:User:login.html.twig',
-            array('form' => $form->createView())
+        return $this->render('AppBundle:User:login.html.twig', array(
+                'last_username' => $helper->getLastUsername(),
+                'error'         => $helper->getLastAuthenticationError(),
+            )
         );
+    }
+
+    /**
+    * @Method({"POST"})
+    * @Route("/login_check", name="login_check")
+    */
+    public function check()
+    {
+        throw new \RuntimeException('You must configure the check path to be handled by the firewall using form_login in your security firewall configuration.');
+    }
+
+    /**
+    * @Method({"GET"})
+    * @Route("/logout", name="logout")
+    */
+    public function logout()
+    {
+        throw new \RuntimeException('You must activate the logout in your security firewall configuration.');
     }
 
 
@@ -95,8 +97,8 @@ class UserController extends StatutController {
 	 *
 	 * return information about the given user
 	 *
-     * @Route("/user/show/{id}", name="user_show")
-     */
+	 * @Route("/user/show/{id}", name="user_show")
+	 */
 	public function showUserAction($id){
 
 		$repository = $this->getDoctrine()->getManager()->getRepository('AppBundle:Particulier');
@@ -114,8 +116,8 @@ class UserController extends StatutController {
 	}
 
 	/**
-    * @Route("/user/list", name="user_list")
-    */
+	* @Route("/user/list", name="user_list")
+	*/
 	public function listUsersAction(){
 
 		$repository = $this->getDoctrine()->getManager()->getRepository('AppBundle:Particulier');
@@ -123,8 +125,8 @@ class UserController extends StatutController {
 
 		if (!users){
 			throw $this->createNotFoundException(
-        	    'No product found for id '
-        	);
+				'No product found for id '
+			);
 
 		}
 
@@ -132,12 +134,29 @@ class UserController extends StatutController {
 
 	}
 
+	/**
+	* @Route("/check", name="check")
+	*/
+	public function checkUsersAction(){
+
+		$user = $this->getCurrentUser();
+
+		//print_r($user);
+
+		return $this->render('AppBundle:User:check.html.twig', array(
+            'user' => $user,
+            'admin' => ($this->isAdmin() ? 'admin' : 'pas_admin'),
+            'pro' => ($this->isPro() ? 'pro' : 'pas_pro'),
+        )); 
+
+	}
+
 	/*
-    * @Route("/user/upgrade/{id_user}/{id_status}", name="user_upgrade")
+	* @Route("/user/upgrade/{id_user}/{id_status}", name="user_upgrade")
 	*/
 	public function upgradeUserAction($id_user, $id_status){
-        
-        return new Response('<html><body>upgradeUserAction!</body></html>');        
+		
+		return new Response('<html><body>upgradeUserAction!</body></html>');		
 	}
 
 }

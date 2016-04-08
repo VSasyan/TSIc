@@ -31,9 +31,9 @@ class Professionnel
     /**
      * @var string
      *
-     * @ORM\Column(name="poste", type="string", length=255)
+     * @ORM\Column(name="post", type="string", length=255)
      */
-    private $poste;
+    private $post;
 
 
     /**
@@ -71,26 +71,26 @@ class Professionnel
     }
 
     /**
-     * Set poste
+     * Set post
      *
-     * @param string $poste
+     * @param string $post
      *
      * @return Professionnel
      */
-    public function setPoste($poste)
+    public function setPost($post)
     {
-        $this->poste = $poste;
+        $this->post = $post;
 
         return $this;
     }
 
     /**
-     * Get poste
+     * Get post
      *
      * @return string
      */
-    public function getPoste()
+    public function getPost()
     {
-        return $this->poste;
+        return $this->post;
     }
 }

@@ -44,7 +44,7 @@ class StatutController extends Controller
 	public function isProfessionnel() {
 		$user = $this->getCurrentUser();
 		if ($this->isAuth() && $user != null) {
-			if ($user->getProfessionnel() != null) {
+			if ($user->getProfessionnal() != null) {
 				{return true;}
 			}
 		}
@@ -59,7 +59,7 @@ class StatutController extends Controller
 	public function isPro() {
 		$user = $this->getCurrentUser();
 		if ($this->isAuth() && $user != null) {
-			if ($user->getClient() != null) {
+			if ($user->getProfessionnal() != null) {
 				{return true;}
 			}
 		}

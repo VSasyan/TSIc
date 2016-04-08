@@ -16,9 +16,31 @@
 
 {% block body %}
 
-	{{ form_start(form) }}
+	<form action="{{ path("login_check", {}) }}" method="POST" >
+	
 		<h3>Connectez-vous pour participer !</h3>
-		{{ form_widget(form) }}
-	{{ form_end(form) }}
+
+		<div id="login">
+			<div class="form-group">
+				<label for="inputUsernameEmail">Utilisateur</label>
+				<input type="text" required="required" class="form-control" value="{{ last_username }}" name="_username" id="username">
+			</div>
+
+			<div class="form-group">
+				<label for="inputPassword">Mot de passe</label>
+				<input type="password" class="form-control" name="_password" required="required" id="password">
+			</div>
+
+			<button type="submit" class="pull-right btn btn btn-primary">
+				Log In
+			</button>
+		</div>
+	</form>
+
+	<div>
+		<h3><a href="{{ path('register') }}">Pas encore inscrit ?</a></h3>
+	</div>
 
 {% endblock %}
+
+

@@ -16,6 +16,8 @@ h1 {
     color: #0078A8;
 }
 
+h1.left, h2.left, h3.left {text-align: left;}
+
 body > * {
     width: 100%;
     max-width: 1000px;

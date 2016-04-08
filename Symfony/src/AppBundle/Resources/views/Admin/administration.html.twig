@@ -1,0 +1,42 @@
+{% extends 'AppBundle::base.html.twig' %}
+
+{% block title %}
+	Outils d'administration
+{% endblock %}
+
+{% block stylesheets %}
+{% endblock %}
+
+{% block javascripts %}
+{% endblock %}
+
+{% block titleblock %}	
+	<h1>Outils d'administration</h1>
+{% endblock %}
+
+{% block body %}
+
+
+	<h2 class="left">Utilisateurs</h2>
+
+	<ul>
+		<li><a href="{{ path('user_list') }}">Liste des utilisateurs</a></li>
+	</ul>
+
+
+	<h2 class="left">Enumération</h2>
+
+	<h3 class="left">Type de perturbations</h3>
+	<ul>
+		<li><a href="{{ path('type_perturbation_list') }}">Liste des types de perturbations</a></li>
+		<li><a href="{{ path('type_perturbation_add') }}">Ajouter un type de perturbations</a></li>
+	</ul>
+
+	<h3 class="left">Type de messages</h3>
+	<ul>
+		<li><a href="{{ path('message_list') }}">Liste des messages</a></li>
+		<li><a href="{{ path('message_add') }}">Ajouter un message</a></li>
+	</ul>
+
+
+{% endblock %}
