@@ -14,7 +14,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 class VoteController extends StatutController {
 
 	/**
-    * @Route("/perturbation/vote/{id_perturbation}/{id_message}", name="perturbation_vote")
+    * @Route("/vote/{id_perturbation}/{id_message}", name="vote")
     */
 	public function voteAction(Request $request, $id_perturbation, $id_message){
 
