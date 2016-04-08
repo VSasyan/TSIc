@@ -11,14 +11,13 @@
 		<link href='https://fonts.googleapis.com/css?family=Roboto+Condensed' rel='stylesheet' type='text/css' />
 		<link href="{{ asset('less/typeStyle.less') }}" rel="stylesheet/less" type="text/css" />
 		<link href="{{ asset('css/map.css') }}" rel="stylesheet" />
-        <link href="http://cdn.leafletjs.com/leaflet-0.7.2/leaflet.css" rel="stylesheet" />
+		<link href="http://cdn.leafletjs.com/leaflet-0.7.2/leaflet.css" rel="stylesheet" />
 		<link href="{{ asset('css/base.css') }}" rel="stylesheet"  type="text/css"/>
 		<link href="{{ asset('less/typeStyle.less') }}" rel="stylesheet/less" type="text/css" />
 		<link href="{{ asset('less/messageStyle.less') }}" rel="stylesheet/less" type="text/css" />
 		{% block stylesheets %}{% endblock %}
 
-		<!--script src="http://cdn.leafletjs.com/leaflet-0.7.2/leaflet.js"></script-->
-		<script src="{{ asset('js/leaflet.js') }}"></script>
+		<script src="http://cdn.leafletjs.com/leaflet-0.7.2/leaflet.js"></script>
 		<script src="{{ asset('js/map.js') }}"></script>
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
 		<script src="//cdnjs.cloudflare.com/ajax/libs/less.js/2.5.3/less.min.js"></script>
@@ -29,12 +28,12 @@
 	</head>
 
 	<body>
-	    <nav>
-		<a href="{{ path('accueil') }}">Perturbations</a>
-		<a href="{{ path('perturbation_add') }}">Ajouter perturbation</a>
-		<a href="{{ path('login') }}">Login</a>
-		<a href="{{ path('perturbation_list_all') }}">Liste perturbations</a>
-	    </nav>
+		<nav>
+			<a href="{{ path('accueil') }}">Perturbations</a>
+			<a href="{{ path('perturbation_add') }}">Ajouter perturbation</a>
+			<a href="{{ path('login') }}">Login</a>
+			<a href="{{ path('perturbation_list_all') }}">Liste perturbations</a>
+		</nav>
 
 		{% for type, messages in app.session.flashBag.all %}
 			{% for message in messages %}
@@ -47,7 +46,7 @@
 		{% block titleblock %}{% endblock %}
 
 		<section>
-		{% block body %}{% endblock %}
+			{% block body %}{% endblock %}
 		</section>
 
 	</body>

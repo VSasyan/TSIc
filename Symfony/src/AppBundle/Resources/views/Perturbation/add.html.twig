@@ -5,10 +5,11 @@
 {% endblock %}
 
 {% block stylesheets %}
-		<link href="{{ asset('less/addPerturbation.less') }}" rel="stylesheet/less" type="text/css" />
+	<link href="{{ asset('less/addPerturbation.less') }}" rel="stylesheet/less" type="text/css" />
 {% endblock %}
 
 {% block javascripts %}
+	<script src="{{ asset('js/init_geoloc.js') }}"></script>
 	<script src="{{ asset('js/init_add_perturbation.js') }}"></script>
 {% endblock %}
 
@@ -21,21 +22,21 @@
 
 	<div>
 		{{ form_start(form) }}
-			<h3>Détails de la perturbation</h3>
-			<div>
+		<h3>Détails de la perturbation</h3>
+		<div>
 			{{ form_errors(form) }}
 			{{ form_row(form.name) }}
 			{{ form_row(form.type) }}
 			{{ form_row(form.description) }}
-			</div>
+		</div>
+		<div>
 			<div>
-				<div>
-					<label class="required" for="formulation_center">Position</label>
-					<div id="map" class="float right"></div>
-					{{ form_row(form.center) }}
-				</div>
+				<label class="required" for="formulation_center">Position</label>
+				<div id="map" class="float right"></div>
+				{{ form_row(form.center) }}
 			</div>
-			{{ form_widget(form) }}
+		</div>
+		{{ form_widget(form) }}
 		{{ form_end(form) }}
 	</div>
 
