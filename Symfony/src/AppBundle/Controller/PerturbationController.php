@@ -152,7 +152,7 @@ class PerturbationController extends StatutController {
         }
 
         // Gestion date
-        return $this->render('AppBundle:Perturbation:add.html.twig', array('form' => $form->createView());
+        return $this->render('AppBundle:Perturbation:add.html.twig', array('form' => $form->createView()));
 	}
 
 	/**
