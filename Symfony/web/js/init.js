@@ -15,3 +15,4 @@ document.addEventListener("DOMContentLoaded", function() {
 });
 
 var HTML_AJAX_LOADING = '<div class="ajax loading" />';
+var HTML_AJAX_LOADING_BIG = '<div class="ajax loading big" />';

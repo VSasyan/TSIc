@@ -56,3 +56,19 @@ section {
     padding: 20px;
     background-color: #FFF;
 }
+
+.ajax.loading {
+    background-image: url('loading.gif');
+    background-size: 20px 20px;
+    background-repeat: no-repeat;
+    background-position: center;
+    display: block;
+    width: 20px;
+    height: 20px;
+}
+
+.ajax.loading.big {
+    background-size: 80px 80px;
+    width: 80px;
+    height: 80px;
+}
