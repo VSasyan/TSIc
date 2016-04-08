@@ -17,8 +17,10 @@
 
 {% block body %}
 
-    <div class="parent">
-	<div id="map" class="child"></div>
+<div class="parent">
+	<div class="child">
+    	<div id="map"></div>
+    </div>
 	<div id="show" class="child" data-id="{{ perturbation.id }}" data-date="{{ perturbation.creationDate|date('Y-m-d') }}">
 
 	    <p>Perturbation créée le {{ perturbation.creationDate|date('Y-m-d') }}.
@@ -48,6 +50,6 @@
 		<button id="first">Masquer</button>
 	    </div>
 	</div>
-    </div>
+</div>
 
 {% endblock %}

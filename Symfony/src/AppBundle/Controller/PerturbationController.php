@@ -125,12 +125,19 @@ class PerturbationController extends StatutController {
 	public function addAction(Request $request){
 
 		$formulation = new Formulation();
+        // Gestion date dans le formulaire
+        $formulation->setBeginDate(new \DateTime());
+        $end = new \DateTime();
+        $end->add(new \DateInterval ("PT2H"));
+        $formulation->setEndDate($end);
+        
         $form = $this->createForm(FormulationType::class, $formulation);
 
         if ($form->handleRequest($request)->isValid()) {
             $em = $this->getDoctrine()->getManager();
+            //$formulation->setCenter(\ST_GeomFromText($formulation->getCenter(),4326));
             //$formulation->setCenter(\ST_GeomFromText('POINT(-72.1235 42.3521)',4326));
-            $formulation->setCenter('SRID=4326;POINT(37.4220761 -122.0845187)');
+            //$formulation->setCenter('SRID=4326;POINT(37.4220761 -122.0845187)');
             $formulation->setCreationDate(new \DateTime);
             $formulation->setValidFormulation(true);
             //"ST_GeomFromText('POINT(-72.1235 42.3521)',4326)"
@@ -148,7 +155,8 @@ class PerturbationController extends StatutController {
 
             return $this->redirect($this->generateUrl('perturbation_show', array('id' => $perturbation->getId())));
         }
-        return $this->render('AppBundle:Perturbation:add.html.twig', array('form' => $form->createView(), 'title' => ''));
+
+        return $this->render('AppBundle:Perturbation:add.html.twig', array('form' => $form->createView()));
 	}
 
 	/**
