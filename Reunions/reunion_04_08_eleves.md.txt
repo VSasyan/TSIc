@@ -1,0 +1,37 @@
+Date : 
+======
+
+Le 8 Avril 2016
+
+À faire :
+=========
+
+Les Contrôleurs : 
+-----------------
+
+* Perturabations : add, edit (as professional), list all
+* Vote : à définir
+* User : list (noms ?), show, logout (status)
+
+Configuration : 
+------------
+
+* Login securité yml
+
+Les Vues : 
+----------
+
+* Perturbations : list all, list nearest
+* User : list, show
+
+Javascript :
+------------
+
+* Ajouter événement vote
+* Ajouter icône list nearest
+
+Tests Unitaires :
+-----------------
+
+* Entités
+* Contrôleurs 
