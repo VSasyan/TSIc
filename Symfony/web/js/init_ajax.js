@@ -8,12 +8,21 @@ function getPage(route, after) {
 }
 
 
+var marker = false;
 function listNearest(pos) {
 	getPage(
 		Routing.generate("perturbation_list_nearest", { position : coordinatesToWKT(pos.coords), radius : 1000 })
 	);
-	navigator.geolocation.clearWatch(positionWatchID);
-	positionWatchID = false;
+
+	var position = {lat : pos.coords.latitude, lng : pos.coords.longitude};
+	map.setView(position, 13, {animate:true});
+	marker = L.marker(position).addTo(map);
+	endLocation();
+
+	geolocation(function(pos) {
+		var position = {lat : pos.coords.latitude, lng : pos.coords.longitude};
+		marker.setLatLng(position);
+	});
 }
 
 var functions = {
