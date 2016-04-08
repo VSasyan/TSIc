@@ -1,0 +1,26 @@
+{% extends 'AppBundle::base.html.twig' %}
+
+{% block title %}
+	list-user
+{% endblock %}
+
+{% block stylesheets %}
+{% endblock %}
+
+{% block javascripts %}
+{% endblock %}
+
+{% block body %}
+
+	<div>
+		<h2>list-user</h2>
+		<div class="allusers">
+			{% for user in users %}
+				<div class="user admin professionnel">
+					<a href="{{ path('user_show', {id : user.id}) }}">{{ user.name }} {{ user.last_name }}</a>
+				</div>
+			{% endfor %}
+		</div>
+	</div>
+
+{% endblock %}
