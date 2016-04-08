@@ -125,7 +125,12 @@ class PerturbationController extends StatutController {
 	public function addAction(Request $request){
 
 		$formulation = new Formulation();
-        // Gestion date
+        // Gestion date dans le formulaire
+        $formulation->setBeginDate(new \DateTime());
+        $end = new \DateTime();
+        $end->add(new \DateInterval ("PT2H"));
+        $formulation->setEndDate($end);
+        
         $form = $this->createForm(FormulationType::class, $formulation);
 
         if ($form->handleRequest($request)->isValid()) {
@@ -151,7 +156,6 @@ class PerturbationController extends StatutController {
             return $this->redirect($this->generateUrl('perturbation_show', array('id' => $perturbation->getId())));
         }
 
-        // Gestion date
         return $this->render('AppBundle:Perturbation:add.html.twig', array('form' => $form->createView()));
 	}
 
