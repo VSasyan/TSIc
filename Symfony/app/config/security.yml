@@ -6,22 +6,23 @@ security:
         AppBundle\Entity\Particulier:
             algorithm: bcrypt
 
-    # http://symfony.com/doc/current/book/security.html#where-do-users-come-from-user-providers
     providers:
          our_db_provider:
             entity:
                 class: AppBundle:Particulier
-                #property: username,email
 
     firewalls:
-        register:
-            pattern:  ^/register$
+        dev:
+            pattern: ^/(_(profiler|wdt)|css|images|js)/
+            security: false
+
+        accueil:
+            pattern: ^/$
             anonymous: true 
-            http_basic: ~
             provider: our_db_provider
 
-        login: 
-            pattern: ^/login$
+        register:
+            pattern:  ^/(register|login|js)$
             anonymous: true 
             http_basic: ~
             provider: our_db_provider
@@ -30,9 +31,9 @@ security:
         #logout:
             #path : logout
 
-        main:
-            pattern:   /
-            anonymous: false
+        main:   
+            pattern:   ^/
+            anonymous: true
             http_basic: ~
             provider: our_db_provider
 

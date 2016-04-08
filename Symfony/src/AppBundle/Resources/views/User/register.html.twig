@@ -1,5 +1,24 @@
-{# app/Resources/views/User/register.html.twig #}
+{% extends 'AppBundle::base.html.twig' %}
 
-{{ form (form) }} 
+{% block title %}
+	Enregistrement
+{% endblock %}
 
-   
+{% block stylesheets %}
+{% endblock %}
+
+{% block javascripts %}
+{% endblock %}
+
+{% block titleblock %}	
+	<h1>Enregistrement</h1>
+{% endblock %}
+
+{% block body %}
+
+	{{ form_start(form) }}
+		<h3>Créez un compte pour participer !</h3>
+		{{ form_widget(form) }}
+	{{ form_end(form) }}
+
+{% endblock %}

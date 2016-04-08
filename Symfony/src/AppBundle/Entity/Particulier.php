@@ -4,11 +4,12 @@ namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\AdvancedUserInterface;
+
 /**
  * particulier
  *
  * @ORM\Table(name="particulier")
- * @ORM\Entity(repositoryClass="AppBundle\Repository\particulierRepository")
+ * @ORM\Entity(repositoryClass="AppBundle\Repository\ParticulierRepository")
  */
 class Particulier implements AdvancedUserInterface, \Serializable
 {

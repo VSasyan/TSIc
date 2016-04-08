@@ -1,0 +1,24 @@
+@import "constantes";
+
+.parent {
+	border-width: 3px;
+    border-color: black;
+    border-style: solid;
+	display : flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: nowrap;
+	margin: 0 auto;
+	
+
+	.child {
+		flex: 2 1 auto;
+		transition: width 0.7s ease-out;
+		min-width: 300px;
+	}
+}
+
+#show {
+	padding: 10px;
+}

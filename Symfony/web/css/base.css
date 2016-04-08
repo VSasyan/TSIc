@@ -1,0 +1,58 @@
+body, html {
+    background-color: #EEE;
+    padding: 0;
+    margin: 0;
+    font-family: 'Roboto';
+}
+
+h1, h2, h3 {
+    text-align: center;
+    font-family: 'Roboto Condensed'
+}
+
+h1 {
+    padding-bottom: 25px;
+    padding-top: 25px;
+    color: #0078A8;
+}
+
+body > * {
+    width: 100%;
+    max-width: 1000px;
+    margin: auto;
+}
+
+body > nav {
+    text-align: center;
+    padding-top: 15px;
+    padding-bottom: 15px;
+    background-color: #FFF;
+    max-width: none;
+    border-bottom: 1px solid #000;
+}
+
+body > nav > a {
+    display: inline-block;
+    text-decoration: none;
+    color: black;
+    padding: 1ex;
+    border: solid transparent 1px;
+    margin: 0px 1em;
+    transition: All 0.4s;
+}
+
+body > nav > a.current, body > nav > a:hover {
+    border-bottom: solid #0078A8 1px;
+    background-color: rgba(0, 120, 168, 0.10);
+}
+
+body > nav > a:hover {
+}
+
+section {
+    margin: auto;
+    max-width: 1000px;
+    width: 100%;
+    padding: 20px;
+    background-color: #FFF;
+}

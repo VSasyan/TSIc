@@ -88,7 +88,7 @@ class Formulation
 
     /**
     * @ORM\ManyToOne(targetEntity="Particulier", inversedBy="formulations")
-    * @ORM\JoinColumn(nullable=false)
+    * @ORM\JoinColumn(nullable=true)
     */
     private $particulier;
 
@@ -99,7 +99,7 @@ class Formulation
     private $perturbation;
 
     /**
-    * @ORM\OneToOne(targetEntity="TypePerturbation", cascade={"persist"})
+    * @ORM\ManyToOne(targetEntity="TypePerturbation", cascade={"persist"})
     * @ORM\JoinColumn(nullable=false)
     */
     private $type;
@@ -334,11 +334,11 @@ class Formulation
     /**
      * Set type
      *
-     * @param \AppBundle\Entity\Type $type
+     * @param \AppBundle\Entity\TypePerturbation $type
      *
      * @return Formulation
      */
-    public function setType(\AppBundle\Entity\Type $type)
+    public function setType(\AppBundle\Entity\TypePerturbation $type)
     {
         $this->type = $type;
 
@@ -348,7 +348,7 @@ class Formulation
     /**
      * Get type
      *
-     * @return \AppBundle\Entity\Type
+     * @return \AppBundle\Entity\TypePerturbation
      */
     public function getType()
     {
@@ -378,4 +378,8 @@ class Formulation
     {
         return $this->valid_formulation;
     }
+
 }
+
+
+
