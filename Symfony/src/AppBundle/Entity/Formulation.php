@@ -104,6 +104,13 @@ class Formulation
     */
     private $type;
 
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->creationDate = new \DateTime();
+    }
 
     /**
      * Get id
