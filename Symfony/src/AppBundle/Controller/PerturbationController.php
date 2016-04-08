@@ -159,46 +159,7 @@ class PerturbationController extends StatutController {
         return $this->render('AppBundle:Perturbation:add.html.twig', array('form' => $form->createView()));
 	}
 
-	/**
-    * @Route("/perturbation/vote/{id_perturbation}/{id_message}", name="perturbation_vote")
-    */
-	public function voteAction($id_perturbation, $id_message){
-
-		$em = $this->getDoctrine()->getManager();
-
-		$perturbation = $em->getRepository('AppBundle:Perturbation')->find($id_perturbation);
-
-		switch ($id_message) {
-		    case 1:
-		    	//perturbation incorrecte
-		    	$perturbation->setActivated(false);
-		    	$em->flush();
-		    	//on redirige vers la liste de toutes les perturbations 
-		    	return $this->redirect($this->generateUrl('perturbation_list_all'));
-		        break;
-		    case 2:
-		    	//l'événement a bien eu lieu mais est terminé
-		    	$perturbation->setActivated(false);
-		    	$perturbation->setValidated(true);
-		    	$em->flush();
-		    	//on redirige vers la route d'archivage
-		 		return $this->redirect($this->generateUrl('perturbation_archive', array('id' => $perturbation->getId())));   	
-		        break;
-		    case 3:
-		    	//validation, l'évènement a bien lieu
-		    	$perturbation->setActivated(true);
-		    	$perturbation->setValidated(true);
-		    	$em->flush();
-		    	//on redirige vers la liste de toutes les perturbations 
-		    	return $this->redirect($this->generateUrl('perturbation_list_all'));
-		        break;
-		    default:
-		    	//on redirige vers la liste de toutes les perturbations 
-		    	return $this->redirect($this->generateUrl('perturbation_list_all'));
-		        break;
-		}
 	
-	}
 
     /**
     * @Route("/perturbation/show/{id}", name="perturbation_show")

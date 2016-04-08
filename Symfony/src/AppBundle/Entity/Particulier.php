@@ -4,12 +4,11 @@ namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\AdvancedUserInterface;
-
 /**
  * particulier
  *
  * @ORM\Table(name="particulier")
- * @ORM\Entity(repositoryClass="AppBundle\Repository\ParticulierRepository")
+ * @ORM\Entity(repositoryClass="AppBundle\Repository\particulierRepository")
  */
 class Particulier implements AdvancedUserInterface, \Serializable
 {
@@ -107,8 +106,10 @@ class Particulier implements AdvancedUserInterface, \Serializable
     {
         $this->activated = true;
         $this->signinDate = new \DateTime();
+        $this->formulations = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->votes = new \Doctrine\Common\Collections\ArrayCollection();
         // may not be needed, see section on salt below
-        //$this->salt = md5(uniqid(null, true));
+        // $this->salt = md5(uniqid(null, true));
     }
 
     public function getSalt()
@@ -136,10 +137,7 @@ class Particulier implements AdvancedUserInterface, \Serializable
         return serialize(array(
             $this->id,
             $this->email,
-            $this->password,
-            $this->activated
-            // see section on salt below
-            // $this->salt,
+            $this->password
         ));
     }
 
@@ -149,11 +147,7 @@ class Particulier implements AdvancedUserInterface, \Serializable
         list (
             $this->id,
             $this->email,
-            $this->password,
-            $this->activated
-        
-            // see section on salt below
-            // $this->salt
+            $this->password
         ) = unserialize($serialized);
     }
     /**

@@ -12,7 +12,9 @@ security:
 
     providers:
         our_provider:
-            id: particulier.username
+            entity:
+                class: AppBundle:Particulier
+                property: username
 
     firewalls:
         dev:

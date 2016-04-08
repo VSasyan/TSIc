@@ -16,7 +16,7 @@ class VoteController extends StatutController {
 	/**
     * @Route("/perturbation/vote/{id_perturbation}/{id_message}", name="perturbation_vote")
     */
-	public function voteAction($Request $request, $id_perturbation, $id_message){
+	public function voteAction(Request $request, $id_perturbation, $id_message){
 
 		$em = $this->getDoctrine()->getManager();
 
