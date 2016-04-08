@@ -1,18 +1,13 @@
-<div class="parent">
-    <div class="child">
-    	<div id="map"></div>
-    </div>
-
-    <div id="list" class="child">
+<div id="list">
 	{% for p in perturbations %}
-	    <div class="element" data-id="{{ p.id }}" data-name="{{ p.name }}" data-center="{{ p.center }}">
-		<a href="{{ path("perturbation_show", { id: p.id }) }}">
-		    <p>{{ p.name }}</p>
-		</a>
-		<span class="button validate"  data-path="{{ path("vote", { id_perturbation: p.id, id_message: 3}) }}" title="Confirmer la perturbation"></span>
-		<span class="button inhibate"  data-path="{{ path("vote", { id_perturbation: p.id, id_message: 1}) }}" title="Annuler la perturbation"></span>
-		<span class="button terminate" data-path="{{ path("vote", { id_perturbation: p.id, id_message: 2}) }}" title="La perturbation est terminée."></span>
-	    </div>
+		<div class="element" data-id="{{ p.id }}" data-name="{{ p.name }}" data-center="{{ p.center }}">
+			<a href="{{ path("perturbation_show", { id: p.id }) }}">
+				<p>{{ p.name }}</p>
+			</a>
+			<span class="button validate"  data-path="{{ path("vote", { id_perturbation: p.id, id_message: 3}) }}" title="Confirmer la perturbation"></span>
+			<span class="button inhibate"  data-path="{{ path("vote", { id_perturbation: p.id, id_message: 1}) }}" title="Annuler la perturbation"></span>
+			<span class="button terminate" data-path="{{ path("vote", { id_perturbation: p.id, id_message: 2}) }}" title="La perturbation est terminée."></span>
+		</div>
 	{% endfor %}
-    </div>
 </div>
+
