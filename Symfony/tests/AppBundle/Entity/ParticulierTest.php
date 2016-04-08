@@ -7,6 +7,7 @@ use AppBundle\Entity\Particulier;
 use AppBundle\Entity\Admin;
 use AppBundle\Entity\Professionnel;
 use AppBundle\Entity\Formulation;
+use AppBundle\Entity\Vote;
 
 class ParticulierTest extends WebTestCase
 {
@@ -132,6 +133,38 @@ class ParticulierTest extends WebTestCase
 
     	$this->assertCount(1, $this->user->getFormulations(), 'Formulation not removed');
 
-    	$this->assertEquals($formulation1, $this->user->getFormulations()[0], 'Other rormulations are modified when one is deleted');
+    	$this->assertEquals($formulation1, $this->user->getFormulations()[0], 'Other formulations are modified when one is deleted');
+    }
+    public function testAddVote(){
+    	$vote1 = new Vote();
+    	$vote2 = new Vote();
+
+    	$this->assertTrue($this->user->getFormulations()->isEmpty(), 'Votes list is not empty when a Particulier is created');
+
+    	$this->user->addVote($vote1);
+
+    	$this->assertCount(1, $this->user->getVotes(), 'A vote is not added to attribute votes with addFormulation.');
+    	$this->assertEquals($vote1, $this->user->getVotes()[0], 'Formulation is modified when added');
+
+    	$this->user->addVote($vote2);
+
+    	$this->assertCount(2, $this->user->getVotes(), 'Failed to add a second vote with addVote');
+    	$this->assertEquals($vote2, $this->user->getVotes()[1], 'Vote is modified when added if it s not the first');
+    }
+    /**
+     * @depends testAddVote
+     */
+    public function testRemoveVote(){
+    	$vote1 = new Vote();
+    	$vote2 = new Vote();
+
+    	$this->user->addVote($vote1);
+    	$this->user->addVote($vote2);
+
+    	$this->user->removeVote($vote2);
+
+    	$this->assertCount(1, $this->user->getVotes(), 'Vote not removed');
+
+    	$this->assertEquals($vote1, $this->user->getVotes()[0], 'Other votes are modified when one is deleted');
     }
 }
