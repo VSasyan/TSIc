@@ -125,6 +125,7 @@ class PerturbationController extends StatutController {
 	public function addAction(Request $request){
 
 		$formulation = new Formulation();
+        // Gestion date
         $form = $this->createForm(FormulationType::class, $formulation);
 
         if ($form->handleRequest($request)->isValid()) {
@@ -149,7 +150,9 @@ class PerturbationController extends StatutController {
 
             return $this->redirect($this->generateUrl('perturbation_show', array('id' => $perturbation->getId())));
         }
-        return $this->render('AppBundle:Perturbation:add.html.twig', array('form' => $form->createView(), 'title' => ''));
+
+        // Gestion date
+        return $this->render('AppBundle:Perturbation:add.html.twig', array('form' => $form->createView());
 	}
 
 	/**
