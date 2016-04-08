@@ -1,11 +1,13 @@
 var marqueur = false;
 var position = false;
 var map = false;
+var positionCliquee = false;
 
 function getLocation(pos) {
-	position = {lat : pos.coords.latitude, lng : pos.coords.longitude};
-	map.setView(position, 13, {animate:true});
-	setMarqueur();
+	if (positionCliquee === false) {
+		position = {lat : pos.coords.latitude, lng : pos.coords.longitude};
+		setMarqueur();
+	}
 }
 
 document.addEventListener("DOMContentLoaded", function() {
@@ -13,6 +15,7 @@ document.addEventListener("DOMContentLoaded", function() {
 		initMap();
 		geolocation(getLocation);
 		map.on('click', function(e) {
+			positionCliquee = true;
 			position = e.latlng;
 			setMarqueur();
 		});
@@ -20,6 +23,7 @@ document.addEventListener("DOMContentLoaded", function() {
 });
 
 function setMarqueur() {
+	map.setView(position, 13, {animate:true});
 	if (marqueur === false) {
 		// On l'ajoute
 		marqueur = L.marker(position).addTo(map);
