@@ -10,7 +10,7 @@
 		<link href="{{ asset('less/typeStyle.less') }}" rel="stylesheet/less" type="text/css" />
 		<link href="{{ asset('css/map.css') }}" rel="stylesheet" />
         <link href="http://cdn.leafletjs.com/leaflet-0.7.2/leaflet.css" rel="stylesheet" />
-		<link href="{{ asset('base.css') }}" rel="stylesheet"  type="text/css"/>
+		<link href="{{ asset('css/base.css') }}" rel="stylesheet"  type="text/css"/>
 		<link href="{{ asset('less/typeStyle.less') }}" rel="stylesheet/less" type="text/css" />
 		<link href="{{ asset('less/messageStyle.less') }}" rel="stylesheet/less" type="text/css" />
 		{% block stylesheets %}{% endblock %}
@@ -43,7 +43,9 @@
 		{% endfor %}
 		
 
+		<section>
 		{% block body %}{% endblock %}
+		</section>
 
 	</body>
 
