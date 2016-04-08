@@ -30,9 +30,9 @@
 	    </p>
 
 	    <div>
-		<span class="button validate"  data-path="{{ path("perturbation_vote", { id_perturbation: perturbation.id, id_message: 3}) }}" title="Confirmer la perturbation">Confirmer</span>
-		<span class="button inhibate"  data-path="{{ path("perturbation_vote", { id_perturbation: perturbation.id, id_message: 1}) }}" title="Annuler la perturbation">Inhiber</span>
-		<span class="button terminate" data-path="{{ path("perturbation_vote", { id_perturbation: perturbation.id, id_message: 2}) }}" title="La perturbation est terminée.">Terminer</span>
+		<span class="button validate"  data-path="{{ path("vote", { id_perturbation: perturbation.id, id_message: 3}) }}" title="Confirmer la perturbation">Confirmer</span>
+		<span class="button inhibate"  data-path="{{ path("vote", { id_perturbation: perturbation.id, id_message: 1}) }}" title="Annuler la perturbation">Inhiber</span>
+		<span class="button terminate" data-path="{{ path("vote", { id_perturbation: perturbation.id, id_message: 2}) }}" title="La perturbation est terminée.">Terminer</span>
 	    </div>
 
 	    <div class="elements formulations first">
