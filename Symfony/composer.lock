@@ -934,16 +934,16 @@
         },
         {
             "name": "jsor/doctrine-postgis",
-            "version": "v1.0.0",
+            "version": "v1.1.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/jsor/doctrine-postgis.git",
-                "reference": "c895119ea4e65c51267743d685e96f5c2ba7afe8"
+                "reference": "25a6f87cba4ac0d643fde863bdbdfb2259ef89db"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/jsor/doctrine-postgis/zipball/c895119ea4e65c51267743d685e96f5c2ba7afe8",
-                "reference": "c895119ea4e65c51267743d685e96f5c2ba7afe8",
+                "url": "https://api.github.com/repos/jsor/doctrine-postgis/zipball/25a6f87cba4ac0d643fde863bdbdfb2259ef89db",
+                "reference": "25a6f87cba4ac0d643fde863bdbdfb2259ef89db",
                 "shasum": ""
             },
             "require": {
@@ -992,7 +992,7 @@
                 "postgis",
                 "spatial"
             ],
-            "time": "2015-08-11 19:23:24"
+            "time": "2016-04-08 07:06:30"
         },
         {
             "name": "monolog/monolog",

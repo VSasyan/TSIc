@@ -10,6 +10,7 @@ security:
          our_db_provider:
             entity:
                 class: AppBundle:Particulier
+                property: username
 
     firewalls:
         dev:

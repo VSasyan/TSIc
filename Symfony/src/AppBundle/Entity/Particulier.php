@@ -137,10 +137,7 @@ class Particulier implements AdvancedUserInterface, \Serializable
         return serialize(array(
             $this->id,
             $this->email,
-            $this->password,
-            $this->activated
-            // see section on salt below
-            // $this->salt,
+            $this->password
         ));
     }
 
@@ -150,11 +147,7 @@ class Particulier implements AdvancedUserInterface, \Serializable
         list (
             $this->id,
             $this->email,
-            $this->password,
-            $this->activated
-        
-            // see section on salt below
-            // $this->salt
+            $this->password
         ) = unserialize($serialized);
     }
     /**
