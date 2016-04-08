@@ -10,15 +10,17 @@ function getPage(route, after) {
 
 function listNearest(pos) {
 	getPage(
-		Routing.generate("perturbation_list_nearest", { position : coordinatesToWKT(pos.coords), radius : 1000 }),
-		function() { initMap(); }
+		Routing.generate("perturbation_list_nearest", { position : coordinatesToWKT(pos.coords), radius : 1000 })
 	);
 	navigator.geolocation.clearWatch(positionWatchID);
 	positionWatchID = false;
 }
 
 var functions = {
-	listNearest : function() { geolocation(listNearest); },
+	listNearest : function() {
+		initMap();
+		geolocation(listNearest);
+	},
 };
 
 document.addEventListener("DOMContentLoaded", function() {

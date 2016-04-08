@@ -18,7 +18,13 @@
 
 {% block body %}
 
-	<div id="ajax_loader" data-function="{{ function }}">
+	<div class="parent">
+		<div class="child">
+			<div id="map"></div>
+		</div>
+
+		<div id="ajax_loader" class="child" data-function="{{ function }}">
+		</div>
 	</div>
 
 {% endblock %}
