@@ -28,7 +28,7 @@ Javascript :
 ------------
 
 * Ajouter événement vote
-* Ajouter icône list nearest
+* Ajouter icône : list nearest
 
 Tests Unitaires :
 -----------------
