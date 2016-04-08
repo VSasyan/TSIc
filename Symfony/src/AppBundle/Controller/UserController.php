@@ -72,8 +72,9 @@ class UserController extends StatutController {
                 $password = password_verify($user->getPassword(), $EncodedPassword);
 
                 if($password == true){
-                    $token = new UsernamePasswordToken($user_base, null, 'login', $user_base->getRoles());
+                    $token = new UsernamePasswordToken($user_base, null, 'our_provider', $user_base->getRoles());
                     $this->get("security.token_storage")->setToken($token); 
+                    $this->get('session')->set('_security_secured_area', serialize($token));
                     //$this->get("security.context")->isGranted('IS_AUTHENTICATED_REMEMBERED');
                     return $this->redirectToRoute('accueil');
                      
