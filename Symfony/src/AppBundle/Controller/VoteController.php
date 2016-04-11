@@ -38,14 +38,14 @@ class VoteController extends StatutController {
 
 				if (!$this->isProfessionnel() && !$this->isAdmin()) {
 					// Comptabilisation des messages !admin && !professionnel
-					$nb_inhiber = 0
-					$nb_valider = 0
-					$nb_terminer = 0
+					$nb_inhiber = 0;
+					$nb_valider = 0;
+					$nb_terminer = 0;
 
 					//[activated, !valid, !terminated]
 					foreach ($pertubation->getVotes as $v) {
 
-						$id = $v->getMessage->getId()
+						$id = $v->getMessage->getId();
 					    if ($id == 1) {$nb_inhiber++;}
 					    elseif ($id == 2) {$nb_valider++;}
 					    elseif ($id == 3) {$nb_terminer++;}
