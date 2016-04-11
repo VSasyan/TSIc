@@ -18,8 +18,8 @@
 			{% for p in perturbations %}
 				<div
 					class="element"
-					data-center="{{ p.center }}"
-					data-type="{{ p.type }}"
+					data-center="{{ p.center }}"
+					data-type="{{ p.type.name }}"
 					data-geoJSON="{{ p.geoJSON }}">
 					<a href="{{ path('perturbation_show', {id : p.id}) }}">{{ p.name }}</a>
 				</div>
