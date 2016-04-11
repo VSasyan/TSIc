@@ -92,7 +92,7 @@ class UserController extends StatutController {
     }
 
 
-	/*
+	/**
 	 * show
 	 *
 	 * return information about the given user

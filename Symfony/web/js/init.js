@@ -11,6 +11,14 @@ function showMessages(data) {
 document.addEventListener("DOMContentLoaded", function() {
 	$(document).ready(function() {
 		hideMessages();
+
+		$('#show_elements').click(function() {
+			$(this).parents('.elements.none').find('#list_elements').slideDown(300, function() {
+				$('html, body').delay('300').animate({
+					scrollTop: $(this).offset().top 
+				}, 300);
+			});
+		});
 	});
 });
 
