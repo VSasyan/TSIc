@@ -192,36 +192,6 @@ class TypePerturbation
     }
 
     /**
-     * @ORM\PrePersist()
-     * @ORM\PreUpdate()
-     */
-    public function preUploadLogoPicture() {
-        if (null !== $this->getLogoPictureFile()) {
-            // a file was uploaded
-            // generate a unique filename
-            $filename = $this->generateRandomLogoPictureFilename();
-            $this->setLogoPicturePath($filename.'.'.$this->getLogoPictureFile()->guessExtension());
-        }
-    }
-
-    /**
-     * Generates a 32 char long random filename
-     * 
-     * @return string
-     */
-    public function generateRandomLogoPictureFilename() {
-        $count =  0;
-        do {
-            $generator = new SecureRandom();
-            $random = $generator->nextBytes(16);
-            $randomString = bin2hex($random);
-            $count++;
-        }
-        while(file_exists($this->getUploadRootDir().'/'.$randomString.'.'.$this->getLogoPictureFile()->guessExtension()) && $count < 50);
-        return $randomString;
-    }
-
-    /**
      * @ORM\PostPersist()
      * @ORM\PostUpdate()
      * 
