@@ -102,14 +102,21 @@ Permet aux utilisateurs loggués de voter une nouvelle perturbation.
     Vues : néant
 
 L'utilisateur doit être connecté (statut Particulier, Professionnel ou Admin).
-Si l'utilisateur est Professionnel ou Admin, sont vote change immédiatement le statut de la paerturbation, sinon il faut 3 votes identiques pour le faire.
-
-Confirmation en Ajax (vue 'Ajax:confirmation.html.twig') grâce à des messages sur l'objet `$request`.
+Si l'utilisateur est Professionnel ou Admin, son vote change immédiatement le statut de la perturbation, sinon il faut 3 votes identiques (même message) pour le faire.
 
 id_message :
 * 1 : inhiber
 * 2 : terminer
 * 3 : valider
+
+Etat de la perturbation à l'origine : [activee, non-valide, non-terminee]
+* état après 3 votes `inhiber` : [non-activee, non-valide, non-terminee], la perturbation *n'est plus* affichée ;
+* état après 3 votes `terminer` : [activee, valide, terminee], la perturbation *n'est plus* affichée ;
+* état après 3 votes `valider` : [activee, valide, non-terminee], la perturbation *est toujours* affichée.
+
+On remarque que les votent `terminer` valident également la perturbation.
+
+Confirmation en Ajax (vue 'Ajax:confirmation.html.twig') grâce à des messages sur l'objet `$request`.
 
 ### archive
 
@@ -120,7 +127,7 @@ Permet aux administrateurs/professionnels d'archiver une perturbation.
     Route : perturbation_archive
     Vues : néant
 
-L'attribut `activated` de la pertrubation passe `false`. Elle n'est plus affichée.
+L'attribut `archived` de la perturbation passe à `true`. Elle n'est plus affichée.
 
 Confirmation en Ajax (vue 'Ajax:confirmation.html.twig') grâce à des messages sur l'objet `$request`.
 
@@ -161,7 +168,7 @@ Entrée vue :
 
 ### listNearest
 
-Permet à tout le monde, de recevoir les perturbations alentour en AJAX.
+Permet à tout le monde de recevoir les perturbations alentour en AJAX.
 
     Controller : PerturbationController:listNearestAction
     Url : /perturbation/list/nearest/{position}/{rayon=1000}
@@ -171,7 +178,7 @@ Permet à tout le monde, de recevoir les perturbations alentour en AJAX.
 Entrée vue :
 * perturbations : liste des perturbations retravaillée :
 
-On a un nouvel objet de type :
+On a un nouvel objet PerturbationVirtuel de type :
 
     perturbation.id
     perturbation.nom
@@ -181,6 +188,7 @@ On a un nouvel objet de type :
 
 Les attributs suplémentaires par rapport à la classe `Perturbation` de base sont récupérés sur la dernière `Formulation`.
 
+Les pertubations non-actives, non-valides, terminées ou archivées ne sont pas affichée !
 
 ### listAll
 
@@ -202,23 +210,3 @@ On a un nouvel objet de type :
     perturbation.type
 
 Les attributs suplémentaires par rapport à la classe `Perturbation` de base sont récupérés sur la dernière `Formulation`.
-
-
-
-
-TEMP :
-
-	public function findOneByGroupe($id_groupe, $rang)
-	{
-		$choix = $this->createQueryBuilder('c')
-			->where('c.groupeChoix = :id_groupe')
-			->setParameter('id_groupe', $id_groupe)
-			->andWhere('c.rang = :rang')
-			->setParameter('rang', $rang)
-			->getQuery()
-			->getResult();
-		if ($choix != null){
-			return $choix[0];
-		}
-		return null;
-	}
