@@ -8,28 +8,18 @@ function getPage(route, after) {
 	});
 }
 
-
-var marker = false;
-function listNearest(pos) {
-	getPage(
-		Routing.generate("perturbation_list_nearest", { position : coordinatesToWKT(pos.coords), radius : 1000 })
-	);
-
-	var position = {lat : pos.coords.latitude, lng : pos.coords.longitude};
-	map.setView(position, 13, {animate:true});
-	marker = L.marker(position).addTo(map);
-	endLocation();
-
-	geolocation(function(pos) {
-		var position = {lat : pos.coords.latitude, lng : pos.coords.longitude};
-		marker.setLatLng(position);
-	});
-}
-
 var functions = {
 	listNearest : function() {
+		geoloc.init();
 		initMap();
-		geolocation(listNearest);
+		geoloc.callback = function() {
+			updateMarker();
+			updateView();
+		}
+		geoloc.callbackError = function(err) {
+			geoloc.position = { latitude: 48.8410544, longitude: 2.5873005 };
+			geoloc.callback();
+		}
 	},
 };
 
