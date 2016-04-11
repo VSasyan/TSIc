@@ -11,3 +11,19 @@ namespace AppBundle\Repository;
 class VoteRepository extends \Doctrine\ORM\EntityRepository
 {
 }
+/*TEMP :
+
+	public function findOneByGroupe($id_groupe, $rang)
+	{
+		$choix = $this->createQueryBuilder('c')
+			->where('c.groupeChoix = :id_groupe')
+			->setParameter('id_groupe', $id_groupe)
+			->andWhere('c.rang = :rang')
+			->setParameter('rang', $rang)
+			->getQuery()
+			->getResult();
+		if ($choix != null){
+			return $choix[0];
+		}
+		return null;
+	}*/

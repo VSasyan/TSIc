@@ -18,41 +18,69 @@ class VoteController extends StatutController {
     */
 	public function voteAction(Request $request, $id_perturbation, $id_message){
 
-		$em = $this->getDoctrine()->getManager();
+		//Si l'utilisateur est authentifié
 
-		$perturbation = $em->getRepository('AppBundle:Perturbation')->find($id_perturbation);
-		$message = $em->getRepository('AppBundle:Message')->find($id_message);
+		if ($this->isAuth()) {
+			$em = $this->getDoctrine()->getManager();
 
-		// perturbation != null && $message != null?
-		$request->getSession()->getFlashBag()->add('success', 'Type de perturbation bien créé.');
+			$perturbation = $em->getRepository('AppBundle:Perturbation')->find($id_perturbation);
+			$message = $em->getRepository('AppBundle:Message')->find($id_message);
 
+			// perturbation != null && $message != null?
+			if ($perturbation != null && $message != null) {
+				$request->getSession()->getFlashBag()->add('success', 'Perturbation et message associé valides.');
 
+				// Creation du vote et ajoute à la pertubation
+				$vote = new Vote();
+				$vote->setMessage($message);
+				$pertubation->addVote($vote);
+				$this->getCurrentUser()->addVote($vote);
 
-		// Creation du vote et ajoute à la paertubation
+				if (!$this->isProfessionnel() && !$this->isAdmin()) {
+					// Comptabilisation des messages !admin && !professionnel
+					$nb_inhiber = 0
+					$nb_valider = 0
+					$nb_terminer = 0
 
+					//[activated, !valid, !terminated]
+					foreach ($pertubation->getVotes as $v) {
 
-		// Comttabilisation des messages !admin && !professionnel
+						$id = $v->getMessage->getId()
+					    if ($id == 1) {$nb_inhiber++;}
+					    elseif ($id == 2) {$nb_valider++;}
+					    elseif ($id == 3) {$nb_terminer++;}
+					} 
+					// 3 inhiber -> desactivee
+					// 3 valider -> valide
+					// 3 terminer -> terminee	
+					if ($nb_inhiber > 2) {$pertubation->setActivated(false);}
+					if ($nb_valider > 2) {$pertubation->setValid(true);}
+					if ($nb_terminer > 2) {$pertubation->setTerminated(true);}
 
-		//[activee, non_valide, non_archivee]
+				}
+				else {
+					$id = $message->getId();
+					if ($id == 1) {$pertubation->setActivated(false);}
+					elseif ($id == 2) {$pertubation->setValid(true);}
+					elseif ($id == 3) {
+						$pertubation->setTerminated(true);
+					}
+				}
 
+				// Renvoyer message à utilisateur
+				$request->getSession()->getFlashBag()->add('success', 'Le vote a été pris en compte.');
+			}
+			// Enregistrement dans la BD
+			$em->flush();
 
-		// 3 inhiber -> desactivee
-		// 3 validé -> valide
-		// 3 terminée -> terminee
-
-		// Set etat cache (admin | pro)
-
-		// Renvoyer message à utilisateur
-
-
-		//$em->flush();
-
-		return $this->render('AppBundle:Ajax:confirmation.html.twig');
+			return $this->render('AppBundle:Ajax:confirmation.html.twig');
+		}
+		else {
+			$request->getSession()->getFlashBag()->add('failed', 'Vous n êtes pas authentifié');
+			$this->redirectToRoute('accueil');
+		}
 	
 	}
-
-
-
 
 }
 
