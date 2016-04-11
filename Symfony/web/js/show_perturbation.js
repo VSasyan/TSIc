@@ -15,7 +15,7 @@ document.addEventListener("DOMContentLoaded", function() {
 		var date_debut = $('.perturbation-dates').text().split(' ')[1];
 		var date_fin = $('.perturbation-dates').text().split(' ')[6];
 		
-		var popup = "nom" + "</br>" + 
+		/*var popup = "nom" + "</br>" + 
 					"<dd>" + $('.formulations .element:eq(0)').data('name') + "</br>" + 
 					"<dt>" +  "type" + 
 					"<dd>" + $('.formulations h1 .perturbation-type').text() + "</br>" + 
@@ -28,10 +28,10 @@ document.addEventListener("DOMContentLoaded", function() {
 					"<dt>" + "fin perturbation" +
 					"<dd>" + date_fin + "</br>" + 		
 					"<dt>" +  "description" + 
-					"<dd>" + $('.perturbation-description').text();
+					"<dd>" + $('.perturbation-description').text();*/
 
 
-		var marker = L.marker([result[2], result[1]]).addTo(map).bindPopup(popup).openPopup();
+		var marker = L.marker([result[2], result[1]]).addTo(map);//.bindPopup(popup).openPopup();
 		map.setView([result[2], result[1]], 13, {animate:true});
 
 		console.log($('.formulations h1 perturbation-type').text());

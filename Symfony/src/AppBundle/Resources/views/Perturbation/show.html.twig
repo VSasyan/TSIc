@@ -21,54 +21,55 @@
 	<div class="child">
 		<div id="map"></div>
 	</div>
-	<div id="show" class="child" data-id="{{ perturbation.id }}" data-date="{{ perturbation.creationDate|date('Y-m-d') }}">
+	<div class="child">
+		<div id="show_perturbation" data-id="{{ perturbation.id }}" data-date="{{ perturbation.creationDate|date('Y-m-d') }}">
+			{% set formulation = perturbation.formulations|last %}
 
-		{% set formulation = perturbation.formulations|last %}
+			<div class="description pertubation" data-name="{{ formulation.name }}" data-center="{{ formulation.center }}" data-logo="{{ formulation.type.id }}">
+				<h1>
+					<span class="perturbation-name">{{ formulation.name }}</span> :
+					<span class="perturbation-type" title="{{ formulation.type.description }}">{{ formulation.type.name }}</span>
+				</h1>
+				<p></p>
+				<p class="perturbation-dates">Depuis le {{ formulation.beginDate|date('  d/m à h:m') }} ; fin estimée le {{ formulation.endDate|date('  d/m à h:m') }}.</p>
+				<p class="perturbation-description">{{ formulation.description }}</p>
+			</div>
 
-		<div class="description pertubation" data-name="{{ formulation.name }}" data-center="{{ formulation.center }}" data-logo="{{ formulation.type.id }}">
-			<h1>
-				<span class="perturbation-name">{{ formulation.name }}</span> :
-				<span class="perturbation-type" title="{{ formulation.type.description }}">{{ formulation.type.name }}</span>
-			</h1>
-			<p></p>
-			<p class="perturbation-dates">Depuis le {{ formulation.beginDate|date('  d/m à h:m') }} ; fin estimée le {{ formulation.endDate|date('  d/m à h:m') }}.</p>
-			<p class="perturbation-description">{{ formulation.description }}</p>
+			<p>Perturbation créée le {{ perturbation.creationDate|date('  d/m à h:m') }} (modifiée le {{ formulation.creationDate|date(' d/m à h:m') }}).</p>
+			<p>
+				Etat de la perturbation :
+				<ul>
+					{% if perturbation.valid %}
+						<li class="perturbation-valid-tag">Validée</li>
+					{% else %}
+						<li class="perturbation-valid-tag">Non Validée <span class="button validate"  data-path="{{ path("vote", { id_perturbation: perturbation.id, id_message: 3}) }}" title="Confirmer la perturbation">Confirmer</span></li>
+					{% endif %}
+				</ul>
+				<ul>
+					{% if perturbation.terminated %}
+						<li class="perturbation-terminated-tag">Terminée</li>
+					{% else %}
+						<li class="perturbation-terminated-tag">Non Terminée <span class="button terminate" data-path="{{ path("vote", { id_perturbation: perturbation.id, id_message: 2}) }}" title="La perturbation est terminée.">Terminer</span></li>
+					{% endif %}
+				</ul>
+				<ul>
+					{% if perturbation.activated %}
+						<li class="perturbation-activated-tag">Activée <span class="button inhibate"  data-path="{{ path("vote", { id_perturbation: perturbation.id, id_message: 1}) }}" title="Annuler la perturbation">Inhiber</span></li> 
+					{% else %}
+						<li class="perturbation-activated-tag">Non Activée</li>
+					{% endif %}
+				</ul>
+				{% if is_granted('ROLE_ADMIN') or is_granted('ROLE_PROFESSIONNAL') %}
+				<ul>
+					{% if perturbation.archived %}
+						<li class="perturbation-archived-tag">Archivée</li> 
+					{% else %}
+						<li class="perturbation-archived-tag">Non Archivée <span class="button archive"  data-path="{{ path("perturbation_archive", { id: perturbation.id}) }}" title="Archiver la perturbation">Inhiber</span></li> 
+					{% endif %}
+				</ul>
+				{% endif %}
+			</p>
 		</div>
-
-		<p>Perturbation créée le {{ perturbation.creationDate|date('  d/m à h:m') }} (modifiée le {{ formulation.creationDate|date(' d/m à h:m') }}).<p>
-		<p>
-			Etat de la parturbation :
-			<ul>
-				{% if perturbation.valid %}
-					<li class="perturbation-valid-tag">Validée</li>
-				{% else %}
-					<li class="perturbation-valid-tag">Non Validée <span class="button validate"  data-path="{{ path("vote", { id_perturbation: perturbation.id, id_message: 3}) }}" title="Confirmer la perturbation">Confirmer</span></li>
-				{% endif %}
-			</ul>
-			<ul>
-				{% if perturbation.terminated %}
-					<li class="perturbation-terminated-tag">Terminée</li>
-				{% else %}
-					<li class="perturbation-terminated-tag">Non Terminée <span class="button terminate" data-path="{{ path("vote", { id_perturbation: perturbation.id, id_message: 2}) }}" title="La perturbation est terminée.">Terminer</span></li>
-				{% endif %}
-			</ul>
-			<ul>
-				{% if perturbation.activated %}
-					<li class="perturbation-activated-tag">Activée <span class="button inhibate"  data-path="{{ path("vote", { id_perturbation: perturbation.id, id_message: 1}) }}" title="Annuler la perturbation">Inhiber</span></li> 
-				{% else %}
-					<li class="perturbation-activated-tag">Non Activée</li>
-				{% endif %}
-			</ul>
-			{% if is_granted('ROLE_ADMIN') or is_granted('ROLE_PROFESSIONNAL') %}
-			<ul>
-				{% if perturbation.archived %}
-					<li class="perturbation-archived-tag">Archivée</li> 
-				{% else %}
-					<li class="perturbation-archived-tag">Non Archivée <span class="button archive"  data-path="{{ path("perturbation_archive", { id: perturbation.id}) }}" title="Archiver la perturbation">Inhiber</span></li> 
-				{% endif %}
-			</ul>
-			{% endif %}
-		</p>
 	</div>
 </div>
 

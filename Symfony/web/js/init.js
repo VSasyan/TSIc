@@ -13,7 +13,7 @@ document.addEventListener("DOMContentLoaded", function() {
 		hideMessages();
 
 		$('#show_elements').click(function() {
-			$(this).parents('.elements.none').find('#list_elements').slideDown(300, function() {
+			$(this).parents('.elements.none').find('#list_elements').slideToggle(300, function() {
 				$('html, body').delay('300').animate({
 					scrollTop: $(this).offset().top 
 				}, 300);

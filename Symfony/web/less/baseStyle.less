@@ -7,19 +7,34 @@
 
 	&:hover {background: @lblue;};
 
+	&.terminate {
+		float: right;
+	}
+
 	&.validate {
+		float: right;
 		color: #000;
 		background-color: @green;
 		&:hover {background-color: @lgreen;}
 	}
 	&.inhibate {
+		float: right;
 		color: #000;
 		background-color: @red;
 		&:hover {background-color: @lred;}
 	}
 	&.archive {
+		float: right;
 		color: #000;
 		background-color: @grey;
 		&:hover {background-color: lighten(@grey, 10);}
+	}
+}
+
+#show_perturbation {
+	h1 {
+		margin: 0;
+		padding: 0;
+		padding-bottom: 20px;
 	}
 }
