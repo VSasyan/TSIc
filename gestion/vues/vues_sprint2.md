@@ -230,6 +230,13 @@ Entrée controlleur :
 * position : position en WKT
 * rayon : rayon en mètre (par défaut 1000)
 
+Sortie : (format JSON)
+
+    [{
+        name : String,
+        position : WKT,
+        type : integer
+    }]
 
 ## File
 
