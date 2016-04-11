@@ -12,8 +12,25 @@ var functions = {
 	listNearest : function() {
 		geoloc.init();
 		initMap();
+
+		map.on("dragstart", function(e) {
+			geoloc.callback = updatePosMarker;
+		});
+
+		map.on("moveend", function(e) {
+			var currentBounds = map.getBounds();
+
+			if(!dataBounds.contains(currentBounds)) {
+				// We do not have any data
+				listNearest(currentBounds);
+			} else console.log("No update needed.");
+		});
+
+		posMarker = L.marker(map.getCenter()).addTo(map);
+		listNearest(map.getBounds());
+
 		geoloc.callback = function() {
-			updateMarker();
+			updatePosMarker();
 			updateView();
 		}
 		geoloc.callbackError = function(err) {
