@@ -20,25 +20,21 @@
 		
 		<form> {{ user.id }} {{ user.name}} {{ user.lastname}}
 
-		{% if user.id_status==1 %}
-    		<select class="lien" name="type" id="TypePret" size="1">
-	   	    	<option value = '{{ path('user_upgrade', {id_user : user.id, id_status : 1}) }}' select = 'selected'>particulier</option>
-	   	    	<option value = '{{ path('user_upgrade', {id_user : user.id, id_status : 2}) }}'>professionel</option>
-	    		<option value = '{{ path('user_upgrade', {id_user : user.id, id_status : 3}) }}' >admin </option>
-    		</select>
-    	{% elseif user.id_status==2 %}
-    	<select class="lien" name="type" id="TypePret" size="1">
-	   	    	<option value = '{{ path('user_upgrade', {id_user : user.id, id_status : 1}) }}'>particulier</option>
-	   	    	<option value = '{{ path('user_upgrade', {id_user : user.id, id_status : 2}) }}'select = 'selected'>professionel</option>
-	    		<option value = '{{ path('user_upgrade', {id_user : user.id, id_status : 3}) }}' >admin </option>
-    		</select>
+		{% set sel_1, sel_2, sel_3 = '', '', '' %}
+
+		{% if user.professionnal is null and user.admin is null %}
+    		{% set sel_1 = 'selected="selected"' %}
+    	{% elseif user.professionnal is not null and user.admin is null %}
+    		{% set sel_2 = 'selected="selected"' %}
     	{% else %}
-    	<select class="lien" name="type" id="TypePret" size="1">
-	   	    	<option value = '{{ path('user_upgrade', {id_user : user.id, id_status : 1}) }}'>particulier</option>
-	   	    	<option value = '{{ path('user_upgrade', {id_user : user.id, id_status : 2}) }}'>professionel</option>
-	    		<option value = '{{ path('user_upgrade', {id_user : user.id, id_status : 3}) }}' select = 'selected' >admin </option>
-    		</select>
+    		{% set sel_3 = 'selected="selected"' %}
     	{% endif %}
+
+		<select class="lien" name="type" id="TypePret" size="1">
+			<option {{ sel_1 }} value='{{ path('user_upgrade', {id_user : user.id, id_status : 1}) }}'>particulier</option>
+			<option {{ sel_2 }} value='{{ path('user_upgrade', {id_user : user.id, id_status : 2}) }}'>professionel</option>
+			<option {{ sel_3 }} value='{{ path('user_upgrade', {id_user : user.id, id_status : 3}) }}' >admin </option>
+		</select>
 
 		</form>
 	</div>
