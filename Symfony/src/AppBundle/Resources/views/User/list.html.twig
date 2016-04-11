@@ -16,7 +16,7 @@
 		<h2>list-user</h2>
 		<div class="allusers">
 			{% for user in users %}
-				<div class="user admin professionnel">
+				<div class="user">
 					<a href="{{ path('user_show', {id : user.id}) }}">{{ user.name }} {{ user.last_name }}</a>
 				</div>
 			{% endfor %}
