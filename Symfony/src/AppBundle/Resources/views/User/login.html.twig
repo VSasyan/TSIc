@@ -31,14 +31,12 @@
 				<input type="password" class="form-control" name="_password" required="required" id="password">
 			</div>
 
-			<button type="submit" class="pull-right btn btn btn-primary">
-				Log In
-			</button>
+			<button type="submit">Login</button>
 		</div>
 	</form>
 
-	<div>
-		<h3><a href="{{ path('register') }}">Pas encore inscrit ?</a></h3>
+	<div class="center">
+		<a href="{{ path('register') }}" class="button">Pas encore inscrit ?</a>
 	</div>
 
 {% endblock %}
