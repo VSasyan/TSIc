@@ -28,6 +28,8 @@ Sprint 2
 * Amélioration de la carte pour la géolocalisation
     * chargement des objets dans un rayon de 2-3 "vues Leaflet"
     * rechargelment si on sort de ce rayon
+* Ajouter la cause supposée de la perturbation (Champ de texte libre), modifier : Type, Entity
+* AdminController : ajouter des Type de Perturbation avec des icones (Route bloquée, Réduction de voies, Réduction de la vitesse)
 
 Sprint 3
 
