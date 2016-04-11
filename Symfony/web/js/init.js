@@ -8,9 +8,20 @@ function showMessages(data) {
 	setTimeout(function() {hideMessages();}, 2000);
 }
 
+function init_select_lien() {
+	$('select.lien').change(function() {
+		//var parameter = $(this).val();
+     //window.location = "http://yoursite.com/page?variable=" + parameter;
+		window.location = $(this).val();
+		
+	});
+}
+
 document.addEventListener("DOMContentLoaded", function() {
 	$(document).ready(function() {
 		hideMessages();
+
+		init_select_lien();
 	});
 });
 
