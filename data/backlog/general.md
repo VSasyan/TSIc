@@ -2,25 +2,32 @@
 
 Sprint 1
 
-* Formalisation UML
-* Voir l'intégration Jenkins avec Symfony
-* Configuration de Symfony
-* Mise en place des "Entity" : Particulier, Professionnel, Perturbation, Formulation, Validation, Terminated, Formulation
-* Mise en place des "Controller" : Utilisateur, Perturbation [avec Tests unitaires]
-  * voir perturbations :
-    * lister perturbations locales
-    * lister toutes les perturbations
-    * afficher une perturbation en détails
-* Mise en place des "View" : à préciser
-  *  dans un premier temps en maquette (info à la fin) puis prise en compte réelle de la BD + CSS
-* Mise en place des "Type" : Particulier, Pro, Perturbation/Formulation
-* Trouver base pour fournir les objects "autres"
-* Liste des objets INSPIRE
+* Formalisation UML [OK]
+* Voir l'intégration Jenkins avec Symfony [KO]
+* Configuration de Symfony [OK]
+* Mise en place des "Entity" : Particulier, Professionnel, Perturbation, Formulation, Validation, Terminated, Formulation [50%]
+* Mise en place des "Controller" : Utilisateur, Perturbation [avec Tests unitaires] [50%]
+  * voir perturbations : [50%]
+    * lister perturbations locales [OK]
+    * lister toutes les perturbations [0%]
+    * afficher une perturbation en détails [OK]
+* Mise en place des "View" : [OK]
+* Mise en place des "Type" : Particulier, Pro, Perturbation/Formulation [OK]
+* Trouver base pour fournir les objects "autres" [OK]
+* Liste des objets INSPIRE [50%]
 
 Sprint 2
 
-* Mise en place des objets INSPIRE et "autres"
-* Mise en place des "Entity" : majReseau, majReseauUpdate, Object, ObjectAutre
+* Mise en place des Objets Terrains
+    * creation du controller ObjetTerrain
+    * importation des données récupérées
+* Mise en place du système de vote
+* Amélioration de la carte pour voir les ObjetTerrain
+    * récupération d'icones
+    * ajout des types dans AdminController:initAction
+* Amélioration de la carte pour la géolocalisation
+    * chargement de objet dans un rayon de 2-3 "vues Leaflet"
+    * rechargelment si on sort de ce rayon
 
 Sprint 3
 
