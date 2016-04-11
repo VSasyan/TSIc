@@ -3,6 +3,8 @@
 namespace AppBundle\Controller;
 
 use AppBundle\Entity\Particulier;
+use AppBundle\Entity\Professionnel;
+use AppBundle\Entity\Admin;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use AppBundle\Repository\ParticulierRepository;
 use AppBundle\Form\ParticulierType;
@@ -92,19 +94,16 @@ class UserController extends StatutController {
     }
 
 
-	/*
-	 * show
-	 *
-	 * return information about the given user
-	 *
-	 * @Route("/user/show/{id}", name="user_show")
-	 */
+	/**
+    * @Route("/user/show/{id}", name="user_show")
+    */
 	public function showUserAction($id){
 
 		$repository = $this->getDoctrine()->getManager()->getRepository('AppBundle:Particulier');
 		$user = $repository->find($id);
 		
 		if (null === $user) {
+            return redirectToRoute('');
 			throw new NotFoundHttpException("Le user d'id ".$id." n'existe pas.");
 		} else {
 			$info = array(
@@ -112,25 +111,29 @@ class UserController extends StatutController {
 			);
 		}
 
-		return $this->render('AppBundle:User:show.html.twig', $info);
+		return $this->render('AppBundle:User:showUser.html.twig', $info);
 	}
 
 	/**
-	* @Route("/user/list", name="user_list")
+	* @Route("/admin/user/list", name="user_list")
 	*/
 	public function listUsersAction(){
 
 		$repository = $this->getDoctrine()->getManager()->getRepository('AppBundle:Particulier');
 		$users = $repository->findAll();
 
-		if (!users){
+		if (!$users){
 			throw $this->createNotFoundException(
 				'No product found for id '
 			);
+		
+        } else {
+            $info = array(
+                'users' => $users,
+            );
+        }
 
-		}
-
-		return $this->render('AppBundle:User:show.html.twig', $users); 
+		return $this->render('AppBundle:User:list.html.twig', $info); 
 
 	}
 
@@ -152,11 +155,33 @@ class UserController extends StatutController {
 	}
 
 	/*
-	* @Route("/user/upgrade/{id_user}/{id_status}", name="user_upgrade")
+	* @Route("/admin/user/upgrade/{id_user}/{id_status}", name="user_upgrade")
 	*/
-	public function upgradeUserAction($id_user, $id_status){
-		
-		return new Response('<html><body>upgradeUserAction!</body></html>');		
+	public function upgradeUserAction(Request $request, $id_user, $id_status){
+	
+        $repository = $this->getDoctrine()->getManager()->getRepository('AppBundle:Particulier');
+        $user = $repository->find($id_user);
+
+        if($id_status == 1){
+            #if ($user->getAdmin() != null) {$em->remove($user->getAdmin());}
+            $user->setProfessionnal(null);
+            $user->setAdmin(null);
+        }
+        // si professionnel
+        if($id_status == 2){
+            if($user->getProfessionnal() == null){
+                $user->setProfessionnal(new professionnel());
+                $user->setAdmin(null);
+            }
+        }
+        
+        if($id_status == 3){
+            if($user->getAdmin() == null){
+                $user->setProfessionnal(null);
+                $user->setAdmin(new Admin());
+            }
+        }
+        
 	}
 
 }

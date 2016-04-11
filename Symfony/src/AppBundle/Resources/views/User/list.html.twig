@@ -1,7 +1,7 @@
 {% extends 'AppBundle::base.html.twig' %}
 
 {% block title %}
-	list-user
+	la liste des utilisateurs
 {% endblock %}
 
 {% block stylesheets %}
@@ -13,11 +13,11 @@
 {% block body %}
 
 	<div>
-		<h2>list-user</h2>
+		<h2>la liste des utilisateurs</h2>
 		<div class="allusers">
 			{% for user in users %}
 				<div class="user">
-					<a href="{{ path('user_show', {id : user.id}) }}">{{ user.name }} {{ user.last_name }}</a>
+					<a href="{{ path('user_list', {id : user.id}) }}"> {{ user.username }} {{ user.name }} {{ user.id }}</a>
 				</div>
 			{% endfor %}
 		</div>
