@@ -1,4 +1,4 @@
-# Listes des Vues du Sprint1
+# Listes des Vues du Sprint2
 
 ## Controller User
 
@@ -92,32 +92,6 @@ Entrée de la vue :
 
 Redirection si form valide vers 'perturbation_show' à l'id de la perturbation crée à l'instant.
 
-### vote
-
-Permet aux utilisateurs loggués de voter une nouvelle perturbation.
-
-    Controller : PerturbationController:voterAction
-    Url : /perturbation/voter/{id_perturbation}/{id_message}
-    Route : perturbation_voter
-    Vues : néant
-
-L'utilisateur doit être connecté (statut Particulier, Professionnel ou Admin).
-Si l'utilisateur est Professionnel ou Admin, son vote change immédiatement le statut de la perturbation, sinon il faut 3 votes identiques (même message) pour le faire.
-
-id_message :
-* 1 : inhiber
-* 2 : terminer
-* 3 : valider
-
-Etat de la perturbation à l'origine : [activee, non-valide, non-terminee]
-* état après 3 votes `inhiber` : [non-activee, non-valide, non-terminee], la perturbation *n'est plus* affichée ;
-* état après 3 votes `terminer` : [activee, valide, terminee], la perturbation *n'est plus* affichée ;
-* état après 3 votes `valider` : [activee, valide, non-terminee], la perturbation *est toujours* affichée.
-
-On remarque que les votent `terminer` valident également la perturbation.
-
-Confirmation en Ajax (vue 'Ajax:confirmation.html.twig') grâce à des messages sur l'objet `$request`.
-
 ### archive
 
 Permet aux administrateurs/professionnels d'archiver une perturbation.
@@ -210,3 +184,32 @@ On a un nouvel objet de type :
     perturbation.type
 
 Les attributs suplémentaires par rapport à la classe `Perturbation` de base sont récupérés sur la dernière `Formulation`.
+
+
+## vote
+
+### vote
+
+Permet aux utilisateurs loggués de voter une nouvelle perturbation.
+
+    Controller : PerturbationController:voterAction
+    Url : /perturbation/voter/{id_perturbation}/{id_message}
+    Route : perturbation_voter
+    Vues : néant
+
+L'utilisateur doit être connecté (statut Particulier, Professionnel ou Admin).
+Si l'utilisateur est Professionnel ou Admin, son vote change immédiatement le statut de la perturbation, sinon il faut 3 votes identiques (même message) pour le faire.
+
+id_message :
+* 1 : inhiber
+* 2 : terminer
+* 3 : valider
+
+Etat de la perturbation à l'origine : [activee, non-valide, non-terminee]
+* état après 3 votes `inhiber` : [non-activee, non-valide, non-terminee], la perturbation *n'est plus* affichée ;
+* état après 3 votes `terminer` : [activee, valide, terminee], la perturbation *n'est plus* affichée ;
+* état après 3 votes `valider` : [activee, valide, non-terminee], la perturbation *est toujours* affichée.
+
+On remarque que les votent `terminer` valident également la perturbation.
+
+Confirmation en Ajax (vue 'Ajax:confirmation.html.twig') grâce à des messages sur l'objet `$request`.
