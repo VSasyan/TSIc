@@ -1,0 +1,36 @@
+﻿COPY Ministere FROM '~/Téléchargements/IRVE-201510.csv' delimiter '|' csv;
+
+
+ALTER TABLE object ADD COLUMN latitude float ;
+ALTER TABLE object ADD COLUMN longitude float ;
+ALTER TABLE object ADD COLUMN type text;
+
+
+ALTER TABLE object drop  COLUMN latitude;
+ALTER TABLE object drop COLUMN longitude;
+ALTER TABLE object drop COLUMN type text;
+
+
+
+
+COPY object( latitude,longitude,type) FROM '~/Téléchargements/IRVE-201510.csv' 
+
+
+
+LOAD CSV
+   FROM 'IRVE-201510.csv' WITH ENCODING latin1    
+        (
+           startIpNum, endIpNum, locId
+        )
+   INTO postgresql://symfony@localhost:5432/test?public.object
+        (
+           iprange ip4r using (ip-range startIpNum endIpNum),
+           locId
+        )
+   WITH truncate,
+        skip header = 2,
+        fields optionally enclosed by '"',
+        fields escaped by backslash-quote,
+        fields terminated by '\t'
+ 
+    SET work_mem to '32 MB', maintenance_work_mem to '64 MB';

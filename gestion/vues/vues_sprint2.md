@@ -99,11 +99,11 @@ Permet aux administrateurs/professionnels d'archiver une perturbation.
     Controller : PerturbationController:archiveAction
     Url : /pro/perturbation/archive/{id_perturbation}/{id_message}
     Route : perturbation_archive
-    Vues : néant
+    Vues : Ajax:confirmation.html.twig
 
 L'attribut `archived` de la perturbation passe à `true`. Elle n'est plus affichée.
 
-Confirmation en Ajax (vue 'Ajax:confirmation.html.twig') grâce à des messages sur l'objet `$request`.
+Confirmation en Ajax grâce à des messages sur l'objet `$request`.
 
 ### edit
 
@@ -186,16 +186,16 @@ On a un nouvel objet de type :
 Les attributs suplémentaires par rapport à la classe `Perturbation` de base sont récupérés sur la dernière `Formulation`.
 
 
-## vote
+## Vote
 
 ### vote
 
 Permet aux utilisateurs loggués de voter une nouvelle perturbation.
 
-    Controller : PerturbationController:voterAction
+    Controller : VoteController:voterAction
     Url : /perturbation/voter/{id_perturbation}/{id_message}
     Route : perturbation_voter
-    Vues : néant
+    Vues : Ajax:confirmation.html.twig
 
 L'utilisateur doit être connecté (statut Particulier, Professionnel ou Admin).
 Si l'utilisateur est Professionnel ou Admin, son vote change immédiatement le statut de la perturbation, sinon il faut 3 votes identiques (même message) pour le faire.
@@ -212,4 +212,58 @@ Etat de la perturbation à l'origine : [activee, non-valide, non-terminee]
 
 On remarque que les votent `terminer` valident également la perturbation.
 
-Confirmation en Ajax (vue 'Ajax:confirmation.html.twig') grâce à des messages sur l'objet `$request`.
+Confirmation en Ajax grâce à des messages sur l'objet `$request`.
+
+
+## ObjectTerrain
+
+### listNearest
+
+Permet aux utilisateurs de récupérer une liste des objects terrain à proximité.
+
+    Controller : ObjetTerrainController:listNearestAction
+    Url : /objet/terrain/list/nearest/{position}/{rayon=1000}
+    Route : objet_terrain_list_nearest
+    Vues : néant
+
+Entrée controlleur :
+* position : position en WKT
+* rayon : rayon en mètre (par défaut 1000)
+
+Sortie : (format JSON)
+
+    [{
+        name : String,
+        position : WKT,
+        type : integer
+    }]
+
+## File
+
+### logoTypePerturbation
+
+Permet aux utilisateurs de récupérer l'image associée à une perturbation.
+
+    Controller : FileControlleur:logoTypePerturbationAction
+    Url : /file/logo-type-perturbation/{id}
+    Route : logo_type_perturbation
+    Vues : néant
+
+Entrée controlleur :
+* id de la pertubation
+
+Si la perturbation n'est pas trouvée, cela renvoie l'icone par défaut, sinon l'icone correspondant à la pertrbation (chemin stocké dans l'attribut `logoPicturePath`).
+
+### logoTypeObjetTerrain
+
+Permet aux utilisateurs de récupérer l'image associée à un TypeObjetTerrain.
+
+    Controller : FileControlleur:logoTypeObjetTerrain
+    Url : /file/logo-type-objet-terrain/{id}
+    Route : logo_type_objet_terrain
+    Vues : néant
+
+Entrée controlleur :
+* id du type d'objet terrain
+
+Si le type n'est pas trouvé, cela renvoie l'icone par défaut, sinon l'icone correspondant au type (chemin stocké dans l'attribut `logoPicturePath`).
