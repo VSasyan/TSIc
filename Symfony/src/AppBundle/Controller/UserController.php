@@ -103,8 +103,8 @@ class UserController extends StatutController {
 		$user = $repository->find($id);
 		
 		if (null === $user) {
-            return redirectToRoute('');
-			throw new NotFoundHttpException("Le user d'id ".$id." n'existe pas.");
+            return $this->redirectToRoute('user_list');
+			#throw new NotFoundHttpException("Le user d'id ".$id." n'existe pas.");
 		} else {
 			$info = array(
 				'user' => $user,
@@ -154,22 +154,26 @@ class UserController extends StatutController {
 
 	}
 
-	/*
+	/**
 	* @Route("/admin/user/upgrade/{id_user}/{id_status}", name="user_upgrade")
 	*/
 	public function upgradeUserAction(Request $request, $id_user, $id_status){
 	
-        $repository = $this->getDoctrine()->getManager()->getRepository('AppBundle:Particulier');
+        $em = $this->getDoctrine()->getManager();
+        $repository = $em->getRepository('AppBundle:Particulier');
         $user = $repository->find($id_user);
 
         if($id_status == 1){
-            #if ($user->getAdmin() != null) {$em->remove($user->getAdmin());}
+            if ($user->getAdmin() != null) {$em->remove($user->getAdmin());}
+            if ($user->getProfessionnal() != null) {$em->remove($user->getProfessionnal());}
             $user->setProfessionnal(null);
             $user->setAdmin(null);
         }
         // si professionnel
         if($id_status == 2){
             if($user->getProfessionnal() == null){
+                if ($user->getAdmin() != null) {$em->remove($user->getAdmin());}
+                if ($user->getProfessionnal() != null) {$em->remove($user->getProfessionnal());}
                 $user->setProfessionnal(new professionnel());
                 $user->setAdmin(null);
             }
@@ -177,11 +181,15 @@ class UserController extends StatutController {
         
         if($id_status == 3){
             if($user->getAdmin() == null){
+                if ($user->getAdmin() != null) {$em->remove($user->getAdmin());}
+                if ($user->getProfessionnal() != null) {$em->remove($user->getProfessionnal());}
                 $user->setProfessionnal(null);
                 $user->setAdmin(new Admin());
             }
         }
-        
+        $em->persist($user);
+        $em->flush();
+        return $this->redirectToRoute('user_list');
 	}
 
 }
