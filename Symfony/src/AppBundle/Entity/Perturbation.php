@@ -38,6 +38,13 @@ class Perturbation
     /**
      * @var bool
      *
+     * @ORM\Column(name="terminated", type="boolean")
+     */
+    private $terminated;
+
+    /**
+     * @var bool
+     *
      * @ORM\Column(name="archived", type="boolean")
      */
     private $archived;
@@ -60,6 +67,22 @@ class Perturbation
     * @ORM\JoinColumn(nullable=false)
     */
     private $votes;
+    
+    
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->formulations = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->votes = new \Doctrine\Common\Collections\ArrayCollection();
+
+        $this->activated = true;
+        $this->valid = false;
+        $this->terminated = false;
+        $this->archived = false;
+        $this->creationDate = new \DateTime();
+    }
 
 
     /**
@@ -167,20 +190,6 @@ class Perturbation
     {
         return $this->creationDate;
     }
-    
-    /**
-     * Constructor
-     */
-    public function __construct()
-    {
-        $this->formulations = new \Doctrine\Common\Collections\ArrayCollection();
-        $this->votes = new \Doctrine\Common\Collections\ArrayCollection();
-
-        $this->activated = true;
-        $this->valid = false;
-        $this->archived = false;
-        $this->creationDate = new \DateTime();
-    }
 
     /**
      * Add formulation
@@ -275,5 +284,29 @@ class Perturbation
 
         return false;
 
+    }
+
+    /**
+     * Set terminated
+     *
+     * @param boolean $terminated
+     *
+     * @return Perturbation
+     */
+    public function setTerminated($terminated)
+    {
+        $this->terminated = $terminated;
+
+        return $this;
+    }
+
+    /**
+     * Get terminated
+     *
+     * @return boolean
+     */
+    public function getTerminated()
+    {
+        return $this->terminated;
     }
 }
