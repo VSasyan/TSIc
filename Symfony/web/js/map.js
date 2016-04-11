@@ -1,3 +1,5 @@
+var map = false;
+
 function initMap() {
 	// Your IGN Géoportail Api Key
 	var ignApiKey = "68siq9vlm4baf7h8bs9k9qbs" ;
@@ -23,6 +25,8 @@ function initMap() {
 
 	var baseMap = {"Ign Topo":SCAN25, "OpenStreetMap":OSM};
 	L.control.layers(baseMap).addTo(map);
+
+	return map;
 }
 
 
