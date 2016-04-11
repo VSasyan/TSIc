@@ -224,7 +224,7 @@ Permet aux utilisateurs de récupérer une liste des objects terrain à proximit
     Controller : ObjetTerrainController:listNearestAction
     Url : /objet/terrain/list/nearest/{position}/{rayon=1000}
     Route : objet_terrain_list_nearest
-    Vues : Ajax:list.html.twig
+    Vues : néant
 
 Entrée controlleur :
 * position : position en WKT
