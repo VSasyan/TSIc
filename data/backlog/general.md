@@ -26,7 +26,7 @@ Sprint 2
     * récupération d'icones
     * ajout des types dans AdminController:initAction
 * Amélioration de la carte pour la géolocalisation
-    * chargement de objet dans un rayon de 2-3 "vues Leaflet"
+    * chargement des objets dans un rayon de 2-3 "vues Leaflet"
     * rechargelment si on sort de ce rayon
 
 Sprint 3
