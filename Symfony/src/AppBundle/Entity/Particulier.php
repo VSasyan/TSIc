@@ -71,7 +71,13 @@ class Particulier implements AdvancedUserInterface, \Serializable
     private $activated;
 
     /**
-    * @ORM\OneToMany(targetEntity="Formulation", mappedBy="particulier")
+    * @ORM\OneToMany(targetEntity="Perturbation", mappedBy="particulier", cascade={"persist"})
+    * @ORM\JoinColumn(nullable=false)
+    */
+    private $perturbations;
+
+    /**
+    * @ORM\OneToMany(targetEntity="Formulation", mappedBy="particulier", cascade={"persist"})
     * @ORM\JoinColumn(nullable=false)
     */
     private $formulations;
@@ -470,5 +476,39 @@ class Particulier implements AdvancedUserInterface, \Serializable
     public function getAdmin()
     {
         return $this->admin;
+    }
+
+    /**
+     * Add perturbation
+     *
+     * @param \AppBundle\Entity\Perturbation $perturbation
+     *
+     * @return Particulier
+     */
+    public function addPerturbation(\AppBundle\Entity\Perturbation $perturbation)
+    {
+        $this->perturbations[] = $perturbation;
+
+        return $this;
+    }
+
+    /**
+     * Remove perturbation
+     *
+     * @param \AppBundle\Entity\Perturbation $perturbation
+     */
+    public function removePerturbation(\AppBundle\Entity\Perturbation $perturbation)
+    {
+        $this->perturbations->removeElement($perturbation);
+    }
+
+    /**
+     * Get perturbations
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getPerturbations()
+    {
+        return $this->perturbations;
     }
 }

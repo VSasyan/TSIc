@@ -41,6 +41,15 @@ class ObjetTerrain
      * @ORM\Column(type="geometry", options={"geometry_type"="POINT", "srid"=4326})
      */
     private $position;
+    
+
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->description = '';
+    }
 
 
     /**

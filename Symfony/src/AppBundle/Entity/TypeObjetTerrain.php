@@ -7,12 +7,12 @@ use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 /**
- * TypePerturbation
+ * TypeObjetTerrain
  *
- * @ORM\Table(name="type_perturbation")
- * @ORM\Entity(repositoryClass="AppBundle\Repository\TypePerturbationRepository")
+ * @ORM\Table(name="type_objet_terrain")
+ * @ORM\Entity(repositoryClass="AppBundle\Repository\TypeObjetTerrainRepository")
  */
-class TypePerturbation
+class TypeObjetTerrain
 {
     /**
      * @var int
@@ -33,7 +33,7 @@ class TypePerturbation
     /**
      * @var string
      *
-     * @ORM\Column(name="description", type="text")
+     * @ORM\Column(name="description", type="text", nullable=true)
      */
     private $description;
 
@@ -49,15 +49,6 @@ class TypePerturbation
      * @ORM\Column(type="string", length=255, nullable=true)
      */
     protected $logoPicturePath;
-
-    
-    /**
-     * Constructor
-     */
-    public function __construct()
-    {
-        $this->description = '';
-    }
 
 
     /**
@@ -187,8 +178,8 @@ class TypePerturbation
     protected function getUploadRootDir($type='logoPicture') {
         // the absolute directory path where uploaded
         // documents should be saved
-        echo(__DIR__.'/../../../upload/logo_type_perturbation');
-        return __DIR__.'/../../../upload/logo_type_perturbation';
+        echo(__DIR__.'/../../../upload/logo_type_objet_terrain');
+        return __DIR__.'/../../../upload/logo_type_objet_terrain';
     }
 
     /**

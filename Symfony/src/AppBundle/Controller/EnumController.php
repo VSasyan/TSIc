@@ -64,7 +64,7 @@ class EnumController extends Controller {
 	/**
 	* @Route("/type-perturbation/edit/{id}", name="type_perturbation_edit")
 	*/
-	public function typePerturbationEditAction(Request $request, $id){
+	public function typeObjetTerrainEditAction(Request $request, $id){
 
 		$em = $this->getDoctrine()->getManager();
 		$type = $em->getRepository('AppBundle:TypePerturbation')->find($id);
@@ -93,10 +93,104 @@ class EnumController extends Controller {
 	/**
 	* @Route("/type-perturbation/delete/{id}", name="type_perturbation_delete")
 	*/
-	public function typePerturbationDeleteAction(Request $request, $id){
+	public function typeObjetTerrainDeleteAction(Request $request, $id){
 
 		$em = $this->getDoctrine()->getManager();
 		$type = $em->getRepository('AppBundle:TypePerturbation')->find($id);
+
+		if ($type != null) {
+			$em->remove($type);
+			$em->flush();
+			$request->getSession()->getFlashBag()->add('success', 'Type bien supprimé.');
+		} else {
+			$request->getSession()->getFlashBag()->add('error', 'Type non trouvé.');
+		}
+
+		return $this->render('AppBundle:Ajax:confirmation.html.twig');
+	}
+
+	/**
+	* @Route("/type-objet-terrain/add", name="type_objet_terrain_add")
+	*/
+	public function typeObjetTerrainAddAction(Request $request){
+
+		$type = new TypeObjetTerrain();
+		$form = $this->createForm(TypePerturbationType::class, $type);
+
+		if ($form->handleRequest($request)->isValid()) {
+			$em = $this->getDoctrine()->getManager();
+			$em->persist($type);
+			$em->flush();
+
+			$type->uploadLogoPicture();
+			$em->flush();
+			
+			$request->getSession()->getFlashBag()->add('success', 'Type d\'objet terrain bien créé.');
+
+			return $this->redirect($this->generateUrl('type_objet_terrain_edit', array('id' => $type->getId())));
+		}
+
+		return $this->render('AppBundle:Enum:add.html.twig', array(
+			'form' => $form->createView(),
+			'title' => 'Ajouter un type d\'objet terrain'
+		));
+
+	}
+
+	/**
+	* @Route("/type-objet-terrain/list", name="type_perturbation_list")
+	*/
+	public function typeObjetTerrainListAction(Request $request){
+
+		$em = $this->getDoctrine()->getManager();
+		$elements = $em->getRepository('AppBundle:TypeObjetTerrain')->findAll();
+
+		return $this->render('AppBundle:Enum:list.html.twig', array(
+			'elements' => $elements,
+			'title' => 'Liste des types',
+			'route_edit' => 'type_objet_terrain_edit',
+			'route_logo' => 'logo_type_objet_terrain',
+			'route_delete' => 'type_objet_terrain_delete'
+		));
+
+	}
+
+	/**
+	* @Route("/type-objet-terrain/edit/{id}", name="type_objet_terrain_edit")
+	*/
+	public function typePerturbationEditAction(Request $request, $id){
+
+		$em = $this->getDoctrine()->getManager();
+		$type = $em->getRepository('AppBundle:TypeObjetTerrain')->find($id);
+
+		if ($type != null) {
+			$form = $this->createForm(TypePerturbationType::class, $type);
+
+			if ($form->handleRequest($request)->isValid()) {
+				$type->uploadLogoPicture();
+				$em->persist($type);
+				$em->flush();
+				$request->getSession()->getFlashBag()->add('success', 'Type d\'objet terrain bien edité.');
+			}
+		} else {
+			$request->getSession()->getFlashBag()->add('error', 'Type d\'objet terrain non trouvé.');
+			return $this->redirect($this->generateUrl('type_objet_terrain_list'));
+		}
+
+		return $this->render('AppBundle:Enum:edit.html.twig', array(
+			'form' => $form->createView(),
+			'title' => 'Editer un type d\'objet terrain'
+		));
+
+	}
+
+	/**
+	* @Route("/type-objet-terrain/delete/{id}", name="type_perturbation_delete")
+	*/
+	public function typePerturbationDeleteAction(Request $request, $id){
+
+		$em = $this->getDoctrine()->getManager();
+		$type = $em->getRepository('AppBundle:TypeObjetTerrain')->find($id);
 
 		if ($type != null) {
 			$em->remove($type);
