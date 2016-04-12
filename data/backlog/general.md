@@ -3,7 +3,7 @@
 ## Sprint 1 : 4-7
 
 * Formalisation UML [OK]
-* Voir l'intégration Jenkins avec Symfony [KO]
+* Voir l'intégration Jenkins avec Symfony [OK]
 * Configuration de Symfony [OK]
 * Mise en place des "Entity" : Particulier, Professionnel, Perturbation, Formulation, Validation, Terminated, Formulation [50%]
 * Mise en place des "Controller" : Utilisateur, Perturbation [avec Tests unitaires] [50%]
@@ -28,8 +28,9 @@
 * Amélioration de la carte pour la géolocalisation [OK]
     * chargement des objets dans un rayon de 2-3 "vues Leaflet" [OK]
     * rechargelment si on sort de ce rayon [OK]
-* Ajouter la cause supposée de la perturbation (Champ de texte libre), modifier : Type, Entity [...]
+* Ajouter la cause supposée de la perturbation (Champ de texte libre), modifier : Type, Entity [OK]
 * AdminController : ajouter des Type de Perturbation avec des icones (Route bloquée, Réduction de voies, Réduction de la vitesse) [OK, icone ...]
+* Vérifier l'édition de perturbation
 
 ## Sprint 2 : 12-14
 
