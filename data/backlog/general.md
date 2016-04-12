@@ -43,6 +43,7 @@
 * Modélisation de l'ajout (par les pro) d'objets (réseau routier) de la directive Inspire :
     * Services : RoadServiceTypeValue, ServiceFacilityValue
     * Réseau : Link, LinkDirectionValue, NumberOfLanes
+    * Trouve base pour l'existant
 
 Le but est de proposer un modèle à ajouter au notre pour prendre en compte ces objets. Il faudra creuser autour du document de Romain pour identifier les classes.
 
@@ -50,7 +51,9 @@ Le but est de proposer un modèle à ajouter au notre pour prendre en compte ces
 
 A détailler le 12 au soir.
 
-## Sprint 3
+## Sprint 3 : 18-20
 
 Implementation du reste de la Sprint2.
 A détailler le 12 au soir.
+
+Sprint4 : préparation de la soutenance : le 21
