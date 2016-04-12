@@ -3,6 +3,8 @@
 namespace AppBundle\Controller;
 
 use AppBundle\Entity\Particulier;
+use AppBundle\Entity\Professionnel;
+use AppBundle\Entity\Admin;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use AppBundle\Repository\ParticulierRepository;
 use AppBundle\Form\ParticulierType;
@@ -50,87 +52,92 @@ class UserController extends StatutController {
 		);
 	}
 
-    /**
-     * @Route("/login", name="login")
-     */
-    public function loginAction(Request $request)
-    {
-        $session = $request->getSession();
+	/**
+	 * @Route("/login", name="login")
+	 */
+	public function loginAction(Request $request)
+	{
+		$session = $request->getSession();
 
-        $helper = $this->get('security.authentication_utils');
+		$helper = $this->get('security.authentication_utils');
 
-        /*if ($request->attributes->has($helper->getLastAuthenticationError())) {
-            $error = $request->attributes->get($helper->getLastAuthenticationError());
-        } else {
-            $error = $session->get($helper->getLastAuthenticationError());
-            $session->remove($helper->getLastAuthenticationError());
-        }*/
+		/*if ($request->attributes->has($helper->getLastAuthenticationError())) {
+			$error = $request->attributes->get($helper->getLastAuthenticationError());
+		} else {
+			$error = $session->get($helper->getLastAuthenticationError());
+			$session->remove($helper->getLastAuthenticationError());
+		}*/
 
-        return $this->render('AppBundle:User:login.html.twig', array(
-                'last_username' => $helper->getLastUsername(),
-                'error'         => $helper->getLastAuthenticationError(),
-            )
-        );
-    }
+		return $this->render('AppBundle:User:login.html.twig', array(
+				'last_username' => $helper->getLastUsername(),
+				'error'         => $helper->getLastAuthenticationError(),
+			)
+		);
+	}
 
-    /**
-    * @Method({"POST"})
-    * @Route("/login_check", name="login_check")
-    */
-    public function check()
-    {
-        throw new \RuntimeException('You must configure the check path to be handled by the firewall using form_login in your security firewall configuration.');
-    }
+	/**
+	* @Method({"POST"})
+	* @Route("/login_check", name="login_check")
+	*/
+	public function check()
+	{
+		throw new \RuntimeException('You must configure the check path to be handled by the firewall using form_login in your security firewall configuration.');
+	}
 
-    /**
-    * @Method({"GET"})
-    * @Route("/logout", name="logout")
-    */
-    public function logout()
-    {
-        throw new \RuntimeException('You must activate the logout in your security firewall configuration.');
-    }
+	/**
+	* @Method({"GET"})
+	* @Route("/logout", name="logout")
+	*/
+	public function logout()
+	{
+		throw new \RuntimeException('You must activate the logout in your security firewall configuration.');
+	}
 
 
 	/**
-	 * show
-	 *
-	 * return information about the given user
-	 *
-	 * @Route("/user/show/{id}", name="user_show")
-	 */
+	* show
+	*
+	* return information about the given user
+	*
+	* @Route("/user/show/{id}", name="user_show")
+	*/
 	public function showUserAction($id){
 
 		$repository = $this->getDoctrine()->getManager()->getRepository('AppBundle:Particulier');
 		$user = $repository->find($id);
 		
 		if (null === $user) {
-			throw new NotFoundHttpException("Le user d'id ".$id." n'existe pas.");
+			return $this->redirectToRoute('user_list');
+			#throw new NotFoundHttpException("Le user d'id ".$id." n'existe pas.");
 		} else {
 			$info = array(
 				'user' => $user,
 			);
 		}
 
-		return $this->render('AppBundle:User:show.html.twig', $info);
+		return $this->render('AppBundle:User:showUser.html.twig', $info);
 	}
 
 	/**
-	* @Route("/user/list", name="user_list")
+	* @Route("/admin/user/list", name="user_list")
 	*/
 	public function listUsersAction(){
 
 		$repository = $this->getDoctrine()->getManager()->getRepository('AppBundle:Particulier');
 		$users = $repository->findAll();
 
-		if (!users){
+		if (!$users){
 			throw $this->createNotFoundException(
 				'No product found for id '
 			);
-
+		
+		} else {
+			$info = array(
+				'users' => $users,
+			);
 		}
 
-		return $this->render('AppBundle:User:show.html.twig', $users); 
+		return $this->render('AppBundle:User:list.html.twig', $info); 
 
 	}
 
@@ -144,19 +151,49 @@ class UserController extends StatutController {
 		//print_r($user);
 
 		return $this->render('AppBundle:User:check.html.twig', array(
-            'user' => $user,
-            'admin' => ($this->isAdmin() ? 'admin' : 'pas_admin'),
-            'pro' => ($this->isPro() ? 'pro' : 'pas_pro'),
-        )); 
+			'user' => $user,
+			'admin' => ($this->isAdmin() ? 'admin' : 'pas_admin'),
+			'pro' => ($this->isPro() ? 'pro' : 'pas_pro'),
+		)); 
 
 	}
 
-	/*
-	* @Route("/user/upgrade/{id_user}/{id_status}", name="user_upgrade")
+	/**
+	* @Route("/admin/user/upgrade/{id_user}/{id_status}", name="user_upgrade")
 	*/
-	public function upgradeUserAction($id_user, $id_status){
+	public function upgradeUserAction(Request $request, $id_user, $id_status){
+	
+		$em = $this->getDoctrine()->getManager();
+		$repository = $em->getRepository('AppBundle:Particulier');
+		$user = $repository->find($id_user);
+
+		if($id_status == 1){
+			if ($user->getAdmin() != null) {$em->remove($user->getAdmin());}
+			if ($user->getProfessionnal() != null) {$em->remove($user->getProfessionnal());}
+			$user->setProfessionnal(null);
+			$user->setAdmin(null);
+		}
+		// si professionnel
+		if($id_status == 2){
+			if($user->getProfessionnal() == null){
+				if ($user->getAdmin() != null) {$em->remove($user->getAdmin());}
+				if ($user->getProfessionnal() != null) {$em->remove($user->getProfessionnal());}
+				$user->setProfessionnal(new professionnel());
+				$user->setAdmin(null);
+			}
+		}
 		
-		return new Response('<html><body>upgradeUserAction!</body></html>');		
+		if($id_status == 3){
+			if($user->getAdmin() == null){
+				if ($user->getAdmin() != null) {$em->remove($user->getAdmin());}
+				if ($user->getProfessionnal() != null) {$em->remove($user->getProfessionnal());}
+				$user->setProfessionnal(null);
+				$user->setAdmin(new Admin());
+			}
+		}
+		$em->persist($user);
+		$em->flush();
+		return $this->redirectToRoute('user_list');
 	}
 
 }

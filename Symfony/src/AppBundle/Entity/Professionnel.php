@@ -36,6 +36,13 @@ class Professionnel
     private $post;
 
 
+    public function __construct()
+    {
+        $this->organisation = '';
+        $this->post = '';
+    }
+
+
     /**
      * Get id
      *
