@@ -29,7 +29,7 @@
     * chargement des objets dans un rayon de 2-3 "vues Leaflet" [OK]
     * rechargelment si on sort de ce rayon [OK]
 * Ajouter la cause supposée de la perturbation (Champ de texte libre), modifier : Type, Entity [OK]
-* AdminController : ajouter des Type de Perturbation avec des icones (Route bloquée, Réduction de voies, Réduction de la vitesse) [OK, icone ...]
+* AdminController : ajouter des Type de Perturbation avec des icones (Route bloquée, Réduction de voies, Réduction de la vitesse) [OK]
 * Vérifier l'édition de perturbation
 
 ## Sprint 2 : 12-14
