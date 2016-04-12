@@ -261,9 +261,13 @@ class Perturbation
         return $this->votes;
     }
 
-
-
-    //cette fonction récupère un tableau des plus proches perturbations et retourne les dernières formulations correspondant aux perturbations
+    /**
+     * return Virtual Pertubation
+     * cette fonction récupère un tableau des plus proches
+     * perturbations et retourne les dernières formulations
+     * correspondant aux perturbations
+     * Pertubation------[Formulations] ====> [virtualPerturbation]
+     */
     public function returnVirtualPerturbation()
     {
         //tableau des résultats
