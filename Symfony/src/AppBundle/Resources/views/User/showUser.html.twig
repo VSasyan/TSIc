@@ -16,8 +16,52 @@
 
 <div class="user">
 
-	<div id="show" class="child" data-id="{{ user.id }}" data-name="{{ user.name}}" data-last-name="{{last_name}}">
+	<div id="show" class="child">
+	<table border="1" cellpadding="5" cellspacing="5">
+		<tr>
+			<th>id</th>
+			<th>username</th>
+			<th>name</th>
+			<th>lastname</th>
+			<th>email</th>
+			<th>date</th>
+			<th>activeted</th>
+			<th>status</th>
+		</tr>
+		<tr>
+			<td>{{ user.id }}</td>
+			<td>{{ user.username }}</td>
+			<td>{{ user.name}}</td>
+			<td>{{ user.lastname}}</td>
+			<td>{{ user.email}}</td>
+			<td>{{ user.signinDate|date('Y-m-d')}}</td>
+			<td>{{ user.activated}}</td>
+			
+			<td>
+				<form> 
 
+					{% set sel_1, sel_2, sel_3 = '', '', '' %}
+
+					{% if user.professionnal is null and user.admin is null %}
+			    		{% set sel_1 = 'selected="selected"' %}
+			    	{% elseif user.professionnal is not null and user.admin is null %}
+			    		{% set sel_2 = 'selected="selected"' %}
+			    	{% else %}
+			    		{% set sel_3 = 'selected="selected"' %}
+			    	{% endif %}
+
+				<select class="lien" name="type" id="TypePret" size="1">
+					<option {{ sel_1 }} value='{{ path('user_upgrade', {id_user : user.id, id_status : 1}) }}'>particulier</option>
+					<option {{ sel_2 }} value='{{ path('user_upgrade', {id_user : user.id, id_status : 2}) }}'>professionel</option>
+					<option {{ sel_3 }} value='{{ path('user_upgrade', {id_user : user.id, id_status : 3}) }}' >admin </option>
+				</select>
+
+		</form>
+			</td>
+		</tr>
+	</table>
+		
+		
 	</div>
 </div>
 
