@@ -1,6 +1,6 @@
 # Backlog general
 
-### Sprint 1 : 4-7
+## Sprint 1 : 4-7
 
 * Formalisation UML [OK]
 * Voir l'intégration Jenkins avec Symfony [KO]
@@ -16,7 +16,7 @@
 * Trouver base pour fournir les objects "autres" [OK]
 * Liste des objets INSPIRE [50%]
 
-### Sprint 1.5 : 8-11
+## Sprint 1.5 : 8-11
 
 * Mise en place des Objets Terrains
     * creation du controller ObjetTerrain [OK]
@@ -31,9 +31,9 @@
 * Ajouter la cause supposée de la perturbation (Champ de texte libre), modifier : Type, Entity [...]
 * AdminController : ajouter des Type de Perturbation avec des icones (Route bloquée, Réduction de voies, Réduction de la vitesse) [OK, icone ...]
 
-### Sprint 2 : 12-14
+## Sprint 2 : 12-14
 
-#### Modélisation :
+### Modélisation :
 
 * Modélisation de l'ajout d'un socket NodeJS
 * Modélisation de l'ajout d'une base "chaude" en Redis
@@ -47,7 +47,7 @@
 
 Le but est de proposer un modèle à ajouter au notre pour prendre en compte ces objets. Il faudra creuser autour du document de Romain pour identifier les classes.
 
-#### Implémentation : 13-14
+### Implémentation : 13-14
 
 A détailler le 12 au soir.
 
@@ -56,4 +56,4 @@ A détailler le 12 au soir.
 Implementation du reste de la Sprint2.
 A détailler le 12 au soir.
 
-Sprint4 : préparation de la soutenance : le 21
+## Sprint4 : préparation de la soutenance : le 21
