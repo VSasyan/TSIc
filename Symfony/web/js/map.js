@@ -1,3 +1,5 @@
+var map = false;
+
 function initMap() {
 	// Your IGN Géoportail Api Key
 	var ignApiKey = "68siq9vlm4baf7h8bs9k9qbs" ;
@@ -23,4 +25,35 @@ function initMap() {
 
 	var baseMap = {"Ign Topo":SCAN25, "OpenStreetMap":OSM};
 	L.control.layers(baseMap).addTo(map);
+
+	return map;
+}
+
+
+var dataBounds = false; // type LatLngBounds
+
+function listNearest(viewBounds) {
+	// Request
+	var radius = viewBounds.getSouthWest().distanceTo(viewBounds.getNorthEast());
+	console.log("Requesting data on " + coordinatesToWKT(viewBounds.getCenter()) + " radius " + radius);
+	getPage(
+		Routing.generate("perturbation_list_nearest", {
+			position : coordinatesToWKT(viewBounds.getCenter()),
+			radius : radius
+		})
+	);
+
+	dataBounds = viewBounds.pad(1);
+}
+
+
+var posMarker = false;
+function updatePosMarker() {
+	var position = L.latLng(geoloc.position.latitude, geoloc.position.longitude);
+	posMarker.setLatLng(position);
+}
+
+function updateView() {
+	var position = L.latLng(geoloc.position.latitude, geoloc.position.longitude);
+	map.setView(position, 13, {animate:true});
 }

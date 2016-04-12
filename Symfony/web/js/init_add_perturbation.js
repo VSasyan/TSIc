@@ -1,29 +1,38 @@
 var marqueur = false;
-var position = false;
-var map = false;
-var positionCliquee = false;
 
-function getLocation(pos) {
-	if (positionCliquee === false) {
-		position = {lat : pos.coords.latitude, lng : pos.coords.longitude};
-		setMarqueur();
-	}
+function updateMarqueur() {
+	var position = {lat : geoloc.position.latitude, lng : geoloc.position.longitude};
+	setMarqueur(position);
 }
 
 document.addEventListener("DOMContentLoaded", function() {
 	$(document).ready(function() {
+		geoloc.init();
 		initMap();
-		geolocation(getLocation);
+		posMarker = L.marker(map.getCenter()).addTo(map); // mark the vehicle
+
+		geoloc.callback = function() { // update both markers
+			updatePosMarker();
+			updateView();
+			updateMarqueur();
+		};
+
+		map.on("dragstart", function(e) { // drop updating view
+			geoloc.callback = function() {
+				updatePosMarker();
+				updateMarqueur();
+			};
+		});
+
 		map.on('click', function(e) {
-			positionCliquee = true;
-			position = e.latlng;
-			setMarqueur();
+			geoloc.callback = updatePosMarker;
+			setMarqueur(e.latlng);
+			map.setView(e.latlng, 13, {animate:true});
 		});
 	});
 });
 
-function setMarqueur() {
-	map.setView(position, 13, {animate:true});
+function setMarqueur(position) {
 	if (marqueur === false) {
 		// On l'ajoute
 		marqueur = L.marker(position).addTo(map);
