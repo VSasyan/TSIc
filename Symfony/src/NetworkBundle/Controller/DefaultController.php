@@ -6,11 +6,12 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 
 use NetworkBundle\Entity\Node;
+use NetworkBundle\Entity\Link;
 
 class DefaultController extends Controller
 {
 	/**
-	 * @Route("/")
+	 * @Route("/test-network")
 	 */
 	public function indexAction()
 	{

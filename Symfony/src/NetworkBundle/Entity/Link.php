@@ -8,8 +8,11 @@ use NetworkBundle\Entity\GeneralisedLink;
 
 /**
  * Link
+ *
+ * @ORM\Table(name="link")
+ * @ORM\Entity(repositoryClass="NetworkBundle\Repository\LinkRepository")
  */
-abstract class Link extends GeneralisedLink
+class Link extends GeneralisedLink
 {
     /**
      * @var string
