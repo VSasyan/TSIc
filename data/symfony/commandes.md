@@ -50,3 +50,14 @@ Executer dans pgAdmin :
 	DROP TABLE type_objet_terrain CASCADE;
 	DROP TABLE type_perturbation CASCADE;
 	DROP TABLE vote CASCADE;
+	
+	DROP SEQUENCE admin_id_seq;
+	DROP SEQUENCE formulation_id_seq;
+	DROP SEQUENCE message_id_seq;
+	DROP SEQUENCE objet_terrain_id_seq;
+	DROP SEQUENCE particulier_id_seq;
+	DROP SEQUENCE perturbation_id_seq;
+	DROP SEQUENCE professionnel_id_seq;
+	DROP SEQUENCE type_objet_terrain_id_seq;
+	DROP SEQUENCE type_perturbation_id_seq;
+	DROP SEQUENCE vote_id_seq;
