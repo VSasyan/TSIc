@@ -21,6 +21,6 @@ class DefaultController extends Controller
 		$em->persist($truc);
 		$em->flush();
 
-        return $this->render('NetworkBundle:Default:index.html.twig');
-    }
+		return $this->render('NetworkBundle:Default:index.html.twig');
+	}
 }
