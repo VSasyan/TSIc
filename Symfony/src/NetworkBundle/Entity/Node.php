@@ -7,11 +7,8 @@ use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * Node
- *
- * @ORM\Table(name="node")
- * @ORM\Entity(repositoryClass="NetworkBundle\Repository\NodeRepository")
  */
-class Node extends Element
+abstract class Node extends Element
 {
 	/**
 	 * @var string
