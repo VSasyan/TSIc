@@ -1,7 +1,7 @@
 <div id="list" class="elements">
 	{% for p in perturbations %}
 		<div
-			class="element"
+			class="element perturbation"
 			data-id-type="{{ p.type.id }}"
 			data-name-type="{{ p.type.name }}"
 			data-name="{{ p.name }}"
@@ -47,4 +47,28 @@
 			</a>
 		</div>
 	{% endfor %}
+
+	{% if perturbations|length == 0 %}
+		<div class="element">
+			<a href="#">
+				<div class="table">
+					<div class="row">
+						<div class="cell middle left">Aucune perturbation à afficher</div>
+					</div>
+				</div>
+				<div class="clear"></div>
+			</a>
+		</div>
+	{% endif %}
+
+	<div class="element">
+		<a href="{{ path('perturbation_add') }}">
+			<div class="table">
+				<div class="row">
+					<div class="cell middle left">Ajouter une perturbation</div>
+				</div>
+			</div>
+			<div class="clear"></div>
+		</a>
+	</div>
 </div>

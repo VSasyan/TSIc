@@ -118,7 +118,9 @@
 	<div class="elements formulations none">
 		<center>
 			<span class="button" id="show_elements">Afficher l'historique des modifications</span>
-			<span class="button editer">Éditer la perturbation</span>
+			{% if is_granted('ROLE_ADMIN') or is_granted('ROLE_PROFESSIONNAL') %}
+				<span class="button editer">Éditer la perturbation</span>
+			{% endif %}
 		</center>
 		<div id="list_elements" style="display:none;">
 		{% for f in perturbation.formulations %}

@@ -72,7 +72,7 @@ function show_nearestPerturbations() {
 	// On vide les anciennes info :
 	$.each(map_perturbations, function(i,p) {map.removeLayer(p);})
 
-	$('#list .element').each(function() {
+	$('#list .element.perturbation').each(function() {
 		// Recuperation info :
 		var name = $(this).data('name');
 		var center = $(this).data('center');
