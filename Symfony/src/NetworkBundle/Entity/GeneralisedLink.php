@@ -8,6 +8,8 @@ use NetworkBundle\Entity\Element;
 
 /**
  * GeneralisedLink
+ *
+ * @ORM\Entity(repositoryClass="NetworkBundle\Repository\GeneralisedLinkRepository")
  */
 class GeneralisedLink extends Element
 {

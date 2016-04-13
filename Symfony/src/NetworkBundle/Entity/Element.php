@@ -6,8 +6,6 @@ use Doctrine\ORM\Mapping as ORM;
 
 /**
  * Element
- *
- * @ORM\Entity(repositoryClass="NetworkBundle\Repository\ElementRepository")
  */
 abstract class Element
 {
@@ -18,7 +16,7 @@ abstract class Element
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
      */
-    private $inspireId;
+    protected $inspireId;
 
 
     /**
