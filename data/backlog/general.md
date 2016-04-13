@@ -22,8 +22,8 @@
     * creation du controller ObjetTerrain [OK]
     * importation des données récupérées [OK]
 * Mise en place du système de vote [OK]
-* Amélioration de la carte pour voir les ObjetTerrain [...]
-    * récupération d'icones [...]
+* Amélioration de la carte pour voir les ObjetTerrain [OK]
+    * récupération d'icones [OK]
     * ajout des types dans AdminController:initAction [OK]
 * Amélioration de la carte pour la géolocalisation [OK]
     * chargement des objets dans un rayon de 2-3 "vues Leaflet" [OK]
@@ -47,6 +47,7 @@
     * Trouve base pour l'existant
 
 Le but est de proposer un modèle à ajouter au notre pour prendre en compte ces objets. Il faudra creuser autour du document de Romain pour identifier les classes.
+
 
 ### Implémentation : 13-14
 
