@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * TransportObject
  */
-abstract class TransportObject
+trait TransportObject
 {
     /**
      * @var string
