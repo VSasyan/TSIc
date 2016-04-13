@@ -57,5 +57,52 @@ class Link extends GeneralisedLink
 	{
 		return $this->centrelineGeometry;
 	}
-}
 
+	/**
+	 * Set startNode
+	 *
+	 * @param \NetworkBundle\Entity\Node $startNode
+	 *
+	 * @return Link
+	 */
+	public function setStartNode(\NetworkBundle\Entity\Node $startNode = null)
+	{
+		$this->startNode = $startNode;
+
+		return $this;
+	}
+
+	/**
+	 * Get startNode
+	 *
+	 * @return \NetworkBundle\Entity\Node
+	 */
+	public function getStartNode()
+	{
+		return $this->startNode;
+	}
+
+	/**
+	 * Set endNode
+	 *
+	 * @param \NetworkBundle\Entity\Node $endNode
+	 *
+	 * @return Link
+	 */
+	public function setEndNode(\NetworkBundle\Entity\Node $endNode = null)
+	{
+		$this->endNode = $endNode;
+
+		return $this;
+	}
+
+	/**
+	 * Get endNode
+	 *
+	 * @return \NetworkBundle\Entity\Node
+	 */
+	public function getEndNode()
+	{
+		return $this->endNode;
+	}
+}
