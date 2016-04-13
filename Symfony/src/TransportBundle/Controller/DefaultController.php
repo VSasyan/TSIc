@@ -7,11 +7,11 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 
 class DefaultController extends Controller
 {
-    /**
-     * @Route("/")
-     */
-    public function indexAction()
-    {
-        return $this->render('TransportBundle:Default:index.html.twig');
-    }
+	/**
+	 * @Route("/transport", condition="request.getScriptName() == '/app_dev.php'")
+	 */
+	public function indexAction()
+	{
+		return $this->render('TransportBundle:Default:index.html.twig');
+	}
 }
