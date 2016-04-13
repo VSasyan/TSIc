@@ -19,17 +19,6 @@ abstract class Node extends Element
      */
     private $geometry;
 
-
-    /**
-     * Get id
-     *
-     * @return int
-     */
-    public function getId()
-    {
-        return $this->id;
-    }
-
     /**
      * Set geometry
      *

@@ -5,7 +5,7 @@ namespace NetworkBundle\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 
-use NetworkBundle\Entity\GeneralisedLink;
+use NetworkBundle\Entity\Node;
 
 class DefaultController extends Controller
 {
@@ -14,8 +14,8 @@ class DefaultController extends Controller
 	 */
 	public function indexAction()
 	{
-		$truc = new GeneralisedLink();
-		$truc->setToto(1);
+		$truc = new Node();
+		$truc->setGeometry('point');
 
 		$em = $this->getDoctrine()->getManager();
 		$em->persist($truc);
