@@ -15,13 +15,17 @@ class DefaultController extends Controller
 	 */
 	public function indexAction()
 	{
-		$truc = new Node();
-		$truc->setGeometry('point');
+		$node = new Node();
+		$node->setGeometry('point');
+
+		$link = new Link();
+		$link->setCentrelineGeometry("ligne");
 
 		$em = $this->getDoctrine()->getManager();
-		$em->persist($truc);
+		$em->persist($node);
+		$em->persist($link);
 		$em->flush();
 
-		return $this->render('NetworkBundle:Default:index.html.twig');
+		return $this->render('NetworkBundle:Default:index.html.twig', array("node" => $node->getGeometry(), "link" => $link->getCentrelineGeometry()));
 	}
 }

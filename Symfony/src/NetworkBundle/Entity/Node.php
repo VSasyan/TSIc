@@ -10,7 +10,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Table(name="node")
  * @ORM\Entity(repositoryClass="NetworkBundle\Repository\NodeRepository")
  */
-abstract class Node extends Element
+class Node extends Element
 {
     /**
      * @var string
