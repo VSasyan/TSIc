@@ -8,10 +8,8 @@ use NetworkBundle\Entity\Link;
 
 /**
  * TransportLink
- *
- * @ORM\Entity(repositoryClass="TransportBundle\Repository\TransportLinkRepository")
  */
-class TransportLink extends Link
+abstract class TransportLink extends Link
 {
     use TransportObject;
 }
