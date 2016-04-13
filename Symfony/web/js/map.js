@@ -46,8 +46,9 @@ function listNearest(viewBounds) {
 	}), function() {init_click_vote(); show_nearestPerturbations();});
 
 	// Recuperations des Objets :
-	getObject(Routing.generate("perturbation_list_nearest", {
+	getObject(Routing.generate("objet_terrain_list_nearest", {
 		position : coordinatesToWKT(viewBounds.getCenter()),
+		radius : radius
 	}));
 
 
@@ -95,6 +96,35 @@ function show_nearestPerturbations() {
 		var html = html_popup_perturbation(name, nameType, path);
 
 		map_perturbations.push(L.marker(position, {icon: icon}).addTo(map).bindPopup(html));
+	
+	});
+}
+
+function show_nearestObjetsTerrains(objets) {
+	// On vide les anciennes info :
+	$.each(map_objects, function(i,o) {map.removeLayer(o);})
+
+	$.each(objets, function(i, o) {
+		// Recuperation info :
+		var name = o.name;
+
+		var regExp = /POINT\((.*) (.*)\)/;
+		var result = regExp.exec(o.geometry);
+		var position = [result[2], result[1]];
+
+		// Ajout à la carte :
+		var srcIcon = Routing.generate("logo_type_objet_terrain", {id : o.type});
+		var icon = L.icon({
+			iconUrl: srcIcon,
+
+			iconSize:     [20, 20], // size of the icon
+			iconAnchor:   [10, 10], // point of the icon which will correspond to marker's location
+			popupAnchor:  [0, -10] // point from which the popup should open relative to the iconAnchor
+		});
+
+		var html = html_popup_objet(name, srcIcon);
+
+		map_objects.push(L.marker(position, {icon: icon}).addTo(map).bindPopup(html));
 	
 	});
 }

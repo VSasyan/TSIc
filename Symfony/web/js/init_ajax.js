@@ -4,22 +4,19 @@ function getPage(route, after) {
 	return $.get(route, function(data, status) {
 		document.title = data.title;
 		$('#ajax_loader').html(data.content);
-		map.invalideSize();
+		map.invalidateSize();
 		if(after != false) { after(); }
 	});
 }
 
 function getObject(route) {
-	/*$.ajax({
+	$.ajax({
 		url : route,
 		type : 'GET',
 		success : function(data) {
-			var objects = JSON.parse(data);
-			$.each(objects, function(i,o) {
-
-			});
+			show_nearestObjetsTerrains(data);
 		}
-	});*/
+	});
 }
 
 var functions = {
@@ -58,12 +55,10 @@ var functions = {
 
 document.addEventListener("DOMContentLoaded", function() {
 	//ajout ajax load gif
-		//$('#ajax_loader').replaceWith(HTML_AJAX_LOADING);
-		$('#ajax_loader').html(HTML_AJAX_LOADING_BIG);
-		
-		console.log('test: ', HTML_AJAX_LOADING);
-
-		
+	//$('#ajax_loader').replaceWith(HTML_AJAX_LOADING);
+	$('#ajax_loader').html(HTML_AJAX_LOADING_BIG);
+	
+	//console.log('test: ', HTML_AJAX_LOADING);		
 
 	functions[$('#ajax_loader').data('function')]();
 });

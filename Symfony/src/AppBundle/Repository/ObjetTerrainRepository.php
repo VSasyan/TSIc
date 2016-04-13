@@ -10,4 +10,20 @@ namespace AppBundle\Repository;
  */
 class ObjetTerrainRepository extends \Doctrine\ORM\EntityRepository
 {
+
+	public function findNearest($position, $rayon) {
+
+		$qb = $this->createQueryBuilder('a');
+
+		$objets = $qb->where('ST_DISTANCE(a.position, '.$position.') < :rayon')
+			->setParameter('rayon', $rayon)
+			//->orderBy('a.creation_date', 'DESC')
+			->setMaxResults(350)
+			->getQuery()
+			->getResult();
+
+		return $objets;
+
+	}
+
 }
