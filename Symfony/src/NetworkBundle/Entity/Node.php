@@ -3,6 +3,7 @@
 namespace NetworkBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * Node
@@ -31,6 +32,22 @@ abstract class Node extends Element
     }
 
     /**
+    * @var  \Doctrine\Common\Collections\ArrayCollection
+    * @ORM\OneToMany(targetEntity="Link", mappedBy="inspireId")
+    * @ORM\JoinTable(name="spokeStart")
+    */
+
+    protected $spokeStart;
+
+    /**
+    * @var  \Doctrine\Common\Collections\ArrayCollection
+    * @ORM\OneToMany(targetEntity="Link", mappedBy="inspireId")
+    * @ORM\JoinTable(name="spokeEnd")
+    */
+
+    protected $spokeEnd;
+
+    /**
      * Set geometry
      *
      * @param string $geometry
@@ -52,6 +69,11 @@ abstract class Node extends Element
     public function getGeometry()
     {
         return $this->geometry;
+    }
+
+    public function __construct() {
+        $this->spokeStart = new ArrayCollection();
+        $this->spokeEnd = new ArrayCollection();
     }
 }
 
