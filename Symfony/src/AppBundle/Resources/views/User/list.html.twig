@@ -1,7 +1,7 @@
 {% extends 'AppBundle::base.html.twig' %}
 
 {% block title %}
-	la liste des utilisateurs
+	Liste des utilisateurs
 {% endblock %}
 
 {% block stylesheets %}
@@ -10,16 +10,71 @@
 {% block javascripts %}
 {% endblock %}
 
+{% block titleblock %}	
+	<h1>Liste des utilisateurs</h1>
+{% endblock %}
+
 {% block body %}
 
 	<div>
-		<h2>la liste des utilisateurs</h2>
+		<h2>La liste des utilisateurs</h2>
 		<div class="allusers">
-			{% for user in users %}
-				<div class="user">
-					<a href="{{path('user_show', {id : user.id})}}"> {{ user.username }} {{ user.name }} {{ user.id }}</a>
-				</div>
-			{% endfor %}
+			<table>
+				<tr>
+					<th>Identifiant</th>
+					<th>Pseudo</th>
+					<th>Prénom</th>
+					<th>Nom</th>
+					<th>Email</th>
+					<th>Date d'inscription</th>
+					<th>Activé</th>
+					<th>Statut</th>
+				</tr>
+					{% for user in users %}
+						<tr>
+							<td class="center">{{ user.id }}</td>
+							<td>{{ user.username }}</td>
+							<td>{{ user.name}}</td>
+							<td>{{ user.lastname}}</td>
+							<td>{{ user.email}}</td>
+							<td>{{ user.signinDate|date('d/m/Y')}}</td>
+							<td>{{ user.activated ? 'oui' : 'non' }}</td>
+							
+							<td>
+								{% if is_granted('ROLE_ADMIN') %}
+
+									{% set sel_1, sel_2, sel_3 = '', '', '' %}
+
+									{% if user.professionnal is null and user.admin is null %}
+										{% set sel_1 = 'selected="selected"' %}
+									{% elseif user.professionnal is not null and user.admin is null %}
+										{% set sel_2 = 'selected="selected"' %}
+									{% else %}
+										{% set sel_3 = 'selected="selected"' %}
+									{% endif %}
+
+
+									<select class="lien" name="type" id="TypePret" size="1">
+										<option {{ sel_1 }} value="{{ path('user_upgrade', {id_user : user.id, id_status : 1}) }}">Particulier</option>
+										<option {{ sel_2 }} value="{{ path('user_upgrade', {id_user : user.id, id_status : 2}) }}">Professionnel</option>
+										<option {{ sel_3 }} value="{{ path('user_upgrade', {id_user : user.id, id_status : 3}) }}">Admin</option>
+									</select>
+
+								{% else %}
+
+									{% if user.professionnal is null and user.admin is null %}
+										Particulier
+									{% elseif user.professionnal is not null and user.admin is null %}
+										Professionnel
+									{% else %}
+										Admin
+									{% endif %}
+
+								{% endif %}
+							</td>
+						</tr>
+					{% endfor %}
+			</table>
 		</div>
 	</div>
 

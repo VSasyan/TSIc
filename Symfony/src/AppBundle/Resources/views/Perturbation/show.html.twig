@@ -15,6 +15,10 @@
 	<script src="{{ asset('js/show_perturbation.js') }}"></script>
 {% endblock %}
 
+{% block titleblock %}	
+	<h1>Détails de la perturbation</h1>
+{% endblock %}
+
 {% block body %}
 
 <div class="parent">
@@ -33,6 +37,7 @@
 				<p></p>
 				<p class="perturbation-dates">Depuis le {{ formulation.beginDate|date('  d/m à h:m') }} ; fin estimée le {{ formulation.endDate|date('  d/m à h:m') }}.</p>
 				<p class="perturbation-description">{{ formulation.description }}</p>
+				<p class="perturbation-causes">Causes supposées : {{ formulation.causes }}</p>
 			</div>
 
 			<p>Perturbation créée le {{ perturbation.creationDate|date('  d/m à h:m') }} (modifiée le {{ formulation.creationDate|date(' d/m à h:m') }}).</p>
@@ -42,21 +47,48 @@
 					{% if perturbation.valid %}
 						<li class="perturbation-valid-tag">Validée</li>
 					{% else %}
-						<li class="perturbation-valid-tag">Non Validée <span class="button validate"  data-path="{{ path("vote", { id_perturbation: perturbation.id, id_message: 3}) }}" title="Confirmer la perturbation">Confirmer</span></li>
+						<li class="perturbation-valid-tag">
+							Non Validée
+							<span
+								class="button validate" 
+								data-path="{{ path('vote', { id_perturbation: perturbation.id, id_message: 3}) }}"
+								title="Confirmer la perturbation"
+							>
+								Confirmer
+							</span>
+						</li>
 					{% endif %}
 				</ul>
 				<ul>
 					{% if perturbation.terminated %}
 						<li class="perturbation-terminated-tag">Terminée</li>
 					{% else %}
-						<li class="perturbation-terminated-tag">Non Terminée <span class="button terminate" data-path="{{ path("vote", { id_perturbation: perturbation.id, id_message: 2}) }}" title="La perturbation est terminée.">Terminer</span></li>
+						<li class="perturbation-terminated-tag">
+							Non Terminée
+							<span
+								class="button terminate"
+								data-path="{{ path('vote', { id_perturbation: perturbation.id, id_message: 2}) }}"
+								title="La perturbation est terminée."
+							>
+								Terminer
+							</span>
+						</li>
 					{% endif %}
 				</ul>
 				<ul>
 					{% if perturbation.activated %}
-						<li class="perturbation-activated-tag">Activée <span class="button inhibate"  data-path="{{ path("vote", { id_perturbation: perturbation.id, id_message: 1}) }}" title="Annuler la perturbation">Inhiber</span></li> 
+						<li class="perturbation-activated-tag">
+							Activée
+							<span
+								class="button inhibate" 
+								data-path="{{ path('vote', { id_perturbation: perturbation.id, id_message: 1}) }}"
+								title="Dénoncer la perturbation"
+							>
+								Inhiber
+							</span>
+						</li> 
 					{% else %}
-						<li class="perturbation-activated-tag">Non Activée</li>
+						<li class="perturbation-activated-tag">Désactivée</li>
 					{% endif %}
 				</ul>
 				{% if is_granted('ROLE_ADMIN') or is_granted('ROLE_PROFESSIONNAL') %}
@@ -64,7 +96,16 @@
 					{% if perturbation.archived %}
 						<li class="perturbation-archived-tag">Archivée</li> 
 					{% else %}
-						<li class="perturbation-archived-tag">Non Archivée <span class="button archive"  data-path="{{ path("perturbation_archive", { id: perturbation.id}) }}" title="Archiver la perturbation">Inhiber</span></li> 
+						<li class="perturbation-archived-tag">
+							Non Archivée
+							<span
+								class="button archive" 
+								data-path="{{ path('perturbation_archive', { id : perturbation.id }) }}"
+								title="Archiver la perturbation"
+							>
+								Archiver
+							</span>
+						</li> 
 					{% endif %}
 				</ul>
 				{% endif %}
@@ -77,6 +118,7 @@
 	<div class="elements formulations none">
 		<center>
 			<span class="button" id="show_elements">Afficher l'historique des modifications</span>
+			<span class="button editer">Éditer la perturbation</span>
 		</center>
 		<div id="list_elements" style="display:none;">
 		{% for f in perturbation.formulations %}

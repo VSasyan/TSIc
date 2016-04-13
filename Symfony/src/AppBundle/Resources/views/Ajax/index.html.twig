@@ -10,6 +10,7 @@
 {% block javascripts %}
 	<script src="{{ asset('js/init_geoloc.js') }}"></script>
 	<script src="{{ asset('js/init_ajax.js') }}"></script>
+	<script src="{{ asset('js/init_nodeJS.js') }}"></script>
 {% endblock %}
 
 {% block titleblock %}	
@@ -23,7 +24,7 @@
 			<div id="map"></div>
 		</div>
 
-		<div id="ajax_loader" class="child" data-function="{{ function }}">
+		<div id="ajax_loader" class="child" data-function="{{ function }}" data-node-js="{{ nodeJS }}">
 		</div>
 	</div>
 

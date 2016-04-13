@@ -1,4 +1,6 @@
 var map = false;
+var map_objects = Array();
+var map_perturbations = Array();
 
 function initMap() {
 	// Your IGN Géoportail Api Key
@@ -35,13 +37,19 @@ var dataBounds = false; // type LatLngBounds
 function listNearest(viewBounds) {
 	// Request
 	var radius = viewBounds.getSouthWest().distanceTo(viewBounds.getNorthEast());
-	console.log("Requesting data on " + coordinatesToWKT(viewBounds.getCenter()) + " radius " + radius);
-	getPage(
-		Routing.generate("perturbation_list_nearest", {
-			position : coordinatesToWKT(viewBounds.getCenter()),
-			radius : radius
-		})
-	);
+	//console.log("Requesting data on " + coordinatesToWKT(viewBounds.getCenter()) + " radius " + radius);
+
+	// Recuperation des Perturbations :
+	getPage(Routing.generate("perturbation_list_nearest", {
+		position : coordinatesToWKT(viewBounds.getCenter()),
+		radius : radius
+	}), function() {init_click_vote(); show_nearestPerturbations();});
+
+	// Recuperations des Objets :
+	getObject(Routing.generate("perturbation_list_nearest", {
+		position : coordinatesToWKT(viewBounds.getCenter()),
+	}));
+
 
 	dataBounds = viewBounds.pad(1);
 }
@@ -56,4 +64,37 @@ function updatePosMarker() {
 function updateView() {
 	var position = L.latLng(geoloc.position.latitude, geoloc.position.longitude);
 	map.setView(position, 13, {animate:true});
+}
+
+
+function show_nearestPerturbations() {
+	// On vide les anciennes info :
+	$.each(map_perturbations, function(i,p) {map.removeLayer(p);})
+
+	$('#list .element').each(function() {
+		// Recuperation info :
+		var name = $(this).data('name');
+		var center = $(this).data('center');
+		var idType = $(this).data('idType');
+		var nameType = $(this).data('nameType');
+		var path = $(this).data('path');
+
+		var regExp = /POINT\((.*) (.*)\)/;
+		var result = regExp.exec(center);
+		var position = [result[2], result[1]];
+
+		// Ajout à la carte :
+		var icon = L.icon({
+			iconUrl: Routing.generate("logo_type_perturbation", {id : idType}),
+
+			iconSize:     [20, 20], // size of the icon
+			iconAnchor:   [10, 10], // point of the icon which will correspond to marker's location
+			popupAnchor:  [0, -10] // point from which the popup should open relative to the iconAnchor
+		});
+
+		var html = html_popup_perturbation(name, nameType, path);
+
+		map_perturbations.push(L.marker(position, {icon: icon}).addTo(map).bindPopup(html));
+	
+	});
 }

@@ -21,7 +21,8 @@ class PerturbationController extends StatutController {
 
 		return $this->render('AppBundle:Ajax:index.html.twig', array(
 			'title' => 'Perturbations à proximité',
-			'function' => 'listNearest'
+			'function' => 'listNearest',
+			'nodeJS' => 'listNearest',
 		));
 
 	}
@@ -71,7 +72,7 @@ class PerturbationController extends StatutController {
 		if($position == false) {
 			return $this->render('AppBundle:Ajax:index.html.twig', array(
 				'function' => 'listNearest',
-				'title'    => "Liste des perturbations",
+				'title'    => "Perturbations à proximité",
 			));
 		}
 
@@ -163,13 +164,13 @@ class PerturbationController extends StatutController {
 	}
 
 	/**
-	* @Route("/perturbation/archive/{id}}", name="perturbation_archive")
+	* @Route("/pro/perturbation/archive/{id}", name="perturbation_archive")
 	*/
 	public function archiveAction(Request $request, $id){
 
 		$em = $this->getDoctrine()->getManager();
 
-		$perturbation = $em->getRepository('AppBundle:Perturbations')->find($id);
+		$perturbation = $em->getRepository('AppBundle:Perturbation')->find($id);
 		$perturbation->setArchived(true);
 
 		$em->flush();
@@ -177,7 +178,7 @@ class PerturbationController extends StatutController {
 		$request->getSession()->getFlashBag()->add('success', 'Perturbation archivée avec succès.');
 
 		//retourne vers la liste des évènements archivés
-		return $this->redirect($this->generateUrl('perturbation_show',array('id' => $perturbation->getId())));
+		return $this->render('AppBundle:Ajax:confirmation.html.twig');
 	}
 
 	/**

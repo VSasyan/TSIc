@@ -4,8 +4,22 @@ function getPage(route, after) {
 	return $.get(route, function(data, status) {
 		document.title = data.title;
 		$('#ajax_loader').html(data.content);
+		map.invalideSize();
 		if(after != false) { after(); }
 	});
+}
+
+function getObject(route) {
+	/*$.ajax({
+		url : route,
+		type : 'GET',
+		success : function(data) {
+			var objects = JSON.parse(data);
+			$.each(objects, function(i,o) {
+
+			});
+		}
+	});*/
 }
 
 var functions = {
@@ -23,7 +37,9 @@ var functions = {
 			if(!dataBounds.contains(currentBounds)) {
 				// We do not have any data
 				listNearest(currentBounds);
-			} else console.log("No update needed.");
+			} else {
+				//console.log("No update needed.");
+			}
 		});
 
 		posMarker = L.marker(map.getCenter()).addTo(map);

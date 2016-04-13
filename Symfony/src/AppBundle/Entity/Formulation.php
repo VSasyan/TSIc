@@ -44,6 +44,13 @@ class Formulation
     private $description;
 
     /**
+     * @var string
+     *
+     * @ORM\Column(name="causes", type="string", length=255, nullable=true)
+     */
+    private $causes;
+
+    /**
      * @var geometry
      *
      * @ORM\Column(type="geometry", options={"geometry_type"="POINT", "srid"=4326})
@@ -110,6 +117,7 @@ class Formulation
     public function __construct()
     {
         $this->creationDate = new \DateTime();
+        $this->causes = 'Inconnues';
     }
 
     /**
@@ -386,7 +394,28 @@ class Formulation
         return $this->valid_formulation;
     }
 
+
+    /**
+     * Set causes
+     *
+     * @param string $causes
+     *
+     * @return Formulation
+     */
+    public function setCauses($causes)
+    {
+        $this->causes = $causes;
+
+        return $this;
+    }
+
+    /**
+     * Get causes
+     *
+     * @return string
+     */
+    public function getCauses()
+    {
+        return $this->causes;
+    }
 }
-
-
-

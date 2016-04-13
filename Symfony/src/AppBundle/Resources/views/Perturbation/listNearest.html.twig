@@ -1,11 +1,44 @@
 <div id="list" class="elements">
 	{% for p in perturbations %}
-		<div class="element" data-id="{{ p.id }}" data-name="{{ p.name }}" data-center="{{ p.center }}">
-			<a href="{{ path("perturbation_show", { id: p.id }) }}">
-				<span class="name">{{ p.name }}</span>
-				<span class="button inhibate float-right"  data-path="{{ path("vote", { id_perturbation: p.id, id_message: 1}) }}" title="Annuler la perturbation"><i class="fa fa-ban"></i></span>
-				<span class="button terminate float-right" data-path="{{ path("vote", { id_perturbation: p.id, id_message: 2}) }}" title="La perturbation est terminée."><i class="fa fa-hourglass-end"></i></span>
-				<span class="button validate float-right"  data-path="{{ path("vote", { id_perturbation: p.id, id_message: 3}) }}" title="Confirmer la perturbation"><i class="fa fa-check-circle-o"></i></span>
+		<div
+			class="element"
+			data-id-type="{{ p.type.id }}"
+			data-name-type="{{ p.type.name }}"
+			data-name="{{ p.name }}"
+			data-center="{{ p.center }}"
+			data-path="{{ path('perturbation_show', {id : p.id}) }}"
+		>
+			<a href="{{ path('perturbation_show', { id: p.id }) }}">
+				<span class="name">
+					{{ p.name }}
+				</span>
+				{% if p.activated %}
+				<span
+					class="button inhibate float-right" 
+					data-path="{{ path('vote', { id_perturbation: p.id, id_message: 1}) }}"
+					title="Dénoncer la perturbation"
+				>
+					<i class="fa fa-ban"></i>
+				</span>
+				{% endif %}
+				{% if not p.terminated %}
+				<span
+					class="button terminate float-right"
+					data-path="{{ path('vote', { id_perturbation: p.id, id_message: 2}) }}"
+					title="La perturbation est terminée."
+				>
+					<i class="fa fa-hourglass-end"></i>
+				</span>
+				{% endif %}
+				{% if not p.valid %}
+					<span
+						class="button validate float-right" 
+						data-path="{{ path('vote', { id_perturbation: p.id, id_message: 3}) }}"
+						title="Confirmer la perturbation"
+					>
+						<i class="fa fa-check-circle-o"></i>
+					</span>
+				{% endif %}
 				<div class="clear"></div>
 			</a>
 		</div>

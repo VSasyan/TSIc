@@ -282,6 +282,10 @@ class Perturbation
                 $virtualPerturbation['type'] = $f->getType();
                 $virtualPerturbation['geoJSON'] = $f->getGeoJSON();
                 $virtualPerturbation['center'] = $f->getCenter();
+                $virtualPerturbation['terminated'] = $this->getTerminated();
+                $virtualPerturbation['valid'] = $this->getValid();
+                $virtualPerturbation['activated'] = $this->getActivated();
+                $virtualPerturbation['archived'] = $this->getArchived();
                 return $virtualPerturbation;
             }
         }
