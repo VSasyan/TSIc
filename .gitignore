@@ -38,7 +38,10 @@ Symfony/build/
 
 # upload
 Symfony/upload/logo_type_perturbation
+Symfony/upload/logo_type_objet_terrain
+!Symfony/upload/*/_*
 
 # Fichiers temp :
 *~
 *#
+.directory
