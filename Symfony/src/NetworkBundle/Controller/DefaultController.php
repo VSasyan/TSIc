@@ -21,11 +21,17 @@ class DefaultController extends Controller
 		$link = new Link();
 		$link->setCentrelineGeometry("ligne");
 
+		$link->setStartNode($node);
+
 		$em = $this->getDoctrine()->getManager();
 		$em->persist($node);
 		$em->persist($link);
 		$em->flush();
 
-		return $this->render('NetworkBundle:Default:index.html.twig', array("node" => $node->getGeometry(), "link" => $link->getCentrelineGeometry()));
+		return $this->render('NetworkBundle:Default:index.html.twig', array(
+			"node"	   => $node->getGeometry(),
+			"link"	   => $link->getCentrelineGeometry(),
+			"linknode" => $link->getStartNode()->getGeometry()
+		));
 	}
 }
