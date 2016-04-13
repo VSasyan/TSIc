@@ -9,39 +9,42 @@
 			data-path="{{ path('perturbation_show', {id : p.id}) }}"
 		>
 			<a href="{{ path('perturbation_show', { id: p.id }) }}">
-				<span class="name">
-					{{ p.name }}
-				</span>
-				{% if p.activated %}
-				<span
-					class="button inhibate float-right" 
-					data-path="{{ path('vote', { id_perturbation: p.id, id_message: 1}) }}"
-					title="Dénoncer la perturbation"
-				>
-					<i class="fa fa-ban"></i>
-				</span>
-				{% endif %}
-				{% if not p.terminated %}
-				<span
-					class="button terminate float-right"
-					data-path="{{ path('vote', { id_perturbation: p.id, id_message: 2}) }}"
-					title="La perturbation est terminée."
-				>
-					<i class="fa fa-hourglass-end"></i>
-				</span>
-				{% endif %}
-				{% if not p.valid %}
-					<span
-						class="button validate float-right" 
-						data-path="{{ path('vote', { id_perturbation: p.id, id_message: 3}) }}"
-						title="Confirmer la perturbation"
-					>
-						<i class="fa fa-check-circle-o"></i>
-					</span>
-				{% endif %}
+				<div class="table">
+					<div class="row">
+						<div class="cell middle left">{{ p.name }}</div>
+						<div class="cell middle right">
+							{% if p.activated %}
+							<span
+								class="button inhibate" 
+								data-path="{{ path('vote', { id_perturbation: p.id, id_message: 1}) }}"
+								title="Dénoncer la perturbation"
+							>
+								<i class="fa fa-ban"></i>
+							</span>
+							{% endif %}
+							{% if not p.terminated %}
+							<span
+								class="button terminate"
+								data-path="{{ path('vote', { id_perturbation: p.id, id_message: 2}) }}"
+								title="La perturbation est terminée."
+							>
+								<i class="fa fa-hourglass-end"></i>
+							</span>
+							{% endif %}
+							{% if not p.valid %}
+								<span
+									class="button validate" 
+									data-path="{{ path('vote', { id_perturbation: p.id, id_message: 3}) }}"
+									title="Confirmer la perturbation"
+								>
+									<i class="fa fa-check-circle-o"></i>
+								</span>
+							{% endif %}
+						</div>
+					</div>
+				</div>
 				<div class="clear"></div>
 			</a>
 		</div>
 	{% endfor %}
 </div>
-

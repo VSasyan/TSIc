@@ -47,12 +47,12 @@ class FileController extends StatutController {
 	public function logoTypeObjetTerrainAction($id = 0) {
 		$dir_logo = __DIR__ . '/../../../upload/logo_type_objet_terrain/';
 		$type = $this->getDoctrine()->getManager()->getRepository('AppBundle:TypeObjetTerrain')->find($id);
-		$filename = '../logo_type_perturbation_default.png';
+		$filename = '../logo_type_objet_terrain_default.png';
 		if ($type && $type->getLogoPicturePath()){
 			$filename = $type->getLogoPicturePath();
 		}
 		if (!file_exists($dir_logo . $filename)) {
-			$filename = '../logo_type_perturbation_default.png';
+			$filename = '../logo_type_objet_terrain_default.png';
 		}
 		$path =  $dir_logo . $filename;
 
