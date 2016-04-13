@@ -14,13 +14,6 @@ class DefaultController extends Controller
 	 */
 	public function indexAction()
 	{
-		$truc = new GeneralisedLink();
-		$truc->setToto(1);
-
-		$em = $this->getDoctrine()->getManager();
-		$em->persist($truc);
-		$em->flush();
-
-        return $this->render('NetworkBundle:Default:index.html.twig');
-    }
+		return $this->render('NetworkBundle:Default:index.html.twig');
+	}
 }
