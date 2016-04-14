@@ -11,7 +11,20 @@ class RestrictionForVehiclesController extends Controller
      * @Route("/restrictionforvehicles/add")
      */
     public function addAction()
-    {
+    {   
+        $em = $this->getDoctrine()->getManager();
+        $repository = $em->getRepository('AppBundle:RestrictionForVehicles');
+        
+        $vehicleRestriction = new RestrictionForVehicles();
+        $form = $this->createForm(RestrictionForVehicles::class, $vehicleRestriction);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $accessRestriction->setRestriction($request->getRestriction());
+        }
+        $em->persist($user);
+        $em->flush();
+
         return $this->render('TransportBundle:RestrictionForVehicles:add.html.php', array(
             // ...
         ));
