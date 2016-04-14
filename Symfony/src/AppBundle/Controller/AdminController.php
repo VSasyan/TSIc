@@ -12,6 +12,9 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use TransportBundle\Entity\AccessRestrictionValue;
+use TransportBundle\Entity\WeatherConditionValue;
+use TransportBundle\Entity\RestrictionTypeValue;
 
 class AdminController extends StatutController {
 
@@ -141,6 +144,86 @@ class AdminController extends StatutController {
 			$tp_ralentissement->setName('Ralentissement');
 			$tp_ralentissement->setLogoPicturePath('3.png');
 			$em->persist($tp_ralentissement);
+
+			// CREATION DES ENUM TRANSPORT::WEATHER
+
+			$fog = new WeatherConditionValue();
+			$fog->setName('Fog');
+			$em->persist($fog);
+
+			$snow = new WeatherConditionValue();
+			$snow->setName('Snow');
+			$em->persist($snow);
+
+			$ice = new WeatherConditionValue();
+			$ice->setName('Ice');
+			$em->persist($ice);
+
+			$rain = new WeatherConditionValue();
+			$rain->setName('Rain');
+			$em->persist($rain);
+
+
+			$smog = new WeatherConditionValue();
+			$smog->setName('Smog');
+			$em->persist($smog);
+
+			// CREATION DES ENUM TRANSPORT::ACCESS RESTRICTION
+
+			$publicAccess = new AccessRestrictionValue();
+			$publicAccess->setName('Public Access');
+			$em->persist($publicAccess);
+
+			$private = new AccessRestrictionValue();
+			$private->setName('Private');
+			$em->persist($private);
+
+			$toll = new AccessRestrictionValue();
+			$toll->setName('Toll');
+			$em->persist($toll);
+
+			$physicallyImpossible = new AccessRestrictionValue();
+			$physicallyImpossible->setName('Physically Impossible');
+			$em->persist($physicallyImpossible);
+
+			$legalyForbidden = new AccessRestrictionValue();
+			$legalyForbidden->setName('Legaly Forbidden');
+			$em->persist($legalyForbidden);
+
+			$seasonal= new AccessRestrictionValue();
+			$seasonal->setName('Seasonal');
+			$em->persist($seasonal);
+
+			// CREATION DES ENUM TRANSPORT::VEHICULE RESTRICTION
+
+			$maximumDoubleAxleWeight = new RestrictionTypeValue();
+			$maximumDoubleAxleWeight->setName('Maximum Double Axle Weight');
+			$em->persist($maximumDoubleAxleWeight);
+
+			$maximumHeight = new RestrictionTypeValue();
+			$maximumHeight->setName('Maximum Height');
+			$em->persist($maximumHeight);
+
+			$maximumLength = new RestrictionTypeValue();
+			$maximumLength->setName('Maximum Length');
+			$em->persist($maximumLength);
+
+			$maximumSingleAxleWeight = new RestrictionTypeValue();
+			$maximumSingleAxleWeight->setName('Maximum Single Axle Weight');
+			$em->persist($maximumSingleAxleWeight);
+
+			$maximumTotalWeight = new RestrictionTypeValue();
+			$maximumTotalWeight->setName('Maximum Total Weight');
+			$em->persist($maximumTotalWeight);
+
+			$maximumTripleAxleWeight = new RestrictionTypeValue();
+			$maximumTripleAxleWeight->setName('Maximum Triple Axle Weight');
+			$em->persist($maximumTripleAxleWeight);
+
+			$maximumWidth = new RestrictionTypeValue();
+			$maximumWidth->setName('Maximum Width');
+			$em->persist($maximumWidth);
+
 
 			$em->flush();
 
