@@ -141,7 +141,7 @@ class PerturbationController extends StatutController {
             //initialisation de elephant.io
             $client = new Client(new Version1X('http://localhost:8080'));
             $client ->initialize();
-            $client ->emit('emitPHP', ['message' => 'nouvelle perturbation', 'coordinates' => $formulation->getCenter()]);
+            $client ->emit('emitPHP', ['message' => '<strong>nouvelle perturbation</strong>', 'coordinates' => $formulation->getCenter()]);
             $client ->close();
 
 			return $this->redirect($this->generateUrl('perturbation_show', array('id' => $perturbation->getId())));
