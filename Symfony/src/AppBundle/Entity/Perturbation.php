@@ -227,6 +227,16 @@ class Perturbation
     }
 
     /**
+     * Get getLastFormulation
+     *
+     * @return \AppBundle\Entity\Formulation
+     */
+    public function getLastFormulation()
+    {
+        return $this->formulations->first();
+    }
+
+    /**
      * Add vote
      *
      * @param \AppBundle\Entity\Vote $vote
@@ -273,24 +283,19 @@ class Perturbation
         //tableau des résultats
         $virtualPerturbation = array();
             
-        $formulations = $this->getFormulations();
-        foreach ($formulations as $f) {
+        $formulation = $this->getLastFormulation();
            
-            if ($f->getValidFormulation()) {
-                $virtualPerturbation['id'] = $f->getId();
-                $virtualPerturbation['name'] = $f->getName();
-                $virtualPerturbation['type'] = $f->getType();
-                $virtualPerturbation['geoJSON'] = $f->getGeoJSON();
-                $virtualPerturbation['center'] = $f->getCenter();
-                $virtualPerturbation['terminated'] = $this->getTerminated();
-                $virtualPerturbation['valid'] = $this->getValid();
-                $virtualPerturbation['activated'] = $this->getActivated();
-                $virtualPerturbation['archived'] = $this->getArchived();
-                return $virtualPerturbation;
-            }
-        }
+        $virtualPerturbation['id'] = $formulation->getId();
+        $virtualPerturbation['name'] = $formulation->getName();
+        $virtualPerturbation['type'] = $formulation->getType();
+        $virtualPerturbation['geoJSON'] = $formulation->getGeoJSON();
+        $virtualPerturbation['center'] = $formulation->getCenter();
+        $virtualPerturbation['terminated'] = $this->getTerminated();
+        $virtualPerturbation['valid'] = $this->getValid();
+        $virtualPerturbation['activated'] = $this->getActivated();
+        $virtualPerturbation['archived'] = $this->getArchived();
 
-        return false;
+        return $virtualPerturbation;
 
     }
 

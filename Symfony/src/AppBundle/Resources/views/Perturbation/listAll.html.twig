@@ -17,7 +17,11 @@
 {% block body %}
 
 	<div>
-		<h2>{{ title }}</h2>
+		{% if perturbations|length > 1 %}
+			<h2>{{ perturbations|length }} perturbations trouvées</h2>
+		{% else %}
+			<h2>{{ perturbations|length }} perturbation trouvée</h2>
+		{% endif %}
 		<div class="elements">
 			{% for p in perturbations %}
 				<div

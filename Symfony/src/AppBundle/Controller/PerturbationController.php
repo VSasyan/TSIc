@@ -35,22 +35,8 @@ class PerturbationController extends StatutController {
 		$repository = $this->getDoctrine()->getManager()->getRepository('AppBundle:Perturbation');
 		$perturbations = $repository->findAll();
 
-		if (!$perturbations){
-			throw $this->createNotFoundException(
-				'No perturbations '
-			);
-		}
-		else
-		{
-
-			foreach ($perturbations as $p) {
-				$virtualPerturbation = $p->returnVirtualPerturbation();
-				if ($virtualPerturbation != false) {
-					echo "OK";
-					$virtualPerturbations[] = $virtualPerturbation;
-				}
-			}
-
+		foreach ($perturbations as $p) {
+				$virtualPerturbations[] = $p->returnVirtualPerturbation();
 		}
 
 		return $this->render('AppBundle:Perturbation:listAll.html.twig', array(
@@ -80,12 +66,10 @@ class PerturbationController extends StatutController {
 		$position = "ST_GeomFromText('" . $position . "',4326)";
 		/*$position = "ST_GeomFromText('POINT(-72.1235 42.3521)',4326)";*/
 
-		$em = $this->getDoctrine()->getManager();
-
-		$repository = $em->getRepository('AppBundle:Formulation');
-
+		$repository = $this->getDoctrine()->getManager()->getRepository('AppBundle:Perturbation');
 		$perturbations = $repository->findNearest($position, $radius);
-		//$perturbations = array();
+
+
 		$virtualPerturbations = array();
 		foreach ($perturbations as $p) {
 			$virtualPerturbation = $p->returnVirtualPerturbation();
@@ -122,6 +106,7 @@ class PerturbationController extends StatutController {
 		$form = $this->createForm(FormulationType::class, $formulation);
 
 		if ($form->handleRequest($request)->isValid()) {
+
 			$em = $this->getDoctrine()->getManager();
 			$formulation->setCreationDate(new \DateTime);
 			$formulation->setValidFormulation(true);
@@ -182,50 +167,36 @@ class PerturbationController extends StatutController {
 	}
 
 	/**
-	* @Route("/perturbation/edit/{id}", name="perturbation_edit")
+	* @Route("/professionnel/perturbation/edit/{id}", name="perturbation_edit")
 	*/
 	public function editAction($id, Request $request){
 
-		//nouvelle formulation
-		$formulation = new Formulation();
-		//on récupère le formulaire associé à la nouvelle perturbation
-		$form = $this->createForm(FormulationType::class, $formulation);
+		$em = $this->getDoctrine()->getManager();
+		$perturbation = $em->getRepository('AppBundle:Perturbation')->find($id);
 
-		//si le formulaire est correct
-		if ($form->handleRequest($request)->isValid()) {
-			$em = $this->getDoctrine()->getManager();
+		if ($perturbation != null) {
 
-			//on récupère l'entity associée à l'id
-			$perturbation = $this->getDoctrine()
-			  ->getManager()
-			  ->getRepository('AppBundle:Perturbation')
-			  ->find($id)
-			;
+			$formulation = $perturbation->getLastFormulation();
+			$form = $this->createForm(FormulationType::class, $formulation);
+			$formulation_new = new Formulation;
+			$form_new = $this->createForm(FormulationType::class, $formulation_new);
 
-			//récupérer tous les anciennes formulations des perturbations et les mettre à false
-			$formulations = $perturbation->getFormulations();
-			foreach ($formulations as $formulation) {
-				$formulation->setValid_formulation(false);
+			if ($form_new->handleRequest($request)->isValid()) {
+
+				$perturbation->addFormulation($formulation_new);
+				$this->getUser()->addFormulation($formulation_new);
+
+				$em->persist($formulation_new);
+				$em->flush();
+				
+				$request->getSession()->getFlashBag()->add('success', 'Perturbation bien modifiée.');
+
+				return $this->redirect($this->generateUrl('perturbation_show', array('id' => $id)));
 			}
 
-			//ajout des liens
-			$perturbation->addFormulation($formulation);
-			$this->getUser()->addFormulation($formulation);
-			//modification en cascade?
-			//pas besoin de persister les données qui juste été modifiées
-			//$em->persist($this->getUser());
-			//$em->persist($perturbation);
-			$em->persist($formulation);
-			$em->flush();
-			
-			//affichage message d'info
-			$request->getSession()->getFlashBag()->add('success', 'Perturbation bien enregistrée.');
-
-			//on retourne vers la route de vue de la perturbation
-			return $this->redirect($this->generateUrl('perturbation_show', array('id' => $perturbation->getId())));
 		}
-		//si le formulaire n'est pas valide, on revient à la vue de siasie du formulaire
-		return $this->render('AppBundle:Pertubation:add.html.twig', array('form' => $form->createView()));
+
+		return $this->render('AppBundle:Perturbation:edit.html.twig', array('form' => $form->createView()));
 		
 	}
 
