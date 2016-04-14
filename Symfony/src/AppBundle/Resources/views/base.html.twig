@@ -17,8 +17,8 @@
 		<link href="{{ asset('less/typeStyle.less') }}" rel="stylesheet/less" type="text/css" />
 		<link href="{{ asset('less/messageStyle.less') }}" rel="stylesheet/less" type="text/css" />
 		<link href="{{ asset('font-awesome-4.5.0/css/font-awesome.min.css') }}" rel="stylesheet/less" type="text/css" />
-		{% block stylesheets %}{% endblock %}
 
+		{% block stylesheets %}{% endblock %}
 
 		<script src="http://cdn.leafletjs.com/leaflet-0.7.2/leaflet.js"></script>
 		<script src="{{ asset('js/html.js') }}"></script>
@@ -28,6 +28,7 @@
 		<script src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
 		<script src="{{ asset('js/init.js') }}"></script>
 		<script src="{{ path('fos_js_routing_js', {'callback': 'fos.Router.setData'}) }}"></script>
+		<script src="http://cdn.socket.io/socket.io-1.4.5.js"></script>
 		{% block javascripts %}{% endblock %}
 	</head>
 

@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <title>Socket.io</title>
+    </head>
+ 
+    <body>
+        <h1>Page de test client nodeJS!</h1>
+
+        <script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
+        <script src="https://cdn.socket.io/socket.io-1.4.5.js"></script>
+
+        <script>
+            var socket = io.connect('http://localhost:8080');
+
+            // On affiche une boîte de dialogue quand le serveur nous envoie un "message"
+            socket.on('perturbation', function(message) {
+                alert(message[1]);
+                var result = getLatLon(message[0]);
+                console.log('latitude: ' + result[1] + ', longitude: ' + result[0]);
+            });
+
+            function getLatLon(chaine){
+                var regExp = /POINT\((.*) (.*)\)/;
+                var result = regExp.exec(chaine);
+                return [result[1], result[2]];
+            };
+
+        </script>
+    </body>
+</html>

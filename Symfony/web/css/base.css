@@ -60,7 +60,7 @@ section {
 }
 
 .ajax.loading {
-    background-image: url('../ajax-loader.gif');
+    background-image: url('../apple-touch-icon.png');
     background-size: 20px 20px;
     background-repeat: no-repeat;
     background-position: center;

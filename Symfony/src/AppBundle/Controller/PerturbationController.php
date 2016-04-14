@@ -10,6 +10,9 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use ElephantIO\Client, ElephantIO\Engine\SocketIO\Version1X; 
+
+require '/home/philemon/Documents/TSIc/Symfony/vendor/autoload.php'; 
 
 class PerturbationController extends StatutController {
 
@@ -119,6 +122,12 @@ class PerturbationController extends StatutController {
 			$em->flush();
 			
 			$request->getSession()->getFlashBag()->add('success', 'Perturbation bien enregistrée.');
+
+            //initialisation de elephant.io
+            $client = new Client(new Version1X('http://localhost:8080'));
+            $client ->initialize();
+            $client ->emit('emitPHP', ['message' => '<strong>nouvelle perturbation</strong>', 'coordinates' => $formulation->getCenter()]);
+            $client ->close();
 
 			return $this->redirect($this->generateUrl('perturbation_show', array('id' => $perturbation->getId())));
 		}

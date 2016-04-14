@@ -55,10 +55,9 @@ var functions = {
 
 document.addEventListener("DOMContentLoaded", function() {
 	//ajout ajax load gif
-	//$('#ajax_loader').replaceWith(HTML_AJAX_LOADING);
-	$('#ajax_loader').html(HTML_AJAX_LOADING_BIG);
+	$('#ajax_loader').html(HTML_AJAX_LOADING);
 	
-	//console.log('test: ', HTML_AJAX_LOADING);		
+	console.log($('#ajax_loader').attr('background-image'));
 
 	functions[$('#ajax_loader').data('function')]();
 });
