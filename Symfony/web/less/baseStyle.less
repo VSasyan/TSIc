@@ -33,6 +33,14 @@
 	}
 }
 
+// ADD PERTURBATION
+form {
+	#map {
+		max-height: 250px;
+	}
+}
+
+
 #list.elements {
 	.element {
 		cursor: pointer;
@@ -56,6 +64,33 @@
 .clear {clear: both;}
 
 div.center {text-align: center;}
+
+
+// FLEX
+
+.parent {
+	display : flex;
+	flex-direction: row;
+	justify-content: space-between;
+	align-items: center;
+	flex-wrap: nowrap;
+	margin: 0 auto;
+	
+	.child {
+		flex: 2 1 auto;
+		transition: width 0.7s ease-out;
+		min-width: 300px;
+		padding: 10px;
+
+		&.max-300 {max-width: 300px;}
+		&.max-400 {max-width: 400px;}
+		&.max-500 {max-width: 500px;}
+		&.max-600 {max-width: 600px;}
+	}
+}
+
+
+// TABLE
 
 table {
 	color:#666;
@@ -143,4 +178,95 @@ img.icon {
 			&.bottom {vertical-align: bottom;}
 		}
 	}
+}
+
+// FORM STYLE
+
+form {
+	max-width: 600px;
+	margin: auto;
+	background-color: #FFF;
+	padding: 20px;
+	border: 1px solid darken(@lgrey, 10%);
+	margin-bottom: 20px;
+
+	h3 {
+		text-align: left;
+		margin-top: 0;
+	}
+
+	>div>div {
+		>label {
+			display: block;
+			text-align: left;
+			color: @blue;
+		}
+		>input, >textarea, >select {
+			display: block;
+			width: 100%;
+			border: 0px;
+			border-bottom: 1px solid #000;
+			background-color: transparent;
+			margin-bottom: 15px;
+			padding: 8px;
+			box-sizing: border-box;
+
+			&:hover {
+				border-bottom: 1px solid @blue;
+			}
+		}
+
+		select {outline:none;}
+
+		>div {
+			border-bottom: 1px solid #000;
+				margin-bottom: 15px;
+
+			&:hover {
+				border-bottom: 1px solid @blue;
+			}
+
+			>div {
+				display: inline-block;
+
+				&[id$='time']:before {
+					margin-left: 6px;
+					content: " à ";
+					position: relative;
+					top: 4px;
+				}
+
+				>input, >textarea, >select {
+					display: inline-block;
+					border: 0px;
+					background-color: transparent;
+					padding: 8px;
+					box-sizing: border-box;
+				}
+			}
+		}
+	}
+}
+
+form input[type="checkbox"] {
+	width: auto;
+	float: left;
+	margin-right: 5px;
+}
+
+form input:hover, form textarea:hover,
+form input:hover, form textarea:hover {
+	border-bottom: 1px solid @blue;
+}
+
+form input[type=submit],
+form input[type=button],
+form button {
+	background: @blue;
+	.button_style;
+}
+form input[type=submit]:hover,
+form input[type=button]:hover,
+form button:hover {
+	background: @lblue;
 }
