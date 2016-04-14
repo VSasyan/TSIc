@@ -17,8 +17,7 @@ class VoteTest extends WebTestCase
     {
     	$user = new Particulier();
         $this->vote->setParticulier($user);
-        //$this->assertEquals($user, $this->vote->getParticulier());
-        $this->assertEquals($user, $this->vote);
+        $this->assertEquals($user, $this->vote->getParticulier());
     }
     public function testSetMessage()
     {
