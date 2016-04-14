@@ -13,7 +13,7 @@ class WeatherConditionValueController extends Controller
      */
     public function addAction(Request $request)
     {
-        $weather = new WeatherConditionValue();
+        /*$weather = new WeatherConditionValue();
         $form = $this->createForm(ParticulierType::class, $weather);
 
         // 
@@ -22,13 +22,12 @@ class WeatherConditionValueController extends Controller
 
             // 
             
-            
             $em = $this->getDoctrine()->getManager();
             $em->persist($user);
             $em->flush();
 
             return $this->redirectToRoute('login');
-        }
+        }*/
 
         return $this->render('TransportBundle:WeatherConditionValue:add.html.php', array(
             // ...

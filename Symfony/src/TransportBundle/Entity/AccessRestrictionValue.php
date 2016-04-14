@@ -5,12 +5,12 @@ namespace TransportBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * WeatherConditionValue
+ * AccessRestrictionValue
  *
- * @ORM\Table(name="weather_condition_value")
- * @ORM\Entity(repositoryClass="TransportBundle\Repository\WeatherConditionValueRepository")
+ * @ORM\Table(name="access_restriction_value")
+ * @ORM\Entity(repositoryClass="TransportBundle\Repository\AccessRestrictionValueRepository")
  */
-class WeatherConditionValue
+class AccessRestrictionValue
 {
     /**
      * @var int
@@ -21,12 +21,13 @@ class WeatherConditionValue
      */
     private $id;
 
+
     /**
      * @var string
      *
      * @ORM\Column(name="name", type="string", length=255)
      */
-    private $weatherCondition;
+    private $name;
 
 
     /**
@@ -44,11 +45,11 @@ class WeatherConditionValue
      *
      * @param string $name
      *
-     * @return WeatherConditionValue
+     * @return AccessRestrictionValue
      */
-    public function setName($weatherCondition)
+    public function setName($name)
     {
-        $this->weatherCondition= $weatherCondition;
+        $this->name = $name;
 
         return $this;
     }
@@ -58,8 +59,8 @@ class WeatherConditionValue
      *
      * @return string
      */
-    public function getweatherCondition()
+    public function getName()
     {
-        return $this->weatherCondition;
+        return $this->name;
     }
 }

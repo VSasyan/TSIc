@@ -21,12 +21,6 @@ class RestrictionForVehicles
      */
     private $id;
 
-    /**
-     * @var int
-     *
-     * @ORM\Column(name="id_RestrictionForVehicles", type="integer")
-     */
-    private $idRestrictionForVehicles;
 
     /**
      * @var string
@@ -51,30 +45,6 @@ class RestrictionForVehicles
     public function getId()
     {
         return $this->id;
-    }
-
-    /**
-     * Set idRestrictionForVehicles
-     *
-     * @param integer $idRestrictionForVehicles
-     *
-     * @return RestrictionForVehicles
-     */
-    public function setIdRestrictionForVehicles($idRestrictionForVehicles)
-    {
-        $this->idRestrictionForVehicles = $idRestrictionForVehicles;
-
-        return $this;
-    }
-
-    /**
-     * Get idRestrictionForVehicles
-     *
-     * @return int
-     */
-    public function getIdRestrictionForVehicles()
-    {
-        return $this->idRestrictionForVehicles;
     }
 
     /**

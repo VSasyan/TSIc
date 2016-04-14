@@ -22,13 +22,6 @@ class AccessRestriction
     private $id;
 
     /**
-     * @var int
-     *
-     * @ORM\Column(name="id_AccessRestriction", type="integer")
-     */
-    private $idAccessRestriction;
-
-    /**
      * @var string
      *
      * @ORM\Column(name="restriction", type="string", length=255)
@@ -44,30 +37,6 @@ class AccessRestriction
     public function getId()
     {
         return $this->id;
-    }
-
-    /**
-     * Set idAccessRestriction
-     *
-     * @param integer $idAccessRestriction
-     *
-     * @return AccessRestriction
-     */
-    public function setIdAccessRestriction($idAccessRestriction)
-    {
-        $this->idAccessRestriction = $idAccessRestriction;
-
-        return $this;
-    }
-
-    /**
-     * Get idAccessRestriction
-     *
-     * @return int
-     */
-    public function getIdAccessRestriction()
-    {
-        return $this->idAccessRestriction;
     }
 
     /**
