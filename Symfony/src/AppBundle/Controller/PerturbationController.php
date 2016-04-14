@@ -12,7 +12,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use ElephantIO\Client, ElephantIO\Engine\SocketIO\Version1X; 
 
-require '/home/philemon/Documents/TSIc/Symfony/vendor/autoload.php'; 
+require '../vendor/autoload.php';
 
 class PerturbationController extends StatutController {
 
@@ -120,14 +120,21 @@ class PerturbationController extends StatutController {
 
 			$em->persist($this->getUser());
 			$em->flush();
+
+			//initialisation de elephant.io
+			$client = new Client(new Version1X('http://localhost:8080'));
+			$client ->initialize();
+
+			$request->getSession()->getFlashBag()->add('notice', 'Nouvelle perturbation chargée.');
+			$template = $this->container->get('templating')->render('AppBundle:Ajax:confirmation.html.twig');
+
+			$client ->emit('emitPHP', [
+				'message' => $template,
+				'coordinates' => $center
+			]);
+			$client ->close();
 			
 			$request->getSession()->getFlashBag()->add('success', 'Perturbation bien enregistrée.');
-
-            //initialisation de elephant.io
-            $client = new Client(new Version1X('http://localhost:8080'));
-            $client ->initialize();
-            $client ->emit('emitPHP', ['message' => '<strong>nouvelle perturbation</strong>', 'coordinates' => $formulation->getCenter()]);
-            $client ->close();
 
 			return $this->redirect($this->generateUrl('perturbation_show', array('id' => $perturbation->getId())));
 		}
@@ -135,6 +142,29 @@ class PerturbationController extends StatutController {
 		return $this->render('AppBundle:Perturbation:add.html.twig', array('form' => $form->createView()));
 	}
 
+	/**
+	* @Route("/perturbation/test/{center}", name="perturbation_test", defaults={
+	* 		"center" : "POINT(2.586507797241211 48.841559662831)"
+	* })
+	*/
+	public function testAction(Request $request, $center){
+
+		//initialisation de elephant.io
+		$client = new Client(new Version1X('http://localhost:8080'));
+		$client ->initialize();
+
+		$request->getSession()->getFlashBag()->add('notice', 'Nouvelle perturbation chargée.');
+		$template = $this->container->get('templating')->render('AppBundle:Ajax:confirmation.html.twig');
+
+		$client ->emit('emitPHP', [
+			'message' => $template,
+			'coordinates' => $center
+		]);
+		$client ->close();
+
+		$request->getSession()->getFlashBag()->add('success', 'Evènement envoyé.');
+		return $this->render('AppBundle:Ajax:confirmation.html.twig');
+	}
 	
 
 	/**

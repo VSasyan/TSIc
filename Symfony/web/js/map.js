@@ -22,10 +22,10 @@ function initMap() {
 	map = L.map(mapId, {
 		center: [48.856578, 2.351828],
 		zoom: 13,
-		layers: [SCAN25]
+		layers: [OSM]
 	});
 
-	var baseMap = {"Ign Topo":SCAN25, "OpenStreetMap":OSM};
+	var baseMap = {"OpenStreetMap":OSM, "Ign Topo":SCAN25};
 	L.control.layers(baseMap).addTo(map);
 
 	return map;
