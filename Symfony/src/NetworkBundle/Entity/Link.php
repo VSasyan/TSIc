@@ -16,7 +16,7 @@ abstract class Link extends GeneralisedLink
 	 *
 	 * @ORM\Column(name="centrelineGeometry", type="string", length=4096, nullable=true)
 	 */
-	private $centrelineGeometry;
+	protected $centrelineGeometry;
 
 	/**
 	 * @ORM\ManyToOne(targetEntity="Node", inversedBy="spokeStart")
