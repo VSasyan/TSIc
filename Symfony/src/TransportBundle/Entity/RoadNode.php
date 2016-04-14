@@ -12,6 +12,5 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class RoadNode extends TransportNode
 {
-    
 }
 
