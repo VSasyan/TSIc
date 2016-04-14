@@ -3,15 +3,15 @@ var functions_nodeJS = {
 
 		alert(message[1]);
         var result = getLatLon(message[0]);
-        console.log('latitude: ' + result[1] + ', longitude: ' + result[0]);
+        //console.log('latitude: ' + result[1] + ', longitude: ' + result[0]);
         var data = {'position' : result, 'html': message[1]};
 
         var mark = L.marker([data.position[1], data.position[0]]);
 
 		var newPosition = mark.getLatLng();
 
-		console.log('position: ', newPosition);
-		console.log('bounds: ', dataBounds);
+		//console.log('position: ', newPosition);
+		//console.log('bounds: ', dataBounds);
 
 		if(dataBounds.contains(newPosition)) {
 			// We do not have any data
@@ -26,16 +26,14 @@ var functions_nodeJS = {
 document.addEventListener("DOMContentLoaded", function() {
 	//appel de la fonction nodeJS
 	var nomSocket = $('#ajax_loader').data('node-js');
-	console.log(nomSocket);
+	//console.log(nomSocket);
 
 	if (nomSocket != false) {
 
-		// Connexion au socket
+		// Connection au socket
 		var socket = io.connect('http://localhost:8080');
 
         socket.on('perturbation', functions_nodeJS[nomSocket]);
-
-        //socket.on('perturbation', functions_nodeJS[nomSocket](message));
 
 	}
 
