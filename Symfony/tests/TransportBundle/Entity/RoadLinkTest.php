@@ -5,6 +5,7 @@ namespace Tests\TransportBundle\Entity;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
 use TransportBundle\Entity\RoadLink;
+use TransportBundle\Entity\AccessRestriction;
 
 class RoadLinkTest extends WebTestCase
 {
@@ -29,4 +30,12 @@ class RoadLinkTest extends WebTestCase
 		$this->roadlink->setCentreLineGeometry($geom);
 		$this->assertEquals($geom, $this->roadlink->getCentrelineGeometry(), 'Failed to set Link:centrelineGeometry.');
 	}
+
+    public function testAddProperty()
+    {
+        $prop = new AccessRestriction;
+        $prop->setRestriction("toll");
+        $this->roadlink->addProperty($prop);
+        $this->assertEquals($prop->getRestriction(), $this->roadlink->getProperties()[0]->getRestriction(), 'Failed to set NetworkElement-AccessProperty.');
+    }
 }
