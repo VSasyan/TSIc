@@ -5,10 +5,12 @@ namespace NetworkBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
 
+use NetworkBundle\Entity\NetworkElement;
+
 /**
  * Node
  */
-abstract class Node extends Element
+abstract class Node extends NetworkElement
 {
     /**
      * @var string

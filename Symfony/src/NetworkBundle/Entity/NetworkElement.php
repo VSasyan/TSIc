@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Element
  */
-abstract class Element
+abstract class NetworkElement
 {
     /**
      * @var int
