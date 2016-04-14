@@ -8,7 +8,7 @@ use NetworkBundle\Entity\Node;
 /**
  * TrasportNode
  */
-absract class TransportNode extends Node
+abstract class TransportNode extends Node
 {
     use TransportObject;
 }
