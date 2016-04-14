@@ -30,31 +30,39 @@
 
 	<body>
 		<nav>
-			<a href="{{ path('accueil') }}">Perturbations</a>
-			<a href="{{ path('perturbation_add') }}">Ajouter perturbation</a>
-			
-			{% if not (is_granted('ROLE_ADMIN') or is_granted('ROLE_PROFESSIONNAL') or is_granted('ROLE_USER')) %}
 
-				<a href="{{ path('login') }}">Login</a>
-				<a href="{{ path('register') }}">Signin</a>
+			<label for="show-menu" class="show-menu"><span id="hamburger"></span></label>
+			<input type="checkbox" id="show-menu" role="button" />
 
-			{% else %}
+			{% set currentPath = app.request.attributes.get('_route') %}
 
-				{% if is_granted('ROLE_ADMIN') or is_granted('ROLE_PROFESSIONNAL') %}
-					<a href="{{ path('perturbation_list_all') }}">Liste perturbations</a>
-				{% endif %}
+			<div>
+				<a {{ currentPath == 'accueil' ? 'class="current"' }} href="{{ path('accueil') }}">Perturbations</a>
+				<a {{ currentPath == 'perturbation_add' ? 'class="current"' }} href="{{ path('perturbation_add') }}">Ajouter perturbation</a>
 				
-				{% if is_granted('ROLE_ADMIN') %}
-					<a href="{{ path('administration') }}">Administration</a>
+				{% if not (is_granted('ROLE_ADMIN') or is_granted('ROLE_PROFESSIONNAL') or is_granted('ROLE_USER')) %}
+
+					<a {{ currentPath == 'devenez_partenaire' ? 'class="current"' }} href="{{ path('login') }}">Login</a>
+					<a {{ currentPath == 'devenez_partenaire' ? 'class="current"' }} href="{{ path('register') }}">Signin</a>
+
+				{% else %}
+
+					{% if is_granted('ROLE_ADMIN') or is_granted('ROLE_PROFESSIONNAL') %}
+						<a {{ currentPath == 'perturbation_list_all' ? 'class="current"' }} href="{{ path('perturbation_list_all') }}">Liste perturbations</a>
+					{% endif %}
+					
+					{% if is_granted('ROLE_ADMIN') %}
+						<a {{ currentPath == 'administration' ? 'class="current"' }} href="{{ path('administration') }}">Administration</a>
+					{% endif %}
+
+					{% if is_granted('ROLE_PROFESSIONNAL') %}
+
+					{% endif %}
+
+					<a href="{{ path('logout') }}">Logout ({{ app.user.username }})</a>
+
 				{% endif %}
-
-				{% if is_granted('ROLE_PROFESSIONNAL') %}
-
-				{% endif %}
-
-				<a href="{{ path('logout') }}">Logout ({{ app.user.username }})</a>
-
-			{% endif %}
+			</div>
 		</nav>
 
 		<div id="messages">
