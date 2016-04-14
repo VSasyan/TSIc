@@ -1,8 +1,10 @@
 <?php
 
-namespace NetworkBundle\Entity;
+namespace TransportBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+
+use TransportBundle\Entity\TransportNode;
 
 /**
  * RoadNode
