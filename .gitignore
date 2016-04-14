@@ -8,7 +8,6 @@ Symfony/var/sessions/*
 !Symfony/var/SymfonyRequirements.php
 
 # Parameters
-Symfony/app/config/parameters.yml
 Symfony/app/config/parameters.ini
 
 # Managed by Composer
