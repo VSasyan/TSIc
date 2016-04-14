@@ -14,37 +14,37 @@ use TransportBundle\Entity\TransportProperty;
  */
 class WeatherCondition extends TransportProperty
 {
-	/**
-	 * @var string
-	 *
-	 * @ORM\Column(name="name", type="string", length=255)
-	 */
-	private $name;
+    /**
+    * @ORM\ManyToOne(targetEntity="AccessRestrictionValue", inversedBy="")
+    * @ORM\JoinColumn(nullable=false)
+    */
+    private $weatherConditionValue;
+
+
+    /**
+     * Set weatherConditionValue
+     *
+     * @param weatherConditionValue $weatherConditionValue
+     *
+     * @return RestrictionForVehicles
+     */
+    public function setweatherConditionValue($weatherConditionValue)
+    {
+        $this->$weatherConditionValue= $$weatherConditionValue;
+
+        return $this;
+    }
 
 
 
-	/**
-	 * Set name
-	 *
-	 * @param string $name
-	 *
-	 * @return WeatherCondition
-	 */
-	public function setName($name)
-	{
-		$this->name = $name;
-
-		return $this;
-	}
-
-	/**
-	 * Get name
-	 *
-	 * @return string
-	 */
-	public function getName()
-	{
-		return $this->name;
-	}
+    /**
+     * Get weatherConditionValue
+     *
+     * @return weatherConditionValue
+     */
+    public function getweatherConditionValue()
+    {
+        return $this->$weatherConditionValue;
+    }
 }
 
