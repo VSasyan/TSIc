@@ -7,9 +7,6 @@ use NetworkBundle\Entity\Node;
 
 /**
  * TrasportNode
- *
- * @ORM\Table(name="trasport_node")
- * @ORM\Entity(repositoryClass="TransportBundle\Repository\TrasportNodeRepository")
  */
 absract class TransportNode extends Node
 {

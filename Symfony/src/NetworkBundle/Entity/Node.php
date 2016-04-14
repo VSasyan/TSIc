@@ -7,9 +7,6 @@ use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * Node
- *
- * @ORM\Table(name="node")
- * @ORM\Entity(repositoryClass="NetworkBundle\Repository\NodeRepository")
  */
 abstract class Node extends Element
 {
