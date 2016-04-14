@@ -22,11 +22,11 @@ class WeatherCondition
     private $id;
 
     /**
-     * @var string
-     *
-     * @ORM\Column(name="name", type="string", length=255)
-     */
-    private $name;
+    * @ORM\ManyToOne(targetEntity="AccessRestrictionValue", inversedBy="")
+    * @ORM\JoinColumn(nullable=false)
+    */
+    private $weatherConditionValue;
+
 
 
     /**
@@ -61,6 +61,33 @@ class WeatherCondition
     public function getName()
     {
         return $this->name;
+    }
+
+
+    /**
+     * Set weatherConditionValue
+     *
+     * @param weatherConditionValue $weatherConditionValue
+     *
+     * @return RestrictionForVehicles
+     */
+    public function setweatherConditionValue($weatherConditionValue)
+    {
+        $this->$weatherConditionValue= $$weatherConditionValue;
+
+        return $this;
+    }
+
+
+
+    /**
+     * Get weatherConditionValue
+     *
+     * @return weatherConditionValue
+     */
+    public function getweatherConditionValue()
+    {
+        return $this->$weatherConditionValue;
     }
 }
 
