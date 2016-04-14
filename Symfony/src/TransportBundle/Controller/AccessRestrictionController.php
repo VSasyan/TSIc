@@ -12,9 +12,27 @@ class AccessRestrictionController extends Controller
      */
     public function addAction()
     {
-        return $this->render('TransportBundle:AccessRestriction:add.html.twig', array(
-            // ...
-        ));
+        $em = $this->getDoctrine()->getManager();
+        $repository = $em->getRepository('AppBundle:AccessRestriction');
+        
+        $accessRestriction = new AccessRestriction();
+        $form = $this->createForm(AccessRestrictionType::class, $accessRestriction);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $accessRestriction->setRestriction($request->getRestriction());
+        }
+        $em->persist($user);
+        $em->flush();
+        
+        //return $this->render('TransportBundle:Ajax:form.html.twig', array(
+            
+        //));
+
+        return $this->render('AppBundle:AceesRestriction:add.html.twig', array(
+            'restriction' => $accessRestriction,
+            
+        )); 
     }
 
     /**
@@ -30,8 +48,19 @@ class AccessRestrictionController extends Controller
     /**
      * @Route("/accesRestriction/update")
      */
-    public function updateAction()
-    {
+    public function updateAction(Request $request, $id_AccessRestriction)
+    {   
+        $em = $this->getDoctrine()->getManager();
+        $repository = $em->getRepository('AppBundle:AccessRestriction');
+        $accesRestriction = $repository->find($id_AccessRestriction);
+
+        if($accesRestriction->getRestriction() == null){
+            //throw 
+        }
+        
+        $em->persist($user);
+        $em->flush();
+
         return $this->render('TransportBundle:AccessRestriction:update.html.twig', array(
             // ...
         ));
