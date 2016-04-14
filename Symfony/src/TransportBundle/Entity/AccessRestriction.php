@@ -22,10 +22,9 @@ class AccessRestriction
     private $id;
 
     /**
-     * @var string
-     *
-     * @ORM\Column(name="restriction", type="string", length=255)
-     */
+    * @ORM\ManyToOne(targetEntity="AccessRestrictionValue", inversedBy="")
+    * @ORM\JoinColumn(nullable=false)
+    */
     private $restriction;
 
 

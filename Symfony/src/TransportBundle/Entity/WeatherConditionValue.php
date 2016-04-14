@@ -22,10 +22,9 @@ class WeatherConditionValue
     private $id;
 
     /**
-     * @var string
-     *
-     * @ORM\Column(name="name", type="string", length=255)
-     */
+    * @ORM\ManyToOne(targetEntity="WeatherCondition", inversedBy="")
+    * @ORM\JoinColumn(nullable=false)
+    */
     private $weatherCondition;
 
 

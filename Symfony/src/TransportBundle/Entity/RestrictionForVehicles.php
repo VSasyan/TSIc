@@ -30,10 +30,9 @@ class RestrictionForVehicles
     private $measure;
 
     /**
-     * @var string
-     *
-     * @ORM\Column(name="restrictionType", type="string", length=255)
-     */
+    * @ORM\ManyToOne(targetEntity="RestrictionForVehicles", inversedBy="")
+    * @ORM\JoinColumn(nullable=false)
+    */
     private $restrictionType;
 
 
