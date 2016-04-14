@@ -1,1 +1,37 @@
-Hello Transport Bundle!
+{% extends 'AppBundle::base.html.twig' %}
+
+{% block title %}
+	Ajout d'un objet
+{% endblock %}
+
+{% block stylesheets %}
+{% endblock %}
+
+{% block javascripts %}
+	<script src="{{ asset('js/init_geoloc.js') }}"></script>
+	<script src="{{ asset('js/add_object.js') }}"></script>
+{% endblock %}
+
+{% block titleblock %}
+	<h1>Ajout d'un objet</h1>
+{% endblock %}
+
+{% block body %}
+
+	{{ form_start(form) }}
+	<div class="parent">
+		<div class="child">
+			{{ form_errors(form) }}
+			{{ form_row(form.type) }}
+			{{ form_row(form.save) }}
+		</div>
+
+		<div class="child">
+			<div id="map"></div>
+		</div>
+
+		{{ form_widget(form) }}
+	</div>
+	{{ form_end(form) }}
+
+{% endblock %}
