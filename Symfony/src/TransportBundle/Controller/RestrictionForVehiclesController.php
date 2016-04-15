@@ -13,20 +13,20 @@ class RestrictionForVehiclesController extends Controller
     public function addAction()
     {   
         $em = $this->getDoctrine()->getManager();
-        $repository = $em->getRepository('AppBundle:RestrictionForVehicles');
+        $repository = $em->getRepository('TransportBundle:RestrictionForVehicles');
         
         $vehicleRestriction = new RestrictionForVehicles();
         $form = $this->createForm(RestrictionForVehicles::class, $vehicleRestriction);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $accessRestriction->setRestriction($request->getRestriction());
+            $vehicleRestriction->setRestriction($request->getRestriction());
         }
         $em->persist($user);
         $em->flush();
 
         return $this->render('TransportBundle:RestrictionForVehicles:add.html.php', array(
-            // ...
+            
         ));
     }
 
@@ -34,9 +34,9 @@ class RestrictionForVehiclesController extends Controller
      * @Route("/restrictionforvehicles/delete")
      */
     public function deleteAction()
-    {
+    {   
+
         return $this->render('TransportBundle:RestrictionForVehicles:delete.html.php', array(
-            // ...
         ));
     }
 
