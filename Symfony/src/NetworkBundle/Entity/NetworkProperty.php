@@ -32,11 +32,6 @@ abstract class NetworkProperty
 	 */
 	protected $endLifespanVersion;
 
-    /**
-     * @ORM\ManyToOne(targetEntity="NetworkElement", inversedBy="properties")
-     * @ORM\JoinColumn(name="element_id", referencedColumnName="inspireId")
-     */
-    protected $element;
 
 	/**
 	 * Get inspireId
@@ -96,27 +91,4 @@ abstract class NetworkProperty
 		return $this->endLifespanVersion;
 	}
 
-    /**
-     * Set element
-     *
-     * @param \NetworkBundle\Entity\NetworkElement $element
-     *
-     * @return NetworkProperty
-     */
-    public function setElement(\NetworkBundle\Entity\NetworkElement $element = null)
-    {
-        $this->element = $element;
-
-        return $this;
-    }
-
-    /**
-     * Get element
-     *
-     * @return \NetworkBundle\Entity\NetworkElement
-     */
-    public function getElement()
-    {
-        return $this->element;
-    }
 }
