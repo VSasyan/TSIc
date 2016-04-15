@@ -4,6 +4,7 @@ namespace NetworkBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 
+
 /**
  * NetworkProperty
  */
@@ -32,6 +33,12 @@ abstract class NetworkProperty
 	 */
 	protected $endLifespanVersion;
 
+
+    /**
+     * @ORM\ManyToOne(targetEntity="RoadNode", inversedBy="properties")
+     * @ORM\JoinColumn(name="element_id", referencedColumnName="inspireId")
+     */
+    protected $element;
 
 	/**
 	 * Get inspireId

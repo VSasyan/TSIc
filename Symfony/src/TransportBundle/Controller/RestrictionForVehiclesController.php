@@ -4,29 +4,40 @@ namespace TransportBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use TransportBundle\Entity\RestrictionForVehicles;
+use TransportBundle\Form\RestrictionForVehiclesType;
+use Symfony\Component\HttpFoundation\Request;
 
 class RestrictionForVehiclesController extends Controller
 {
     /**
      * @Route("/restrictionforvehicles/add")
      */
-    public function addAction()
+    public function addAction(Request $request)
     {   
         $em = $this->getDoctrine()->getManager();
         $repository = $em->getRepository('TransportBundle:RestrictionForVehicles');
         
-        $vehicleRestriction = new RestrictionForVehicles();
-        $form = $this->createForm(RestrictionForVehicles::class, $vehicleRestriction);
+        $restrictionType = new RestrictionForVehicles();
+        $form = $this->createForm(RestrictionForVehiclesType::class, $restrictionType);
         $form->handleRequest($request);
-
+        
         if ($form->isSubmitted() && $form->isValid()) {
-            $vehicleRestriction->setRestriction($request->getRestriction());
+            if($restrictionType->getRestrictionType() != null){
+                try{
+                    $em->persist($restrictionType);
+                    $em->flush();
+                }
+                catch(exception $e){
+                    print_r($e);
+                }
+            }
+        
+            return $this->render('TransportBundle:RestrictionForVehicles:update.html.php');
         }
-        $em->persist($user);
-        $em->flush();
 
-        return $this->render('TransportBundle:RestrictionForVehicles:add.html.php', array(
-            
+        return $this->render('TransportBundle:RestrictionForVehicles:add.html.php',
+            array('form' => $form->createView()
         ));
     }
 

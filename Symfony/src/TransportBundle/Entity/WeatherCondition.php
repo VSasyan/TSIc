@@ -15,7 +15,7 @@ use TransportBundle\Entity\TransportProperty;
 class WeatherCondition extends TransportProperty
 {
     /**
-    * @ORM\ManyToOne(targetEntity="AccessRestrictionValue", inversedBy="")
+    * @ORM\ManyToOne(targetEntity="WeatherConditionValue", inversedBy="")
     * @ORM\JoinColumn(nullable=false)
     */
     private $weatherConditionValue;
@@ -26,11 +26,11 @@ class WeatherCondition extends TransportProperty
      *
      * @param weatherConditionValue $weatherConditionValue
      *
-     * @return RestrictionForVehicles
+     * @return WeatherConditionValue
      */
     public function setweatherConditionValue($weatherConditionValue)
     {
-        $this->$weatherConditionValue= $$weatherConditionValue;
+        $this->weatherConditionValue=$weatherConditionValue;
 
         return $this;
     }
@@ -40,11 +40,11 @@ class WeatherCondition extends TransportProperty
     /**
      * Get weatherConditionValue
      *
-     * @return weatherConditionValue
+     * @return WeatherConditionValue
      */
     public function getweatherConditionValue()
     {
-        return $this->$weatherConditionValue;
+        return $this->weatherConditionValue;
     }
 }
 

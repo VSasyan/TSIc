@@ -11,7 +11,7 @@ use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
 
-class AccessRestrictionType extends AbstractType
+class RestrictionForVehiclesType extends AbstractType
 {
     /**
      * @param FormBuilderInterface $builder
@@ -19,15 +19,16 @@ class AccessRestrictionType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-         $builder
+        $builder
             ->add('validfrom', DateTimeType::class, array('label' => 'Début'))
             ->add('validto', DateTimeType::class, array('label' => 'Fin'))
             ->add('beginlifespanversion', DateTimeType::class, array('label' => 'Début'))
             ->add('endlifespanversion', DateTimeType::class, array('label' => 'Fin'))
-            ->add('restriction', EntityType::class, array(
-                'class' => 'TransportBundle:AccessRestrictionValue',
+            ->add('restrictionType', EntityType::class, array(
+                'class' => 'TransportBundle:RestrictionTypeValue',
                 'choice_label' => 'name',
             ))
+            ->add('measure', IntegerType::class, array('label' => 'measure'))
             ->add('save',     SubmitType::class, array('label' => 'Add'))
             ->getForm();
     }
@@ -38,7 +39,7 @@ class AccessRestrictionType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'TransportBundle\Entity\AccessRestriction'
+            'data_class' => 'TransportBundle\Entity\RestrictionForVehicles'
         ));
     }
 }

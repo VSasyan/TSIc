@@ -15,17 +15,16 @@ use TransportBundle\Entity\TransportProperty;
 class AccessRestriction extends TransportProperty
 {
 	/**
-	 * @var string
-	 *
-	 * @ORM\Column(name="restriction", type="string", length=255)
-	 */
+    * @ORM\ManyToOne(targetEntity="AccessRestrictionValue", inversedBy="")
+    * @ORM\JoinColumn(nullable=false)
+    */
 	protected $restriction;
 
 
 	/**
 	 * Set restriction
 	 *
-	 * @param string $restriction
+	 * @param AccessRestriction $restriction
 	 *
 	 * @return AccessRestriction
 	 */
@@ -39,7 +38,7 @@ class AccessRestriction extends TransportProperty
 	/**
 	 * Get restriction
 	 *
-	 * @return string
+	 * @return AccessRestriction
 	 */
 	public function getRestriction()
 	{

@@ -21,20 +21,25 @@ class AccessRestrictionController extends Controller
         $accessRestriction = new AccessRestriction();
         $form = $this->createForm(AccessRestrictionType::class, $accessRestriction);
         $form->handleRequest($request);
-
+        
         if ($form->isSubmitted() && $form->isValid()) {
-            $accessRestriction->setRestriction($request->getRestriction());
+            if($accessRestriction->getRestriction() != null){
+                try{
+                    $em->persist($accessRestriction);
+                    $em->flush();
+                }
+                catch(exception $e){
+                    print_r($e);
+                }
+            }else {
+
+            }
+        
+            return $this->render('TransportBundle:AccessRestriction:update.html.twig');
         }
-        $em->persist($accessRestriction);
-        $em->flush();
-        /*
-        return $this->render('TransportBundle:AccessRestriction:add.html.twig', array(
-            
-        ));
-        */
-        return $this->render('TransportBundle:AceesRestriction:add.html.twig', array(
-            'accessRestriction' => $accessRestriction,
-            
+
+        return $this->render('TransportBundle:AccessRestriction:add.html.twig', 
+            array('form' => $form->createView()
         )); 
     }
 

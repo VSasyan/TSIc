@@ -15,26 +15,25 @@ use TransportBundle\Entity\TransportProperty;
 class RestrictionForVehicles extends TransportProperty
 {
 	/**
-	 * @var string
+	 * @var float
 	 *
-	 * @ORM\Column(name="measure", type="string", length=255)
+	 * @ORM\Column(name="measure", type="float")
 	 */
 	private $measure;
 
 	/**
-	 * @var string
-	 *
-	 * @ORM\Column(name="restrictionType", type="string", length=255)
-	 */
+    * @ORM\ManyToOne(targetEntity="RestrictionTypeValue", inversedBy="")
+    * @ORM\JoinColumn(nullable=false)
+    */
 	private $restrictionType;
 
 
 	/**
 	 * Set measure
 	 *
-	 * @param string $measure
+	 * @param float $measure
 	 *
-	 * @return RestrictionForVehicles
+	 * @return float
 	 */
 	public function setMeasure($measure)
 	{
@@ -46,7 +45,7 @@ class RestrictionForVehicles extends TransportProperty
 	/**
 	 * Get measure
 	 *
-	 * @return string
+	 * @return float
 	 */
 	public function getMeasure()
 	{
@@ -56,7 +55,7 @@ class RestrictionForVehicles extends TransportProperty
 	/**
 	 * Set restrictionType
 	 *
-	 * @param string $restrictionType
+	 * @param RestrictionForVehicles $restrictionType
 	 *
 	 * @return RestrictionForVehicles
 	 */
@@ -70,7 +69,7 @@ class RestrictionForVehicles extends TransportProperty
 	/**
 	 * Get restrictionType
 	 *
-	 * @return string
+	 * @return RestrictionForVehicles
 	 */
 	public function getRestrictionType()
 	{
