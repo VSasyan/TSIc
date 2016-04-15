@@ -24,6 +24,7 @@ document.addEventListener("DOMContentLoaded", function() {
 			map.setView(e.latlng, 13, {animate:true});
 		});
 
+		select = document.getElementById("transport_class");
 		if(select) {
 			updateSelect(select.value);
 			select.onchange = function(){

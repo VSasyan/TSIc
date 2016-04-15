@@ -22,9 +22,7 @@ class ObjectController extends StatutController {
 	*/
 	public function indexAction(){
 
-		return $this->render('TransportBundle:Ajax:index.html.twig', array(
-			'title' => 'Ajouter un nouvel object : un lien ou un noeud',
-		));
+		return $this->render('TransportBundle:Default:index.html.twig');
 
 	}
 
