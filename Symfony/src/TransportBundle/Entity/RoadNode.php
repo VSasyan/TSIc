@@ -10,9 +10,8 @@ use TransportBundle\Entity\TransportNode;
  * RoadNode
  *
  * @ORM\Table(name="road_node")
- * @ORM\Entity(repositoryClass="NetworkBundle\Repository\RoadNodeRepository")
+ * @ORM\Entity(repositoryClass="TransportBundle\Repository\RoadNodeRepository")
  */
 class RoadNode extends TransportNode
 {
 }
-
