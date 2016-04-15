@@ -4,7 +4,7 @@ Ce document a pour but de présenter une proposition d'arcitecture d'une API (Ap
 
 ## Quels consommateurs de données?
 
-Les utilisateurs des données seront décrites plus en détails dans la partie suivante, mais il devrait s'agir principalement des services de guidage routier automobile, des organismes public qui utilisent les données du traffic . Enfin, la liste n'est pas exhaustive, mais on pourrait très bien imaginer des services plus généraux (pompiers, samu...) à travers leurs application de calcul d'itinéraire utiliser ce genre d'application et les ressources associées.
+Les utilisateurs des données seront décrits plus en détails dans la partie suivante, mais il devrait s'agir principalement des services de guidage routier automobile, des organismes public qui utilisent les données du traffic . Enfin, la liste n'est pas exhaustive, mais on pourrait très bien imaginer des services plus généraux (pompiers, samu...) à travers leurs application de calcul d'itinéraire utiliser ce genre d'application et les ressources associées.
 
 ## Choix de l'API
 
@@ -38,23 +38,24 @@ Comme évoqué précédemment, les seules ressources rendues disponibles seront 
 
 Considérons ainsi l'exemple suivant :
 
-GET /perturbations/42?fields=name,creation_date,center,description 
+    GET /perturbations/42?fields=name,creation_date,center,description 
+    
+    200 OK
+    
+    {
+    
+      "id":"42",
+    
+      "name":"gros accident",
+    
+      "creation_date":"15/04/2016",
+    
+      "center":"POINT(2.59 48.84)",
+    
+      "description":"tunnel de Nogent bouché, un poids lourd impliqué"
+    
+    }
 
-200 OK
-
-{
-
-  "id":"42",
-
-  "name":"gros accident",
-
-  "creation_date":"15/04/2016",
-
-  "center":"POINT(2.59 48.84)",
-
-  "description":"tunnel de Nogent bouché, un poids lourd impliqué"
-
-}
 
 ### Les modifications
 
