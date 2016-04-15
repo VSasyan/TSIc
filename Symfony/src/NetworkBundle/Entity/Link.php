@@ -19,13 +19,13 @@ abstract class Link extends GeneralisedLink
 	protected $centrelineGeometry;
 
 	/**
-	 * @ORM\ManyToOne(targetEntity="Node", inversedBy="spokeStart")
+	 * @ORM\ManyToOne(targetEntity="RoadNode", inversedBy="spokeStart")
 	 * @ORM\JoinColumn(name="startNode", referencedColumnName="inspireId")
 	 */
 	protected $startNode;
 
 	/**
-	 * @ORM\ManyToOne(targetEntity="Node", inversedBy="spokeEnd")
+	 * @ORM\ManyToOne(targetEntity="RoadNode", inversedBy="spokeEnd")
 	 * @ORM\JoinColumn(name="endNode", referencedColumnName="inspireId")
 	 */
 	protected $endNode;

@@ -21,7 +21,7 @@ abstract class Node extends NetworkElement
 
     /**
     * @var  \Doctrine\Common\Collections\ArrayCollection
-    * @ORM\OneToMany(targetEntity="Link", mappedBy="inspireId")
+    * @ORM\OneToMany(targetEntity="RoadLink", mappedBy="inspireId")
     * @ORM\JoinTable(name="spokeStart")
     */
 
@@ -29,7 +29,7 @@ abstract class Node extends NetworkElement
 
     /**
     * @var  \Doctrine\Common\Collections\ArrayCollection
-    * @ORM\OneToMany(targetEntity="Link", mappedBy="inspireId")
+    * @ORM\OneToMany(targetEntity="RoadLink", mappedBy="inspireId")
     * @ORM\JoinTable(name="spokeEnd")
     */
 
