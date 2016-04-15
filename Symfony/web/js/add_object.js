@@ -2,6 +2,8 @@ var pointMarker = false;
 var lineMarkers = [];
 var update		= false;
 var select      = false;
+var pointWKT    = "";
+var lineWKT     = "";
 
 document.addEventListener("DOMContentLoaded", function() {
 	$(document).ready(function() {
@@ -42,11 +44,13 @@ function updateSelect(value) {
 			lineMarkers[i] = null;
 		});
 		lineMarkers = [];
+		lineWKT = "";
 		break;
 	case "RoadLink":
 		update = addPointToLine;
 		map.removeLayer(pointMarker);
 		pointMarker = false;
+		pointWKT = "";
 		break;
 	}
 }
@@ -61,16 +65,18 @@ function updatePoint(position) {
 	}
 	// On met à jour le champs :
 	//$('#formulation_center').val("SRID=4326;POINT(" + position.lng + " " + position.lat + ")");
-	$('#geometry').val("POINT(" + position.lng + " " + position.lat + ")");
+	pointWKT = position.lng + " " + position.lat;
+	$('#geometry').val("POINT(" + pointWKT + ")");
 }
 
 function addPointToLine(position) {
-	if(lineMarkers.length === 0) {
-		$('#centrelineGeometry').val(coordinatesToWKT(position));
-	} else {
-		$('#centrelineGeometry').append(", " + coordinatesToWKT(position));
-	}
 	var mark = L.marker(position);
 	mark.addTo(map);
 	lineMarkers.push(mark);
+
+	if(lineMarkers.length -1 > 0) {
+		lineWKT += ", ";
+	}
+	lineWKT += position.lng + " " + position.lat;
+	$('#centrelineGeometry').val("LINESTRING(" + lineWKT + ")");
 }
