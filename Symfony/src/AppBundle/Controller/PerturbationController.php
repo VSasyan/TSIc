@@ -37,12 +37,12 @@ class PerturbationController extends StatutController {
 		$repository = $this->getDoctrine()->getManager()->getRepository('AppBundle:Perturbation');
 		$perturbations = $repository->findAll();
 
-		foreach ($perturbations as $p) {
+		/*foreach ($perturbations as $p) {
 				$virtualPerturbations[] = $p->returnVirtualPerturbation();
-		}
+		}*/
 
 		return $this->render('AppBundle:Perturbation:listAll.html.twig', array(
-		   'perturbations' => $virtualPerturbations,
+		   'perturbations' => $perturbations,
 		   'title'    => "Liste des perturbations",
 		));
 		
@@ -88,6 +88,7 @@ class PerturbationController extends StatutController {
 			'title'   => "Liste des perturbations",
 			'content' => $template,
 		)));
+		
 		$response->headers->set('Content-Type', 'application/json');
 		return $response;
 
@@ -168,15 +169,18 @@ class PerturbationController extends StatutController {
 	/**
 	* @Route("/perturbation/show/{id}", name="perturbation_show")
 	*/
-	public function showAction($id){
+	public function showAction(Request $request, $id){
 
 		$em = $this->getDoctrine()->getManager();
 
 		$perturbation = $em->getRepository('AppBundle:Perturbation')->find($id);
 
 		if ($perturbation != null) {
-			return $this->render('AppBundle:Perturbation:show.html.twig', array('perturbation' => $perturbation));
+			return $this->render('AppBundle:Perturbation:show.html.twig', array(
+				'perturbation' => $perturbation
+			));
 		} else {
+			$request->getSession()->getFlashBag()->add('error', 'Perturbation non trouvée.');
 			//si on ne trouve pas la perturbation, on retourne vers la vue index
 			return $this->render('AppBundle:Ajax:index.html.twig', array(
 				'function' => 'listNearest',

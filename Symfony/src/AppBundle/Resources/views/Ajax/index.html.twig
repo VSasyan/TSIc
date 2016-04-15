@@ -25,7 +25,7 @@
 		</div>
 
 		<div class="child max-400">
-			<div id="ajax_loader" data-function="{{ function }}" data-node-js="{{ nodeJS }}"></div>
+			<div id="ajax_loader" data-function="{{ function }}" data-node-js="{{ nodeJS | default("") }}"></div>
 		</div>
 	</div>
 

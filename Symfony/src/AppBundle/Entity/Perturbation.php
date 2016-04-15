@@ -285,15 +285,15 @@ class Perturbation
             
         $formulation = $this->getLastFormulation();
            
-        $virtualPerturbation['id'] = $formulation->getId();
-        $virtualPerturbation['name'] = $formulation->getName();
-        $virtualPerturbation['type'] = $formulation->getType();
-        $virtualPerturbation['geoJSON'] = $formulation->getGeoJSON();
-        $virtualPerturbation['center'] = $formulation->getCenter();
+        $virtualPerturbation['id'] = $this->getId();
         $virtualPerturbation['terminated'] = $this->getTerminated();
         $virtualPerturbation['valid'] = $this->getValid();
         $virtualPerturbation['activated'] = $this->getActivated();
         $virtualPerturbation['archived'] = $this->getArchived();
+        $virtualPerturbation['name'] = $formulation->getName();
+        $virtualPerturbation['type'] = $formulation->getType();
+        $virtualPerturbation['geoJSON'] = $formulation->getGeoJSON();
+        $virtualPerturbation['center'] = $formulation->getCenter();
 
         return $virtualPerturbation;
 

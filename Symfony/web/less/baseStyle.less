@@ -25,6 +25,9 @@
 	}
 }
 
+
+// SHOW PERTURBATION
+
 #show_perturbation {
 	h1 {
 		margin: 0;
@@ -33,6 +36,24 @@
 	}
 }
 
+
+#table_list .mini_map {
+	width: 150px;
+	height: 150px;
+	float: right;
+
+	>div{
+		height: 150px;
+		cursor: default;
+
+		.leaflet-control-layers,
+		.leaflet-control-attribution {
+			display: none !important;
+		}
+	}
+}
+
+
 // ADD PERTURBATION
 form {
 	#map {
@@ -40,6 +61,16 @@ form {
 	}
 }
 
+
+#table_list {
+	.table {
+		.row {
+			.cell {
+				vertical-align: top;
+			}
+		}
+	}
+}
 
 #list.elements {
 	.element {

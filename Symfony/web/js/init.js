@@ -17,10 +17,12 @@ function init_select_lien() {
 	});
 }
 
+var miniMaps = false;
 function init_show_element() {
 	$('#show_elements').click(function(event) {
 		event.preventDefault();
-		$(this).parents('.elements.none').find('#list_elements').slideToggle(300, function() {
+		$(this).parents('.elements.none').find('#table_list').slideToggle(300, function() {
+			if (miniMaps != false) {$.each(miniMaps, function(i,m) {m.invalidateSize();})}
 			$('html, body').delay('300').animate({
 				scrollTop: $(this).offset().top 
 			}, 300);
@@ -51,6 +53,7 @@ document.addEventListener("DOMContentLoaded", function() {
 		init_show_element();
 		init_select_lien();
 		init_click_vote();
+		show_mini_map();
 	});
 });
 
