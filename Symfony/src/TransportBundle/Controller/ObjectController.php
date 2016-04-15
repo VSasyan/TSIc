@@ -57,7 +57,13 @@ class ObjectController extends StatutController {
 			return $this->redirect($this->generateUrl('transport_link_add'));
 		}
 
-		return $this->render('AppBundle:Ajax:form.html.twig', array('form' => $form->createView()));
+		$template = $this->container->get('templating')->render('AppBundle:Ajax:form.html.twig', array('form' => $form->createView()));
+        $response = new Response(json_encode(array(
+			'title'   => "Ajout d'un nœud",
+			'content' => $template,
+		)));
+		$response->headers->set('Content-Type', 'application/json');
+		return $response;
 	}
 
 	/**
@@ -80,7 +86,13 @@ class ObjectController extends StatutController {
 			return $this->redirect($this->generateUrl('transport_node_add'));
 		}
 
-		return $this->render('AppBundle:Ajax:form.html.twig', array('form' => $form->createView()));
+        $template = $this->container->get('templating')->render('AppBundle:Ajax:form.html.twig', array('form' => $form->createView()));
+        $response = new Response(json_encode(array(
+			'title'   => "Ajout d'un lien",
+			'content' => $template,
+		)));
+		$response->headers->set('Content-Type', 'application/json');
+		return $response;
 	}
 
 }

@@ -76,4 +76,4 @@ swiftmailer:
 
 # FOSJs routing (client-side routing) needs exposed routes
 fos_js_routing:
-    routes_to_expose: [ perturbation_list_nearest ]
+    routes_to_expose: [ perturbation_list_nearest, transport_link_add, transport_node_add ]
