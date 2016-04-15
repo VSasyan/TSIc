@@ -237,8 +237,6 @@ class PerturbationController extends StatutController {
 		
 	}
 
-
-
 }
 
 
