@@ -28,6 +28,10 @@ var functions = {
 			geoloc.callback = updatePosMarker;
 		});
 
+		map.on("zoomstart", function(e) {
+			geoloc.callback = updatePosMarker;
+		});
+
 		map.on("moveend", function(e) {
 			var currentBounds = map.getBounds();
 

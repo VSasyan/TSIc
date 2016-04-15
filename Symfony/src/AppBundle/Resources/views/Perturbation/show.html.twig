@@ -120,18 +120,28 @@
 				<a class="button editer" href="{{ path('perturbation_edit', {id : perturbation.id}) }}">Éditer la perturbation</a>
 			{% endif %}
 		</center>
-		<div id="list_elements" style="display:none;">
-		{% for f in perturbation.formulations %}
-			<div class="element description pertubation" data-name="{{ f.name }}" data-center="{{ f.center }}" data-logo="{{ f.type.id }}">
+		<div id="table_list" style="display:none;">
+			{% for f in perturbation.formulations %}
 				<h3>
 					<span class="perturbation-name">{{ f.name }}</span> :
 					<span class="perturbation-type" title="{{ f.type.description }}">{{ f.type.name }}</span>
 				</h3>
-				<p>Enregistrée le {{ f.creationDate|date(' d/m à h:m') }} publiée par <a href="{{ path('user_show', {id : f.particulier.id }) }}">{{ f.particulier.username }}</a>.</p>
-				<p class="perturbation-dates">Depuis le {{ f.beginDate|date(' d/m à h:m') }} ; fin estimée le {{ f.endDate|date(' d/m à h:m') }}.</p>
-				<p class="perturbation-description">{{ f.description }}</p>
-			</div>
-		{% endfor %}
+				<div class="table">
+					<div class="row description pertubation" data-name="{{ f.name }}" data-center="{{ f.center }}" data-logo="{{ f.type.id }}" data-id="{{ f.id }}">
+						<div class="cell">
+							<p>Enregistrée le {{ f.creationDate|date(' d/m à h:m') }} publiée par <a href="{{ path('user_show', {id : f.particulier.id }) }}">{{ f.particulier.username }}</a>.</p>
+							<p class="perturbation-dates">Depuis le {{ f.beginDate|date(' d/m à h:m') }} ; fin estimée le {{ f.endDate|date(' d/m à h:m') }}.</p>
+							<p class="perturbation-description">{{ f.description }}</p>
+						</div>
+						<div class="cell right">
+							<div class="mini_map">
+								<div id="map_{{ f.id }}"></div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="clear"></div>
+			{% endfor %}
 		</div>
 	</div>
 </div>
