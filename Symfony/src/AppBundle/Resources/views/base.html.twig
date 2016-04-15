@@ -9,64 +9,71 @@
 
 		<link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css' />
 		<link href='https://fonts.googleapis.com/css?family=Roboto+Condensed' rel='stylesheet' type='text/css' />
-		<link href="{{ asset('less/baseStyle.less') }}" rel="stylesheet/less" type="text/css" />
-		<link href="{{ asset('less/typeStyle.less') }}" rel="stylesheet/less" type="text/css" />
-		<link href="{{ asset('less/flex.less') }}" rel="stylesheet/less" type="text/css" />
-		<link href="{{ asset('css/map.css') }}" rel="stylesheet" />
+		<link href="{{ asset('font-awesome-4.5.0/css/font-awesome.min.css') }}" rel="stylesheet/less" type="text/css" />
 		<link href="http://cdn.leafletjs.com/leaflet-0.7.2/leaflet.css" rel="stylesheet" />
 		<link href="{{ asset('css/base.css') }}" rel="stylesheet"  type="text/css"/>
-		<link href="{{ asset('less/typeStyle.less') }}" rel="stylesheet/less" type="text/css" />
-		<link href="{{ asset('less/messageStyle.less') }}" rel="stylesheet/less" type="text/css" />
-		<link href="{{ asset('font-awesome-4.5.0/css/font-awesome.min.css') }}" rel="stylesheet/less" type="text/css" />
+		<link href="{{ asset('less/baseStyle.less') }}" rel="stylesheet/less" type="text/css" />
+
 		{% block stylesheets %}{% endblock %}
 
-
 		<script src="http://cdn.leafletjs.com/leaflet-0.7.2/leaflet.js"></script>
+		<script src="{{ asset('js/html.js') }}"></script>
 		<script src="{{ asset('js/map.js') }}"></script>
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
 		<script src="//cdnjs.cloudflare.com/ajax/libs/less.js/2.5.3/less.min.js"></script>
 		<script src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
 		<script src="{{ asset('js/init.js') }}"></script>
 		<script src="{{ path('fos_js_routing_js', {'callback': 'fos.Router.setData'}) }}"></script>
+		<script src="http://cdn.socket.io/socket.io-1.4.5.js"></script>
 		{% block javascripts %}{% endblock %}
 	</head>
 
 	<body>
 		<nav>
-			<a href="{{ path('accueil') }}">Perturbations</a>
-			<a href="{{ path('perturbation_add') }}">Ajouter perturbation</a>
-			
-			{% if not (is_granted('ROLE_ADMIN') or is_granted('ROLE_PROFESSIONNAL') or is_granted('ROLE_USER')) %}
 
-				<a href="{{ path('login') }}">Login</a>
-				<a href="{{ path('register') }}">Signin</a>
+			<label for="show-menu" class="show-menu"><span id="hamburger"></span></label>
+			<input type="checkbox" id="show-menu" role="button" />
 
-			{% else %}
+			{% set currentPath = app.request.attributes.get('_route') %}
 
-				{% if is_granted('ROLE_ADMIN') or is_granted('ROLE_PROFESSIONNAL') %}
-					<a href="{{ path('perturbation_list_all') }}">Liste perturbations</a>
-				{% endif %}
+			<div>
+				<a {{ currentPath == 'accueil' ? 'class="current"' }} href="{{ path('accueil') }}">Perturbations</a>
+				<a {{ currentPath == 'perturbation_add' ? 'class="current"' }} href="{{ path('perturbation_add') }}">Ajouter perturbation</a>
 				
-				{% if is_granted('ROLE_ADMIN') %}
-					<a href="{{ path('administration') }}">Administration</a>
+				{% if not (is_granted('ROLE_ADMIN') or is_granted('ROLE_PROFESSIONNAL') or is_granted('ROLE_USER')) %}
+
+					<a {{ currentPath == 'devenez_partenaire' ? 'class="current"' }} href="{{ path('login') }}">Login</a>
+					<a {{ currentPath == 'devenez_partenaire' ? 'class="current"' }} href="{{ path('register') }}">Signin</a>
+
+				{% else %}
+
+					{% if is_granted('ROLE_ADMIN') or is_granted('ROLE_PROFESSIONNAL') %}
+						<a {{ currentPath == 'perturbation_list_all' ? 'class="current"' }} href="{{ path('perturbation_list_all') }}">Liste perturbations</a>
+					{% endif %}
+					
+					{% if is_granted('ROLE_ADMIN') %}
+						<a {{ currentPath == 'administration' ? 'class="current"' }} href="{{ path('administration') }}">Administration</a>
+					{% endif %}
+
+					{% if is_granted('ROLE_PROFESSIONNAL') %}
+
+					{% endif %}
+
+					<a href="{{ path('logout') }}">Logout ({{ app.user.username }})</a>
+
 				{% endif %}
-
-				{% if is_granted('ROLE_PROFESSIONNAL') %}
-
-				{% endif %}
-
-				<a href="{{ path('logout') }}">Logout ({{ app.user.username }})</a>
-
-			{% endif %}
+			</div>
 		</nav>
 
-		{% for type, messages in app.session.flashBag.all %}
-			{% for message in messages %}
-				<div class="{{ type }}">
-					{{ message|trans({}, 'FOSUserBundle') }}
-				</div>
+		<div id="messages">
+			{% for type, messages in app.session.flashBag.all %}
+				{% for message in messages %}
+					<div class="{{ type }}">
+						{{ message }}
+					</div>
+				{% endfor %}
 			{% endfor %}
-		{% endfor %}
+		</div>
 		
 		{% block titleblock %}{% endblock %}
 

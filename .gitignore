@@ -8,7 +8,6 @@ Symfony/var/sessions/*
 !Symfony/var/SymfonyRequirements.php
 
 # Parameters
-Symfony/app/config/parameters.yml
 Symfony/app/config/parameters.ini
 
 # Managed by Composer
@@ -38,7 +37,10 @@ Symfony/build/
 
 # upload
 Symfony/upload/logo_type_perturbation
+Symfony/upload/logo_type_objet_terrain
+!Symfony/upload/*/_*
 
 # Fichiers temp :
 *~
 *#
+.directory

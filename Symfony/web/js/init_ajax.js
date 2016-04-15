@@ -5,7 +5,18 @@ function getPage(route, after) {
 		document.title = data.title;
 		$('#ajax_loader').html(data.content);
 		showMessages(data.messages || '');
+		map.invalidateSize();
 		if(after != false) { after(); }
+	});
+}
+
+function getObject(route) {
+	$.ajax({
+		url : route,
+		type : 'GET',
+		success : function(data) {
+			show_nearestObjetsTerrains(data);
+		}
 	});
 }
 
@@ -18,13 +29,19 @@ var functions = {
 			geoloc.callback = updatePosMarker;
 		});
 
+		map.on("zoomstart", function(e) {
+			geoloc.callback = updatePosMarker;
+		});
+
 		map.on("moveend", function(e) {
 			var currentBounds = map.getBounds();
 
 			if(!dataBounds.contains(currentBounds)) {
 				// We do not have any data
 				listNearest(currentBounds);
-			} else console.log("No update needed.");
+			} else {
+				//console.log("No update needed.");
+			}
 		});
 
 		posMarker = L.marker(map.getCenter()).addTo(map);
@@ -44,12 +61,7 @@ var functions = {
 
 document.addEventListener("DOMContentLoaded", function() {
 	//ajout ajax load gif
-		//$('#ajax_loader').replaceWith(HTML_AJAX_LOADING);
-		$('#ajax_loader').html(HTML_AJAX_LOADING_BIG);
-		
-		console.log('test: ', HTML_AJAX_LOADING);
-
-		
+	$('#ajax_loader').html(HTML_AJAX_LOADING);
 
 	functions[$('#ajax_loader').data('function')]();
 });

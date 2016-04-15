@@ -1,0 +1,43 @@
+{% extends 'AppBundle::base.html.twig' %}
+
+{% block title %}
+	Éditer la perturbation
+{% endblock %}
+
+{% block stylesheets %}
+{% endblock %}
+
+{% block javascripts %}
+	<script src="{{ asset('js/init_geoloc.js') }}"></script>
+	<script src="{{ asset('js/init_edit_perturbation.js') }}"></script>
+{% endblock %}
+
+{% block titleblock %}	
+	<h1>Éditer la perturbation</h1>
+{% endblock %}
+
+{% block body %}
+	
+
+	<div>
+		{{ form_start(form) }}
+		<h3>Détails de la perturbation</h3>
+		<div>
+			{{ form_errors(form) }}
+			{{ form_row(form.name) }}
+			{{ form_row(form.type) }}
+			{{ form_row(form.description) }}
+			{{ form_row(form.causes) }}
+		</div>
+		<div>
+			<div>
+				<label class="required" for="formulation_center">Position</label>
+				<div id="map" class="float right"></div>
+				{{ form_row(form.center) }}
+			</div>
+		</div>
+		{{ form_widget(form) }}
+		{{ form_end(form) }}
+	</div>
+
+{% endblock %}

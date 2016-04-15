@@ -44,6 +44,13 @@ class Formulation
     private $description;
 
     /**
+     * @var string
+     *
+     * @ORM\Column(name="causes", type="string", length=255, nullable=true)
+     */
+    private $causes;
+
+    /**
      * @var geometry
      *
      * @ORM\Column(type="geometry", options={"geometry_type"="POINT", "srid"=4326})
@@ -78,14 +85,6 @@ class Formulation
      */
     private $endDate;
 
-
-    /**
-     * @var bool
-     *
-     * @ORM\Column(name="valid_formulation", type="boolean")
-     */
-    private $valid_formulation;
-
     /**
     * @ORM\ManyToOne(targetEntity="Particulier", inversedBy="formulations")
     * @ORM\JoinColumn(nullable=true)
@@ -110,6 +109,7 @@ class Formulation
     public function __construct()
     {
         $this->creationDate = new \DateTime();
+        $this->causes = 'Inconnues';
     }
 
     /**
@@ -363,30 +363,26 @@ class Formulation
     }
 
     /**
-     * Set validFormulation
+     * Set causes
      *
-     * @param boolean $validFormulation
+     * @param string $causes
      *
      * @return Formulation
      */
-    public function setValidFormulation($validFormulation)
+    public function setCauses($causes)
     {
-        $this->valid_formulation = $validFormulation;
+        $this->causes = $causes;
 
         return $this;
     }
 
     /**
-     * Get validFormulation
+     * Get causes
      *
-     * @return boolean
+     * @return string
      */
-    public function getValidFormulation()
+    public function getCauses()
     {
-        return $this->valid_formulation;
+        return $this->causes;
     }
-
 }
-
-
-

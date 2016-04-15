@@ -1,82 +1,236 @@
 body, html {
-    background-color: #EEE;
-    padding: 0;
-    margin: 0;
-    font-family: 'Roboto';
+	background-color: #EEE;
+	padding: 0;
+	margin: 0;
+	font-family: 'Roboto';
 }
 
 h1, h2, h3 {
-    text-align: center;
-    font-family: 'Roboto Condensed'
+	text-align: center;
+	font-family: 'Roboto Condensed'
 }
 
 h1 {
-    padding-bottom: 25px;
-    padding-top: 25px;
-    color: #0078A8;
+	padding-bottom: 25px;
+	padding-top: 25px;
+	color: #0078A8;
 }
 
 h1.left, h2.left, h3.left {text-align: left;}
 
 body > * {
-    width: 100%;
-    max-width: 1000px;
-    margin: auto;
+	width: 100%;
+	max-width: 1000px;
+	margin: auto;
 }
 
 body > nav {
-    text-align: center;
-    padding-top: 15px;
-    padding-bottom: 15px;
-    background-color: #FFF;
-    max-width: none;
-    border-bottom: 1px solid #000;
+	text-align: center;
+	padding-top: 15px;
+	padding-bottom: 15px;
+	background-color: #FFF;
+	max-width: none;
+	border-bottom: 1px solid #000;
 }
 
-body > nav > a {
-    display: inline-block;
-    text-decoration: none;
-    color: black;
-    padding: 1ex;
-    border: solid transparent 1px;
-    margin: 0px 1em;
-    transition: All 0.4s;
+body > nav > div > a {
+	display: inline-block;
+	text-decoration: none;
+	color: black;
+	padding: 1ex;
+	border: solid transparent 1px;
+	margin: 0px 1em;
+	transition: All 0.4s;
 }
 
-body > nav > a.current, body > nav > a:hover {
-    border-bottom: solid #0078A8 1px;
-    background-color: rgba(0, 120, 168, 0.10);
+body > nav > div > a.current, body > nav > div > a:hover {
+	border-bottom: solid #0078A8 1px;
+	background-color: rgba(0, 120, 168, 0.10);
 }
 
-body > nav > a:hover {
+input#show-menu {display: none;}
+#menu {display: none;}
+
+.show-menu, h1 {transition: All 0.4s;}
+
+
+@media (max-width: 840px) {
+
+	.show-menu {
+		display: block;
+		position: absolute;
+		top: 24px;
+		left: 40px;
+		z-index: 100000;
+		cursor: pointer;
+		transition: All 0.4s;
+	}
+
+	.show-menu #hamburger {
+		display: inline-block;
+		width: 40px;
+		height: 40px;
+		.background-image;
+		background-image: url('../menu.png');
+		background-size: 40px 40px;
+	}
+
+	body > nav > div {
+		transform: translateY(-100%);
+		transition: All 0.7s;
+		position: absolute;
+		background-color: #FFF;
+		width: 100%;
+		z-index: 10000;
+		border-bottom: 1px solid #000;
+	}
+
+	body > nav {
+		padding: 0;
+		border: 0;
+	}
+
+	body > nav > div > a {
+		display: block;
+		text-decoration: none;
+		color: black;
+		padding: 4px;
+		margin: 0;
+		border: solid transparent 1px;
+		transition: All 0.4s;
+	}
+	body > nav > div > a:hover, body > nav > div > a.current {
+		color: #0078A8;
+		border: solid transparent 1px;
+		background-color: transparent;
+		transition: All 0.4s;
+	}
+
+	input#show-menu:checked ~ div {
+		transform: translateY(0);
+	}
+
+}
+
+@media (max-width: 600px) {
+
+	.show-menu {
+		left: 12px;
+		top: 9px;
+	}
+
+	h1 {
+		font-size: 24px;
+		padding-top: 15px;
+		padding-bottom: 15px;
+	}
+}
+
+/* FLEX */
+
+.parent {
+	display : flex;
+	flex-direction: row;
+	justify-content: space-between;
+	align-items: center;
+	flex-wrap: nowrap;
+	margin: 0 auto;
+	box-sizing: border-box;
+}
+	
+.parent .child {
+	box-sizing: border-box;
+	flex: 2 1 auto;
+	transition: width 0.7s ease-out;
+	min-width: 300px;
+	padding: 10px;
+}
+
+@media (min-width: 1040px){*/
+
+	.parent {flex-direction: row;}
+
+	.parent .child.max-300 {max-width: 300px;}
+	.parent .child.max-400 {max-width: 400px;}
+	.parent .child.max-500 {max-width: 500px;}
+	.parent .child.max-600 {max-width: 600px;}
+
+}
+
+@media (max-width: 1040px) {
+
+	.parent {flex-direction: column;}
+
+	.parent .child {width: 100%;}
+	.parent .child.max-300 {max-width: none;}
+	.parent .child.max-400 {max-width: none;}
+	.parent .child.max-500 {max-width: none;}
+	.parent .child.max-600 {max-width: none;}
+
 }
 
 section {
-    margin: auto;
-    max-width: 1000px;
-    width: 100%;
-    padding: 20px;
-    background-color: #FFF;
+	margin: auto;
+	max-width: 1000px;
+	box-sizing: border-box;
+	width: 100%;
+	padding: 20px;
+	background-color: #FFF;
 }
 
+/* LOADING */
 .ajax.loading {
-    background-image: url('../ajax-loader.gif');
-    background-size: 20px 20px;
-    background-repeat: no-repeat;
-    background-position: center;
-    display: block;
-    width: 20px;
-    height: 20px;
-    margin: auto;
+	background-image: url('../ajax-loader.gif');
+	background-size: 30px 30px;
+	background-repeat: no-repeat;
+	background-position: center;
+	display: block;
+	width: 30px;
+	height: 30px;
+	margin: auto;
+    animation-name: example;
+    animation-duration: 2s;
+    animation-iteration-count: infinite;
+}
+
+@keyframes example {
+  from {
+    margin-left: 0%;
+    /*width: 300%*/
+  }
+  
+  to {
+    margin-left: 100%;
+    /*width: 100%;*/
+  }
+}
+
+@keyframes route
+{
+  0%   { left:0px; top:0px; }
+  25%  { left:560px; top:0px; transform: rotate(90deg); }
+  50%  { left:560px; top:360px; transform: rotate(180deg); }
+  75%  { left:0px; top:360px; transform: rotate(270deg); }
+  100% { left:0px; top:0px; transform: rotate(360deg); }
+}
+
+@-webkit-keyframes route
+{
+  0%   { left:0px; top:0px; }
+  25%  { left:560px; top:0px; -webkit-transform: rotate(90deg); }
+  50%  { left:560px; top:360px; -webkit-transform: rotate(180deg); }
+  75%  { left:0px; top:360px; -webkit-transform: rotate(270deg); }
+  100% { left:0px; top:0px; -webkit-transform: rotate(360deg); }
 }
 
 .ajax.loading.big {
-    background-size: 40px 40px;
-    width: 40px;
-    height: 40px;
+	background-size: 40px 40px;
+	width: 40px;
+	height: 40px;
 }
 
+/* CARTE */
 #map { 
-    width: 100%;
-    height: 400px; 
+	width: 100%;
+	height: 400px; 
 } 

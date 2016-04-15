@@ -10,19 +10,48 @@
 {% block javascripts %}
 {% endblock %}
 
+{% block titleblock %}	
+	<h1>{{ title }}</h1>
+{% endblock %}
+
 {% block body %}
 
 	<div>
-		<h2>{{ title }}</h2>
-		<div class="elements">
+		{% if perturbations|length > 1 %}
+			<h2>{{ perturbations|length }} perturbations trouvées</h2>
+		{% else %}
+			<h2>{{ perturbations|length }} perturbation trouvée</h2>
+		{% endif %}
+
+		<div id="table_list">
 			{% for p in perturbations %}
-				<div
-					class="element"
-					data-center="{{ p.center }}"
-					data-type="{{ p.type.name }}"
-					data-geoJSON="{{ p.geoJSON }}">
-					<a href="{{ path('perturbation_show', {id : p.id}) }}">{{ p.name }}</a>
+
+				{% set f = p.formulations|first %}
+
+				<h3>
+					<a href="{{ path('perturbation_show', {id : p.id}) }}">
+						<span class="perturbation-name">{{ f.name }}</span>
+					</a>
+				</h3>
+
+				<div class="table">
+					<div class="row description pertubation" data-name="{{ f.name }}" data-center="{{ f.center }}" data-logo="{{ f.type.id }}" data-id="{{ f.id }}">
+						<div class="cell">
+							<p class="perturbation-type">Type : {{ f.type.name }}</p>
+							<p>Enregistrée le {{ f.creationDate|date(' d/m à h:m') }} publiée par <a href="{{ path('user_show', {id : f.particulier.id }) }}">{{ f.particulier.username }}</a>.</p>
+							<p class="perturbation-dates">Depuis le {{ f.beginDate|date(' d/m à h:m') }} ; fin estimée le {{ f.endDate|date(' d/m à h:m') }}.</p>
+							<p class="perturbation-description">{{ f.description }}</p>
+						</div>
+						<div class="cell right">
+							<div class="mini_map">
+								<div id="map_{{ f.id }}"></div>
+							</div>
+						</div>
+					</div>
 				</div>
+
+				<div class="clear"></div>
+
 			{% endfor %}
 		</div>
 	</div>

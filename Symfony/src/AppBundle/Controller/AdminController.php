@@ -90,60 +90,60 @@ class AdminController extends StatutController {
 
 			$gare = new TypeObjetTerrain();
 			$gare->setName('Gare');
-			$gare->setLogoPicturePath('1.png');
+			$gare->setLogoPicturePath('_1.png');
 			$em->persist($gare);
 
 			$autolib = new TypeObjetTerrain();
 			$autolib->setName('Autolib');
-			$autolib->setLogoPicturePath('2.png');
+			$autolib->setLogoPicturePath('_2.png');
 			$em->persist($autolib);
 
 			$velo = new TypeObjetTerrain();
 			$velo->setName('Vélo');
-			$velo->setLogoPicturePath('3.png');
+			$velo->setLogoPicturePath('_3.png');
 			$em->persist($velo);
 
 			$parking = new TypeObjetTerrain();
 			$parking->setName('Parking');
-			$parking->setLogoPicturePath('4.png');
+			$parking->setLogoPicturePath('_4.png');
 			$em->persist($parking);
 
 			$parking_relais = new TypeObjetTerrain();
 			$parking_relais->setName('Parking relais');
-			$parking_relais->setLogoPicturePath('5.png');
+			$parking_relais->setLogoPicturePath('_5.png');
 			$em->persist($parking_relais);
 
 			$station_taxis = new TypeObjetTerrain();
 			$station_taxis->setName('Station de taxis');
-			$station_taxis->setLogoPicturePath('6.png');
+			$station_taxis->setLogoPicturePath('_6.png');
 			$em->persist($station_taxis);
 
 			$aire_covoit = new TypeObjetTerrain();
 			$aire_covoit->setName('Aire de covoiturage');
-			$aire_covoit->setLogoPicturePath('7.png');
+			$aire_covoit->setLogoPicturePath('_7.png');
 			$em->persist($aire_covoit);
 
 			$borne_voit = new TypeObjetTerrain();
 			$borne_voit->setName('Borne de rechargement de voiture');
-			$borne_voit->setLogoPicturePath('8.png');
+			$borne_voit->setLogoPicturePath('_8.png');
 			$em->persist($borne_voit);
 
 			// CREATION DES TYPES DE PERTURBATIONS
 
-			$tp_bloquee = new TypePerturbation();
-			$tp_bloquee->setName('Route bloquée');
-			$tp_bloquee->setLogoPicturePath('1.png');
-			$em->persist($tp_bloquee);
+			$tp_ralentissement = new TypePerturbation();
+			$tp_ralentissement->setName('Réduction de la vitesse');
+			$tp_ralentissement->setLogoPicturePath('_1.png');
+			$em->persist($tp_ralentissement);
 
 			$tp_voies = new TypePerturbation();
-			$tp_voies->setName('Reduction du nombre de voies');
-			$tp_voies->setLogoPicturePath('2.png');
+			$tp_voies->setName('Réduction du nombre de voies');
+			$tp_voies->setLogoPicturePath('_2.png');
 			$em->persist($tp_voies);
 
-			$tp_ralentissement = new TypePerturbation();
-			$tp_ralentissement->setName('Ralentissement');
-			$tp_ralentissement->setLogoPicturePath('3.png');
-			$em->persist($tp_ralentissement);
+			$tp_bloquee = new TypePerturbation();
+			$tp_bloquee->setName('Route bloquée');
+			$tp_bloquee->setLogoPicturePath('_3.png');
+			$em->persist($tp_bloquee);
 
 			// CREATION DES ENUM TRANSPORT::WEATHER
 

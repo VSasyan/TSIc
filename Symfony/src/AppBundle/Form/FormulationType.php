@@ -27,6 +27,7 @@ class FormulationType extends AbstractType
                 'choice_label' => 'name',
             ))
             ->add('description', TextareaType::class, array('label' => 'Description'))
+            ->add('causes', TextType::class, array('label' => 'Causes supposées'))
             ->add('center', HiddenType::class)
             ->add('geoJSON', HiddenType::class)
             ->add('beginDate', DateTimeType::class, array('label' => 'Début'))

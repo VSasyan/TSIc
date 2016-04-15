@@ -42,4 +42,7 @@ security:
         - { path: ^/register, role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/resetting, role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/perturbation/list/nearest, role: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/perturbation/list/nearest, role: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/pro, role: ROLE_PROFESSIONNAL }
+        - { path: ^/admin, role: ROLE_ADMIN }
         - { path: ^/, role: IS_AUTHENTICATED_ANONYMOUSLY }

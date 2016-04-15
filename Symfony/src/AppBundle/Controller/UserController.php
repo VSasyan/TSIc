@@ -119,7 +119,7 @@ class UserController extends StatutController {
 	}
 
 	/**
-	* @Route("/admin/user/list", name="user_list")
+	* @Route("/user/list", name="user_list")
 	*/
 	public function listUsersAction(){
 

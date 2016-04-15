@@ -2,6 +2,7 @@
 
 namespace AppBundle\Controller;
 
+use AppBundle\Entity\Vote;
 use AppBundle\Entity\Particulier;
 use AppBundle\Entity\Perturbation;
 use AppBundle\Entity\Formulation;
@@ -14,12 +15,11 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 class VoteController extends StatutController {
 
 	/**
-    * @Route("/vote/{id_perturbation}/{id_message}", name="vote")
+    * @Route("/perturbation/vote/{id_perturbation}/{id_message}", name="vote")
     */
 	public function voteAction(Request $request, $id_perturbation, $id_message){
 
 		//Si l'utilisateur est authentifié
-
 		if ($this->isAuth()) {
 			$em = $this->getDoctrine()->getManager();
 
@@ -28,57 +28,74 @@ class VoteController extends StatutController {
 
 			// perturbation != null && $message != null?
 			if ($perturbation != null && $message != null) {
-				$request->getSession()->getFlashBag()->add('success', 'Perturbation et message associé valides.');
+				//$request->getSession()->getFlashBag()->add('notice', 'Perturbation et message associé valides.');
 
-				// Creation du vote et ajoute à la pertubation
-				$vote = new Vote();
-				$vote->setMessage($message);
-				$pertubation->addVote($vote);
-				$this->getCurrentUser()->addVote($vote);
+				// L'utilisateur a-t-il deja vote ?
+				$vote = $em->getRepository('AppBundle:Vote')->findOneByParticulierPerturbationAndMessage($this->getCurrentId(), $perturbation->getId(), $message->getId());
 
-				if (!$this->isProfessionnel() && !$this->isAdmin()) {
-					// Comptabilisation des messages !admin && !professionnel
-					$nb_inhiber = 0;
-					$nb_valider = 0;
-					$nb_terminer = 0;
+				if ($vote == null) {
 
-					//[activated, !valid, !terminated]
-					foreach ($pertubation->getVotes as $v) {
+					// Creation du vote et ajoute à la perturbation
+					$vote = new Vote();
+					$vote->setMessage($message);
+					$perturbation->addVote($vote);
+					$this->getCurrentUser()->addVote($vote);
+					$em->persist($vote);
 
-						$id = $v->getMessage->getId();
-					    if ($id == 1) {$nb_inhiber++;}
-					    elseif ($id == 2) {$nb_valider++;}
-					    elseif ($id == 3) {$nb_terminer++;}
-					} 
-					// 3 inhiber -> desactivee
-					// 3 valider -> valide
-					// 3 terminer -> terminee	
-					if ($nb_inhiber > 2) {$pertubation->setActivated(false);}
-					if ($nb_valider > 2) {$pertubation->setValid(true);}
-					if ($nb_terminer > 2) {$pertubation->setTerminated(true);}
+					if ($this->isProfessionnel() | $this->isAdmin()) {
 
-				}
-				else {
-					$id = $message->getId();
-					if ($id == 1) {$pertubation->setActivated(false);}
-					elseif ($id == 2) {$pertubation->setValid(true);}
-					elseif ($id == 3) {
-						$pertubation->setTerminated(true);
+						if ($id_message == 1) {$perturbation->setActivated(false);}
+						elseif ($id_message == 2) {$perturbation->setTerminated(true);}
+						elseif ($id_message == 3) {$perturbation->setValid(true);}
+
+						$em->persist($perturbation);
+
+						$request->getSession()->getFlashBag()->add('success', 'Vous êtes une autorité, le status de la perturbation a été directement modifié.');
+
+					} else {
+
+						// Comptabilisation des messages !admin && !professionnel
+						$nb_inhiber = 0;
+						$nb_valider = 0;
+						$nb_terminer = 0;
+
+						//[activated, !valid, !terminated]
+						foreach ($perturbation->getVotes() as $v) {
+							$id = $v->getMessage()->getId();
+						    if ($id == 1) {$nb_inhiber++;}
+						    elseif ($id == 2) {$nb_valider++;}
+						    elseif ($id == 3) {$nb_terminer++;}
+						} 
+						// 3 inhiber -> desactivee
+						// 3 valider -> valide
+						// 3 terminer -> terminee	
+						define('VOTE_MIN', 2);
+						if ($nb_inhiber > VOTE_MIN) {$perturbation->setActivated(false);}
+						if ($nb_valider > VOTE_MIN) {$perturbation->setTerminated(true);}
+						if ($nb_terminer > VOTE_MIN) {$perturbation->setValid(true);}
+
 					}
+
+					// Enregistrement dans la BD
+					$em->flush();
+
+					// Renvoyer message à utilisateur
+					$request->getSession()->getFlashBag()->add('success', 'Le vote a été pris en compte.');
+
+				} else {
+
+					$request->getSession()->getFlashBag()->add('error', 'Vous avez déjà voté !');
+
 				}
-
-				// Renvoyer message à utilisateur
-				$request->getSession()->getFlashBag()->add('success', 'Le vote a été pris en compte.');
 			}
-			// Enregistrement dans la BD
-			$em->flush();
 
-			return $this->render('AppBundle:Ajax:confirmation.html.twig');
+		} else {
+
+			$request->getSession()->getFlashBag()->add('error', 'Vous n\'êtes pas authentifié.');
+
 		}
-		else {
-			$request->getSession()->getFlashBag()->add('failed', 'Vous n êtes pas authentifié');
-			$this->redirectToRoute('accueil');
-		}
+
+		return $this->render('AppBundle:Ajax:confirmation.html.twig');
 	
 	}
 
