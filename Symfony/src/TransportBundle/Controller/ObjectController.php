@@ -19,7 +19,7 @@ class ObjectController extends StatutController {
 
 	/**
 	* @Route("/transport/index", name="transport_index")
-	*/  
+	*/
 	public function indexAction(){
 
 		return $this->render('TransportBundle:Ajax:index.html.twig', array(
@@ -34,7 +34,7 @@ class ObjectController extends StatutController {
 	public function addAction(Request $request){
 
 		return $this->redirect($this->generateUrl('transport_link_add'));
-		
+
 	}
 
 	/**
@@ -43,7 +43,7 @@ class ObjectController extends StatutController {
 	public function addLinkAction(Request $request){
 
 		$roadLink = new RoadLink();
-		
+
 		$form = $this->createForm(RoadLinkType::class, $roadLink);
 
 		if ($form->handleRequest($request)->isValid()) {
@@ -51,7 +51,7 @@ class ObjectController extends StatutController {
 
 			$em->persist($roadLink);
 			$em->flush();
-			
+
 			$request->getSession()->getFlashBag()->add('success', 'Lien bien ajouté.');
 
 			return $this->redirect($this->generateUrl('transport_link_add'));
@@ -66,7 +66,7 @@ class ObjectController extends StatutController {
 	public function addNodeAction(Request $request){
 
 		$roadLink = new RoadNode();
-		
+
 		$form = $this->createForm(RoadNodeType::class, $roadLink);
 
 		if ($form->handleRequest($request)->isValid()) {
@@ -74,7 +74,7 @@ class ObjectController extends StatutController {
 
 			$em->persist($roadLink);
 			$em->flush();
-			
+
 			$request->getSession()->getFlashBag()->add('success', 'Noeud bien ajouté.');
 
 			return $this->redirect($this->generateUrl('transport_node_add'));
@@ -82,7 +82,7 @@ class ObjectController extends StatutController {
 
 		return $this->render('AppBundle:Ajax:form.html.twig', array('form' => $form->createView()));
 	}
-	
+
 }
 
 
