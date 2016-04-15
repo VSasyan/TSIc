@@ -31,7 +31,8 @@ function init_show_element() {
 }
 
 function init_click_vote() {
-	$('.button.validate, .button.inhibate, .button.terminate, .button.archive').click(function() {
+	$('.button.validate, .button.inhibate, .button.terminate, .button.archive').click(function(event) {
+		event.preventDefault();
 		var url = $(this).data('path');
 		var $this = $(this);
 		$.ajax({
@@ -39,9 +40,9 @@ function init_click_vote() {
 			type : 'GET',
 			success : function(data) {
 				showMessages(data);
-				$('.validate, .inhib').fadeOut();
-				if ($this.hasClass('terminate')) {$('.terminate').fadeOut();}
-				if ($this.hasClass('archive')) {$('.terminate, .archive').fadeOut();}
+				$this.parent().find('.validate, .inhib').fadeOut();
+				if ($this.hasClass('terminate')) {$this.parent().find('.terminate').fadeOut();}
+				if ($this.hasClass('archive')) {$this.parent().find('.terminate, .archive').fadeOut();}
 			}
 		});
 	});

@@ -23,8 +23,12 @@ class PerturbationRepository extends EntityRepository
 			->innerJoin('p.formulations', 'f')
 			->innerJoin('f.type', 't')
 			->where('ST_DISTANCE(f.center, '.$position.') < :rayon')
+			->andWhere('p.activated = true')
+			->andWhere('p.terminated = false')
+			->andWhere('p.archived = false')
 			->setParameter('rayon', $rayon)
 			->groupBy('p.id')
+			->orderBy('p.id', 'DESC')
 		;
 
 		$result = $qb->getQuery()->getResult();
