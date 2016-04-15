@@ -1,1 +1,5 @@
-{{ form(form) }}
+{% if url_action is defined %}
+	{{ form(form, {'action': path(url_action)}) }}
+{% else %}
+	{{ form(form) }}
+{% endif %}

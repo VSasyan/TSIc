@@ -4,6 +4,7 @@ function getPage(route, after) {
 	return $.get(route, function(data, status) {
 		document.title = data.title;
 		$('#ajax_loader').html(data.content);
+		showMessages(data.messages || '');
 		if(after != false) { after(); }
 	});
 }

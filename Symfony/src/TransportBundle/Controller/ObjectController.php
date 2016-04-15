@@ -40,6 +40,8 @@ class ObjectController extends StatutController {
 	*/
 	public function addLinkAction(Request $request){
 
+		$messages = '';
+
 		$roadLink = new RoadLink();
 
 		$form = $this->createForm(RoadLinkType::class, $roadLink);
@@ -52,13 +54,19 @@ class ObjectController extends StatutController {
 
 			$request->getSession()->getFlashBag()->add('success', 'Lien bien ajouté.');
 
-			return $this->redirect($this->generateUrl('transport_link_add'));
+            $messages .= $this->container->get('templating')->render('AppBundle:Ajax:confirmation.html.twig');
+
+            $form = $this->createForm(RoadLinkType::class, new RoadLink);
 		}
 
-		$template = $this->container->get('templating')->render('AppBundle:Ajax:form.html.twig', array('form' => $form->createView()));
-        $response = new Response(json_encode(array(
-			'title'   => "Ajout d'un nœud",
+		$template = $this->container->get('templating')->render('AppBundle:Ajax:form.html.twig', array(
+			'form' => $form->createView(),
+			'url_action' => "transport_link_add"
+		));
+		$response = new Response(json_encode(array(
+			'title'	  => "Ajout d'un lien",
 			'content' => $template,
+			'messages' => $messages,
 		)));
 		$response->headers->set('Content-Type', 'application/json');
 		return $response;
@@ -69,25 +77,33 @@ class ObjectController extends StatutController {
 	*/
 	public function addNodeAction(Request $request){
 
-		$roadLink = new RoadNode();
+		$messages = '';
 
-		$form = $this->createForm(RoadNodeType::class, $roadLink);
+		$roadNode = new RoadNode();
+
+		$form = $this->createForm(RoadNodeType::class, $roadNode);
 
 		if ($form->handleRequest($request)->isValid()) {
 			$em = $this->getDoctrine()->getManager();
 
-			$em->persist($roadLink);
+			$em->persist($roadNode);
 			$em->flush();
 
 			$request->getSession()->getFlashBag()->add('success', 'Noeud bien ajouté.');
 
-			return $this->redirect($this->generateUrl('transport_node_add'));
+			$messages .= $this->container->get('templating')->render('AppBundle:Ajax:confirmation.html.twig');
+
+			$form = $this->createForm(RoadNodeType::class, new RoadNode);
 		}
 
-        $template = $this->container->get('templating')->render('AppBundle:Ajax:form.html.twig', array('form' => $form->createView()));
-        $response = new Response(json_encode(array(
-			'title'   => "Ajout d'un lien",
+		$template = $this->container->get('templating')->render('AppBundle:Ajax:form.html.twig', array(
+			'form' => $form->createView(),
+			'url_action' => "transport_node_add"
+		));
+		$response = new Response(json_encode(array(
+			'title'	  => "Ajout d'un nœud",
 			'content' => $template,
+			'messages' => $messages,
 		)));
 		$response->headers->set('Content-Type', 'application/json');
 		return $response;
