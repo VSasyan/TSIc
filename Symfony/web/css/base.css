@@ -211,14 +211,47 @@ section {
 
 /* LOADING */
 .ajax.loading {
-	background-image: url('../apple-touch-icon.png');
-	background-size: 20px 20px;
+	background-image: url('../ajax-loader.gif');
+	background-size: 30px 30px;
 	background-repeat: no-repeat;
 	background-position: center;
 	display: block;
-	width: 20px;
-	height: 20px;
+	width: 30px;
+	height: 30px;
 	margin: auto;
+    animation-name: example;
+    animation-duration: 2s;
+    animation-iteration-count: infinite;
+}
+
+@keyframes example {
+  from {
+    margin-left: 0%;
+    /*width: 300%*/
+  }
+  
+  to {
+    margin-left: 100%;
+    /*width: 100%;*/
+  }
+}
+
+@keyframes route
+{
+  0%   { left:0px; top:0px; }
+  25%  { left:560px; top:0px; transform: rotate(90deg); }
+  50%  { left:560px; top:360px; transform: rotate(180deg); }
+  75%  { left:0px; top:360px; transform: rotate(270deg); }
+  100% { left:0px; top:0px; transform: rotate(360deg); }
+}
+
+@-webkit-keyframes route
+{
+  0%   { left:0px; top:0px; }
+  25%  { left:560px; top:0px; -webkit-transform: rotate(90deg); }
+  50%  { left:560px; top:360px; -webkit-transform: rotate(180deg); }
+  75%  { left:0px; top:360px; -webkit-transform: rotate(270deg); }
+  100% { left:0px; top:0px; -webkit-transform: rotate(360deg); }
 }
 
 .ajax.loading.big {

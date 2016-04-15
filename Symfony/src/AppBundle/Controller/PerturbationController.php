@@ -27,7 +27,6 @@ class PerturbationController extends StatutController {
 			'function' => 'listNearest',
 			'nodeJS' => 'listNearest',
 		));
-
 	}
 
 	/**
@@ -112,7 +111,7 @@ class PerturbationController extends StatutController {
 
 			$em = $this->getDoctrine()->getManager();
 			$formulation->setCreationDate(new \DateTime);
-			$formulation->setValidFormulation(true);
+			//$formulation->setValidFormulation(true);
 			$perturbation = new Perturbation();
 			$perturbation->addFormulation($formulation);
 			$this->getUser()->addFormulation($formulation);
@@ -130,7 +129,7 @@ class PerturbationController extends StatutController {
 
 			$client ->emit('emitPHP', [
 				'message' => $template,
-				'coordinates' => $center
+				'coordinates' => $formulation->getCenter()
 			]);
 			$client ->close();
 			
