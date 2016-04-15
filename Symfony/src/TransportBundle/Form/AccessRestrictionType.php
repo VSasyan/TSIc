@@ -15,8 +15,9 @@ class AccessRestrictionType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
          $builder
-            ->add('Restriction', TextType::class)  
-            ->add('save',     SubmitType::class, array('label' => 'Add'))
+             ->add('Restriction', EntityType::class, array(
+                'class' => 'TransportBundle:AccessRestrictionValue',
+                'choice_label' => 'type',  
             ->getForm();
     }
     

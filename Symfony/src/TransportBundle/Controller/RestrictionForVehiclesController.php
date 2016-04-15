@@ -4,6 +4,7 @@ namespace TransportBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Symfony\Component\HttpFoundation\Request;
 
 class RestrictionForVehiclesController extends Controller
 {
@@ -13,7 +14,7 @@ class RestrictionForVehiclesController extends Controller
     public function addAction()
     {   
         $em = $this->getDoctrine()->getManager();
-        $repository = $em->getRepository('AppBundle:RestrictionForVehicles');
+        $repository = $em->getRepository('TransportBundle:RestrictionForVehicles');
         
         $vehicleRestriction = new RestrictionForVehicles();
         $form = $this->createForm(RestrictionForVehicles::class, $vehicleRestriction);
@@ -31,11 +32,24 @@ class RestrictionForVehiclesController extends Controller
     }
 
     /**
-     * @Route("/restrictionforvehicles/delete")
+     * @Route("/restrictionforvehicles/delete/{id}")
      */
-    public function deleteAction()
+    public function deleteAction(Request $request, $id)
     {
-        return $this->render('TransportBundle:RestrictionForVehicles:delete.html.php', array(
+
+        
+
+        $em = $this->getDoctrine()->getEntityManager();
+        $Restriction = $em->getRepository('TransportBundle:RestrictionForVehicles')->find($id);
+
+        if (!$Restriction) {
+            throw $this->createNotFoundException('No RestrictionForVehicles found for id '.$id);
+        }
+
+        $em->remove($Restriction);
+        $em->flush();
+
+        return $this->render('TransportBundle:RestrictionForVehicles:add.html.php', array(
             // ...
         ));
     }

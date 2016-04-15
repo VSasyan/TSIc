@@ -4,6 +4,7 @@ namespace TransportBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Symfony\Component\HttpFoundation\Request;
 
 class AccessRestrictionController extends Controller
 {
@@ -13,7 +14,7 @@ class AccessRestrictionController extends Controller
     public function addAction()
     {
         $em = $this->getDoctrine()->getManager();
-        $repository = $em->getRepository('AppBundle:AccessRestriction');
+        $repository = $em->getRepository('TransportBundle:AccessRestriction');
         
         $accessRestriction = new AccessRestriction();
         $form = $this->createForm(AccessRestrictionType::class, $accessRestriction);
@@ -29,18 +30,28 @@ class AccessRestrictionController extends Controller
             
         //));
 
-        return $this->render('AppBundle:AceesRestriction:add.html.twig', array(
+        return $this->render('TransportBundle:AceesRestriction:add.html.twig', array(
             'restriction' => $accessRestriction,
             
         )); 
     }
 
     /**
-     * @Route("/accessRestriction/delete")
+     * @Route("/accessRestriction/delete/{id}")
      */
-    public function deleteAction()
+    public function deleteAction(Request $request, $id)
     {
-        return $this->render('TransportBundle:AccessRestriction:delete.html.twig', array(
+
+        $em = $this->getDoctrine()->getEntityManager();
+        $Restriction = $em->getRepository('TransportBundle:AccessRestriction')->find($id);
+
+        if (!$Restriction) {
+            throw $this->createNotFoundException('No AccessRestriction found for id '.$id);
+        }
+
+        $em->remove($Restriction);
+        $em->flush();
+        return $this->render('TransportBundle:AccessRestriction:add.html.twig', array(
             // ...
         ));
     }
@@ -51,7 +62,7 @@ class AccessRestrictionController extends Controller
     public function updateAction(Request $request, $id_AccessRestriction)
     {   
         $em = $this->getDoctrine()->getManager();
-        $repository = $em->getRepository('AppBundle:AccessRestriction');
+        $repository = $em->getRepository('TransportBundle:AccessRestriction');
         $accesRestriction = $repository->find($id_AccessRestriction);
 
         if($accesRestriction->getRestriction() == null){
@@ -61,7 +72,7 @@ class AccessRestrictionController extends Controller
         $em->persist($user);
         $em->flush();
 
-        return $this->render('TransportBundle:AccessRestriction:update.html.twig', array(
+        return $this->render('TransportBundle:AccessRestriction:add.html.twig', array(
             // ...
         ));
     }
