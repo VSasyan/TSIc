@@ -59,6 +59,54 @@ abstract class Node extends NetworkElement
         return $this->geometry;
     }
 
+    /**
+     * Set spokeStart
+     *
+     * @param Doctrine\Common\Collections\ArrayCollection $spokeStart
+     *
+     * @return Node
+     */
+    public function setSpokeStart(Doctrine\Common\Collections\ArrayCollection $spokeStart = null)
+    {
+        $this->spokeStart = $spokeStart;
+
+        return $this;
+    }
+
+    /**
+     * Get spokeStart
+     *
+     * @return Doctrine\Common\Collections\ArrayCollection
+     */
+    public function getSpokeStart()
+    {
+        return $this->spokeStart;
+    }
+
+    /**
+     * Set spokeEnd
+     *
+     * @param Doctrine\Common\Collections\ArrayCollection $spokeEnd
+     *
+     * @return Node
+     */
+    public function setSpokeEnd(Doctrine\Common\Collections\ArrayCollection $spokeEnd = null)
+    {
+        $this->spokeEnd = $spokeEnd;
+
+        return $this;
+    }
+
+    /**
+     * Get spokeEnd
+     *
+     * @return Doctrine\Common\Collections\ArrayCollection
+     */
+    public function getSpokeEnd()
+    {
+        return $this->spokeEnd;
+    }
+
     public function __construct() {
         $this->spokeStart = new ArrayCollection();
         $this->spokeEnd = new ArrayCollection();
