@@ -3,10 +3,7 @@ var fs = require('fs');
 
 // Chargement du fichier index.html affiché au client
 var server = http.createServer(function(req, res) {
-    // fs.readFile('./client.html', 'utf-8', function(error, content) {
-    //     res.writeHead(200, {"Content-Type": "text/html"});
-    //     res.end(content);
-    // });
+
 });
 
 var resultat;
@@ -14,6 +11,7 @@ var resultat;
 var io = require('socket.io').listen(server);
 
 io.sockets.on('connection', function (socket, pseudo) {
+        //<script src="http://cdn.socket.io/socket.io-1.4.5.js"></script>
 
     console.log('Socket.io est connecté');
 

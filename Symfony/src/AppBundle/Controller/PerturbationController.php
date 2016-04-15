@@ -27,7 +27,6 @@ class PerturbationController extends StatutController {
 			'function' => 'listNearest',
 			'nodeJS' => 'listNearest',
 		));
-
 	}
 
 	/**
