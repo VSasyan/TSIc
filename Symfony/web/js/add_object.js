@@ -38,6 +38,8 @@ document.addEventListener("DOMContentLoaded", function() {
 function updateSelect(value) {
 	switch(value) {
 	case "RoadNode":
+		getPage(Routing.generate("transport_node_add", {}));
+		$("#ajax_loader").html("");
 		update = updatePoint;
 		lineMarkers.forEach(function(e, i) {
 			map.removeLayer(e);
@@ -47,6 +49,8 @@ function updateSelect(value) {
 		lineWKT = "";
 		break;
 	case "RoadLink":
+		getPage(Routing.generate("transport_link_add", {}));
+		$("#ajax_loader").html("");
 		update = addPointToLine;
 		map.removeLayer(pointMarker);
 		pointMarker = false;

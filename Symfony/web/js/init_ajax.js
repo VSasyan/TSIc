@@ -38,6 +38,7 @@ var functions = {
 			geoloc.callback();
 		}
 	},
+	none : function(){},
 };
 
 document.addEventListener("DOMContentLoaded", function() {
