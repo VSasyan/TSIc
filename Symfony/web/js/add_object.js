@@ -1,6 +1,7 @@
 var pointMarker = false;
 var lineMarkers = [];
 var update		= false;
+var select      = false;
 
 document.addEventListener("DOMContentLoaded", function() {
 	$(document).ready(function() {
@@ -20,6 +21,15 @@ document.addEventListener("DOMContentLoaded", function() {
 			}
 			map.setView(e.latlng, 13, {animate:true});
 		});
+
+		if(select) {
+			updateSelect(select.value);
+			select.onchange = function(){
+				updateSelect(select.value);
+			};
+		} else {
+			console.error("Select not found");
+		}
 	});
 });
 
@@ -27,10 +37,15 @@ function updateSelect(value) {
 	switch(value) {
 	case "RoadNode":
 		update = updatePoint;
+		lineMarkers.forEach(function(e, i) {
+			map.removeLayer(e);
+			lineMarkers[i] = null;
+		});
 		lineMarkers = [];
 		break;
 	case "RoadLink":
 		update = addPointToLine;
+		map.removeLayer(pointMarker);
 		pointMarker = false;
 		break;
 	}
@@ -42,7 +57,7 @@ function updatePoint(position) {
 		pointMarker = L.marker(position).addTo(map);
 	} else {
 		// On le déplace
-		marker.setLatLng(position);
+		pointMarker.setLatLng(position);
 	}
 	// On met à jour le champs :
 	//$('#formulation_center').val("SRID=4326;POINT(" + position.lng + " " + position.lat + ")");
