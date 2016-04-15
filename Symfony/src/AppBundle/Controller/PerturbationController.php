@@ -112,13 +112,12 @@ class PerturbationController extends StatutController {
 
 			$em = $this->getDoctrine()->getManager();
 			$formulation->setCreationDate(new \DateTime);
-			$formulation->setValidFormulation(true);
 			$perturbation = new Perturbation();
 			$perturbation->addFormulation($formulation);
-			$this->getUser()->addFormulation($formulation);
-			$this->getUser()->addPerturbation($perturbation);
+			$this->getCurrentUser()->addFormulation($formulation);
+			$this->getCurrentUser()->addPerturbation($perturbation);
 
-			$em->persist($this->getUser());
+			$em->persist($this->getCurrentUser());
 			$em->flush();
 
 			//initialisation de elephant.io
@@ -130,7 +129,7 @@ class PerturbationController extends StatutController {
 
 			$client ->emit('emitPHP', [
 				'message' => $template,
-				'coordinates' => $center
+				'coordinates' => $formulation->getCenter()
 			]);
 			$client ->close();
 			
