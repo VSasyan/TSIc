@@ -48,6 +48,16 @@ function init_click_vote() {
 	});
 }
 
+function init_free_select() {
+	function show_free_select() {
+		var classe = $(this).data('free');
+		if ($(this).val() == '') {$('input.' + classe).parent().slideDown();}
+		else {$('input.' + classe).val('').parent().slideUp();}
+	}
+
+	$('select.freeSelect').val(1).change(show_free_select).each(show_free_select);
+}
+
 document.addEventListener("DOMContentLoaded", function() {
 	$(document).ready(function() {
 		hideMessages();
@@ -55,6 +65,7 @@ document.addEventListener("DOMContentLoaded", function() {
 		init_select_lien();
 		init_click_vote();
 		show_mini_map();
+		init_free_select();
 	});
 });
 

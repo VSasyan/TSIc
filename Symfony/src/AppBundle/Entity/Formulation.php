@@ -87,7 +87,7 @@ class Formulation
 
     /**
     * @ORM\ManyToOne(targetEntity="Particulier", inversedBy="formulations")
-    * @ORM\JoinColumn(nullable=true)
+    * @ORM\JoinColumn(nullable=false)
     */
     private $particulier;
 
@@ -99,9 +99,16 @@ class Formulation
 
     /**
     * @ORM\ManyToOne(targetEntity="TypePerturbation", cascade={"persist"})
-    * @ORM\JoinColumn(nullable=false)
+    * @ORM\JoinColumn(nullable=true)
     */
     private $type;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="free_type", type="string", length=255, nullable=true)
+     */
+    private $freeType;
 
     /**
      * Constructor
@@ -359,6 +366,41 @@ class Formulation
      */
     public function getType()
     {
+        if ($this->type == null) {
+            return array(
+                'name' => $this->freeType,
+                'id' => 0,
+                'description' => ''
+            );
+        }
+        return $this->type;
+    }
+
+    /**
+     * Set nullType
+     *
+     * @param variant $nullType
+     *
+     * @return Formulation
+     */
+    public function setNullType($nullType)
+    {
+        if ($nullType instanceof \AppBundle\Entity\TypePerturbation) {
+            $this->type = $nullType;
+        } else {
+            $this->type = null;
+        }
+
+        return $this;
+    }
+
+    /**
+     * Get nullType
+     *
+     * @return \AppBundle\Entity\TypePerturbation or null
+     */
+    public function getNullType()
+    {
         return $this->type;
     }
 
@@ -384,5 +426,29 @@ class Formulation
     public function getCauses()
     {
         return $this->causes;
+    }
+
+    /**
+     * Set freeType
+     *
+     * @param string $freeType
+     *
+     * @return Formulation
+     */
+    public function setFreeType($freeType)
+    {
+        $this->freeType = $freeType;
+
+        return $this;
+    }
+
+    /**
+     * Get freeType
+     *
+     * @return string
+     */
+    public function getFreeType()
+    {
+        return $this->freeType;
     }
 }
