@@ -38,8 +38,8 @@
 					<div class="row description pertubation" data-name="{{ f.name }}" data-center="{{ f.center }}" data-logo="{{ f.type.id }}" data-id="{{ f.id }}">
 						<div class="cell">
 							<p class="perturbation-type">Type : {{ f.type.name }}</p>
-							<p>Enregistrée le {{ f.creationDate|date(' d/m à h:m') }} publiée par <a href="{{ path('user_show', {id : f.particulier.id }) }}">{{ f.particulier.username }}</a>.</p>
-							<p class="perturbation-dates">Depuis le {{ f.beginDate|date(' d/m à h:m') }} ; fin estimée le {{ f.endDate|date(' d/m à h:m') }}.</p>
+							<p>Enregistrée le {{ f.creationDate|date(' d/m à H:i') }} publiée par <a href="{{ path('user_show', {id : f.particulier.id }) }}">{{ f.particulier.username }}</a>.</p>
+							<p class="perturbation-dates">Depuis le {{ f.beginDate|date(' d/m à H:i') }} ; fin estimée le {{ f.endDate|date(' d/m à H:i') }}.</p>
 							<p class="perturbation-description">{{ f.description }}</p>
 						</div>
 						<div class="cell right">

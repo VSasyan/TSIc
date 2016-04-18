@@ -9,5 +9,5 @@ namespace AppBundle\Repository;
  * repository methods below.
  */
 class FormulationRepository extends \Doctrine\ORM\EntityRepository
-{
+{	
 }

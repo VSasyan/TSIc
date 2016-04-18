@@ -25,7 +25,7 @@
 	</div>
 	<div class="child">
 		<div id="show_perturbation" data-id="{{ perturbation.id }}" data-date="{{ perturbation.creationDate|date('Y-m-d') }}">
-			{% set formulation = perturbation.formulations|first %}
+			{% set formulation = perturbation.formulations|last %}
 
 			<div class="description pertubation" data-name="{{ formulation.name }}" data-center="{{ formulation.center }}" data-logo="{{ formulation.type.id }}">
 				<h1>
@@ -33,12 +33,17 @@
 					<span class="perturbation-type" title="{{ formulation.type.description }}">{{ formulation.type.name }}</span>
 				</h1>
 				<p></p>
-				<p class="perturbation-dates">Depuis le {{ formulation.beginDate|date('  d/m à h:m') }} ; fin estimée le {{ formulation.endDate|date('  d/m à h:m') }}.</p>
+				<p class="perturbation-dates">Depuis le {{ formulation.beginDate|date('  d/m à H:i') }} ; fin estimée le {{ formulation.endDate|date('d/m à H:i') }}.</p>
 				<p class="perturbation-description">{{ formulation.description }}</p>
 				<p class="perturbation-causes">Causes supposées : {{ formulation.causes }}</p>
 			</div>
 
-			<p>Perturbation créée le {{ perturbation.creationDate|date('  d/m à h:m') }} (modifiée le {{ formulation.creationDate|date(' d/m à h:m') }}).</p>
+			{% if perturbation.creationDate != formulation.creationDate %}
+			<p>Perturbation créée le {{ perturbation.creationDate|date('d/m à H:i') }} (modifiée le {{ formulation.creationDate|date('d/m à H:i') }}).</p>
+			{% else %}
+			<p>Perturbation créée le {{ perturbation.creationDate|date('d/m à H:i') }}.</p>
+			{% endif %}
+
 			<p>
 				Etat de la perturbation :
 				<ul>
@@ -129,8 +134,8 @@
 				<div class="table">
 					<div class="row description pertubation" data-name="{{ f.name }}" data-center="{{ f.center }}" data-logo="{{ f.type.id }}" data-id="{{ f.id }}">
 						<div class="cell">
-							<p>Enregistrée le {{ f.creationDate|date(' d/m à h:m') }} publiée par <a href="{{ path('user_show', {id : f.particulier.id }) }}">{{ f.particulier.username }}</a>.</p>
-							<p class="perturbation-dates">Depuis le {{ f.beginDate|date(' d/m à h:m') }} ; fin estimée le {{ f.endDate|date(' d/m à h:m') }}.</p>
+							<p>Enregistrée le {{ f.creationDate|date(' d/m à H:i') }} publiée par <a href="{{ path('user_show', {id : f.particulier.id }) }}">{{ f.particulier.username }}</a>.</p>
+							<p class="perturbation-dates">Depuis le {{ f.beginDate|date(' d/m à H:i') }} ; fin estimée le {{ f.endDate|date(' d/m à H:i') }}.</p>
 							<p class="perturbation-description">{{ f.description }}</p>
 						</div>
 						<div class="cell right">
