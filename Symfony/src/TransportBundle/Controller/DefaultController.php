@@ -8,7 +8,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 class DefaultController extends Controller
 {
 	/**
-	 * @Route("/transport", condition="request.getScriptName() == '/app_dev.php'")
+	 * @Route("/transport")
 	 */
 	public function indexAction()
 	{
