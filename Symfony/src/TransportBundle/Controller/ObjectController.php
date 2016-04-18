@@ -18,20 +18,11 @@ class ObjectController extends StatutController {
 
 
 	/**
-	* @Route("/transport/index", name="transport_index")
-	*/
-	public function indexAction(){
-
-		return $this->render('TransportBundle:Default:index.html.twig');
-
-	}
-
-	/**
 	* @Route("/transport/add", name="transport_add")
 	*/
 	public function addAction(Request $request){
 
-		return $this->redirect($this->generateUrl('transport_link_add'));
+		return $this->render('TransportBundle:Default:index.html.twig');
 
 	}
 
