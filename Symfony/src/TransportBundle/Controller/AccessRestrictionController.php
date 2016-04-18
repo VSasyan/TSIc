@@ -4,6 +4,11 @@ namespace TransportBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+<<<<<<< HEAD
+=======
+use TransportBundle\Entity\AccessRestriction;
+use TransportBundle\Form\AccessRestrictionType;
+>>>>>>> b57b4e797ec178e923935b162a74366928dfc18b
 use Symfony\Component\HttpFoundation\Request;
 
 class AccessRestrictionController extends Controller
@@ -11,7 +16,7 @@ class AccessRestrictionController extends Controller
     /**
      * @Route("/accessRestriction/add")
      */
-    public function addAction()
+    public function addAction(Request $request)
     {
         $em = $this->getDoctrine()->getManager();
         $repository = $em->getRepository('TransportBundle:AccessRestriction');
@@ -23,15 +28,22 @@ class AccessRestrictionController extends Controller
         if ($form->isSubmitted() && $form->isValid()) {
             $accessRestriction->setRestriction($request->getRestriction());
         }
-        $em->persist($user);
+        $em->persist($accessRestriction);
         $em->flush();
-        
-        //return $this->render('TransportBundle:Ajax:form.html.twig', array(
+        /*
+        return $this->render('TransportBundle:AccessRestriction:add.html.twig', array(
             
+<<<<<<< HEAD
         //));
 
         return $this->render('TransportBundle:AceesRestriction:add.html.twig', array(
             'restriction' => $accessRestriction,
+=======
+        ));
+        */
+        return $this->render('TransportBundle:AceesRestriction:add.html.twig', array(
+            'accessRestriction' => $accessRestriction,
+>>>>>>> b57b4e797ec178e923935b162a74366928dfc18b
             
         )); 
     }
@@ -69,7 +81,7 @@ class AccessRestrictionController extends Controller
             //throw 
         }
         
-        $em->persist($user);
+        $em->persist($accesRestriction);
         $em->flush();
 
         return $this->render('TransportBundle:AccessRestriction:add.html.twig', array(

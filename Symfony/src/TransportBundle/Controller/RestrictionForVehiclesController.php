@@ -21,19 +21,20 @@ class RestrictionForVehiclesController extends Controller
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $accessRestriction->setRestriction($request->getRestriction());
+            $vehicleRestriction->setRestriction($request->getRestriction());
         }
         $em->persist($user);
         $em->flush();
 
         return $this->render('TransportBundle:RestrictionForVehicles:add.html.php', array(
-            // ...
+            
         ));
     }
 
     /**
      * @Route("/restrictionforvehicles/delete/{id}")
      */
+<<<<<<< HEAD
     public function deleteAction(Request $request, $id)
     {
 
@@ -51,6 +52,12 @@ class RestrictionForVehiclesController extends Controller
 
         return $this->render('TransportBundle:RestrictionForVehicles:add.html.php', array(
             // ...
+=======
+    public function deleteAction()
+    {   
+
+        return $this->render('TransportBundle:RestrictionForVehicles:delete.html.php', array(
+>>>>>>> b57b4e797ec178e923935b162a74366928dfc18b
         ));
     }
 
