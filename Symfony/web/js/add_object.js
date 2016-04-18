@@ -60,7 +60,6 @@ function updateSelect(value) {
 			geomField = document.getElementById("road_node_geometry");
 			initForm();
 		});
-		$("#ajax_loader").html("");
 		update = updatePoint;
 		map.removeLayer(line);
 		line = false;
@@ -70,7 +69,6 @@ function updateSelect(value) {
 			geomField = document.getElementById("road_link_centrelineGeometry");
 			initForm();
 		});
-		$("#ajax_loader").html("");
 		update = addPointToLine;
 		map.removeLayer(point);
 		point = false;

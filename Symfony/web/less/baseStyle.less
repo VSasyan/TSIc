@@ -220,7 +220,7 @@ img.icon {
 
 // FORM STYLE
 
-form {
+form, .border-form {
 	max-width: 600px;
 	margin: auto;
 	background-color: #FFF;
@@ -233,7 +233,7 @@ form {
 		margin-top: 0;
 	}
 
-	>div>div {
+	>div>div, div.input {
 		>label {
 			display: block;
 			text-align: left;
@@ -283,6 +283,24 @@ form {
 				}
 			}
 		}
+	}
+}
+
+.border-form {
+	max-width: 600px;
+	margin: auto;
+	background-color: #FFF;
+	padding: 20px;
+	border: 1px solid darken(@lgrey, 10%);
+	margin-bottom: 20px;
+
+	form {
+		max-width: none;
+		margin: auto;
+		background-color: #FFF;
+		padding: 0;
+		border: 0;
+		margin-bottom: 0;
 	}
 }
 
