@@ -10,8 +10,7 @@ document.addEventListener("DOMContentLoaded", function() {
 		var result = regExp.exec(point);
 		var position = L.latLng(result[2], result[1]);
 
-		//setMarqueur(position);
-		map.setView(position, 13, {animate:true});
+		map.panTo(position, {animate:true});
 		setMarqueur(position);
 
 		map.on('click', function(e) {

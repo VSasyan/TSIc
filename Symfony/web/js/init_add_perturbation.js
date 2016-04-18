@@ -27,7 +27,7 @@ document.addEventListener("DOMContentLoaded", function() {
 		map.on('click', function(e) {
 			geoloc.callback = updatePosMarker;
 			setMarqueur(e.latlng);
-			map.setView(e.latlng, 13, {animate:true});
+			map.panTo(e.latlng, {animate:true});
 		});
 	});
 });

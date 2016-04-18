@@ -131,7 +131,7 @@ function updatePosMarker() {
 
 function updateView() {
 	var position = L.latLng(geoloc.position.latitude, geoloc.position.longitude);
-	map.setView(position, 13, {animate:true});
+	map.panTo(position, {animate:true});
 }
 
 

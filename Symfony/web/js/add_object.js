@@ -1,10 +1,10 @@
-var pointMarker = false;
-var lineMarkers = [];
-var update		= false;
-var select      = false;
-var geomField   = false;
-var pointWKT    = "";
-var lineWKT     = "";
+var point     = false; // graphical representation of created node
+var line      = false; // - - - - - - - - - - - - - - created link
+var lineMark  = false; // Representation when line has only 1 point
+var update    = false; // Function to call when the map is clicked (add point to line or move node?)
+var select    = false; // The <select> element
+var geomField = false; // The geometry field
+var wkt       = new Wkt.Wkt; // The converter between leaflet objects and WKT strings
 
 document.addEventListener("DOMContentLoaded", function() {
 	$(document).ready(function() {
@@ -22,7 +22,7 @@ document.addEventListener("DOMContentLoaded", function() {
 			if(update) {
 				update(e.latlng);
 			}
-			map.setView(e.latlng, 13, {animate:true});
+			map.panTo(e.latlng, {animate:true});
 		});
 
 		select = document.getElementById("transport_class");
@@ -62,12 +62,8 @@ function updateSelect(value) {
 		});
 		$("#ajax_loader").html("");
 		update = updatePoint;
-		lineMarkers.forEach(function(e, i) {
-			map.removeLayer(e);
-			lineMarkers[i] = null;
-		});
-		lineMarkers = [];
-		lineWKT = "";
+		map.removeLayer(line);
+		line = false;
 		break;
 	case "RoadLink":
 		getPage(Routing.generate("transport_link_add", {}), function(){
@@ -76,35 +72,34 @@ function updateSelect(value) {
 		});
 		$("#ajax_loader").html("");
 		update = addPointToLine;
-		map.removeLayer(pointMarker);
-		pointMarker = false;
-		pointWKT = "";
+		map.removeLayer(point);
+		point = false;
 		break;
 	}
 }
 
 function updatePoint(position) {
-	if (pointMarker === false) {
+	if (point === false) {
 		// On l'ajoute
-		pointMarker = L.marker(position).addTo(map);
+		point = L.marker(position).addTo(map);
 	} else {
 		// On le déplace
-		pointMarker.setLatLng(position);
+		point.setLatLng(position);
 	}
 	// On met à jour le champs :
-	//$('#formulation_center').val("SRID=4326;POINT(" + position.lng + " " + position.lat + ")");
-	pointWKT = position.lng + " " + position.lat;
-	geomField.value = "POINT(" + pointWKT + ")";
+	geomField.value = wkt.fromObject(point).write();
 }
 
 function addPointToLine(position) {
-	var mark = L.marker(position);
-	mark.addTo(map);
-	lineMarkers.push(mark);
-
-	if(lineMarkers.length -1 > 0) {
-		lineWKT += ", ";
+	if (line === false) {
+		line     = L.polyline([position]).addTo(map);
+		lineMark = L.marker(position).addTo(map);
+	} else {
+		if(lineMark) {
+			map.removeLayer(lineMark);
+			lineMark = false;
+		}
+		line.addLatLng(position);
+		geomField.value = wkt.fromObject(line).write(); // wicket throws if line with only one point.
 	}
-	lineWKT += position.lng + " " + position.lat;
-	geomField.value = "LINESTRING(" + lineWKT + ")";
 }
