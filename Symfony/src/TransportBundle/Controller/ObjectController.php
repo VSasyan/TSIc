@@ -22,7 +22,7 @@ class ObjectController extends StatutController {
 	*/
 	public function addAction(Request $request){
 
-		return $this->render('TransportBundle:Default:index.html.twig');
+		return $this->render('TransportBundle:Objects:add.html.twig');
 
 	}
 
