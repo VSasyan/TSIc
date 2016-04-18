@@ -1,0 +1,28 @@
+{% extends 'AppBundle::base.html.twig' %}
+
+{% set formulation = perturbation.formulations|last %}
+
+{% block title %}
+	Perturbation : {{ formulation.name }}
+{% endblock %}
+
+{% block stylesheets %}
+{% endblock %}
+
+{% block javascripts %}
+{% endblock %}
+
+{% block titleblock %}	
+	<h1>Perturbation : {{ formulation.name }}</h1>
+{% endblock %}
+
+{% block body %}
+
+	<div>
+		{{ form_start(form) }}
+		<h3>Importer un nouveau fichier</h3>
+		{{ form_widget(form) }}
+		{{ form_end(form) }}
+	</div>
+
+{% endblock %}

@@ -67,7 +67,13 @@ class Perturbation
     * @ORM\JoinColumn(nullable=false)
     */
     private $votes;
-    
+
+    /**
+    * @ORM\OneToMany(targetEntity="PerturbationFile", mappedBy="perturbation", cascade={"persist"})
+    * @ORM\JoinColumn(nullable=false)
+    */
+    private $files;
+
     
     /**
      * Constructor
@@ -76,6 +82,7 @@ class Perturbation
     {
         $this->formulations = new \Doctrine\Common\Collections\ArrayCollection();
         $this->votes = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->files = new \Doctrine\Common\Collections\ArrayCollection();
 
         $this->activated = true;
         $this->valid = false;
@@ -321,5 +328,40 @@ class Perturbation
     public function getTerminated()
     {
         return $this->terminated;
+    }
+
+    /**
+     * Add file
+     *
+     * @param \AppBundle\Entity\PerturbationFile $file
+     *
+     * @return Perturbation
+     */
+    public function addFile(\AppBundle\Entity\PerturbationFile $file)
+    {
+        $this->files[] = $file;
+        $file->setPerturbation($this);
+
+        return $this;
+    }
+
+    /**
+     * Remove file
+     *
+     * @param \AppBundle\Entity\PerturbationFile $file
+     */
+    public function removeFile(\AppBundle\Entity\PerturbationFile $file)
+    {
+        $this->files->removeElement($file);
+    }
+
+    /**
+     * Get files
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getFiles()
+    {
+        return $this->files;
     }
 }

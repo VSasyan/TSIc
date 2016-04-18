@@ -4,8 +4,12 @@ namespace AppBundle\Controller;
 
 use AppBundle\Entity\Particulier;
 use AppBundle\Entity\Perturbation;
+use AppBundle\Entity\PerturbationFile;
 use AppBundle\Entity\Formulation;
+use AppBundle\Entity\File;
+use AppBundle\Form\FilesType;
 use AppBundle\Form\FormulationType;
+use AppBundle\Form\PerturbationFileType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
@@ -136,6 +140,52 @@ class PerturbationController extends StatutController {
 	}
 
 	/**
+	* @Route("/perturbation/add-file/{id}", name="perturbation_add_file")
+	*/
+	public function addFileAction(Request $request, $id){
+
+		$em = $this->getDoctrine()->getManager();
+
+		$perturbation = $em->getRepository('AppBundle:Perturbation')->find($id);
+
+		if ($perturbation != null) {
+
+			$file = new File();
+			$file->setParticulier($this->getCurrentUser());
+		
+			$form = $this->createForm(FilesType::class, $file);
+
+			if ($form->handleRequest($request)->isValid()) {
+				$em = $this->getDoctrine()->getManager();
+				$em->persist($file);
+				$em->flush();
+
+				$file->uploadFile();
+
+				$perturbationFile = new PerturbationFile();
+				$perturbation->addFile($perturbationFile);
+				$perturbationFile->setFile($file);
+				
+				$em->flush();
+				
+				$request->getSession()->getFlashBag()->add('success', 'Fichier(s) ajouté(s).');
+
+				return $this->redirect($this->generateUrl('perturbation_show', array('id' => $perturbation->getId())));
+			}
+			
+			return $this->render('AppBundle:Perturbation:addFile.html.twig', array(
+				'form' => $form->createView(),
+				'perturbation' => $perturbation,
+			));
+
+		}
+
+		$request->getSession()->getFlashBag()->add('error', 'Perturbation non trouvée.');
+		return $this->render('AppBundle:Perturbation:edit.html.twig', array('form' => $form->createView()));
+
+	}
+
+	/**
 	* @Route("/perturbation/test/{center}", name="perturbation_test", defaults={
 	* 		"center" : "POINT(2.586507797241211 48.841559662831)"
 	* })
@@ -175,11 +225,9 @@ class PerturbationController extends StatutController {
 			));
 		} else {
 			$request->getSession()->getFlashBag()->add('error', 'Perturbation non trouvée.');
-			//si on ne trouve pas la perturbation, on retourne vers la vue index
-			return $this->render('AppBundle:Ajax:index.html.twig', array(
-				'function' => 'listNearest',
-				'title'    => "Liste des perturbations"
-			));
+			
+			return $this->redirect($this->generateUrl('perturbation_index'));
+
 		}
 	}
 

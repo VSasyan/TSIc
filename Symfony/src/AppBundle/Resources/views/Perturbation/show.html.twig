@@ -116,6 +116,7 @@
 	<div class="elements formulations none">
 		<center>
 			<span class="button" id="show_elements">Afficher l'historique des modifications</span>
+			<a class="button editer" href="{{ path('perturbation_add_file', {id : perturbation.id}) }}">Importer un fichier associé</a>
 			{% if is_granted('ROLE_ADMIN') or is_granted('ROLE_PROFESSIONNAL') %}
 				<a class="button editer" href="{{ path('perturbation_edit', {id : perturbation.id}) }}">Éditer la perturbation</a>
 			{% endif %}
