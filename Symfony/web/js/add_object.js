@@ -22,7 +22,7 @@ document.addEventListener("DOMContentLoaded", function() {
 			if(update) {
 				update(e.latlng);
 			}
-			map.setView(e.latlng, 13, {animate:true});
+			map.panTo(e.latlng, {animate:true});
 		});
 
 		select = document.getElementById("transport_class");
