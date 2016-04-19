@@ -2,7 +2,7 @@ document.addEventListener("DOMContentLoaded", function() {
 	$('section#screen').each(loadSection);
 
 	// Init eve open other section
-	$('nav>div').click()
+	$('nav>div').click(loadSection);
 });
 
 function loadSection() {
