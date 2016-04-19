@@ -12,10 +12,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
 		map.panTo(position, {animate:true});
 		setMarqueur(position);
-<<<<<<< HEAD
 		map.panTo(position, {animate:true});
-=======
->>>>>>> d9a90410d0ada538be3b6d7a855bda492bf77e62
 
 		map.on('click', function(e) {
 			setMarqueur(e.latlng);
