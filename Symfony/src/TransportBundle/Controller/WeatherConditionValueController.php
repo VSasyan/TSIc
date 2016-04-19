@@ -5,6 +5,7 @@ namespace TransportBundle\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use TransportBundle\Entity\WeatherCondition;
+use TransportBundle\Entity\WeatherConditionValue;
 use TransportBundle\Form\WeatherConditionType;
 use Symfony\Component\HttpFoundation\Request;
 
@@ -43,12 +44,30 @@ class WeatherConditionValueController extends Controller
     }
 
     /**
-     * @Route("/weathercondition/update")
+     * @Route("/weathercondition/update/{id_origin}")
      */
-    public function updateAction()
+    public function updateAction(Request $request, $id_origin)
     {
+        $em = $this->getDoctrine()->getManager();
+        $repository = $em->getRepository('TransportBundle:WeatherCondition');
+       
+        $weatherCondition = $repository->find($id_origin);
+        $form = $this->createForm(WeatherConditionType::class, $weatherCondition);
+
+        if ($weatherCondition != null) {
+            if ($form->handleRequest($request)->isValid()) {
+            try{
+                    $em->persist($weatherCondition);
+                    $em->flush();
+                }
+                catch(exception $e){
+                    print_r($e);
+                }
+            }
+        }   
+
         return $this->render('TransportBundle:WeatherConditionValue:update.html.php', array(
-            // ...
+            'form' => $form->createView()
         ));
     }
 

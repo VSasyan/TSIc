@@ -42,22 +42,49 @@ class RestrictionForVehiclesController extends Controller
     }
 
     /**
-     * @Route("/restrictionforvehicles/delete")
+     * @Route("/restrictionforvehicles/delete/{id}")
      */
-    public function deleteAction()
+    public function deleteAction(Request $request, $id)
     {   
+
+        $em = $this->getDoctrine()->getEntityManager();
+        $Restriction = $em->getRepository('TransportBundle:RestrictionForVehicles')->find($id);
+
+        if (!$Restriction) {
+            throw $this->createNotFoundException('No Restriction ForVehicles found for id '.$inspireid);
+        }
+
+        $em->remove($Restriction);
+        $em->flush();
 
         return $this->render('TransportBundle:RestrictionForVehicles:delete.html.php', array(
         ));
     }
 
     /**
-     * @Route("/restrictionforvehicles/update")
+     * @Route("/restrictionforvehicles/update/{id_origin}")
      */
-    public function updateAction()
+    public function updateAction(Request $request, $id_origin)
     {
+        $em = $this->getDoctrine()->getManager();
+        $repository = $em->getRepository('TransportBundle:RestrictionForVehicles');
+       
+        $restrictionForVehicles = $repository->find($id_origin);
+        $form = $this->createForm(RestrictionForVehiclesType::class, $restrictionForVehicles);
+
+        if ($restrictionForVehicles != null) {
+            if ($form->handleRequest($request)->isValid()) {
+            try{
+                    $em->persist($restrictionForVehicles);
+                    $em->flush();
+                }
+                catch(exception $e){
+                    print_r($e);
+                }
+            }
+        }   
         return $this->render('TransportBundle:RestrictionForVehicles:update.html.php', array(
-            // ...
+            'form' => $form->createView()
         ));
     }
 

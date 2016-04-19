@@ -20,10 +20,10 @@ class RestrictionForVehiclesType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('validfrom', DateTimeType::class, array('label' => 'Début'))
-            ->add('validto', DateTimeType::class, array('label' => 'Fin'))
-            ->add('beginlifespanversion', DateTimeType::class, array('label' => 'Début'))
-            ->add('endlifespanversion', DateTimeType::class, array('label' => 'Fin'))
+            ->add('validfrom', DateTimeType::class, array('label' => 'valid from'))
+            ->add('validto', DateTimeType::class, array('label' => 'valid to'))
+            ->add('beginlifespanversion', DateTimeType::class, array('label' => 'begin life span version'))
+            ->add('endlifespanversion', DateTimeType::class, array('label' => 'end life span version'))
             ->add('restrictionType', EntityType::class, array(
                 'class' => 'TransportBundle:RestrictionTypeValue',
                 'choice_label' => 'name',

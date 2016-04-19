@@ -15,11 +15,10 @@ use TransportBundle\Entity\TransportProperty;
 class WeatherCondition extends TransportProperty
 {
     /**
-    * @ORM\ManyToOne(targetEntity="WeatherConditionValue", inversedBy="")
+    * @ORM\ManyToOne(targetEntity="WeatherConditionValue", cascade={"persist"})
     * @ORM\JoinColumn(nullable=false)
     */
     private $weatherConditionValue;
-
 
     /**
      * Set weatherConditionValue

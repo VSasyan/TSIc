@@ -44,33 +44,50 @@ class AccessRestrictionController extends Controller
     }
 
     /**
-     * @Route("/accessRestriction/delete")
+     * @Route("/accessRestriction/delete/{id}")
      */
-    public function deleteAction()
+    public function deleteAction(Request $request, $id)
     {
+
+        $em = $this->getDoctrine()->getEntityManager();
+        $Restriction = $em->getRepository('TransportBundle:AccessRestriction')->find($id);
+
+        if (!$Restriction) {
+            throw $this->createNotFoundException('No Access Restriction found for id '.$id);
+        }
+
+        $em->remove($Restriction);
+        $em->flush();
+
         return $this->render('TransportBundle:AccessRestriction:delete.html.twig', array(
-            // ...
         ));
     }
 
     /**
-     * @Route("/accesRestriction/update")
+     * @Route("/accesRestriction/update/{id_origin}")
      */
-    public function updateAction(Request $request, $id_AccessRestriction)
+    public function updateAction(Request $request, $id_origin)
     {   
         $em = $this->getDoctrine()->getManager();
         $repository = $em->getRepository('TransportBundle:AccessRestriction');
-        $accesRestriction = $repository->find($id_AccessRestriction);
+       
+        $accessRestriction = $repository->find($id_origin);
+        $form = $this->createForm(AccessRestrictionType::class, $accessRestriction);
 
-        if($accesRestriction->getRestriction() == null){
-            //throw 
-        }
-        
-        $em->persist($accesRestriction);
-        $em->flush();
+        if ($accessRestriction != null) {
+            if ($form->handleRequest($request)->isValid()) {
+            try{
+                    $em->persist($accessRestriction);
+                    $em->flush();
+                }
+                catch(exception $e){
+                    print_r($e);
+                }
+            }
+        }   
 
         return $this->render('TransportBundle:AccessRestriction:update.html.twig', array(
-            // ...
+            'form' => $form->createView()
         ));
     }
 
