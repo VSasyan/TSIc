@@ -36,4 +36,25 @@ class PerturbationRepository extends EntityRepository
 		return $result;
 
 	}
+
+	public function findOld() {
+
+		$qb = $this->createQueryBuilder('p');
+
+		$qb->select('p')
+			->innerJoin('p.formulations', 'f')
+			->where('f.endDate < :now')
+			->setParameter('now', new \DateTime())
+			->andWhere('p.terminated = false')
+			->andWhere('p.archived = false')
+			->orderBy('p.id', 'DESC')
+			->groupBy('p.id')
+		;
+
+		$result = $qb->getQuery()->getResult();
+
+		return $result;
+
+	}
+
 }

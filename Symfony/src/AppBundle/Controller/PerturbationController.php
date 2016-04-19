@@ -56,18 +56,20 @@ class PerturbationController extends StatutController {
 	*/
 	public function listNearestAction($position, $radius){
 
-		// Bad position
-		if($position == false) {
-			return $this->render('AppBundle:Ajax:index.html.twig', array(
-				'function' => 'listNearest',
-				'title'    => "Perturbations à proximité",
-			));
-		}
+		$em = $this->getDoctrine()->getManager();
+		$repository = $em->getRepository('AppBundle:Perturbation');
 
-		//example
+		// Terminate old perturbations :
+		$olds = $repository->findOld();
+		if (count($olds) > 0) {
+			foreach ($olds as $p) {$p->setTerminated(true);}
+			$em->flush();
+		}
+		
+		if($position == false) {return $this->redirect($this->generateUrl('perturbation_index'));}
+
 		$position = "ST_GeomFromText('" . $position . "',4326)";
 
-		$repository = $this->getDoctrine()->getManager()->getRepository('AppBundle:Perturbation');
 		$perturbations = $repository->findNearest($position, $radius);
 
 		$virtualPerturbations = array();

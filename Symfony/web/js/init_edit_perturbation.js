@@ -6,13 +6,16 @@ document.addEventListener("DOMContentLoaded", function() {
 
 		// Récupération de la position formulaire :
 		var point = $('#formulation_center').val();
-
 		var regExp = /POINT\((.*) (.*)\)/;
 		var result = regExp.exec(point);
-		var position = [result[2], result[1]];
+		var position = L.latLng(result[2], result[1]);
 
-		setMarqueur(position);
 		map.panTo(position, {animate:true});
+		setMarqueur(position);
+<<<<<<< HEAD
+		map.panTo(position, {animate:true});
+=======
+>>>>>>> d9a90410d0ada538be3b6d7a855bda492bf77e62
 
 		map.on('click', function(e) {
 			setMarqueur(e.latlng);
