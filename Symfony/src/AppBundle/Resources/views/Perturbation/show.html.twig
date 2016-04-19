@@ -118,10 +118,40 @@
 </div>
 
 <div>
+	<h3>Documents associés</h3>
+	{% if perturbation.files|length > 0 %}
+	<div class="flex row-100" style="max-width:600px;">
+		{% for f in perturbation.files %}
+			<div class="flex-item center">
+				<a href="{{path('file', {id : f.file.id}) }}" class="lienGrid">
+					<div class="screen">
+						<div class="img {{ f.file.type }}" /></div>
+					</div>
+					<div class="label">
+						<p class="title">{{ f.file.name }}</p>
+						<p class="info">
+							Ajouté par <span class="auteur">{{ f.file.particulier.name }} {{ f.file.particulier.lastname }}</span>
+						</p>
+					</div>
+				</a>
+			</div>
+		{% endfor %}
+	</div>
+	{% else %}
+	<div class="elements documents square">
+		<center>Aucun document pour le moment.</center>
+	</div>	
+	{% endif %}
+	<center>
+		<a class="button editer" href="{{ path('perturbation_add_file', {id : perturbation.id}) }}">Importer un fichier</a>
+	</center>
+</div>
+
+<div>
+	<h3>Autres actions</h3>
 	<div class="elements formulations none">
 		<center>
 			<span class="button" id="show_elements">Afficher l'historique des modifications</span>
-			<a class="button editer" href="{{ path('perturbation_add_file', {id : perturbation.id}) }}">Importer un fichier associé</a>
 			{% if is_granted('ROLE_ADMIN') or is_granted('ROLE_PROFESSIONNAL') %}
 				<a class="button editer" href="{{ path('perturbation_edit', {id : perturbation.id}) }}">Éditer la perturbation</a>
 			{% endif %}

@@ -23,8 +23,8 @@ class FilesType extends AbstractType
 			->add('name', TextType::class, array('label' => 'Nom', 'required' => true))
 			->add('type', ChoiceType::class, array(
 				'choices' => array(
-					'Image' => 'jpg,jpeg,gif,png',
-					'Fichier audio' => 'mp3,wma',
+					'Image' => 'image',
+					'Fichier audio' => 'fichier_audio',
 					'Document' => 'pdf'
 				),
 				'required' => true
