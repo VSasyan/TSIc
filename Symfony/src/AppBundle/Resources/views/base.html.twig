@@ -38,12 +38,12 @@
 
 			<div>
 				<a {{ currentPath == 'accueil' ? 'class="current"' }} href="{{ path('accueil') }}">Perturbations</a>
-				<a {{ currentPath == 'perturbation_add' ? 'class="current"' }} href="{{ path('perturbation_add') }}">Ajouter perturbation</a>
+				<a {{ currentPath == 'objects_show' ? 'class="current"' }} href="{{ path('objects_show') }}">Visualiser les objets</a>
 				
 				{% if not (is_granted('ROLE_ADMIN') or is_granted('ROLE_PROFESSIONNAL') or is_granted('ROLE_USER')) %}
 
 					<a {{ currentPath == 'devenez_partenaire' ? 'class="current"' }} href="{{ path('login') }}">Login</a>
-					<a {{ currentPath == 'devenez_partenaire' ? 'class="current"' }} href="{{ path('register') }}">Signin</a>
+					<a {{ currentPath == 'devenez_partenaire' ? 'class="current"' }} href="{{ path('register') }}">Sign in</a>
 
 				{% else %}
 
@@ -53,6 +53,7 @@
 					
 					{% if is_granted('ROLE_ADMIN') %}
 						<a {{ currentPath == 'administration' ? 'class="current"' }} href="{{ path('administration') }}">Administration</a>
+						<a {{ currentPath == 'transport_index' ? 'class="current"' }} href="{{ path('transport_index') }}">Ajouter un objet</a>
 					{% endif %}
 
 					{% if is_granted('ROLE_PROFESSIONNAL') %}
