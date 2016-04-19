@@ -5,8 +5,9 @@ namespace AppBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use Jsor\Doctrine\PostGIS\Types\PostGISType;
 
-\Doctrine\DBAL\Types\Type::addType("geometry", "Jsor\Doctrine\PostGIS\Types\GeometryType");
-
+if (!\Doctrine\DBAL\Types\Type::hasType("geometry")) {
+    \Doctrine\DBAL\Types\Type::addType("geometry", "Jsor\Doctrine\PostGIS\Types\GeometryType");
+}
 /**
  * ObjetTerrain
  *

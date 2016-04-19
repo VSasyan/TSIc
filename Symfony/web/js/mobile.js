@@ -7,6 +7,8 @@ document.addEventListener("DOMContentLoaded", function() {
 
 function loadSection() {
 		var section = $(this).attr('id');
+		$('nav>div.selected').removeClass('selected');
+		$('#' + section).addClass('selected');
 		$('section#screen').attr("class", 'loading').html(HTML_AJAX_LOADING);
 		$.ajax({
 			url : Routing.generate("mobile_section", {section : section}),
