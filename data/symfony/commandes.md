@@ -42,11 +42,13 @@ Executer dans pgAdmin :
 
 
 	DROP TABLE admin CASCADE;
+	DROP TABLE file CASCADE;
 	DROP TABLE formulation CASCADE;
 	DROP TABLE message CASCADE;
 	DROP TABLE objet_terrain CASCADE;
 	DROP TABLE particulier CASCADE;
 	DROP TABLE perturbation CASCADE;
+	DROP TABLE perturbation_file CASCADE;
 	DROP TABLE professionnel CASCADE;
 	DROP TABLE road_link CASCADE;
 	DROP TABLE road_node CASCADE;
@@ -56,10 +58,12 @@ Executer dans pgAdmin :
 
 	DROP SEQUENCE admin_id_seq;
 	DROP SEQUENCE formulation_id_seq;
+	DROP SEQUENCE file_id_seq;
 	DROP SEQUENCE message_id_seq;
 	DROP SEQUENCE objet_terrain_id_seq;
 	DROP SEQUENCE particulier_id_seq;
 	DROP SEQUENCE perturbation_id_seq;
+	DROP SEQUENCE perturbation_file_id_seq;
 	DROP SEQUENCE professionnel_id_seq;
 	DROP SEQUENCE road_link_inspireid_seq;
 	DROP SEQUENCE road_node_inspireid_seq;

@@ -2,6 +2,8 @@
 
 namespace AppBundle\Repository;
 
+//use \Doctrine\ORM\Query; // Query::HYDRATE_ARRAY
+use AppBundle\Entity\ObjetTerrain;
 /**
  * ObjetTerrainRepository
  *
@@ -13,11 +15,13 @@ class ObjetTerrainRepository extends \Doctrine\ORM\EntityRepository
 
 	public function findNearest($position, $rayon) {
 
-		$qb = $this->createQueryBuilder('a');
-
-		$objets = $qb->where('ST_DISTANCE(a.position, '.$position.') < :rayon')
+		$objets = $this->createQueryBuilder('o')
+			->select('o')
+			->join('AppBundle:TypeObjetTerrain', 't', 'WITH', 'o.type = t.id')
+			->where('ST_DISTANCE(o.position, '.$position.') < :rayon')
 			->setParameter('rayon', $rayon)
-			//->orderBy('a.creation_date', 'DESC')
+			->andWhere('t.radius > :radius')
+			->setParameter('radius', round($rayon))
 			->setMaxResults(350)
 			->getQuery()
 			->getResult();

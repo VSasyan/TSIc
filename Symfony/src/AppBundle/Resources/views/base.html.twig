@@ -38,7 +38,6 @@
 
 			<div>
 				<a {{ currentPath == 'accueil' ? 'class="current"' }} href="{{ path('accueil') }}">Perturbations</a>
-				<a {{ currentPath == 'objects_show' ? 'class="current"' }} href="{{ path('objects_show') }}">Visualiser les objets</a>
 				
 				{% if not (is_granted('ROLE_ADMIN') or is_granted('ROLE_PROFESSIONNAL') or is_granted('ROLE_USER')) %}
 
