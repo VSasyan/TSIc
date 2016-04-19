@@ -1,6 +1,6 @@
 <?php
 
-namespace NetworkBundle\Repository;
+namespace TransportBundle\Repository;
 
 /**
  * RoadNodeRepository
