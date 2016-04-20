@@ -5,6 +5,7 @@ namespace TransportBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 use TransportBundle\Entity\TransportProperty;
+use NetworkBundle\Entity\NetworkPropertyInit;
 
 /**
  * WeatherCondition
@@ -14,6 +15,8 @@ use TransportBundle\Entity\TransportProperty;
  */
 class WeatherCondition extends TransportProperty
 {
+    use NetworkPropertyInit;
+
     /**
     * @ORM\ManyToOne(targetEntity="WeatherConditionValue", cascade={"persist"})
     * @ORM\JoinColumn(nullable=false)

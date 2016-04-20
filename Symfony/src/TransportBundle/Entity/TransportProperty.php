@@ -6,8 +6,12 @@ use Doctrine\ORM\Mapping as ORM;
 
 use NetworkBundle\Entity\NetworkProperty;
 
+
+
 /**
  * TransportProperty
+ *
+ * @ORM\MappedSuperclass
  */
 abstract class TransportProperty extends NetworkProperty
 {
@@ -16,14 +20,14 @@ abstract class TransportProperty extends NetworkProperty
 	 *
 	 * @ORM\Column(name="validFrom", type="datetime", nullable=true)
 	 */
-	protected $validFrom;
+	private $validFrom;
 
 	/**
 	 * @var \DateTime
 	 *
 	 * @ORM\Column(name="validTo", type="datetime", nullable=true)
 	 */
-	protected $validTo;
+	private $validTo;
 
 
 

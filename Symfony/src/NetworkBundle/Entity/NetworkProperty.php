@@ -5,38 +5,48 @@ namespace NetworkBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * NetworkProperty
+ * Call this trait in all entity children
+ *
+ * BIG THANKS TO stackoverflow.com/questions/10401570/
+ * Florian, you're my love
  */
-abstract class NetworkProperty
+trait NetworkPropertyInit
 {
-	/**
+    /**
 	 * @var int
 	 *
 	 * @ORM\Column(name="inspireId", type="integer")
 	 * @ORM\Id
 	 * @ORM\GeneratedValue(strategy="AUTO")
 	 */
-	protected $inspireId;
+	private $inspireId;
+}
 
+
+
+/**
+ * NetworkProperty
+ *
+ * @ORM\MappedSuperclass
+ * All attributes have to be private.
+ * stackoverflow.com/questions/25749418/
+ */
+abstract class NetworkProperty
+{
 	/**
 	 * @var \DateTime
 	 *
 	 * @ORM\Column(name="beginLifespanVersion", type="datetime", nullable=true)
 	 */
-	protected $beginLifespanVersion;
+	private $beginLifespanVersion;
 
 	/**
 	 * @var \DateTime
 	 *
 	 * @ORM\Column(name="endLifespanVersion", type="datetime", nullable=true)
 	 */
-	protected $endLifespanVersion;
+	private $endLifespanVersion;
 
-    /**
-     * @ORM\ManyToOne(targetEntity="NetworkElement", inversedBy="properties")
-     * @ORM\JoinColumn(name="element_id", referencedColumnName="inspireId")
-     */
-    protected $element;
 
 	/**
 	 * Get inspireId
@@ -95,28 +105,4 @@ abstract class NetworkProperty
 	{
 		return $this->endLifespanVersion;
 	}
-
-    /**
-     * Set element
-     *
-     * @param \NetworkBundle\Entity\NetworkElement $element
-     *
-     * @return NetworkProperty
-     */
-    public function setElement(\NetworkBundle\Entity\NetworkElement $element = null)
-    {
-        $this->element = $element;
-
-        return $this;
-    }
-
-    /**
-     * Get element
-     *
-     * @return \NetworkBundle\Entity\NetworkElement
-     */
-    public function getElement()
-    {
-        return $this->element;
-    }
 }

@@ -5,6 +5,7 @@ namespace TransportBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 use TransportBundle\Entity\TransportProperty;
+use NetworkBundle\Entity\NetworkPropertyInit;
 
 /**
  * RestrictionForVehicles
@@ -14,6 +15,8 @@ use TransportBundle\Entity\TransportProperty;
  */
 class RestrictionForVehicles extends TransportProperty
 {
+    use NetworkPropertyInit;
+
 	/**
 	 * @var float
 	 *

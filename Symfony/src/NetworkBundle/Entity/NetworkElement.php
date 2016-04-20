@@ -21,7 +21,15 @@ abstract class NetworkElement
 
 
     /**
-     * @ORM\OneToMany(targetEntity="NetworkProperty", mappedBy="element")
+     * @ORM\ManyToMany(targetEntity="NetworkBundle\Entity\NetworkProperty")
+     * @ORM\JoinTable(name="element_property",
+     *      joinColumns={
+     *          @ORM\JoinColumn(name="element_id", referencedColumnName="inspireId")
+     *      },
+     *      inverseJoinColumns={
+     *          @ORM\JoinColumn(name="property_id", referencedColumnName="inspireId", unique=true)
+     *      }
+     * )
      */
     protected $properties;
 
