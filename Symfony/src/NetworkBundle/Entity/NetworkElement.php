@@ -7,6 +7,14 @@ use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * Element
+ *
+ * @ORM\Entity
+ * @ORM\InheritanceType("JOINED")
+ * @ORM\DiscriminatorColumn(name="discr", type="string")
+ * @ORM\DiscriminatorMap({
+ *      "road node"  = "TransportBundle\Entity\RoadNode",
+ *      "road link"  = "TransportBundle\Entity\RoadLink"
+ * })
  */
 abstract class NetworkElement
 {

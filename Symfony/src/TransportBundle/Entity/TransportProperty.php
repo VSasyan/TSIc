@@ -20,14 +20,14 @@ abstract class TransportProperty extends NetworkProperty
 	 *
 	 * @ORM\Column(name="validFrom", type="datetime", nullable=true)
 	 */
-	private $validFrom;
+	protected $validFrom;
 
 	/**
 	 * @var \DateTime
 	 *
 	 * @ORM\Column(name="validTo", type="datetime", nullable=true)
 	 */
-	private $validTo;
+	protected $validTo;
 
 
 

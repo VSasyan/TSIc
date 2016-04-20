@@ -5,7 +5,6 @@ namespace TransportBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 use TransportBundle\Entity\TransportProperty;
-use NetworkBundle\Entity\NetworkPropertyInit;
 
 
 /**
@@ -16,7 +15,6 @@ use NetworkBundle\Entity\NetworkPropertyInit;
  */
 class AccessRestriction extends TransportProperty
 {
-    use NetworkPropertyInit;
 
 	/**
     * @ORM\ManyToOne(targetEntity="AccessRestrictionValue", inversedBy="")

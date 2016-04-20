@@ -109,6 +109,25 @@ class ObjectController extends StatutController {
 		return $response;
 	}
 
+    /**
+     * @Route("/test/transport/roadnode", name="transport_node_test")
+     */
+    public function testNodeAction(Request $request) {
+        $node = new RoadNode;
+        $node->setGeographicalName("Test_node");
+
+        $prop = new \TransportBundle\Entity\AccessRestriction;
+        $prop->setRestriction(new \TransportBundle\Entity\AccessRestrictionValue());
+        $node->addProperty($prop);
+
+        $em = $this->getDoctrine()->getManager();
+        $em->persist($node);
+        $em->flush();
+
+        $id = $node->getInspireId();
+        $em->remove($node);
+        $em->flush();
+    }
 }
 
 

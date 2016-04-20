@@ -4,24 +4,6 @@ namespace NetworkBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 
-/**
- * Call this trait in all entity children
- *
- * BIG THANKS TO stackoverflow.com/questions/10401570/
- * Florian, you're my love
- */
-trait NetworkPropertyInit
-{
-    /**
-	 * @var int
-	 *
-	 * @ORM\Column(name="inspireId", type="integer")
-	 * @ORM\Id
-	 * @ORM\GeneratedValue(strategy="AUTO")
-	 */
-	private $inspireId;
-}
-
 
 
 /**
@@ -33,19 +15,28 @@ trait NetworkPropertyInit
  */
 abstract class NetworkProperty
 {
+    /**
+	 * @var int
+	 *
+	 * @ORM\Column(name="inspireId", type="integer")
+	 * @ORM\Id
+	 * @ORM\GeneratedValue(strategy="AUTO")
+	 */
+	private $inspireId;
+
 	/**
 	 * @var \DateTime
 	 *
 	 * @ORM\Column(name="beginLifespanVersion", type="datetime", nullable=true)
 	 */
-	private $beginLifespanVersion;
+	protected $beginLifespanVersion;
 
 	/**
 	 * @var \DateTime
 	 *
 	 * @ORM\Column(name="endLifespanVersion", type="datetime", nullable=true)
 	 */
-	private $endLifespanVersion;
+	protected $endLifespanVersion;
 
 
 	/**
