@@ -21,7 +21,8 @@ class TypeObjetTerrainType extends AbstractType
         $builder
             ->add('name',            TextType::class,     array('label' => 'Nom'))
             ->add('description',     TextareaType::class, array('label' => 'Description'))
-            ->add('logoPictureFile', FileType::class,     array('label' => 'Logo', 'required' => true))
+            ->add('radius',          TextareaType::class, array('label' => 'Rayon'))
+            ->add('logoPictureFile', FileType::class,     array('label' => 'Logo', 'required' => false))
             ->add('save',            SubmitType::class,   array('label' => 'Sauver'))
             ->getForm();
     }

@@ -91,41 +91,49 @@ class AdminController extends StatutController {
 			$gare = new TypeObjetTerrain();
 			$gare->setName('Gare');
 			$gare->setLogoPicturePath('_1.png');
+			$gare->setRadius(8000);
 			$em->persist($gare);
 
 			$autolib = new TypeObjetTerrain();
 			$autolib->setName('Autolib');
 			$autolib->setLogoPicturePath('_2.png');
+			$autolib->setRadius(16000);
 			$em->persist($autolib);
 
 			$velo = new TypeObjetTerrain();
 			$velo->setName('Vélo');
 			$velo->setLogoPicturePath('_3.png');
+			$velo->setRadius(16000);
 			$em->persist($velo);
 
 			$parking = new TypeObjetTerrain();
 			$parking->setName('Parking');
 			$parking->setLogoPicturePath('_4.png');
+			$parking->setRadius(24000);
 			$em->persist($parking);
 
 			$parking_relais = new TypeObjetTerrain();
 			$parking_relais->setName('Parking relais');
 			$parking_relais->setLogoPicturePath('_5.png');
+			$parking_relais->setRadius(24000);
 			$em->persist($parking_relais);
 
 			$station_taxis = new TypeObjetTerrain();
 			$station_taxis->setName('Station de taxis');
 			$station_taxis->setLogoPicturePath('_6.png');
+			$station_taxis->setRadius(24000);
 			$em->persist($station_taxis);
 
 			$aire_covoit = new TypeObjetTerrain();
 			$aire_covoit->setName('Aire de covoiturage');
 			$aire_covoit->setLogoPicturePath('_7.png');
+			$aire_covoit->setRadius(24000);
 			$em->persist($aire_covoit);
 
 			$borne_voit = new TypeObjetTerrain();
 			$borne_voit->setName('Borne de rechargement de voiture');
 			$borne_voit->setLogoPicturePath('_8.png');
+			$borne_voit->setRadius(24000);
 			$em->persist($borne_voit);
 
 			// CREATION DES TYPES DE PERTURBATIONS

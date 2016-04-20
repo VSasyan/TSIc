@@ -14,6 +14,7 @@ use TransportBundle\Entity\TransportProperty;
  */
 class WeatherCondition extends TransportProperty
 {
+<<<<<<< HEAD
 	/**
 	 * @var string
 	 *
@@ -46,5 +47,38 @@ class WeatherCondition extends TransportProperty
 	{
 		return $this->name;
 	}
+=======
+    /**
+    * @ORM\ManyToOne(targetEntity="WeatherConditionValue", cascade={"persist"})
+    * @ORM\JoinColumn(nullable=false)
+    */
+    private $weatherConditionValue;
+
+    /**
+     * Set weatherConditionValue
+     *
+     * @param weatherConditionValue $weatherConditionValue
+     *
+     * @return WeatherConditionValue
+     */
+    public function setweatherConditionValue($weatherConditionValue)
+    {
+        $this->weatherConditionValue=$weatherConditionValue;
+
+        return $this;
+    }
+
+
+
+    /**
+     * Get weatherConditionValue
+     *
+     * @return WeatherConditionValue
+     */
+    public function getweatherConditionValue()
+    {
+        return $this->weatherConditionValue;
+    }
+>>>>>>> 1bf6482940389076a985e334006bd7f46cee12e3
 }
 

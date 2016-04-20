@@ -26,8 +26,7 @@ class WeatherConditionValue
      *
      * @ORM\Column(name="name", type="string", length=255)
      */
-    private $weatherCondition;
-
+    private $name;
 
     /**
      * Get id
@@ -44,11 +43,11 @@ class WeatherConditionValue
      *
      * @param string $name
      *
-     * @return WeatherConditionValue
+     * @return string
      */
-    public function setName($weatherCondition)
+    public function setName($name)
     {
-        $this->weatherCondition= $weatherCondition;
+        $this->name = $name;
 
         return $this;
     }
@@ -58,8 +57,9 @@ class WeatherConditionValue
      *
      * @return string
      */
-    public function getweatherCondition()
+
+    public function getName()
     {
-        return $this->weatherCondition;
+        return $this->name;
     }
 }

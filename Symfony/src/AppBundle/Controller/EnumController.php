@@ -66,7 +66,7 @@ class EnumController extends Controller {
 	/**
 	* @Route("/type-objet-terrain/edit/{id}", name="type_objet_terrain_edit")
 	*/
-	public function typeObjetTerrainEditAction(Request $request, $id){
+	public function typePerturbationEditAction(Request $request, $id){
 
 		$em = $this->getDoctrine()->getManager();
 		$type = $em->getRepository('AppBundle:TypePerturbation')->find($id);
@@ -95,7 +95,7 @@ class EnumController extends Controller {
 	/**
 	* @Route("/type-objet-terrain/delete/{id}", name="type_objet_terrain_delete")
 	*/
-	public function typeObjetTerrainDeleteAction(Request $request, $id){
+	public function typePerturbationDeleteAction(Request $request, $id){
 
 		$em = $this->getDoctrine()->getManager();
 		$type = $em->getRepository('AppBundle:TypePerturbation')->find($id);
@@ -160,7 +160,7 @@ class EnumController extends Controller {
 	/**
 	* @Route("/type-objet-terrain/edit/{id}", name="type_objet_terrain_edit")
 	*/
-	public function typePerturbationEditAction(Request $request, $id){
+	public function typeObjetTerrainEditAction(Request $request, $id){
 
 		$em = $this->getDoctrine()->getManager();
 		$type = $em->getRepository('AppBundle:TypeObjetTerrain')->find($id);
@@ -189,7 +189,7 @@ class EnumController extends Controller {
 	/**
 	* @Route("/type-objet-terrain/delete/{id}", name="type_perturbation_delete")
 	*/
-	public function typePerturbationDeleteAction(Request $request, $id){
+	public function typeObjetTerrainDeleteAction(Request $request, $id){
 
 		$em = $this->getDoctrine()->getManager();
 		$type = $em->getRepository('AppBundle:TypeObjetTerrain')->find($id);
