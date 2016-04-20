@@ -1,21 +1,21 @@
+
 # Design d'une api de consultation des données
 
 Ce document a pour but de présenter une proposition d'arcitecture d'une API (Application Programming Interface) permettant de récupérer les données collectées par les utilisateurs de l'application.
 
 ## Quels consommateurs de données?
 
-Les utilisateurs des données seront décrites plus en détails dans la partie suivante, mais il devrait s'agir principalement des services de guidage routier automobile, des organismes public qui utilisent les données du traffic . Enfin, la liste n'est pas exhaustive, mais on pourrait très bien imaginer des services plus généraux (pompiers, samu...) à travers leurs application de calcul d'itinéraire utiliser ce genre d'application et les ressources associées.
+Les utilisateurs des données seront décrits plus en détails dans la partie suivante, mais il devrait s'agir principalement des services de guidage routier automobile, des organismes public qui utilisent les données du traffic . Enfin, la liste n'est pas exhaustive, mais on pourrait très bien imaginer des services plus généraux (pompiers, samu...) à travers leurs applications de calcul d'itinéraire utiliser ce genre d'application et les ressources associées.
 
 ## Choix de l'API
 
-Le format des données retournées par l'API devrait être normalement JSON, afin de privilégier sa légèreté par rapport au xml. En outre, le client n'aura besoin d'aucune connaissance pour utiliser le service avec aucune connaissance de l'API, mis à part l'emplacement des données dans l'API.
-. Toutes ces raisons font que nous nous orienterons ainsi vers une architecture client-serveur de type REST (Representational State Transfer), simple d'utilisation et reposant sur des protocoles standardisés tels que HTTP. 
+Le format des données retournées par l'API devrait être normalement JSON, afin de privilégier sa légèreté par rapport au xml. En outre, le client n'aura besoin d'aucune connaissance de l'API pour utiliser le service, mis à part l'emplacement des données dans l'API. Toutes ces raisons font que nous nous orienterons ainsi vers une architecture client-serveur de type REST (Representational State Transfer), simple d'utilisation, très flexible et reposant sur des protocoles standardisés tels que HTTP.
 
-## Choix des ressources 
+## Choix des ressources accessibles
 
 Les ressources concernées par l'API sont de notre point de vue:
 
-* Les modifications définitives du réseaux (limitations de vitesse, cédez le passage ...). Ces données devraient être intégrer par des services de guidage automobile tels que TomTom, Here, Google ou Waze.
+* Les modifications définitives du réseaux (limitations de vitesse, cédez le passage ...). Ces données devraient être intégrées par des services de guidage automobile tels que TomTom, Here, Google ou Waze.
 
 * Les perturbations validées sur le réseaux (accident...). Ces données pourraient être utiliser également par les services de guidage automobiles, mais également aussi par des organismes tels que Sytadin.
 
@@ -27,12 +27,11 @@ L'API est designée pour les clients, elle doit donc rester intuitive, y compris
 
 [https://api.fakecompany.com/v1/](http://www.google.com)
 
-Il sera bien évidemment illustré dans la documentation les appels à l'API.
+Il sera illustré ultérieurement dans la documentation les appels à l'API.
 
 ## Choix des URI
 
 ### Les perturbations
-
 
 Comme évoqué précédemment, les seules ressources rendues disponibles seront les perturbations validées, ainsi que les modifications définitives du réseaux. Ainsi les URI, seront extrèmement simples et nous n'auront pas de choix à faire concernant la granularité à utiliser. Concernant les perturbations, comme dans le cadre du fonctionnement de l'application, nous considérerons que nous récupéreront à chaque fois la dernière formulation valide. En outre, considérées comme sûres, les ressources ne pourront pas être modifiées ou supprimées, mais seulement être récupérées au travers de l'interface, via des requêtes GET. Le retour sera effectué en JSON. 
 
@@ -58,12 +57,51 @@ GET /perturbations/42?fields=name,creation_date,center,description
 
 ### Les modifications
 
-Modifications are coming soon ...
+Abordé brièvement auparavant, les modifications définitives du réseaux peuvent également être renseignées par les utilisateurs de l'application et seront donc accessible aux systèmes de guidage automobiles, améliorant ainsi le rendu de ces services. Ces modifications seront conformes à la directive INSPIRE de description des types de données concernant les réseaux de transport (restrictions de circulations, condition météo ...).
 
+Coformément au document de modélisation UML, un élément du réseau possède des propriétés. On accèdera donc à un élément particulier et on précisera les données à récupérer, en paramètre de l'URL:
+
+!!!!!!!!!!!A MODIFIER, pas d'UML, DONC POURRI!!!!!!!!!!!!!!!!!!!!!
+
+GET /modifications/42?fields=name,creationDate,endDate,geometry,description
+
+200 OK
+
+{
+
+  "idInspire":"42",
+
+  "name":"limitation de vitess",
+
+  "creationDate":"15/04/2016",
+
+  "endDate":"16/04/2016",
+
+  "geometry":" LINESTRING(3 4,10 50,20 25)",
+
+  "description":"diminution de la vitesse, à cause d'un épisode de pollution"
+
+}
 
 ## Les entêtes
 
 ### Contenu des entêtes
+
+Classiquement, les entêtes utilisées seront: la date, la précédente localisation du client, l'application utilisée par le client ainsi que sa version, la langue utilis par le client dans son application. Exemple: 
+
+GET /paths HTTP/1.1
+
+Date: Tue, 19 Jan 2016 18:15:41 GMT
+
+Host: https://api.fakecompany.com/v1/
+
+Referer: https://www.google.fr/
+
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8
+
+Accept-Language: en-US,en;q=0.8
+
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/47.0.2526.111 Safari/537.36
 
 ### Status code
 
