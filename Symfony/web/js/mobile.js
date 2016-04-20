@@ -233,8 +233,6 @@ function show_nearestPerturbationsList(newObjects) {
 	var html = '';
 	$.each(newObjects, function(i, o) {
 		html += html_list_perturbation(o);
-		html += html_list_perturbation(o);
-		html += html_list_perturbation(o);
 	});
 	$('#list').html(html);
 }
