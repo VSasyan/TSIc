@@ -15,6 +15,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use TransportBundle\Entity\AccessRestrictionValue;
 use TransportBundle\Entity\WeatherConditionValue;
 use TransportBundle\Entity\RestrictionTypeValue;
+use TransportBundle\Entity\FormOfRoadNodeValue;
 
 class AdminController extends StatutController {
 
@@ -34,6 +35,7 @@ class AdminController extends StatutController {
 	public function initAction(Request $request){
 		
 		$em = $this->getDoctrine()->getManager();
+		$osmEm = $this->getDoctrine()->getManager('osm');
 		$users = $em->getRepository('AppBundle:Particulier')->findAll();
 
 		if (count($users) == 0) {
@@ -157,117 +159,118 @@ class AdminController extends StatutController {
 
 			$fog = new WeatherConditionValue();
 			$fog->setName('Fog');
-			$em->persist($fog);
+			$osmEm->persist($fog);
 
 			$snow = new WeatherConditionValue();
 			$snow->setName('Snow');
-			$em->persist($snow);
+			$osmEm->persist($snow);
 
 			$ice = new WeatherConditionValue();
 			$ice->setName('Ice');
-			$em->persist($ice);
+			$osmEm->persist($ice);
 
 			$rain = new WeatherConditionValue();
 			$rain->setName('Rain');
-			$em->persist($rain);
+			$osmEm->persist($rain);
 
 
 			$smog = new WeatherConditionValue();
 			$smog->setName('Smog');
-			$em->persist($smog);
+			$osmEm->persist($smog);
 
 			// CREATION DES ENUM TRANSPORT::ACCESS RESTRICTION
 
 			$publicAccess = new AccessRestrictionValue();
 			$publicAccess->setName('Public Access');
-			$em->persist($publicAccess);
+			$osmEm->persist($publicAccess);
 
 			$private = new AccessRestrictionValue();
 			$private->setName('Private');
-			$em->persist($private);
+			$osmEm->persist($private);
 
 			$toll = new AccessRestrictionValue();
 			$toll->setName('Toll');
-			$em->persist($toll);
+			$osmEm->persist($toll);
 
 			$physicallyImpossible = new AccessRestrictionValue();
 			$physicallyImpossible->setName('Physically Impossible');
-			$em->persist($physicallyImpossible);
+			$osmEm->persist($physicallyImpossible);
 
 			$legalyForbidden = new AccessRestrictionValue();
 			$legalyForbidden->setName('Legaly Forbidden');
-			$em->persist($legalyForbidden);
+			$osmEm->persist($legalyForbidden);
 
 			$seasonal= new AccessRestrictionValue();
 			$seasonal->setName('Seasonal');
-			$em->persist($seasonal);
+			$osmEm->persist($seasonal);
 
 			// CREATION DES ENUM TRANSPORT::VEHICULE RESTRICTION
 
 			$maximumDoubleAxleWeight = new RestrictionTypeValue();
 			$maximumDoubleAxleWeight->setName('Maximum Double Axle Weight');
-			$em->persist($maximumDoubleAxleWeight);
+			$osmEm->persist($maximumDoubleAxleWeight);
 
 			$maximumHeight = new RestrictionTypeValue();
 			$maximumHeight->setName('Maximum Height');
-			$em->persist($maximumHeight);
+			$osmEm->persist($maximumHeight);
 
 			$maximumLength = new RestrictionTypeValue();
 			$maximumLength->setName('Maximum Length');
-			$em->persist($maximumLength);
+			$osmEm->persist($maximumLength);
 
 			$maximumSingleAxleWeight = new RestrictionTypeValue();
 			$maximumSingleAxleWeight->setName('Maximum Single Axle Weight');
-			$em->persist($maximumSingleAxleWeight);
+			$osmEm->persist($maximumSingleAxleWeight);
 
 			$maximumTotalWeight = new RestrictionTypeValue();
 			$maximumTotalWeight->setName('Maximum Total Weight');
-			$em->persist($maximumTotalWeight);
+			$osmEm->persist($maximumTotalWeight);
 
 			$maximumTripleAxleWeight = new RestrictionTypeValue();
 			$maximumTripleAxleWeight->setName('Maximum Triple Axle Weight');
-			$em->persist($maximumTripleAxleWeight);
+			$osmEm->persist($maximumTripleAxleWeight);
 
 			$maximumWidth = new RestrictionTypeValue();
 			$maximumWidth->setName('Maximum Width');
-			$em->persist($maximumWidth);
+			$osmEm->persist($maximumWidth);
 
 			// CREATION DES ENUM TRANSPORT::FORM OF ROAD NODE
 
 			$enclosedTrafficArea = new FormOfRoadNodeValue();
 			$enclosedTrafficArea->setName('Enclosed Traffic Area');
-			$em->persist($enclosedTrafficArea);
+			$osmEm->persist($enclosedTrafficArea);
 
 			$junction = new FormOfRoadNodeValue();
 			$junction->setName('Junction');
-			$em->persist($junction);
+			$osmEm->persist($junction);
 
 			$levelCrossing = new FormOfRoadNodeValue();
 			$levelCrossing->setName('Level Crossing');
-			$em->persist($levelCrossing);
+			$osmEm->persist($levelCrossing);
 
 			$pseudoNode = new FormOfRoadNodeValue();
 			$pseudoNode->setName('Pseudo Node');
-			$em->persist($pseudoNode);
+			$osmEm->persist($pseudoNode);
 
 			$roadEnd = new FormOfRoadNodeValue();
 			$roadEnd->setName('Road End');
-			$em->persist($roadEnd);
+			$osmEm->persist($roadEnd);
 
 			$roadServiceArea = new FormOfRoadNodeValue();
 			$roadServiceArea->setName('Road Service Area');
-			$em->persist($roadServiceArea);
+			$osmEm->persist($roadServiceArea);
 
 			$roundabout = new FormOfRoadNodeValue();
 			$roundabout->setName('Roundabout');
-			$em->persist($roundabout);
+			$osmEm->persist($roundabout);
 
 			$trafficSquare = new FormOfRoadNodeValue();
 			$trafficSquare->setName('Traffic Square');
-			$em->persist($trafficSquare);
+			$osmEm->persist($trafficSquare);
 
 
 			$em->flush();
+			$osmEm->flush();
 
 			$request->getSession()->getFlashBag()->add('success', 'Base correctement initialisée.');
 
