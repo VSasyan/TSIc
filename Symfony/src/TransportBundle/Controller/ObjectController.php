@@ -12,6 +12,7 @@ use AppBundle\Controller\StatutController;
 
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 
 class ObjectController extends StatutController {
@@ -32,6 +33,54 @@ class ObjectController extends StatutController {
 	public function addAction(Request $request){
 
 		return $this->redirect($this->generateUrl('transport_link_add'));
+
+	}
+
+	/**
+	* @Route("/transport/list/nearest/{position}/{radius}", name="transport_list_nearest", defaults={
+	*	  "position" : false,
+	*     "radius": 1000
+	* })
+	*/
+	public function listNearestAction($position, $radius){
+
+		$em = $this->getDoctrine()->getManager();
+		$nodeRepository = $em->getRepository('TransportBundle:RoadNode');
+		$linkRepository = $em->getRepository('TransportBundle:RoadLink');
+		
+		if($position == false) {return $this->redirect($this->generateUrl('transport_index'));}
+
+		$position = "ST_GeomFromText('" . $position . "',4326)";
+
+		$nodes = $nodeRepository->findNearest($position, $radius);
+		$links = $linkRepository->findNearest($position, $radius);
+
+		$virtualNodes = array();
+
+		foreach ($nodes as $node) {
+
+			$virtualLinks[] = array(
+				'name' => $node->getGeographicalName(),
+				'geometry' => $node->getGeometry(),
+			);				
+		}
+
+		$virtualLinks = array();
+
+		foreach ($links as $link) {
+
+			$virtualLinks[] = array(
+				'name' => $link->getGeographicalName(),
+				'centreLineGeometry' => $link->getCentrelineGeometry(),
+			);				
+		}
+
+		$objects = array_merge($nodes, $links);
+
+		$response = new JsonResponse();
+		$response->setData($objects);
+
+		return $response;
 
 	}
 
