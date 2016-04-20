@@ -51,22 +51,18 @@ Dans le fichier :
 * `/etc/postgresql/9.4/main/pg_hba.conf` (Debian Jessie)
 * `/etc/postgresql/9.5/main/pg_hba.conf` (Debian Testing)
 
-Ajouter la ligne :
+Mettre les droits de connexion :
 
+    # Database administrative login by Unix domain socket
+    local   all             postgres                                trust
     local   all             symfony                                 trust
-
-Après la ligne :
-
-    local   all             postgres                                peer
-
-Et la ligne :
-
+    
+    # TYPE  DATABASE        USER            ADDRESS                 METHOD
+    
+    local   all             all                                     trust
+    host    all             all             127.0.0.1/32            trust
     host    all             symfony         0.0.0.0/0               trust
-
-Après les lignes :
-
-    # IPv4 local connections:
-    host    all             all             127.0.0.1/32            md5
+    host    all             all             ::1/128                 md5
 
 Passer en utilisateur posgres :
 
