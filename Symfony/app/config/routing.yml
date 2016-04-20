@@ -1,3 +1,13 @@
+transport:
+    resource: "@TransportBundle/Controller/"
+    type:     annotation
+    prefix:   /
+
+network:
+    resource: "@NetworkBundle/Controller/"
+    type:     annotation
+    prefix:   /
+
 app:
     resource: "@AppBundle/Controller/"
     type:     annotation

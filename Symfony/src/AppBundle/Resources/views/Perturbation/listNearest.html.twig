@@ -13,7 +13,7 @@
 					<div class="row">
 						<div class="cell middle left">{{ p.name }}</div>
 						<div class="cell middle right">
-							{% if p.activated %}
+							{% if p.activated and not p.valid %}
 							<span
 								class="button inhibate" 
 								data-path="{{ path('vote', { id_perturbation: p.id, id_message: 1}) }}"
@@ -31,7 +31,7 @@
 								<i class="fa fa-hourglass-end"></i>
 							</span>
 							{% endif %}
-							{% if not p.valid %}
+							{% if not p.valid and p.activated %}
 								<span
 									class="button validate" 
 									data-path="{{ path('vote', { id_perturbation: p.id, id_message: 3}) }}"

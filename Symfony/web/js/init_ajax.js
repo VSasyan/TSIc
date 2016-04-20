@@ -4,6 +4,7 @@ function getPage(route, after) {
 	return $.get(route, function(data, status) {
 		document.title = data.title;
 		$('#ajax_loader').html(data.content);
+		showMessages(data.messages || '');
 		map.invalidateSize();
 		if(after != false) { after(); }
 	});
@@ -55,6 +56,7 @@ var functions = {
 			geoloc.callback();
 		}
 	},
+	none : function(){},
 };
 
 document.addEventListener("DOMContentLoaded", function() {

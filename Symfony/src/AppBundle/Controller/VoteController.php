@@ -44,8 +44,8 @@ class VoteController extends StatutController {
 
 					if ($this->isProfessionnel() | $this->isAdmin()) {
 
-						if ($id_message == 1) {$pertubation->setActivated(false);}
-						elseif ($id_message == 2) {$pertubation->setTerminated(true);}
+						if ($id_message == 1) {$perturbation->setActivated(false);}
+						elseif ($id_message == 2) {$perturbation->setTerminated(true);}
 						elseif ($id_message == 3) {$perturbation->setValid(true);}
 
 						$em->persist($perturbation);

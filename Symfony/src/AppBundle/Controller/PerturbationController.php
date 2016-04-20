@@ -37,10 +37,6 @@ class PerturbationController extends StatutController {
 		$repository = $this->getDoctrine()->getManager()->getRepository('AppBundle:Perturbation');
 		$perturbations = $repository->findAll();
 
-		/*foreach ($perturbations as $p) {
-				$virtualPerturbations[] = $p->returnVirtualPerturbation();
-		}*/
-
 		return $this->render('AppBundle:Perturbation:listAll.html.twig', array(
 		   'perturbations' => $perturbations,
 		   'title'    => "Liste des perturbations",
@@ -66,11 +62,9 @@ class PerturbationController extends StatutController {
 
 		//example
 		$position = "ST_GeomFromText('" . $position . "',4326)";
-		/*$position = "ST_GeomFromText('POINT(-72.1235 42.3521)',4326)";*/
 
 		$repository = $this->getDoctrine()->getManager()->getRepository('AppBundle:Perturbation');
 		$perturbations = $repository->findNearest($position, $radius);
-
 
 		$virtualPerturbations = array();
 		foreach ($perturbations as $p) {
@@ -229,6 +223,19 @@ class PerturbationController extends StatutController {
 
 				$em->persist($formulation_new);
 				$em->flush();
+
+				//initialisation de elephant.io
+				$client = new Client(new Version1X('http://localhost:8080'));
+				$client ->initialize();
+
+				$request->getSession()->getFlashBag()->add('notice', 'Modification de perturbation chargée.');
+				$template = $this->container->get('templating')->render('AppBundle:Ajax:confirmation.html.twig');
+
+				$client ->emit('emitPHP', [
+					'message' => $template,
+					'coordinates' => $formulation->getCenter()
+				]);
+				$client ->close();
 				
 				$request->getSession()->getFlashBag()->add('success', 'Perturbation bien modifiée.');
 

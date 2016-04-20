@@ -2,6 +2,8 @@ imports:
     - { resource: parameters.yml }
     - { resource: security.yml }
     - { resource: services.yml }
+    - { resource: "@NetworkBundle/Resources/config/services.yml" }
+    - { resource: "@TransportBundle/Resources/config/services.yml" }
 
 
 # Put parameters here that don't need to change on each machine where the app is deployed
@@ -75,4 +77,4 @@ swiftmailer:
 
 # FOSJs routing (client-side routing) needs exposed routes
 fos_js_routing:
-    routes_to_expose: [ perturbation_list_nearest, logo_type_perturbation, logo_type_objet_terrain, objet_terrain_list_nearest ]
+    routes_to_expose: [ perturbation_list_nearest, logo_type_perturbation, logo_type_objet_terrain, objet_terrain_list_nearest, transport_link_add, transport_node_add ]
