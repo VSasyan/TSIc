@@ -55,6 +55,12 @@ Executer dans pgAdmin :
 	DROP TABLE type_objet_terrain CASCADE;
 	DROP TABLE type_perturbation CASCADE;
 	DROP TABLE vote CASCADE;
+	DROP TABLE access_restriction CASCADE;
+	DROP TABLE access_restriction_value CASCADE;
+	DROP TABLE restriction_for_vehicles CASCADE;
+	DROP TABLE restriction_type_value CASCADE;
+	DROP TABLE weather_condition CASCADE;
+	DROP TABLE weather_condition_value CASCADE;
 
 	DROP SEQUENCE admin_id_seq;
 	DROP SEQUENCE formulation_id_seq;
@@ -70,3 +76,9 @@ Executer dans pgAdmin :
 	DROP SEQUENCE type_objet_terrain_id_seq;
 	DROP SEQUENCE type_perturbation_id_seq;
 	DROP SEQUENCE vote_id_seq;
+	DROP SEQUENCE access_restriction_inspireid_seq;
+	DROP SEQUENCE access_restriction_value_id_seq;
+	DROP SEQUENCE restriction_for_vehicles_inspireid_seq;
+	DROP SEQUENCE restriction_type_value_id_seq;
+	DROP SEQUENCE weather_condition_inspireid_seq;
+	DROP SEQUENCE weather_condition_value_id_seq;
