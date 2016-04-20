@@ -95,6 +95,49 @@ class PerturbationController extends StatutController {
 	}
 
 	/**
+	* @Route("/perturbation/list/nearest-ajax/{position}/{radius}", name="ajax_perturbation_list_nearest", defaults={
+	*	  "position" : false,
+	*     "radius": 1000
+	* })
+	*/
+	public function listNearestAjaxAction($position, $radius){
+
+		$em = $this->getDoctrine()->getManager();
+		$repository = $em->getRepository('AppBundle:Perturbation');
+
+		// Terminate old perturbations :
+		$olds = $repository->findOld();
+		if (count($olds) > 0) {
+			foreach ($olds as $p) {$p->setTerminated(true);}
+			$em->flush();
+		}
+		
+		if($position == false) {return $this->redirect($this->generateUrl('perturbation_index'));}
+
+		$position = "ST_GeomFromText('" . $position . "',4326)";
+
+		$perturbations = $repository->findNearest($position, $radius);
+
+		$virtualPerturbations = array();
+		foreach ($perturbations as $p) {
+			$f = $p->getLastFormulation();
+			$virtualPerturbations[] = array(
+				'id' => $p->getId(),
+				'name' => $f->getName(),
+				'geometry' => $f->getCenter(),
+				'type' => $f->getType()->getId(),
+				'type_name' => $f->getType()->getName()
+			);
+		}
+
+		$response = new Response(json_encode($virtualPerturbations));
+		
+		$response->headers->set('Content-Type', 'application/json');
+		return $response;
+
+	}
+
+	/**
 	* @Route("/perturbation/add", name="perturbation_add")
 	*/
 	public function addAction(Request $request){
