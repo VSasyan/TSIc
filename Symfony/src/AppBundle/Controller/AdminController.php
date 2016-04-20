@@ -232,6 +232,40 @@ class AdminController extends StatutController {
 			$maximumWidth->setName('Maximum Width');
 			$em->persist($maximumWidth);
 
+			// CREATION DES ENUM TRANSPORT::FORM OF ROAD NODE
+
+			$enclosedTrafficArea = new FormOfRoadNodeValue();
+			$enclosedTrafficArea->setName('Enclosed Traffic Area');
+			$em->persist($enclosedTrafficArea);
+
+			$junction = new FormOfRoadNodeValue();
+			$junction->setName('Junction');
+			$em->persist($junction);
+
+			$levelCrossing = new FormOfRoadNodeValue();
+			$levelCrossing->setName('Level Crossing');
+			$em->persist($levelCrossing);
+
+			$pseudoNode = new FormOfRoadNodeValue();
+			$pseudoNode->setName('Pseudo Node');
+			$em->persist($pseudoNode);
+
+			$roadEnd = new FormOfRoadNodeValue();
+			$roadEnd->setName('Road End');
+			$em->persist($roadEnd);
+
+			$roadServiceArea = new FormOfRoadNodeValue();
+			$roadServiceArea->setName('Road Service Area');
+			$em->persist($roadServiceArea);
+
+			$roundabout = new FormOfRoadNodeValue();
+			$roundabout->setName('Roundabout');
+			$em->persist($roundabout);
+
+			$trafficSquare = new FormOfRoadNodeValue();
+			$trafficSquare->setName('Traffic Square');
+			$em->persist($trafficSquare);
+
 
 			$em->flush();
 

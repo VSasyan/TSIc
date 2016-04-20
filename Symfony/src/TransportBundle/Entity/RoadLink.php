@@ -15,4 +15,3 @@ use TransportBundle\Entity\TransportLink;
 class RoadLink extends TransportLink
 {
 }
-
