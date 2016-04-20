@@ -11,12 +11,13 @@ function getPage(route, after) {
 	});
 }
 
-function getObject(route) {
+function getObject(route, callback) {
+	var callback = callback || function(x) {};
 	$.ajax({
 		url : route,
 		type : 'GET',
 		success : function(data) {
-			show_nearestObjetsTerrains(data);
+			callback(data);
 		}
 	});
 }
