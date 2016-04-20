@@ -1,5 +1,6 @@
 imports:
     - { resource: parameters.yml }
+    - { resource: parameters_osm.yml }
     - { resource: security.yml }
     - { resource: services.yml }
     - { resource: "@NetworkBundle/Resources/config/services.yml" }
@@ -43,13 +44,24 @@ twig:
 # Doctrine Configuration
 doctrine:
     dbal:
-        driver:   "pdo_pgsql"
-        host:     "%database_host%"
-        port:     "%database_port%"
-        dbname:   "%database_name%"
-        user:     "%database_user%"
-        password: "%database_password%"
-        charset:  UTF8
+        default_connection: default
+        connections:
+            default:
+                driver:   "pdo_pgsql"
+                host:     "%database_host%"
+                port:     "%database_port%"
+                dbname:   "%database_name%"
+                user:     "%database_user%"
+                password: "%database_password%"
+                charset:  UTF8
+            osm:
+                driver:   "pdo_pgsql"
+                host:     "%database_host_osm%"
+                port:     "%database_port_osm%"
+                dbname:   "%database_name_osm%"
+                user:     "%database_user_osm%"
+                password: "%database_password_osm%"
+                charset:  UTF8
         # if using pdo_sqlite as your database driver:
         #   1. add the path in parameters.yml
         #     e.g. database_path: "%kernel.root_dir%/data/data.db3"
@@ -58,14 +70,29 @@ doctrine:
         #     path:     "%database_path%"
 
     orm:
+        default_entity_manager: default
         auto_generate_proxy_classes: "%kernel.debug%"
-        naming_strategy: doctrine.orm.naming_strategy.underscore
-        auto_mapping: true
-        dql:
-            string_functions:
-                ST_Distance: Jsor\Doctrine\PostGIS\Functions\ST_Distance
-                ST_GeomFromText: Jsor\Doctrine\PostGIS\Functions\ST_GeomFromText
-                ST_GeogFromText: Jsor\Doctrine\PostGIS\Functions\ST_GeogFromText
+        entity_managers:
+            default:
+                connection: default
+                mappings:
+                    AppBundle:  ~
+                dql:
+                    string_functions:
+                        ST_Distance: Jsor\Doctrine\PostGIS\Functions\ST_Distance
+                        ST_GeomFromText: Jsor\Doctrine\PostGIS\Functions\ST_GeomFromText
+                naming_strategy: doctrine.orm.naming_strategy.underscore
+                auto_mapping: true
+
+            osm:
+                connection: osm
+                mappings:
+                    TransportBundle:  ~
+                dql:
+                    string_functions:
+                        ST_Distance: Jsor\Doctrine\PostGIS\Functions\ST_Distance
+                        ST_GeomFromText: Jsor\Doctrine\PostGIS\Functions\ST_GeomFromText
+                naming_strategy: doctrine.orm.naming_strategy.underscore
 
 # Swiftmailer Configuration
 swiftmailer:
