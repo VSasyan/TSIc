@@ -8,7 +8,6 @@
 {% endblock %}
 
 {% block javascripts %}
-	<script src="{{ asset('js/init_geoloc.js') }}"></script>
 	<script src="{{ asset('js/init_edit_perturbation.js') }}"></script>
 {% endblock %}
 
@@ -25,7 +24,8 @@
 		<div>
 			{{ form_errors(form) }}
 			{{ form_row(form.name) }}
-			{{ form_row(form.type) }}
+			{{ form_row(form.nullType) }}
+			{{ form_row(form.freeType) }}
 			{{ form_row(form.description) }}
 			{{ form_row(form.causes) }}
 		</div>

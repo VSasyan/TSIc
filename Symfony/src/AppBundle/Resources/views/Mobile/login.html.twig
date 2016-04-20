@@ -1,0 +1,24 @@
+<div class="full">
+	<form action="{{ path("login_check", {}) }}" method="POST" >
+
+		<h3>Connectez-vous pour participer !</h3>
+
+		<div id="login">
+			<div class="form-group">
+				<label for="inputUsernameEmail">Utilisateur</label>
+				<input type="text" required="required" placeholder="Pseudo" name="_username" id="username">
+			</div>
+
+			<div class="form-group">
+				<label for="inputPassword">Mot de passe</label>
+				<input type="password" placeholder="Mot de passe" name="_password" required="required" id="password">
+			</div>
+
+			<button type="submit">Login</button>
+		</div>
+	</form>
+
+	<div class="center">
+		<span class="button" data-type="initSection" data-initSection="signin">Signin</span>
+	</div>
+</div>

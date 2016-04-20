@@ -70,4 +70,39 @@ class FileController extends StatutController {
 		return $response;
 	}
 
+	/**
+	* @Route("/file/file/{id}", name="file", defaults={"id": 0})
+	*/
+	public function fileAction($id = 0) {
+
+		$dir_logo = __DIR__ . '/../../../upload/file/';
+
+		$element = $this->getDoctrine()->getManager()->getRepository('AppBundle:File')->find($id);
+		
+		if ($element && $element->getFilePath()) {
+
+			$filename = $element->getFilePath();
+
+			if (file_exists($dir_logo . $filename)) {
+				$path =  $dir_logo . $filename;
+
+				// Generate response
+				$response = new Response();
+
+				// Set headers
+				$response->headers->set('Cache-Control', 'private');
+				$response->headers->set('Content-type', mime_content_type($path));
+				$response->headers->set('Content-Disposition', 'attachment; filename="' . basename($filename) . '";');
+				$response->headers->set('Content-length', filesize($path));
+				$response->sendHeaders();
+				$response->setContent(file_get_contents($path));
+
+				return $response;
+			}
+		}
+
+		throw $this->createNotFoundException('The product does not exist');
+
+	}
+
 }

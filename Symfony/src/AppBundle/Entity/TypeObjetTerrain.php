@@ -33,6 +33,13 @@ class TypeObjetTerrain
     /**
      * @var string
      *
+     * @ORM\Column(name="radius", type="integer", options={"default" = 50000})
+     */
+    private $radius;
+
+    /**
+     * @var string
+     *
      * @ORM\Column(name="description", type="text", nullable=true)
      */
     private $description;
@@ -259,5 +266,28 @@ class TypeObjetTerrain
             unlink($file);
         }
     }
-}
 
+    /**
+     * Set radius
+     *
+     * @param integer $radius
+     *
+     * @return TypeObjetTerrain
+     */
+    public function setRadius($radius)
+    {
+        $this->radius = $radius;
+
+        return $this;
+    }
+
+    /**
+     * Get radius
+     *
+     * @return integer
+     */
+    public function getRadius()
+    {
+        return $this->radius;
+    }
+}

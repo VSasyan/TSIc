@@ -15,7 +15,7 @@ Update your local package index, then finally install Jenkins:
 
 
 Once done, open your browser an go to : http://localhost:8080 and see Jenkins' interface.  
-By default, Jenkins is running on the port 8080, but you are free to change it in the configuration file `/etc/default/jenki`.
+By default, Jenkins is running on the port 8080, but you are free to change it in the configuration file `/etc/default/jenkins`.
 
 #Configure Jenkins
 
@@ -24,4 +24,7 @@ See :
 https://www.cloudbees.com/blog/better-integration-between-jenkins-and-github-github-jenkins-plugin  
 
 Jenkins server could not run locally, because we schould secifie the server's host in the Git hub web hook of the repository, and we could not use `localhost` instead.
+
+
+http://www.sitepoint.com/continuous-integration-with-jenkins-2/
  
