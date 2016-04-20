@@ -2,6 +2,9 @@
 
 namespace TransportBundle\Repository;
 
+use \Doctrine\ORM\Query;
+use \Doctrine\ORM\EntityRepository;
+
 /**
  * RoadLinkRepository
  *
@@ -10,4 +13,19 @@ namespace TransportBundle\Repository;
  */
 class RoadLinkRepository extends \Doctrine\ORM\EntityRepository
 {
+	public function findNearest($position, $rayon) {
+
+		$qb = $this->createQueryBuilder('l');
+
+		$qb->select('l')
+			->where('ST_DISTANCE(f.center, '.$position.') < :rayon')
+			->setParameter('rayon', $rayon)
+			->orderBy('l.id', 'DESC')
+		;
+
+		$result = $qb->getQuery()->getResult();
+
+		return $result;
+
+	}
 }
