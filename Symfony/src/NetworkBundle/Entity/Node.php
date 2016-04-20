@@ -3,7 +3,7 @@
 namespace NetworkBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use Doctrine\Common\Collections\ArrayCollection;
+use \Doctrine\Common\Collections\ArrayCollection;
 
 use NetworkBundle\Entity\NetworkElement;
 
@@ -20,7 +20,7 @@ abstract class Node extends NetworkElement
     protected $geometry;
 
     /**
-    * @var  \Doctrine\Common\Collections\ArrayCollection
+    * @var  ArrayCollection
     * @ORM\OneToMany(targetEntity="RoadLink", mappedBy="inspireId")
     * @ORM\JoinTable(name="spokeStart")
     */
@@ -28,7 +28,7 @@ abstract class Node extends NetworkElement
     protected $spokeStart;
 
     /**
-    * @var  \Doctrine\Common\Collections\ArrayCollection
+    * @var  ArrayCollection
     * @ORM\OneToMany(targetEntity="RoadLink", mappedBy="inspireId")
     * @ORM\JoinTable(name="spokeEnd")
     */
@@ -62,11 +62,11 @@ abstract class Node extends NetworkElement
     /**
      * Set spokeStart
      *
-     * @param Doctrine\Common\Collections\ArrayCollection $spokeStart
+     * @param ArrayCollection $spokeStart
      *
      * @return Node
      */
-    public function setSpokeStart(Doctrine\Common\Collections\ArrayCollection $spokeStart = null)
+    public function setSpokeStart(ArrayCollection $spokeStart = null)
     {
         $this->spokeStart = $spokeStart;
 
@@ -76,7 +76,7 @@ abstract class Node extends NetworkElement
     /**
      * Get spokeStart
      *
-     * @return Doctrine\Common\Collections\ArrayCollection
+     * @return ArrayCollection
      */
     public function getSpokeStart()
     {
@@ -86,11 +86,11 @@ abstract class Node extends NetworkElement
     /**
      * Set spokeEnd
      *
-     * @param Doctrine\Common\Collections\ArrayCollection $spokeEnd
+     * @param ArrayCollection $spokeEnd
      *
      * @return Node
      */
-    public function setSpokeEnd(Doctrine\Common\Collections\ArrayCollection $spokeEnd = null)
+    public function setSpokeEnd(ArrayCollection $spokeEnd = null)
     {
         $this->spokeEnd = $spokeEnd;
 
@@ -100,7 +100,7 @@ abstract class Node extends NetworkElement
     /**
      * Get spokeEnd
      *
-     * @return Doctrine\Common\Collections\ArrayCollection
+     * @return ArrayCollection
      */
     public function getSpokeEnd()
     {
