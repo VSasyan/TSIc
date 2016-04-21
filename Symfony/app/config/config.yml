@@ -81,6 +81,7 @@ doctrine:
                     string_functions:
                         ST_Distance: Jsor\Doctrine\PostGIS\Functions\ST_Distance
                         ST_GeomFromText: Jsor\Doctrine\PostGIS\Functions\ST_GeomFromText
+                        ST_GeogFromText: Jsor\Doctrine\PostGIS\Functions\ST_GeogFromText
                 naming_strategy: doctrine.orm.naming_strategy.underscore
                 auto_mapping: true
 
@@ -92,6 +93,7 @@ doctrine:
                     string_functions:
                         ST_Distance: Jsor\Doctrine\PostGIS\Functions\ST_Distance
                         ST_GeomFromText: Jsor\Doctrine\PostGIS\Functions\ST_GeomFromText
+                        ST_GeogFromText: Jsor\Doctrine\PostGIS\Functions\ST_GeogFromText
                 naming_strategy: doctrine.orm.naming_strategy.underscore
 
 # Swiftmailer Configuration
