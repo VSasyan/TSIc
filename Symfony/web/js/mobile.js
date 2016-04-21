@@ -45,7 +45,7 @@ var initSection = {
 // Map nearest function :
 var mapNearest = {
 	position : L.latLng(48.856578, 2.351828),
-	positionMaker : false,
+	positionMarker : false,
 	updatePosition : true,
 	map : false,
 	viewBounds : false,
