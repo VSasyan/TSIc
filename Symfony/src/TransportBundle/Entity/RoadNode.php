@@ -16,7 +16,7 @@ class RoadNode extends TransportNode
 {
 	/**
     * @ORM\ManyToOne(targetEntity="FormOfRoadNodeValue", inversedBy="")
-    * @ORM\JoinColumn(nullable=false)
+    * @ORM\JoinColumn(nullable=true)
     */
 	private $formOfRoadNode;
 
