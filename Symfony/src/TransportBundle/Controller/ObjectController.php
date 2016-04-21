@@ -48,7 +48,13 @@ class ObjectController extends StatutController {
 		$nodeRepository = $em->getRepository('TransportBundle:RoadNode');
 		$linkRepository = $em->getRepository('TransportBundle:RoadLink');
 		
-		if($position == false) {return $this->redirect($this->generateUrl('transport_index'));}
+		if($position == false) {
+
+			return $this->render('TransportBundle:Default:list_nearest.html.twig', array(
+				'function' => 'listNearestObjects'
+				)
+			);
+		}
 
 		$position = "ST_GeomFromText('" . $position . "',4326)";
 
@@ -59,7 +65,7 @@ class ObjectController extends StatutController {
 
 		foreach ($nodes as $node) {
 
-			$virtualLinks[] = array(
+			$virtualNodes[] = array(
 				'name' => $node->getGeographicalName(),
 				'geometry' => $node->getGeometry(),
 			);				
@@ -71,15 +77,14 @@ class ObjectController extends StatutController {
 
 			$virtualLinks[] = array(
 				'name' => $link->getGeographicalName(),
-				'centreLineGeometry' => $link->getCentrelineGeometry(),
+				'geometry' => $link->getCentrelineGeometry(),
 			);				
 		}
 
-		$objects = array_merge($nodes, $links);
+		$objects = array_merge($virtualNodes, $virtualLinks);
 
 		$response = new JsonResponse();
 		$response->setData($objects);
-
 		return $response;
 
 	}
@@ -101,7 +106,7 @@ class ObjectController extends StatutController {
 			$em->persist($roadLink);
 			$em->flush();
 
-			$request->getSession()->getFlashBag()->add('success', 'Lien bien ajouté.');
+			$request->getSession()->getFlashBag()->add('success', 'Lien bien ajouté');
 
             $messages .= $this->container->get('templating')->render('AppBundle:Ajax:confirmation.html.twig');
 
@@ -138,7 +143,7 @@ class ObjectController extends StatutController {
 			$em->persist($roadNode);
 			$em->flush();
 
-			$request->getSession()->getFlashBag()->add('success', 'Noeud bien ajouté.');
+			$request->getSession()->getFlashBag()->add('success', 'Noeud bien ajouté');
 
 			$messages .= $this->container->get('templating')->render('AppBundle:Ajax:confirmation.html.twig');
 

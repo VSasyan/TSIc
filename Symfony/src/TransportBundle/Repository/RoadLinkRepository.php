@@ -18,9 +18,9 @@ class RoadLinkRepository extends \Doctrine\ORM\EntityRepository
 		$qb = $this->createQueryBuilder('l');
 
 		$qb->select('l')
-			->where('ST_DISTANCE(f.center, '.$position.') < :rayon')
+			->where('ST_DISTANCE(ST_GeomFromText(l.centrelineGeometry, 4326), '.$position.') < :rayon')
 			->setParameter('rayon', $rayon)
-			->orderBy('l.id', 'DESC')
+			->orderBy('l.inspireId', 'DESC')
 		;
 
 		$result = $qb->getQuery()->getResult();

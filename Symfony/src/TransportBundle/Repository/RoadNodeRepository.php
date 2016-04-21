@@ -18,9 +18,9 @@ class RoadNodeRepository extends \Doctrine\ORM\EntityRepository
 		$qb = $this->createQueryBuilder('n');
 
 		$qb->select('n')
-			->where('ST_DISTANCE(f.center, '.$position.') < :rayon')
+			->where('ST_DISTANCE(ST_GeomFromText(n.geometry, 4326), '.$position.') < :rayon')
 			->setParameter('rayon', $rayon)
-			->orderBy('n.id', 'DESC')
+			->orderBy('n.inspireId', 'DESC')
 		;
 
 		$result = $qb->getQuery()->getResult();
