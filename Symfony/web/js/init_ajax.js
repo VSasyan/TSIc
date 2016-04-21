@@ -58,6 +58,11 @@ var functions = {
 			geoloc.callback();
 		}
 	},
+	listNearestObjects : function() {
+		geoloc.init();
+		initMap();
+		listNearestObjects(map.getBounds());
+	},
 	none : function(){},
 };
 
