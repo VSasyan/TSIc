@@ -138,10 +138,16 @@ Ajouter un utilisateur symfony :
 Ajouter la base `tsic` :
 
     create database tsic WITH owner symfony;
+    create database osm WITH owner symfony;
 
 Ajouter l'extension spatiale dans la base `tsic` :
 
     \connect tsic
+    CREATE EXTENSION postgis;
+
+Ajouter l'extension spatiale dans la base `osm` :
+
+    \connect osm
     CREATE EXTENSION postgis;
 
 Ensuite, toute la gestion de la base de donnée est délégué à Symfony. L'initialisation 
