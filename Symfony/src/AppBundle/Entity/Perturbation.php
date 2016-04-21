@@ -17,7 +17,7 @@ class Perturbation
      *
      * @ORM\Column(name="id", type="integer")
      * @ORM\Id
-     * @ORM\GeneratedValue(strategy="AUTO")
+     * @ORM\GeneratedValue(strategy="IDENTITY")
      */
     private $id;
 
@@ -261,13 +261,9 @@ class Perturbation
         return $this->votes;
     }
 
-    /**
-     * return Virtual Pertubation
-     * cette fonction récupère un tableau des plus proches
-     * perturbations et retourne les dernières formulations
-     * correspondant aux perturbations
-     * Pertubation------[Formulations] ====> [virtualPerturbation]
-     */
+
+
+    //cette fonction récupère un tableau des plus proches perturbations et retourne les dernières formulations correspondant aux perturbations
     public function returnVirtualPerturbation()
     {
         //tableau des résultats

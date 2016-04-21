@@ -29,7 +29,9 @@
         "incenteev/composer-parameter-handler": "^2.0",
         "jsor/doctrine-postgis": "^1.0",
         "friendsofsymfony/jsrouting-bundle": "^1.6",
-        "phpunit/phpunit": "4.8.*"
+        "phpunit/phpunit": "4.8.*",
+	    "snc/redis-bundle": "2.x-dev",
+	    "predis/predis": "^1.0"
     },
     "require-dev": {
         "sensio/generator-bundle": "^3.0",

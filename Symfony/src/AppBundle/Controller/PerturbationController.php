@@ -107,9 +107,9 @@ class PerturbationController extends StatutController {
 	}
 
 	/**
-	* @Route("/perturbation/add", name="perturbation_add")
+	* @Route("/perturbation/add/redis", name="perturbation_add")
 	*/
-	public function addAction(Request $request){
+	public function addRedisAction(Request $request){
 
 		$formulation = new Formulation();
 		// Gestion date dans le formulaire
@@ -126,15 +126,36 @@ class PerturbationController extends StatutController {
 			$formulation->setValidFormulation(true);
 			$perturbation = new Perturbation();
 			$perturbation->addFormulation($formulation);
-			$this->getUser()->addFormulation($formulation);
-			$this->getUser()->addPerturbation($perturbation);
+			$this->getCurrentUser()->addFormulation($formulation);
+			$this->getCurrentUser()->addPerturbation($perturbation);
 
-			$em->persist($this->getUser());
-			$em->flush();
+			#$em->persist($this->getCurrentUser());
+			#$em->flush();
+			$creation_date=date_format($perturbation->getCreationDate(), 'Y-m-d h-m-s');
+			$begin_date=date_format($formulation->getBeginDate(), 'Y-m-d h-m-s');
+			$end_date=date_format($formulation->getEndDate(), 'Y-m-d h-m-s');
+			$redis = $this->get('snc_redis.default');
+			$data_id = $redis->incr('data:id');
+			$data_json = array(
+				'data_id' => $data_id,
+				'user_id' => $this->getCurrentUser()->getId(),
+				'perturbation_id' => $perturbation->getId(),
+				'perturbation_name' => $formulation->getName(),
+				'perturbation_creation_date' => $creation_date,
+				'description' => $formulation->getDescription(),
+				'perturbation_type' => $formulation->getType()->getId(),
+				'center' => $formulation->getCenter(),
+				'begin_date' => $begin_date,
+				'end_date' => $end_date
+			);
+			$json = json_encode($data_json);
+			#$jsonKey= $formulation->getName();
+
+			$redis->set ($data_id, $json);
 			
 			$request->getSession()->getFlashBag()->add('success', 'Perturbation bien enregistrée.');
 
-			return $this->redirect($this->generateUrl('perturbation_show', array('id' => $perturbation->getId())));
+			return $this->redirect($this->generateUrl('perturbation_list_nearest'));
 		}
 
 		return $this->render('AppBundle:Perturbation:add.html.twig', array('form' => $form->createView()));
