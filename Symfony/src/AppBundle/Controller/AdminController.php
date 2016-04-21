@@ -16,7 +16,6 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use TransportBundle\Entity\AccessRestrictionValue;
 use TransportBundle\Entity\WeatherConditionValue;
 use TransportBundle\Entity\RestrictionTypeValue;
-use TransportBundle\Entity\FormOfRoadNodeValue;
 
 class AdminController extends StatutController {
 
