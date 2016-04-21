@@ -44,7 +44,7 @@ class ObjectController extends StatutController {
 	*/
 	public function listNearestAction($position, $radius){
 
-		$em = $this->getDoctrine()->getManager();
+		$em = $this->getDoctrine()->getManager('osm');
 		$nodeRepository = $em->getRepository('TransportBundle:RoadNode');
 		$linkRepository = $em->getRepository('TransportBundle:RoadLink');
 		
@@ -101,7 +101,7 @@ class ObjectController extends StatutController {
 		$form = $this->createForm(RoadLinkType::class, $roadLink);
 
 		if ($form->handleRequest($request)->isValid()) {
-			$em = $this->getDoctrine()->getManager();
+			$em = $this->getDoctrine()->getManager('osm');
 
 			$em->persist($roadLink);
 			$em->flush();
@@ -138,7 +138,7 @@ class ObjectController extends StatutController {
 		$form = $this->createForm(RoadNodeType::class, $roadNode);
 
 		if ($form->handleRequest($request)->isValid()) {
-			$em = $this->getDoctrine()->getManager();
+			$em = $this->getDoctrine()->getManager('osm');
 
 			$em->persist($roadNode);
 			$em->flush();
