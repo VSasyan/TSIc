@@ -307,7 +307,7 @@ class PerturbationController extends StatutController {
 	/**
 	* @Route("/professionnel/perturbation/edit/{id}", name="perturbation_edit")
 	*/
-	public function editAction($id, Request $request){
+	public function editAction(Request $request, $id){
 
 		$em = $this->getDoctrine()->getManager();
 		$perturbation = $em->getRepository('AppBundle:Perturbation')->find($id);

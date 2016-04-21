@@ -4,7 +4,7 @@
 
 ### Installation des programmes
 
-Pour fonctionner, le site à besoin de :
+Pour fonctionner, le site a besoin de :
 * `Apache 2.4` : gestion du serveur ;
 * `PHP 5.6` : gestion du site, droit d'accès des utilisateurs, enregistrement dans les base de données ;
 * `Postgres 9.4` et `PostGIS 2.1` : base de donnée SQL pour le stockage des informations ;
@@ -12,14 +12,16 @@ Pour fonctionner, le site à besoin de :
 
 On peut ajouter en plus :
 * `Redis` : base de donnée pour stocker les perturbations envoyées pour éviter de surcharger le site ;
-* `Java` : script pour copeir les pertrubations de la base Redis à la base PostGIS.
+* `Java` : script pour copier les perturbations de la base Redis à la base PostGIS.
 
-Commades à exécuter sous linux (debian Jessie) :
+Commandes à exécuter sous Linux (Debian *Jessie*) :
 
     sudo apt-get update
     sudo apt-get install apache2 php5 php5-pgsql postgresql-9.4-postgis-2.1 nodejs
 
 Installation pour Debian Wheezy : [Voir ici](update-debian.md)
+
+
 
 ## Cloner le projet
 
@@ -27,6 +29,8 @@ Vous devez cloner ce repository. Le repertoire `TSIc/` représente ci-dessous le
 Git ne doit pas changer les droits des fichiers :
 
     git config core.fileMode false
+
+
 
 ## Configuration
 
@@ -38,18 +42,18 @@ Il faut configurer le proxy, ajoutez dans `~/.bashrc` :
     export https_proxy="http://10.0.4.2:3128"
     export HTTP_PROXY=$http_proxy
     export HTTPS_PROXY=$https_proxy
-    
+
 Note : `composer`, le programme qui gère les dépendances de Symfony, a besoin d'un `https_proxy` en
 `http://` au lieu de `https://`. Pensez à modifier ses paramètres si vous utilisez d'autres
-programmes (notaement Git en https et non ssh).
+programmes (notamment Git en https et non ssh).
 
 ### Apache
 
-Ajouter l'utilisateur apache dans votre groupe (ici `gtsi`) :
+Ajouter l'utilisateur apache dans votre groupe (ici `gtsi`) pour lui permettre d'accéder à vos fichiers Symfony :
 
     sudo adduser www-data gtsi
 
-Modifier le répertorie par défaut d'apache :
+Modifier le répertoire par défaut d'Apache :
 
 * Dans le fichier `/etc/apache2/apache2.conf` modifier `/var/www` pour que ça pointe
 dans le dossier web de votre copie locale du GitHub. (Pour moi `/home/vsasyan/Documents/TSIc/Symfony/web`.)
@@ -76,7 +80,7 @@ Ajouter l'extension PDO (gestion avancée des base de données) :
 Ajouter les permission d'écriture dans les dossier `cache` et `log` :
 
     cd TSIc/Symfony
-    chmod -R 777 var/*
+    chmod -R 777 var
 
 Git ne sauvegarde pas les dépendances de Symfony, il faut faire :
 
@@ -112,22 +116,15 @@ Dans le fichier :
 
 Mettre les droits de connexion :
 
-    # Database administrative login by Unix domain socket
-    local   all             postgres                                trust
-    local   all             symfony                                 trust
-    
     # TYPE  DATABASE        USER            ADDRESS                 METHOD
-    
     local   all             all                                     trust
-    host    all             all             127.0.0.1/32            trust
-    host    all             symfony         0.0.0.0/0               trust
-    host    all             all             ::1/128                 md5
+    host    all             all             0.0.0.0/0               trust
 
-Passer en utilisateur posgres :
+Passer en utilisateur postgres :
 
-    sudo su postgres
+    sudo su - postgres
 
-Se connecter à la base via psql :
+Se connecter à la base par défaut via psql :
 
     psql
 
@@ -135,7 +132,7 @@ Ajouter un utilisateur symfony :
 
     create role symfony WITH createdb login;
 
-Ajouter la base `tsic` :
+Créer les bases de donnée `tsic` et `osm` :
 
     create database tsic WITH owner symfony;
     create database osm WITH owner symfony;
@@ -150,8 +147,9 @@ Ajouter l'extension spatiale dans la base `osm` :
     \connect osm
     CREATE EXTENSION postgis;
 
-Ensuite, toute la gestion de la base de donnée est délégué à Symfony. L'initialisation 
-de la base se fait donc via ligne de commadne :
+Ensuite, toute la gestion de la base de donnée est déléguée à Symfony. L'initialisation 
+de la base se fait donc en ligne de commande. Quittez le shell psql en tapant `\q`,
+quittez le shell postgres, puis tapez les commandes suivantes :
 
     php bin/console doctrine:schema:update --dump-sql
 
@@ -159,7 +157,12 @@ Cette ligne vous affiche les modifications à effectuer pour mettre à jour la b
 
     php bin/console doctrine:schema:update --force
 
-L'ensemble (?) des commandes est disponible ici : [Liste des commandes](commandes.md)
+Faire de même pour la base `osm` :
+
+    php bin/console doctrine:schema:update --em=osm --dump-sql
+    php bin/console doctrine:schema:update --em=osm --force
+
+L'ensemble (?) des commandes est disponible ici : [Liste des commandes](symfony/commandes.md)
 
 
 
@@ -172,7 +175,7 @@ Debian 7 :
     sudo service postgresql restart
     sudo service apache2 restart
 
-Debian 9 :
+Debian 8 et 9 :
 
     sudo systemctl restart postgresql
     sudo systemctl restart apache2
@@ -183,12 +186,25 @@ Il faut bien penser à démarrer NodeJS. Pour cela allez dans le dossier `TSIc/n
 
     (nodejs app.js &)
 
+[HACK] Lors de la première utilisation, initialisez la base de donnée
+avec les valeurs de énumérations et des utilisateurs par défaut :
+
+* *nom*:*mot-de-passe*
+* `user`:`user`
+* `pro`:`pro`
+* `admin`:`admin`
+
+    http://127.0.0.1/app_dev.php/init
+
+
 ## Accéder au site !
 
-Lancer appache2. Vous pouvez verifier que tout fonctionne ici :
+Lancer apache2. Vous pouvez verifier que tout fonctionne ici :
 * http://127.0.0.1/config.php
 * http://127.0.0.1/app_dev.php
-    
+
+
+
 ## Notes diverses
 
 ### PHP 7
