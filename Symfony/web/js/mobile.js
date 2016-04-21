@@ -106,7 +106,7 @@ var mapNearest = {
 
 	newPosition : function(position) {
 		mapNearest.position = L.latLng(position.coords.latitude, position.coords.longitude);
-		if (mapNearest.positionMaker === false) {
+		if (mapNearest.positionMarker === false) {
 			mapNearest.positionMarker = L.marker(mapNearest.position).addTo(mapNearest.map);
 		} else {
 			mapNearest.positionMarker.setLatLng(mapNearest.position);
