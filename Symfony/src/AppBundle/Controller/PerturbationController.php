@@ -121,13 +121,23 @@ class PerturbationController extends StatutController {
 		$virtualPerturbations = array();
 		foreach ($perturbations as $p) {
 			$f = $p->getLastFormulation();
-			$virtualPerturbations[] = array(
-				'id' => $p->getId(),
-				'name' => $f->getName(),
-				'geometry' => $f->getCenter(),
-				'type' => $f->getType()->getId(),
-				'type_name' => $f->getType()->getName()
-			);
+			if (is_a($f->getType(), 'AppBundle\Entity\TypePerturbation')) {
+				$virtualPerturbations[] = array(
+					'id' => $p->getId(),
+					'name' => $f->getName(),
+					'geometry' => $f->getCenter(),
+					'type' => $f->getType()->getId(),
+					'type_name' => $f->getType()->getName()
+				);
+			} else {
+				$virtualPerturbations[] = array(
+					'id' => $p->getId(),
+					'name' => $f->getName(),
+					'geometry' => $f->getCenter(),
+					'type' => 0,
+					'type_name' => $f->getFreeType()
+				);
+			}
 		}
 
 		$response = new Response(json_encode($virtualPerturbations));
