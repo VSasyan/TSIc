@@ -37,7 +37,7 @@ class AdminController extends StatutController {
 		$em = $this->getDoctrine()->getManager();
 		$users = $em->getRepository('AppBundle:Particulier')->findAll();
 
-		if (count($users) != 0) {
+		if (count($users) == 0) {
 
 			// CREATION DES UTILISATEURS :
 
