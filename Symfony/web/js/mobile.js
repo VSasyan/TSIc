@@ -107,9 +107,9 @@ var mapNearest = {
 	newPosition : function(position) {
 		mapNearest.position = L.latLng(position.coords.latitude, position.coords.longitude);
 		if (mapNearest.positionMaker === false) {
-			positionMarker = L.marker(mapNearest.position).addTo(mapNearest.map);
+			mapNearest.positionMarker = L.marker(mapNearest.position).addTo(mapNearest.map);
 		} else {
-			positionMarker.setLatLng(mapNearest.position);
+			mapNearest.positionMarker.setLatLng(mapNearest.position);
 		}
 		if (mapNearest.updatePosition) {
 			mapNearest.map.panTo(mapNearest.position);
