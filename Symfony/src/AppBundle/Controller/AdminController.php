@@ -8,6 +8,7 @@ use AppBundle\Entity\Particulier;
 use AppBundle\Entity\Professionnel;
 use AppBundle\Entity\TypePerturbation;
 use AppBundle\Entity\TypeObjetTerrain;
+use TransportBundle\Entity\FormOfRoadNodeValue;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -36,7 +37,7 @@ class AdminController extends StatutController {
 		$em = $this->getDoctrine()->getManager();
 		$users = $em->getRepository('AppBundle:Particulier')->findAll();
 
-		if (count($users) == 0) {
+		if (count($users) != 0) {
 
 			// CREATION DES UTILISATEURS :
 
@@ -267,7 +268,7 @@ class AdminController extends StatutController {
 			$em->persist($trafficSquare);
 
 
-			$em->flush();
+			//$em->flush();
 
 			$request->getSession()->getFlashBag()->add('success', 'Base correctement initialisée.');
 
