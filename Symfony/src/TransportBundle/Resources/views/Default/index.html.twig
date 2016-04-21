@@ -8,6 +8,10 @@
 {% endblock %}
 
 {% block javascripts %}
+	<!-- Wicket JS library: see https://github.com/arthur-e/Wicket -->
+	<script src="{{ asset('js/wicket.js') }}"></script>
+	<script src="{{ asset('js/wicket-leaflet.js') }}"></script>
+
 	<script src="{{ asset('js/init_geoloc.js') }}"></script>
 	<script src="{{ asset('js/init_ajax.js') }}"></script>
 	<script src="{{ asset('js/add_object.js') }}"></script>
