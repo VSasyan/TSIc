@@ -1,0 +1,11 @@
+parameters:
+    database_host_osm: 127.0.0.1
+    database_port_osm: 5432
+    database_name_osm: osm
+    database_user_osm: symfony
+    database_password_osm: null
+    mailer_transport_osm: smtp
+    mailer_host_osm: 127.0.0.1
+    mailer_user_osm: null
+    mailer_password_osm: null
+    secret_osm: ThisTokenIsNotSoSecretChangeIt
