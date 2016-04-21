@@ -24,7 +24,7 @@ class ParticulierType extends AbstractType
             ->add('username', TextType::class,     array('label' => 'Utilisateur'))  
             ->add('password', PasswordType::class, array('label' => 'Mot de passe'))
             ->add('email',    EmailType::class,    array('label' => 'Email'))
-            ->add('save',     SubmitType::class,   array('label' => 'sauver'))
+            ->add('save',     SubmitType::class,   array('label' => 'Sauver'))
             ->getForm();
     }
     

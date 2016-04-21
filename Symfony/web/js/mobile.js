@@ -17,6 +17,7 @@ function loadSection() {
 				$('section#screen').attr("class", json.section).html(json.html);
 				document.title = json.title;
 				$('#title').html(json.title);
+				initSectionLinks();
 				initSection[json.section]();
 			}
 		})
@@ -36,10 +37,18 @@ var initSection = {
 			navigator.geolocation.watchPosition(listNearest.newPosition);
 		}
 		listNearest.newPosition({coords:{latitude:48.841277, longitude:2.587187}});
+	},
+	'login' : function() {
+		$('form').submit(function(event) {event.preventDefault();});
+	},
+	'signin' : function() {
+		$('form').submit(function(event) {event.preventDefault();});
 	}
 }
 
-
+function initSectionLinks() {
+	$('.initSection:not(.init)').click(loadSection).addClass('init');
+}
 
 
 // Map nearest function :
@@ -168,7 +177,7 @@ function show_nearestPerturbations(map, oldObjects, newObjects) {
 			popupAnchor:  [0, -10] // point from which the popup should open relative to the iconAnchor
 		});
 
-		var html = html_popup_perturbation_mobile(name, o.type_name);
+		var html = html_popup_perturbation_mobile(o.name, o.type_name);
 
 		oldObjects.push(L.marker(position, {icon: icon}).addTo(map).bindPopup(html));
 	});

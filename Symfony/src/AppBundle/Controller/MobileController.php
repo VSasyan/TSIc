@@ -2,10 +2,10 @@
 
 namespace AppBundle\Controller;
 
-use AppBundle\Entity\Message;
+use AppBundle\Entity\Particulier;
 use AppBundle\Entity\TypePerturbation;
 use AppBundle\Entity\TypeObjetTerrain;
-use AppBundle\Form\MessageType;
+use AppBundle\Form\ParticulierType;
 use AppBundle\Form\TypePerturbationType;
 use AppBundle\Form\TypeObjetTerrainType;
 use AppBundle\Repository\MessageRepository;
@@ -30,7 +30,7 @@ class MobileController extends Controller {
 	}
 
 	/**
-	* @Route("/section/{section}", name="mobile_section", defaults={"section" : "mapNearest"})
+	* @Route("/mobile/section/{section}", name="mobile_section", defaults={"section" : "mapNearest"})
 	*/  
 	public function sectionAction($section){
 		$section_list = array(
@@ -38,14 +38,18 @@ class MobileController extends Controller {
 			'listNearest' => 'Liste des perturbations à proximité',
 			'addPerturbation' => 'Ajouter une nouvelle perturbation',
 			'login' => 'Se connecter',
-			'Signin' => 'Créer un compte'
+			'signin' => 'Créer un compte'
 		);
 
 		if (!array_key_exists($section, $section_list)) {$section = 'mapNearest';}
 
+		$info = array();
+		if ($section == 'signin') {
+			$info['form'] = $form = $this->createForm(ParticulierType::class, new Particulier)->createView();
+		}
+
 		// Generating from template
-		$template = $this->container->get('templating')
-			->render('AppBundle:Mobile:' . $section . '.html.twig');
+		$template = $this->container->get('templating')->render('AppBundle:Mobile:' . $section . '.html.twig', $info);
 
 		$response = new Response(json_encode(array(
 			'title'   => $section_list[$section],
