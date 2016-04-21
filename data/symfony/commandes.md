@@ -4,15 +4,17 @@
 
 ### Pour créer bdd defini dans parameters.yml :
 
-    php bin/console doctrine:database:create 
+    php bin/console doctrine:database:create
 
 ### Maj de la bdd :
 
-    php bin/console doctrine:schema:update --dump-sql 
+    php bin/console doctrine:schema:update --dump-sql
+    php bin/console doctrine:schema:update --em=osm --dump-sql
 
 ### Application du sql à la bdd :
 
-    php bin/console doctrine:schema:update --force 
+    php bin/console doctrine:schema:update --force
+    php bin/console doctrine:schema:update --em=osm --force
 
 ### Création d'une nouvelle entity :
 
