@@ -7,7 +7,7 @@ function setLocation(pos) {
 
 
 function locationError(error) {
-	console.error("Failed geolocation: " + error.code + " : " + error.message);
+	//console.error("Failed geolocation: " + error.code + " : " + error.message);
 
 	/* Development on a machine without capabilities: simulate success */
 	//$('#ajax_loader').load("erreur");
@@ -21,7 +21,7 @@ function coordinatesToWKT(coords) {
 	} else if('lat' in coords && 'lng' in coords) {
 		return "POINT(" + coords.lng + " " + coords.lat + ")";
 	} else {
-		console.error("Bad conversion from coordinate object.");
+		//console.error("Bad conversion from coordinate object.");
 		return false;
 	}
 }
@@ -69,7 +69,7 @@ function Geoloc() {
 			navigator.geolocation.clearWatch(this._positionWatchID);
 			this._positionWatchID = false;
 		} else {
-			console.log("clear : no geolocation running");
+			//console.log("clear : no geolocation running");
 		}
 	};
 

@@ -1,0 +1,243 @@
+html, body {margin: 0; padding: 0; height: 100%; font-family: 'Roboto';}
+
+h1 {
+	background-color: rgba(0,120,168,0.7);
+	margin: 0;
+	padding-top: 8px;
+	padding-bottom: 8px;
+	color: #FFF;
+	font-size: 20px;
+	text-align: center;
+	font-family: 'Roboto Condensed';
+	position: fixed;
+	width: 100%;
+	top: 0;
+	left: 0;
+	border-bottom: 1px solid #000;
+}
+
+nav {
+	background-color: rgba(0,120,168,0.7);
+	position: fixed;
+	width: 100%;
+	height: 30px;
+	border-top: 1px solid #000;
+	bottom: 0;
+	left: 0;
+	color: #FFF;
+	display: table;
+}
+
+nav>div {
+	display: table-cell;
+	padding: 6px;
+	cursor: pointer;
+	font-size: 30px;
+	text-align: center;
+}
+
+nav>div:hover, nav>div.selected {
+	text-shadow: 1px 1px 3px #FFF;
+}
+
+section {
+	width: 100%;
+	height: 100%;
+	padding-top: 40px;
+	padding-bottom: 49px;
+	box-sizing: border-box;
+}
+
+.full {
+	width: 100%;
+	height: 100%;
+}
+
+.ajax.loading {
+	background-image: url('../ajax-loader.gif');
+	background-size: 30px 30px;
+	background-repeat: no-repeat;
+	background-position: center;
+	display: block;
+	width: 100%;
+	height: 100%;
+	margin: auto;
+}
+
+img.icon {
+	max-width: 20px;
+	max-height: 20px;
+}
+
+.center {text-align: center;}
+
+.table {display: table; width: 100%;}
+.row {display: table-row;}
+.cell {display: table-cell; vertical-align: middle; padding: 4px;}
+.cell.mini {width: 20px;}
+
+.table#list {
+	background-color: #FFF;
+}
+#list .row:hover {background-color: #FFF; cursor: pointer;}
+#list .cell {
+	border-bottom: 1px solid #000;
+	height: 30px;
+}
+
+/* LESS CONNVERT */
+
+form,
+.border-form {
+	max-width: 600px;
+	margin: auto;
+	background-color: #FFF;
+	padding: 20px;
+	/*border: 1px solid #cdcdcd;*/
+	margin-bottom: 20px;
+}
+form h3,
+.border-form h3 {
+	text-align: left;
+	margin-top: 0;
+}
+form > div > div > label,
+.border-form > div > div > label,
+form div.input > label,
+.border-form div.input > label {
+	display: block;
+	text-align: left;
+	color: rgba(0,120,168,0.7);
+}
+form > div > div > input,
+.border-form > div > div > input,
+form div.input > input,
+.border-form div.input > input,
+form > div > div > textarea,
+.border-form > div > div > textarea,
+form div.input > textarea,
+.border-form div.input > textarea,
+form > div > div > select,
+.border-form > div > div > select,
+form div.input > select,
+.border-form div.input > select {
+	display: block;
+	width: 100%;
+	border: 0px;
+	border-bottom: 1px solid #000;
+	background-color: transparent;
+	margin-bottom: 15px;
+	padding: 8px;
+	box-sizing: border-box;
+}
+form > div > div > input:hover,
+.border-form > div > div > input:hover,
+form div.input > input:hover,
+.border-form div.input > input:hover,
+form > div > div > textarea:hover,
+.border-form > div > div > textarea:hover,
+form div.input > textarea:hover,
+.border-form div.input > textarea:hover,
+form > div > div > select:hover,
+.border-form > div > div > select:hover,
+form div.input > select:hover,
+.border-form div.input > select:hover {
+	border-bottom: 1px solid rgba(0,120,168,0.7);
+}
+form > div > div select,
+.border-form > div > div select,
+form div.input select,
+.border-form div.input select {
+	outline: none;
+}
+form > div > div > div,
+.border-form > div > div > div,
+form div.input > div,
+.border-form div.input > div {
+	border-bottom: 1px solid #000;
+	margin-bottom: 15px;
+}
+form > div > div > div:hover,
+.border-form > div > div > div:hover,
+form div.input > div:hover,
+.border-form div.input > div:hover {
+	border-bottom: 1px solid rgba(0,120,168,0.7);
+}
+form > div > div > div > div,
+.border-form > div > div > div > div,
+form div.input > div > div,
+.border-form div.input > div > div {
+	display: inline-block;
+}
+form > div > div > div > div[id$='time']:before,
+.border-form > div > div > div > div[id$='time']:before,
+form div.input > div > div[id$='time']:before,
+.border-form div.input > div > div[id$='time']:before {
+	margin-left: 6px;
+	content: " à ";
+	position: relative;
+	top: 4px;
+}
+form > div > div > div > div > input,
+.border-form > div > div > div > div > input,
+form div.input > div > div > input,
+.border-form div.input > div > div > input,
+form > div > div > div > div > textarea,
+.border-form > div > div > div > div > textarea,
+form div.input > div > div > textarea,
+.border-form div.input > div > div > textarea,
+form > div > div > div > div > select,
+.border-form > div > div > div > div > select,
+form div.input > div > div > select,
+.border-form div.input > div > div > select {
+	display: inline-block;
+	border: 0px;
+	background-color: transparent;
+	padding: 8px;
+	box-sizing: border-box;
+}
+.button {
+	border: none;
+	padding: 6px;
+	color: #FFF;
+	border-radius: 4px;
+	font-family: 'Roboto';
+	font-size: inherit;
+	cursor: pointer;
+	display: inline-block;
+	margin: auto;
+	background: rgba(0,120,168,0.7);
+}
+.button:hover {
+	background: #008ac2;
+}
+form input[type="checkbox"] {
+	width: auto;
+	float: left;
+	margin-right: 5px;
+}
+form input:hover,
+form textarea:hover,
+form input:hover,
+form textarea:hover {
+	border-bottom: 1px solid rgba(0,120,168,0.7);
+}
+form input[type=submit],
+form input[type=button],
+form button {
+	background: rgba(0,120,168,0.7);
+	border: none;
+	padding: 6px;
+	color: #FFF;
+	border-radius: 4px;
+	font-family: 'Roboto';
+	font-size: inherit;
+	cursor: pointer;
+	display: block;
+	margin: auto;
+}
+form input[type=submit]:hover,
+form input[type=button]:hover,
+form button:hover {
+	background: #008ac2;
+}

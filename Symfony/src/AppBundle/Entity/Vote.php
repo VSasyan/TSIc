@@ -7,7 +7,11 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Vote
  *
- * @ORM\Table(name="vote")
+ * @ORM\Table(name="vote", indexes={
+ *      @ORM\Index(name="idxUnique", columns={"particulier_id", "perturbation_id", "message_id"})
+ * }, uniqueConstraints={
+ *      @ORM\UniqueConstraint(name="idxUnique", columns={"particulier_id", "perturbation_id", "message_id"})
+ * })
  * @ORM\Entity(repositoryClass="AppBundle\Repository\VoteRepository")
  */
 class Vote
@@ -42,7 +46,7 @@ class Vote
     private $perturbation;
 
     /**
-    * @ORM\OneToOne(targetEntity="Message", cascade={"persist"})
+    * @ORM\ManyToOne(targetEntity="Message", cascade={"persist"})
     * @ORM\JoinColumn(nullable=false)
     */
     private $message;

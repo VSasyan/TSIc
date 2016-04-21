@@ -5,7 +5,9 @@ namespace AppBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use Jsor\Doctrine\PostGIS\Types\PostGISType;
 
-\Doctrine\DBAL\Types\Type::addType("geometry", "Jsor\Doctrine\PostGIS\Types\GeometryType");
+if (!\Doctrine\DBAL\Types\Type::hasType("geometry")) {
+    \Doctrine\DBAL\Types\Type::addType("geometry", "Jsor\Doctrine\PostGIS\Types\GeometryType");
+}
 //\Doctrine\DBAL\Types\Type::addType("geography", "Jsor\Doctrine\PostGIS\Types\GeographyType");
 
 /**
@@ -44,6 +46,13 @@ class Formulation
     private $description;
 
     /**
+     * @var string
+     *
+     * @ORM\Column(name="causes", type="string", length=255, nullable=true)
+     */
+    private $causes;
+
+    /**
      * @var geometry
      *
      * @ORM\Column(type="geometry", options={"geometry_type"="POINT", "srid"=4326})
@@ -78,17 +87,9 @@ class Formulation
      */
     private $endDate;
 
-
-    /**
-     * @var bool
-     *
-     * @ORM\Column(name="valid_formulation", type="boolean")
-     */
-    private $valid_formulation;
-
     /**
     * @ORM\ManyToOne(targetEntity="Particulier", inversedBy="formulations")
-    * @ORM\JoinColumn(nullable=true)
+    * @ORM\JoinColumn(nullable=false)
     */
     private $particulier;
 
@@ -100,9 +101,16 @@ class Formulation
 
     /**
     * @ORM\ManyToOne(targetEntity="TypePerturbation", cascade={"persist"})
-    * @ORM\JoinColumn(nullable=false)
+    * @ORM\JoinColumn(nullable=true)
     */
     private $type;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="free_type", type="string", length=255, nullable=true)
+     */
+    private $freeType;
 
     /**
      * Constructor
@@ -110,6 +118,7 @@ class Formulation
     public function __construct()
     {
         $this->creationDate = new \DateTime();
+        $this->causes = 'Inconnues';
     }
 
     /**
@@ -359,34 +368,89 @@ class Formulation
      */
     public function getType()
     {
+        if ($this->type == null) {
+            return array(
+                'name' => $this->freeType,
+                'id' => 0,
+                'description' => ''
+            );
+        }
         return $this->type;
     }
 
     /**
-     * Set validFormulation
+     * Set nullType
      *
-     * @param boolean $validFormulation
+     * @param variant $nullType
      *
      * @return Formulation
      */
-    public function setValidFormulation($validFormulation)
+    public function setNullType($nullType)
     {
-        $this->valid_formulation = $validFormulation;
+        if ($nullType instanceof \AppBundle\Entity\TypePerturbation) {
+            $this->type = $nullType;
+        } else {
+            $this->type = null;
+        }
 
         return $this;
     }
 
     /**
-     * Get validFormulation
+     * Get nullType
      *
-     * @return boolean
+     * @return \AppBundle\Entity\TypePerturbation or null
      */
-    public function getValidFormulation()
+    public function getNullType()
     {
-        return $this->valid_formulation;
+        return $this->type;
     }
 
+    /**
+     * Set causes
+     *
+     * @param string $causes
+     *
+     * @return Formulation
+     */
+    public function setCauses($causes)
+    {
+        $this->causes = $causes;
+
+        return $this;
+    }
+
+    /**
+     * Get causes
+     *
+     * @return string
+     */
+    public function getCauses()
+    {
+        return $this->causes;
+    }
+
+    /**
+     * Set freeType
+     *
+     * @param string $freeType
+     *
+     * @return Formulation
+     */
+    public function setFreeType($freeType)
+    {
+        $this->freeType = $freeType;
+
+        return $this;
+    }
+
+    /**
+     * Get freeType
+     *
+     * @return string
+     */
+    public function getFreeType()
+    {
+        return $this->freeType;
+    }
 }
-
-
-

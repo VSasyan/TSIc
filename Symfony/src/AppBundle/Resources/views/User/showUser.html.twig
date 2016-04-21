@@ -5,39 +5,83 @@
 {% endblock %}
 
 {% block stylesheets %}
-	
 {% endblock %}
 
 {% block javascripts %}
-	
+{% endblock %}
+
+{% block titleblock %}	
+	<h1>Détails de l'utilisateur</h1>
 {% endblock %}
 
 {% block body %}
 
-<div class="user">
+<div class="user show">
+	<table>
+		<tr>
+			<th>Identifiant</th>
+			<td class="center">{{ user.id }}</td>
+		<tr>
+		</tr>
+			<th>Pseudo</th>
+			<td>{{ user.username }}</td>
+		<tr>
+		</tr>
+			<th>Prénom</th>
+			<td>{{ user.name}}</td>
+		<tr>
+		</tr>
+			<th>Nom</th>
+			<td>{{ user.lastname}}</td>
+		<tr>
+		</tr>
+			<th>Email</th>
+			<td>{{ user.email}}</td>
+		<tr>
+		</tr>
+			<th>Date d'inscription</th>
+			<td>{{ user.signinDate|date('d/m/Y')}}</td>
+		<tr>
+		</tr>
+			<th>Activé</th>
+			<td>{{ user.activated ? 'oui' : 'non' }}</td>
+		<tr>
+		</tr>
+			<th>Statut</th>
+			<td>
+				{% if is_granted('ROLE_ADMIN') %}
 
-	<div id="show" class="child">
-		
-		<form> {{ user.id }} {{ user.name}} {{ user.lastname}}
+					{% set sel_1, sel_2, sel_3 = '', '', '' %}
 
-		{% set sel_1, sel_2, sel_3 = '', '', '' %}
+					{% if user.professionnal is null and user.admin is null %}
+						{% set sel_1 = 'selected="selected"' %}
+					{% elseif user.professionnal is not null and user.admin is null %}
+						{% set sel_2 = 'selected="selected"' %}
+					{% else %}
+						{% set sel_3 = 'selected="selected"' %}
+					{% endif %}
 
-		{% if user.professionnal is null and user.admin is null %}
-    		{% set sel_1 = 'selected="selected"' %}
-    	{% elseif user.professionnal is not null and user.admin is null %}
-    		{% set sel_2 = 'selected="selected"' %}
-    	{% else %}
-    		{% set sel_3 = 'selected="selected"' %}
-    	{% endif %}
 
-		<select class="lien" name="type" id="TypePret" size="1">
-			<option {{ sel_1 }} value='{{ path('user_upgrade', {id_user : user.id, id_status : 1}) }}'>particulier</option>
-			<option {{ sel_2 }} value='{{ path('user_upgrade', {id_user : user.id, id_status : 2}) }}'>professionel</option>
-			<option {{ sel_3 }} value='{{ path('user_upgrade', {id_user : user.id, id_status : 3}) }}' >admin </option>
-		</select>
+					<select class="lien" name="type" id="TypePret" size="1">
+						<option {{ sel_1 }} value="{{ path('user_upgrade', {id_user : user.id, id_status : 1}) }}">Particulier</option>
+						<option {{ sel_2 }} value="{{ path('user_upgrade', {id_user : user.id, id_status : 2}) }}">Professionnel</option>
+						<option {{ sel_3 }} value="{{ path('user_upgrade', {id_user : user.id, id_status : 3}) }}">Admin</option>
+					</select>
 
-		</form>
-	</div>
+				{% else %}
+
+					{% if user.professionnal is null and user.admin is null %}
+						Particulier
+					{% elseif user.professionnal is not null and user.admin is null %}
+						Professionnel
+					{% else %}
+						Admin
+					{% endif %}
+
+				{% endif %}
+			</td>
+		</tr>
+	</table>
 </div>
 
 {% endblock %}

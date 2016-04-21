@@ -5,7 +5,7 @@ namespace Tests\AppBundle\Entity;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 use AppBundle\Entity\TypePerturbation;
 
-class MessageTest extends WebTestCase
+class TypePerturbationTest extends WebTestCase
 {
 	public function setup(){
 		$this->typePerturbation = new TypePerturbation();

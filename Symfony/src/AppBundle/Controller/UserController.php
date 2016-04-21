@@ -101,7 +101,7 @@ class UserController extends StatutController {
 	*
 	* @Route("/user/show/{id}", name="user_show")
 	*/
-	public function showUserAction($id){
+	public function showAction($id){
 
 		$repository = $this->getDoctrine()->getManager()->getRepository('AppBundle:Particulier');
 		$user = $repository->find($id);
@@ -119,9 +119,9 @@ class UserController extends StatutController {
 	}
 
 	/**
-	* @Route("/admin/user/list", name="user_list")
+	* @Route("/user/list", name="user_list")
 	*/
-	public function listUsersAction(){
+	public function listAction(){
 
 		$repository = $this->getDoctrine()->getManager()->getRepository('AppBundle:Particulier');
 		$users = $repository->findAll();
@@ -161,7 +161,7 @@ class UserController extends StatutController {
 	/**
 	* @Route("/admin/user/upgrade/{id_user}/{id_status}", name="user_upgrade")
 	*/
-	public function upgradeUserAction(Request $request, $id_user, $id_status){
+	public function upgradeAction(Request $request, $id_user, $id_status){
 	
 		$em = $this->getDoctrine()->getManager();
 		$repository = $em->getRepository('AppBundle:Particulier');

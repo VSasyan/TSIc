@@ -5,7 +5,6 @@
 {% endblock %}
 
 {% block stylesheets %}
-	<link href="{{ asset('less/addPerturbation.less') }}" rel="stylesheet/less" type="text/css" />
 {% endblock %}
 
 {% block javascripts %}
@@ -26,8 +25,10 @@
 		<div>
 			{{ form_errors(form) }}
 			{{ form_row(form.name) }}
-			{{ form_row(form.type) }}
+			{{ form_row(form.nullType) }}
+			{{ form_row(form.freeType) }}
 			{{ form_row(form.description) }}
+			{{ form_row(form.causes) }}
 		</div>
 		<div>
 			<div>

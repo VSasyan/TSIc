@@ -67,7 +67,13 @@ class Perturbation
     * @ORM\JoinColumn(nullable=false)
     */
     private $votes;
-    
+
+    /**
+    * @ORM\OneToMany(targetEntity="PerturbationFile", mappedBy="perturbation", cascade={"persist"})
+    * @ORM\JoinColumn(nullable=false)
+    */
+    private $files;
+
     
     /**
      * Constructor
@@ -76,6 +82,7 @@ class Perturbation
     {
         $this->formulations = new \Doctrine\Common\Collections\ArrayCollection();
         $this->votes = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->files = new \Doctrine\Common\Collections\ArrayCollection();
 
         $this->activated = true;
         $this->valid = false;
@@ -227,6 +234,16 @@ class Perturbation
     }
 
     /**
+     * Get getLastFormulation
+     *
+     * @return \AppBundle\Entity\Formulation
+     */
+    public function getLastFormulation()
+    {
+        return $this->formulations->first();
+    }
+
+    /**
      * Add vote
      *
      * @param \AppBundle\Entity\Vote $vote
@@ -269,20 +286,19 @@ class Perturbation
         //tableau des résultats
         $virtualPerturbation = array();
             
-        $formulations = $this->getFormulations();
-        foreach ($formulations as $f) {
+        $formulation = $this->getLastFormulation();
            
-            if ($f->getValidFormulation()) {
-                $virtualPerturbation['id'] = $f->getId();
-                $virtualPerturbation['name'] = $f->getName();
-                $virtualPerturbation['type'] = $f->getType();
-                $virtualPerturbation['geoJSON'] = $f->getGeoJSON();
-                $virtualPerturbation['center'] = $f->getCenter();
-                return $virtualPerturbation;
-            }
-        }
+        $virtualPerturbation['id'] = $this->getId();
+        $virtualPerturbation['terminated'] = $this->getTerminated();
+        $virtualPerturbation['valid'] = $this->getValid();
+        $virtualPerturbation['activated'] = $this->getActivated();
+        $virtualPerturbation['archived'] = $this->getArchived();
+        $virtualPerturbation['name'] = $formulation->getName();
+        $virtualPerturbation['type'] = $formulation->getType();
+        $virtualPerturbation['geoJSON'] = $formulation->getGeoJSON();
+        $virtualPerturbation['center'] = $formulation->getCenter();
 
-        return false;
+        return $virtualPerturbation;
 
     }
 
@@ -308,5 +324,40 @@ class Perturbation
     public function getTerminated()
     {
         return $this->terminated;
+    }
+
+    /**
+     * Add file
+     *
+     * @param \AppBundle\Entity\PerturbationFile $file
+     *
+     * @return Perturbation
+     */
+    public function addFile(\AppBundle\Entity\PerturbationFile $file)
+    {
+        $this->files[] = $file;
+        $file->setPerturbation($this);
+
+        return $this;
+    }
+
+    /**
+     * Remove file
+     *
+     * @param \AppBundle\Entity\PerturbationFile $file
+     */
+    public function removeFile(\AppBundle\Entity\PerturbationFile $file)
+    {
+        $this->files->removeElement($file);
+    }
+
+    /**
+     * Get files
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getFiles()
+    {
+        return $this->files;
     }
 }

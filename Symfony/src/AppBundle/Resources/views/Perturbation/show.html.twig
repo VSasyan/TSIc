@@ -5,14 +5,16 @@
 {% endblock %}
 
 {% block stylesheets %}
-	<link rel="stylesheet" href="{{ asset('css/map.css') }}" />
-	<link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.7.2/leaflet.css" />
 {% endblock %}
 
 {% block javascripts %}
 	<script src="http://cdn.leafletjs.com/leaflet-0.7.2/leaflet.js"></script>
 	<script src="{{ asset('js/map.js') }}"></script>
 	<script src="{{ asset('js/show_perturbation.js') }}"></script>
+{% endblock %}
+
+{% block titleblock %}	
+	<h1>Détails de la perturbation</h1>
 {% endblock %}
 
 {% block body %}
@@ -31,32 +33,65 @@
 					<span class="perturbation-type" title="{{ formulation.type.description }}">{{ formulation.type.name }}</span>
 				</h1>
 				<p></p>
-				<p class="perturbation-dates">Depuis le {{ formulation.beginDate|date('  d/m à h:m') }} ; fin estimée le {{ formulation.endDate|date('  d/m à h:m') }}.</p>
+				<p class="perturbation-dates">Depuis le {{ formulation.beginDate|date('  d/m à H:i') }} ; fin estimée le {{ formulation.endDate|date('d/m à H:i') }}.</p>
 				<p class="perturbation-description">{{ formulation.description }}</p>
+				<p class="perturbation-causes">Causes supposées : {{ formulation.causes }}</p>
 			</div>
 
-			<p>Perturbation créée le {{ perturbation.creationDate|date('  d/m à h:m') }} (modifiée le {{ formulation.creationDate|date(' d/m à h:m') }}).</p>
+			{% if perturbation.creationDate != formulation.creationDate %}
+			<p>Perturbation créée le {{ perturbation.creationDate|date('d/m à H:i') }} (modifiée le {{ formulation.creationDate|date('d/m à H:i') }}).</p>
+			{% else %}
+			<p>Perturbation créée le {{ perturbation.creationDate|date('d/m à H:i') }}.</p>
+			{% endif %}
+
 			<p>
 				Etat de la perturbation :
 				<ul>
 					{% if perturbation.valid %}
 						<li class="perturbation-valid-tag">Validée</li>
 					{% else %}
-						<li class="perturbation-valid-tag">Non Validée <span class="button validate"  data-path="{{ path("vote", { id_perturbation: perturbation.id, id_message: 3}) }}" title="Confirmer la perturbation">Confirmer</span></li>
+						<li class="perturbation-valid-tag">
+							Non Validée
+							<span
+								class="button validate" 
+								data-path="{{ path('vote', { id_perturbation: perturbation.id, id_message: 3}) }}"
+								title="Confirmer la perturbation"
+							>
+								Confirmer
+							</span>
+						</li>
 					{% endif %}
 				</ul>
 				<ul>
 					{% if perturbation.terminated %}
 						<li class="perturbation-terminated-tag">Terminée</li>
 					{% else %}
-						<li class="perturbation-terminated-tag">Non Terminée <span class="button terminate" data-path="{{ path("vote", { id_perturbation: perturbation.id, id_message: 2}) }}" title="La perturbation est terminée.">Terminer</span></li>
+						<li class="perturbation-terminated-tag">
+							Non Terminée
+							<span
+								class="button terminate"
+								data-path="{{ path('vote', { id_perturbation: perturbation.id, id_message: 2}) }}"
+								title="La perturbation est terminée."
+							>
+								Terminer
+							</span>
+						</li>
 					{% endif %}
 				</ul>
 				<ul>
 					{% if perturbation.activated %}
-						<li class="perturbation-activated-tag">Activée <span class="button inhibate"  data-path="{{ path("vote", { id_perturbation: perturbation.id, id_message: 1}) }}" title="Annuler la perturbation">Inhiber</span></li> 
+						<li class="perturbation-activated-tag">
+							Activée
+							<span
+								class="button inhibate" 
+								data-path="{{ path('vote', { id_perturbation: perturbation.id, id_message: 1}) }}"
+								title="Dénoncer la perturbation"
+							>
+								Inhiber
+							</span>
+						</li> 
 					{% else %}
-						<li class="perturbation-activated-tag">Non Activée</li>
+						<li class="perturbation-activated-tag">Désactivée</li>
 					{% endif %}
 				</ul>
 				{% if is_granted('ROLE_ADMIN') or is_granted('ROLE_PROFESSIONNAL') %}
@@ -64,7 +99,16 @@
 					{% if perturbation.archived %}
 						<li class="perturbation-archived-tag">Archivée</li> 
 					{% else %}
-						<li class="perturbation-archived-tag">Non Archivée <span class="button archive"  data-path="{{ path("perturbation_archive", { id: perturbation.id}) }}" title="Archiver la perturbation">Inhiber</span></li> 
+						<li class="perturbation-archived-tag">
+							Non Archivée
+							<span
+								class="button archive" 
+								data-path="{{ path('perturbation_archive', { id : perturbation.id }) }}"
+								title="Archiver la perturbation"
+							>
+								Archiver
+							</span>
+						</li> 
 					{% endif %}
 				</ul>
 				{% endif %}
@@ -74,22 +118,66 @@
 </div>
 
 <div>
+	<h3>Documents associés</h3>
+	{% if perturbation.files|length > 0 %}
+	<div class="flex row-100" style="max-width:600px;">
+		{% for f in perturbation.files %}
+			<div class="flex-item center">
+				<a href="{{path('file', {id : f.file.id}) }}" class="lienGrid">
+					<div class="screen">
+						<div class="img {{ f.file.type }}" /></div>
+					</div>
+					<div class="label">
+						<p class="title">{{ f.file.name }}</p>
+						<p class="info">
+							Ajouté par <span class="auteur">{{ f.file.particulier.name }} {{ f.file.particulier.lastname }}</span>
+						</p>
+					</div>
+				</a>
+			</div>
+		{% endfor %}
+	</div>
+	{% else %}
+	<div class="elements documents square">
+		<center>Aucun document pour le moment.</center>
+	</div>	
+	{% endif %}
+	<center>
+		<a class="button editer" href="{{ path('perturbation_add_file', {id : perturbation.id}) }}">Importer un fichier</a>
+	</center>
+</div>
+
+<div>
+	<h3>Autres actions</h3>
 	<div class="elements formulations none">
 		<center>
 			<span class="button" id="show_elements">Afficher l'historique des modifications</span>
+			{% if is_granted('ROLE_ADMIN') or is_granted('ROLE_PROFESSIONNAL') %}
+				<a class="button editer" href="{{ path('perturbation_edit', {id : perturbation.id}) }}">Éditer la perturbation</a>
+			{% endif %}
 		</center>
-		<div id="list_elements" style="display:none;">
-		{% for f in perturbation.formulations %}
-			<div class="element description pertubation" data-name="{{ f.name }}" data-center="{{ f.center }}" data-logo="{{ f.type.id }}">
-				<h2>
+		<div id="table_list" style="display:none;">
+			{% for f in perturbation.formulations %}
+				<h3>
 					<span class="perturbation-name">{{ f.name }}</span> :
 					<span class="perturbation-type" title="{{ f.type.description }}">{{ f.type.name }}</span>
-				</h2>
-				<p>Enregistrée le {{ f.creationDate|date(' d/m à h:m') }} publiée par <a href="{{ path('user_show', {id : f.particulier.id }) }}">{{ f.particulier.username }}</a>.</p>
-				<p class="perturbation-dates">Depuis le {{ f.beginDate|date(' d/m à h:m') }} ; fin estimée le {{ f.endDate|date(' d/m à h:m') }}.</p>
-				<p class="perturbation-description">{{ f.description }}</p>
-			</div>
-		{% endfor %}
+				</h3>
+				<div class="table">
+					<div class="row description pertubation" data-name="{{ f.name }}" data-center="{{ f.center }}" data-logo="{{ f.type.id }}" data-id="{{ f.id }}">
+						<div class="cell">
+							<p>Enregistrée le {{ f.creationDate|date(' d/m à H:i') }} publiée par <a href="{{ path('user_show', {id : f.particulier.id }) }}">{{ f.particulier.username }}</a>.</p>
+							<p class="perturbation-dates">Depuis le {{ f.beginDate|date(' d/m à H:i') }} ; fin estimée le {{ f.endDate|date(' d/m à H:i') }}.</p>
+							<p class="perturbation-description">{{ f.description }}</p>
+						</div>
+						<div class="cell right">
+							<div class="mini_map">
+								<div id="map_{{ f.id }}"></div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="clear"></div>
+			{% endfor %}
 		</div>
 	</div>
 </div>

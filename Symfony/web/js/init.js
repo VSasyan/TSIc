@@ -3,7 +3,7 @@ function hideMessages() {
 }
 
 function showMessages(data) {
-	$('#messages').css({position:'fixed'}).html(data).find('div').hide();
+	$('#messages').html(data).find('div').hide();
 	$('#messages div').slideDown(800);
 	setTimeout(function() {hideMessages();}, 2000);
 }
@@ -17,9 +17,12 @@ function init_select_lien() {
 	});
 }
 
+var miniMaps = false;
 function init_show_element() {
-	$('#show_elements').click(function() {
-		$(this).parents('.elements.none').find('#list_elements').slideToggle(300, function() {
+	$('#show_elements').click(function(event) {
+		event.preventDefault();
+		$(this).parents('.elements.none').find('#table_list').slideToggle(300, function() {
+			if (miniMaps != false) {$.each(miniMaps, function(i,m) {m.invalidateSize();})}
 			$('html, body').delay('300').animate({
 				scrollTop: $(this).offset().top 
 			}, 300);
@@ -27,11 +30,42 @@ function init_show_element() {
 	});
 }
 
+function init_click_vote() {
+	$('.button.validate, .button.inhibate, .button.terminate, .button.archive').click(function(event) {
+		event.preventDefault();
+		var url = $(this).data('path');
+		var $this = $(this);
+		$.ajax({
+			url : url,
+			type : 'GET',
+			success : function(data) {
+				showMessages(data);
+				$this.parent().find('.validate, .inhib').fadeOut();
+				if ($this.hasClass('terminate')) {$this.parent().find('.terminate').fadeOut();}
+				if ($this.hasClass('archive')) {$this.parent().find('.terminate, .archive').fadeOut();}
+			}
+		});
+	});
+}
+
+function init_free_select() {
+	function show_free_select() {
+		var classe = $(this).data('free');
+		if ($(this).val() == '') {$('input.' + classe).parent().slideDown();}
+		else {$('input.' + classe).val('').parent().slideUp();}
+	}
+
+	$('select.freeSelect').val(1).change(show_free_select).each(show_free_select);
+}
+
 document.addEventListener("DOMContentLoaded", function() {
 	$(document).ready(function() {
 		hideMessages();
 		init_show_element();
 		init_select_lien();
+		init_click_vote();
+		show_mini_map();
+		init_free_select();
 	});
 });
 

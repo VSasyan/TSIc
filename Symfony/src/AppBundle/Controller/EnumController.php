@@ -4,8 +4,10 @@ namespace AppBundle\Controller;
 
 use AppBundle\Entity\Message;
 use AppBundle\Entity\TypePerturbation;
+use AppBundle\Entity\TypeObjetTerrain;
 use AppBundle\Form\MessageType;
 use AppBundle\Form\TypePerturbationType;
+use AppBundle\Form\TypeObjetTerrainType;
 use AppBundle\Repository\MessageRepository;
 use AppBundle\Repository\TypePerturbationRepository;
 use Symfony\Component\HttpFoundation\Response;
@@ -62,9 +64,9 @@ class EnumController extends Controller {
 	}
 
 	/**
-	* @Route("/type-perturbation/edit/{id}", name="type_perturbation_edit")
+	* @Route("/type-objet-terrain/edit/{id}", name="type_objet_terrain_edit")
 	*/
-	public function typeObjetTerrainEditAction(Request $request, $id){
+	public function typePerturbationEditAction(Request $request, $id){
 
 		$em = $this->getDoctrine()->getManager();
 		$type = $em->getRepository('AppBundle:TypePerturbation')->find($id);
@@ -91,9 +93,9 @@ class EnumController extends Controller {
 	}
 
 	/**
-	* @Route("/type-perturbation/delete/{id}", name="type_perturbation_delete")
+	* @Route("/type-objet-terrain/delete/{id}", name="type_objet_terrain_delete")
 	*/
-	public function typeObjetTerrainDeleteAction(Request $request, $id){
+	public function typePerturbationDeleteAction(Request $request, $id){
 
 		$em = $this->getDoctrine()->getManager();
 		$type = $em->getRepository('AppBundle:TypePerturbation')->find($id);
@@ -115,7 +117,7 @@ class EnumController extends Controller {
 	public function typeObjetTerrainAddAction(Request $request){
 
 		$type = new TypeObjetTerrain();
-		$form = $this->createForm(TypePerturbationType::class, $type);
+		$form = $this->createForm(TypeObjetTerrainType::class, $type);
 
 		if ($form->handleRequest($request)->isValid()) {
 			$em = $this->getDoctrine()->getManager();
@@ -138,7 +140,7 @@ class EnumController extends Controller {
 	}
 
 	/**
-	* @Route("/type-objet-terrain/list", name="type_perturbation_list")
+	* @Route("/type-objet-terrain/list", name="type_objet_terrain_list")
 	*/
 	public function typeObjetTerrainListAction(Request $request){
 
@@ -158,7 +160,7 @@ class EnumController extends Controller {
 	/**
 	* @Route("/type-objet-terrain/edit/{id}", name="type_objet_terrain_edit")
 	*/
-	public function typePerturbationEditAction(Request $request, $id){
+	public function typeObjetTerrainEditAction(Request $request, $id){
 
 		$em = $this->getDoctrine()->getManager();
 		$type = $em->getRepository('AppBundle:TypeObjetTerrain')->find($id);
@@ -187,7 +189,7 @@ class EnumController extends Controller {
 	/**
 	* @Route("/type-objet-terrain/delete/{id}", name="type_perturbation_delete")
 	*/
-	public function typePerturbationDeleteAction(Request $request, $id){
+	public function typeObjetTerrainDeleteAction(Request $request, $id){
 
 		$em = $this->getDoctrine()->getManager();
 		$type = $em->getRepository('AppBundle:TypeObjetTerrain')->find($id);

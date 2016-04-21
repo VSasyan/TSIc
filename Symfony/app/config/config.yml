@@ -1,7 +1,10 @@
 imports:
     - { resource: parameters.yml }
+    - { resource: parameters_osm.yml }
     - { resource: security.yml }
     - { resource: services.yml }
+    - { resource: "@NetworkBundle/Resources/config/services.yml" }
+    - { resource: "@TransportBundle/Resources/config/services.yml" }
 
 
 # Put parameters here that don't need to change on each machine where the app is deployed
@@ -59,22 +62,25 @@ doctrine:
                 user:     "%database_user%"
                 password: "%database_password%"
                 charset:  UTF8   
-        # if using pdo_sqlite as your database driver:
-        #   1. add the path in parameters.yml
-        #     e.g. database_path: "%kernel.root_dir%/data/data.db3"
-        #   2. Uncomment database_path in parameters.yml.dist
-        #   3. Uncomment next line:
-        #     path:     "%database_path%"
+            osm:
+                driver:   "pdo_pgsql"
+                host:     "%database_host_osm%"
+                port:     "%database_port_osm%"
+                dbname:   "%database_name_osm%"
+                user:     "%database_user_osm%"
+                password: "%database_password_osm%"
+                charset:  UTF8
 
     orm:
+        default_entity_manager: default
         auto_generate_proxy_classes: "%kernel.debug%"
-        #naming_strategy: doctrine.orm.naming_strategy.underscore
-        #auto_mapping: false
-        #dql:
-            #string_functions:
-                #ST_Distance: Jsor\Doctrine\PostGIS\Functions\ST_Distance
-                #ST_GeomFromText: Jsor\Doctrine\PostGIS\Functions\ST_GeomFromText
-                #default_entity_manager: default
+        naming_strategy: doctrine.orm.naming_strategy.underscore
+        auto_mapping: false
+        dql:
+            string_functions:
+                ST_Distance: Jsor\Doctrine\PostGIS\Functions\ST_Distance
+                ST_GeomFromText: Jsor\Doctrine\PostGIS\Functions\ST_GeomFromText
+                default_entity_manager: default
         entity_managers:
             default:
                 connection: default
@@ -89,6 +95,18 @@ doctrine:
                 connection: redis
                 mappings:
                     AppBundle:  ~
+                naming_strategy: doctrine.orm.naming_strategy.underscore
+                auto_mapping: true
+
+            osm:
+                connection: osm
+                mappings:
+                    TransportBundle:  ~
+                dql:
+                    string_functions:
+                        ST_Distance: Jsor\Doctrine\PostGIS\Functions\ST_Distance
+                        ST_GeomFromText: Jsor\Doctrine\PostGIS\Functions\ST_GeomFromText
+                naming_strategy: doctrine.orm.naming_strategy.underscore
 
 # Swiftmailer Configuration
 swiftmailer:
@@ -100,7 +118,7 @@ swiftmailer:
 
 # FOSJs routing (client-side routing) needs exposed routes
 fos_js_routing:
-    routes_to_expose: [ perturbation_list_nearest ]
+    routes_to_expose: [ logo_*, mobile_*, ajax_*, perturbation_list_nearest, logo_type_perturbation, logo_type_objet_terrain, objet_terrain_list_nearest, transport_link_add, transport_node_add, transport_list_nearest ]
 
 snc_redis:
     clients:

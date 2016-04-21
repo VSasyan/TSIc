@@ -19,12 +19,12 @@ class ParticulierType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('username', TextType::class)  
-            ->add('email',    EmailType::class)
-            ->add('password', PasswordType::class)
-            ->add('name',     TextType::class)
-            ->add('lastname', TextType::class)
-            ->add('save',     SubmitType::class, array('label' => 'sauver'))
+            ->add('name',     TextType::class,     array('label' => 'Nom'))
+            ->add('lastname', TextType::class,     array('label' => 'Prénom'))
+            ->add('username', TextType::class,     array('label' => 'Utilisateur'))  
+            ->add('password', PasswordType::class, array('label' => 'Mot de passe'))
+            ->add('email',    EmailType::class,    array('label' => 'Email'))
+            ->add('save',     SubmitType::class,   array('label' => 'sauver'))
             ->getForm();
     }
     
