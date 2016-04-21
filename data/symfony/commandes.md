@@ -61,6 +61,7 @@ Executer dans pgAdmin :
 	DROP TABLE restriction_type_value CASCADE;
 	DROP TABLE weather_condition CASCADE;
 	DROP TABLE weather_condition_value CASCADE;
+	DROP TABLE form_of_road_node_value CASCADE;
 
 	DROP SEQUENCE admin_id_seq;
 	DROP SEQUENCE formulation_id_seq;
@@ -82,3 +83,4 @@ Executer dans pgAdmin :
 	DROP SEQUENCE restriction_type_value_id_seq;
 	DROP SEQUENCE weather_condition_inspireid_seq;
 	DROP SEQUENCE weather_condition_value_id_seq;
+	DROP SEQUENCE form_of_road_node_value_id_seq;
