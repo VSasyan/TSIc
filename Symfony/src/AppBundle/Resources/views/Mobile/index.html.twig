@@ -12,7 +12,6 @@
 		<link href="{{ asset('font-awesome-4.5.0/css/font-awesome.min.css') }}" rel="stylesheet" type="text/css" />
 		<link href="http://cdn.leafletjs.com/leaflet-0.7.2/leaflet.css" rel="stylesheet" />
 		<link href="{{ asset('css/mobile.css') }}" rel="stylesheet"  type="text/css"/>
-
 		{% block stylesheets %}{% endblock %}
 
 		<script src="http://cdn.leafletjs.com/leaflet-0.7.2/leaflet.js"></script>
@@ -25,6 +24,8 @@
 	</head>
 
 	<body>
+		<h1 id="title"></h1>
+		<section id="screen"></section>
 		<nav>
 			<div id="mapNearest" class="selected"><i class="fa fa-map" aria-hidden="true"></i></div>
 			<div id="listNearest"><i class="fa fa-list-ul" aria-hidden="true"></i></div>
@@ -32,10 +33,6 @@
 			<div id="login"><i class="fa fa-sign-in" aria-hidden="true"></i></div>
 			<div id="logout" style="display:none;"><i class="fa fa-sign-out" aria-hidden="true"></i></div>
 		</nav>
-
-		<section id="screen" class="mapNearest">
-			<div id="map" class="full"></div>
-		</section>
 	</body>
 
 </html>

@@ -11,12 +11,13 @@ function getPage(route, after) {
 	});
 }
 
-function getObject(route) {
+function getObject(route, callback) {
+	var callback = callback || function(x) {};
 	$.ajax({
 		url : route,
 		type : 'GET',
 		success : function(data) {
-			show_nearestObjetsTerrains(data);
+			callback(data);
 		}
 	});
 }
@@ -56,6 +57,12 @@ var functions = {
 			geoloc.position = { latitude: 48.8410544, longitude: 2.5873005 };
 			geoloc.callback();
 		}
+	},
+	listNearestObjects : function() {
+		$('#ajax_loader').html("").parent().hide();
+		geoloc.init();
+		initMap();
+		listNearestObjects(map.getBounds());
 	},
 	none : function(){},
 };

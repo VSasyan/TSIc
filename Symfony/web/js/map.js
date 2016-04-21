@@ -116,7 +116,7 @@ function listNearest(viewBounds) {
 	getObject(Routing.generate("objet_terrain_list_nearest", {
 		position : coordinatesToWKT(viewBounds.getCenter()),
 		radius : radius
-	}));
+	}), show_nearestPerturbations);
 
 
 	dataBounds = viewBounds.pad(1);

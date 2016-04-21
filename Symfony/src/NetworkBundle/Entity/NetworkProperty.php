@@ -33,7 +33,6 @@ abstract class NetworkProperty
 	 */
 	protected $endLifespanVersion;
 
-
 	/**
 	 * Get inspireId
 	 *

@@ -12,6 +12,7 @@ use AppBundle\Controller\StatutController;
 
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 
 class ObjectController extends StatutController {
@@ -36,6 +37,59 @@ class ObjectController extends StatutController {
 	}
 
 	/**
+	* @Route("/transport/list/nearest/{position}/{radius}", name="transport_list_nearest", defaults={
+	*	  "position" : false,
+	*     "radius": 1000
+	* })
+	*/
+	public function listNearestAction($position, $radius){
+
+		$em = $this->getDoctrine()->getManager();
+		$nodeRepository = $em->getRepository('TransportBundle:RoadNode');
+		$linkRepository = $em->getRepository('TransportBundle:RoadLink');
+		
+		if($position == false) {
+
+			return $this->render('TransportBundle:Default:list_nearest.html.twig', array(
+				'function' => 'listNearestObjects'
+				)
+			);
+		}
+
+		$position = "ST_GeomFromText('" . $position . "',4326)";
+
+		$nodes = $nodeRepository->findNearest($position, $radius);
+		$links = $linkRepository->findNearest($position, $radius);
+
+		$virtualNodes = array();
+
+		foreach ($nodes as $node) {
+
+			$virtualNodes[] = array(
+				'name' => $node->getGeographicalName(),
+				'geometry' => $node->getGeometry(),
+			);				
+		}
+
+		$virtualLinks = array();
+
+		foreach ($links as $link) {
+
+			$virtualLinks[] = array(
+				'name' => $link->getGeographicalName(),
+				'geometry' => $link->getCentrelineGeometry(),
+			);				
+		}
+
+		$objects = array_merge($virtualNodes, $virtualLinks);
+
+		$response = new JsonResponse();
+		$response->setData($objects);
+		return $response;
+
+	}
+
+	/**
 	* @Route("/transport/link/add", name="transport_link_add")
 	*/
 	public function addLinkAction(Request $request){
@@ -52,7 +106,7 @@ class ObjectController extends StatutController {
 			$em->persist($roadLink);
 			$em->flush();
 
-			$request->getSession()->getFlashBag()->add('success', 'Lien bien ajouté.');
+			$request->getSession()->getFlashBag()->add('success', 'Lien bien ajouté');
 
             $messages .= $this->container->get('templating')->render('AppBundle:Ajax:confirmation.html.twig');
 
@@ -89,7 +143,7 @@ class ObjectController extends StatutController {
 			$em->persist($roadNode);
 			$em->flush();
 
-			$request->getSession()->getFlashBag()->add('success', 'Noeud bien ajouté.');
+			$request->getSession()->getFlashBag()->add('success', 'Noeud bien ajouté');
 
 			$messages .= $this->container->get('templating')->render('AppBundle:Ajax:confirmation.html.twig');
 
