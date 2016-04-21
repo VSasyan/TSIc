@@ -59,6 +59,7 @@ var functions = {
 		}
 	},
 	listNearestObjects : function() {
+		$('#ajax_loader').html("").parent().hide();
 		geoloc.init();
 		initMap();
 		listNearestObjects(map.getBounds());

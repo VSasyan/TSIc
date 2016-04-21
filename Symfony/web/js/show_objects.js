@@ -4,7 +4,7 @@ var wkt         = new Wkt.Wkt; // The converter between leaflet objects and WKT 
 function listNearestObjects(viewBounds) {
 	// Request
 	var radius = viewBounds.getSouthWest().distanceTo(viewBounds.getNorthEast());
-	console.log("Requesting data on " + coordinatesToWKT(viewBounds.getCenter()) + " radius " + radius);
+	//console.log("Requesting data on " + coordinatesToWKT(viewBounds.getCenter()) + " radius " + radius);
 
 	// Recuperations des Objets :
 	getObject(Routing.generate("transport_list_nearest", {
