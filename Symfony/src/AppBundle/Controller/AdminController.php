@@ -268,7 +268,7 @@ class AdminController extends StatutController {
 			$em->persist($trafficSquare);
 
 
-			//$em->flush();
+			$em->flush();
 
 			$request->getSession()->getFlashBag()->add('success', 'Base correctement initialisée.');
 
