@@ -49,11 +49,11 @@
 
 					{% if is_granted('ROLE_ADMIN') or is_granted('ROLE_PROFESSIONNAL') %}
 						<a {{ currentPath == 'perturbation_list_all' ? 'class="current"' }} href="{{ path('perturbation_list_all') }}">Liste perturbations</a>
+						<a {{ currentPath == 'transport_index' ? 'class="current"' }} href="{{ path('transport_index') }}">Ajouter un objet</a>
 					{% endif %}
 					
 					{% if is_granted('ROLE_ADMIN') %}
 						<a {{ currentPath == 'administration' ? 'class="current"' }} href="{{ path('administration') }}">Administration</a>
-						<a {{ currentPath == 'transport_index' ? 'class="current"' }} href="{{ path('transport_index') }}">Ajouter un objet</a>
 					{% endif %}
 
 					{% if is_granted('ROLE_PROFESSIONNAL') %}
