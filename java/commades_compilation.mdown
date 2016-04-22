@@ -1,0 +1,8 @@
+# Commandes compilation
+
+## Commandes Shell
+	export CLASSPATH=/chemin_vers_TSIc/TSIc/java/src/JavaToRedis/jedis-2.0.0.jar/chemin_vers_TSIc/TSIc/java/src/JavaToRedis/postgresql-9.4.1208.jar:/chemin_vers_TSIc/TSIc/java/src/JavaToRedis/java-json.jar:$CLASSPATH
+	cd /chemin_vers_TSIc/TSIc/java/src
+	javac RedisToPostgres.java
+	cd ..
+	java RedisToPostgres/RedisToPostgres

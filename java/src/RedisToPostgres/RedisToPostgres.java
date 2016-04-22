@@ -23,7 +23,8 @@ public class RedisToPostgres {
 	      int user_id=0;
 	      int data_id=0;
 	      int generatedkey=0;
-	      String center="";
+	      String center = "";
+	      String type_name = "";
 	      
 	     // Get the stored data and print it
 	      Set<String> keys = jedis.keys("*");
@@ -59,6 +60,8 @@ public class RedisToPostgres {
 				     System.out.println("perturbation_begin_date : "+perturbation_begin_date);
 				     String perturbation_end_date = dataJson.getString("end_date");
 				     System.out.println("perturbation_end_date : "+perturbation_end_date);
+				     type_name = dataJson.getString("type_name");
+				     System.out.println("type_name : "+type_name);
 				     // parsing dates
 				     SimpleDateFormat creation_sdf = new SimpleDateFormat("yyyy-MM-dd hh-mm-ss", java.util.Locale.FRANCE);
 				     creation = creation_sdf.parse(perturbation_creation_date);
@@ -100,22 +103,40 @@ public class RedisToPostgres {
 	         
 	         // Insertion in formulation table
 	         System.out.println("*****data insertion in formulation table*****");
-	         PreparedStatement prepFormulation = conn.prepareStatement(
-	        		    "insert into formulation (particulier_id, perturbation_id, type_id, name, description, center, geojson, creation_date, begin_date, end_date, valid_formulation) values (?,?,?,?,?,?,?,?,?,?,?)");
-	         prepFormulation.setInt(1, user_id);
-	         prepFormulation.setInt(2, generatedkey);
-	         prepFormulation.setInt(3, perturbation_type);
-	         prepFormulation.setString(4, perturbation_name);
-	         prepFormulation.setString(5, description);
-	         prepFormulation.setObject(6, center, java.sql.Types.OTHER);
-	         prepFormulation.setString(7, "geojson");
-	         prepFormulation.setDate(8, new java.sql.Date(creation.getTime()));
-	         prepFormulation.setDate(9, new java.sql.Date(begin.getTime()));
-	         prepFormulation.setDate(10, new java.sql.Date(end.getTime()));
-	         prepFormulation.setBoolean(11, false);
-	         prepFormulation.execute();
-	         System.out.println("*****done successfully*****");
-
+	         
+	         if (perturbation_type!=0)
+	         {
+	        	 PreparedStatement prepFormulation = conn.prepareStatement(
+	        		    "insert into formulation (particulier_id, perturbation_id, type_id, name, description, center, geojson, creation_date, begin_date, end_date) values (?,?,?,?,?,?,?,?,?,?)");
+	         
+		         prepFormulation.setInt(1, user_id);
+		         prepFormulation.setInt(2, generatedkey);
+		         prepFormulation.setInt(3, perturbation_type);
+		         prepFormulation.setString(4, perturbation_name);
+		         prepFormulation.setString(5, description);
+		         prepFormulation.setObject(6, center, java.sql.Types.OTHER);
+		         prepFormulation.setString(7, "geojson");
+		         prepFormulation.setDate(8, new java.sql.Date(creation.getTime()));
+		         prepFormulation.setDate(9, new java.sql.Date(begin.getTime()));
+		         prepFormulation.setDate(10, new java.sql.Date(end.getTime()));
+		         prepFormulation.execute();
+		         System.out.println("*****done successfully*****");
+	         }
+	         else {PreparedStatement prepFormulation = conn.prepareStatement(
+	        		    "insert into formulation (particulier_id, perturbation_id, name, description, center, geojson, creation_date, begin_date, end_date, free_type) values (?,?,?,?,?,?,?,?,?,?)");
+	        		 prepFormulation.setInt(1, user_id);
+			         prepFormulation.setInt(2, generatedkey);
+			         prepFormulation.setString(3, perturbation_name);
+			         prepFormulation.setString(4, description);
+			         prepFormulation.setObject(5, center, java.sql.Types.OTHER);
+			         prepFormulation.setString(6, "geojson");
+			         prepFormulation.setDate(7, new java.sql.Date(creation.getTime()));
+			         prepFormulation.setDate(8, new java.sql.Date(begin.getTime()));
+			         prepFormulation.setDate(9, new java.sql.Date(end.getTime()));
+			         prepFormulation.setString(10, type_name);
+			         prepFormulation.execute();
+			         System.out.println("*****done successfully*****");
+	     }
 	       } catch (Exception e) {
 	         e.printStackTrace();
 

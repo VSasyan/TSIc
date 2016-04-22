@@ -74,13 +74,13 @@ doctrine:
     orm:
         default_entity_manager: default
         auto_generate_proxy_classes: "%kernel.debug%"
-        naming_strategy: doctrine.orm.naming_strategy.underscore
-        auto_mapping: false
-        dql:
-            string_functions:
-                ST_Distance: Jsor\Doctrine\PostGIS\Functions\ST_Distance
-                ST_GeomFromText: Jsor\Doctrine\PostGIS\Functions\ST_GeomFromText
-                default_entity_manager: default
+        #naming_strategy: doctrine.orm.naming_strategy.underscore
+        #auto_mapping: false
+        #dql:
+            #string_functions:
+                #ST_Distance: Jsor\Doctrine\PostGIS\Functions\ST_Distance
+                #ST_GeomFromText: Jsor\Doctrine\PostGIS\Functions\ST_GeomFromText
+                #default_entity_manager: default
         entity_managers:
             default:
                 connection: default
@@ -91,12 +91,12 @@ doctrine:
                         ST_Distance: Jsor\Doctrine\PostGIS\Functions\ST_Distance
                         ST_GeomFromText: Jsor\Doctrine\PostGIS\Functions\ST_GeomFromText
                         default_entity_manager: default
-            redis:
-                connection: redis
-                mappings:
-                    AppBundle:  ~
-                naming_strategy: doctrine.orm.naming_strategy.underscore
-                auto_mapping: true
+            #redis:
+                #connection: redis
+                #mappings:
+                #    AppBundle:  ~
+                #naming_strategy: doctrine.orm.naming_strategy.underscore
+                #auto_mapping: true
 
             osm:
                 connection: osm

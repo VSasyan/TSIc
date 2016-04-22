@@ -224,6 +224,12 @@ class PerturbationController extends StatutController {
 			$end_date=date_format($formulation->getEndDate(), 'Y-m-d h-m-s');
 			$redis = $this->get('snc_redis.default');
 			$data_id = $redis->incr('data:id');
+			$perturbation_type = 0;
+			$type_name = '';
+			if(is_a($formulation->getType(), 'AppBundle\Entity\TypePerturbation')){
+				$perturbation_name = $formulation->getType()->getId();
+				}
+				else $type_name = $formulation->getFreeType();
 			$data_json = array(
 				'data_id' => $data_id,
 				'user_id' => $this->getCurrentUser()->getId(),
@@ -231,10 +237,11 @@ class PerturbationController extends StatutController {
 				'perturbation_name' => $formulation->getName(),
 				'perturbation_creation_date' => $creation_date,
 				'description' => $formulation->getDescription(),
-				'perturbation_type' => $formulation->getType()->getId(),
+				'perturbation_type' => $perturbation_type,
 				'center' => $formulation->getCenter(),
 				'begin_date' => $begin_date,
-				'end_date' => $end_date
+				'end_date' => $end_date,
+				'type_name' => $type_name
 			);
 			$json = json_encode($data_json);
 			#$jsonKey= $formulation->getName();
