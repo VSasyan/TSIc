@@ -166,7 +166,7 @@ class EnumController extends Controller {
 		$type = $em->getRepository('AppBundle:TypeObjetTerrain')->find($id);
 
 		if ($type != null) {
-			$form = $this->createForm(TypePerturbationType::class, $type);
+			$form = $this->createForm(TypeObjetTerrainType::class, $type);
 
 			if ($form->handleRequest($request)->isValid()) {
 				$type->uploadLogoPicture();
@@ -187,7 +187,7 @@ class EnumController extends Controller {
 	}
 
 	/**
-	* @Route("/type-objet-terrain/delete/{id}", name="type_perturbation_delete")
+	* @Route("/type-objet-terrain/delete/{id}", name="type_objet_terrain_delete")
 	*/
 	public function typeObjetTerrainDeleteAction(Request $request, $id){
 
