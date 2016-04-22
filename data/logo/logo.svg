@@ -1,0 +1,212 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:xlink="http://www.w3.org/1999/xlink"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   id="svg4200"
+   height="468.00113"
+   width="438.06836"
+   version="1.1"
+   inkscape:version="0.91 r13725"
+   sodipodi:docname="logo.svg"
+   inkscape:export-filename="C:\www\TSIc\data\logo\logo.png"
+   inkscape:export-xdpi="90"
+   inkscape:export-ydpi="90">
+  <sodipodi:namedview
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1"
+     objecttolerance="10"
+     gridtolerance="10"
+     guidetolerance="10"
+     inkscape:pageopacity="0"
+     inkscape:pageshadow="2"
+     inkscape:window-width="1920"
+     inkscape:window-height="1017"
+     id="namedview25"
+     showgrid="false"
+     inkscape:zoom="1.2361274"
+     inkscape:cx="385.26076"
+     inkscape:cy="136.78463"
+     inkscape:window-x="-8"
+     inkscape:window-y="-8"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="svg4200"
+     fit-margin-top="0"
+     fit-margin-left="0"
+     fit-margin-right="0"
+     fit-margin-bottom="0" />
+  <metadata
+     id="metadata4241">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <desc
+     id="desc4202">European flag</desc>
+  <defs
+     id="defs4204">
+    <g
+       id="s">
+      <g
+         id="c">
+        <path
+           transform="matrix(0.95105652,0.30901699,-0.30901699,0.95105652,0,-1)"
+           d="M 0,0 0,1 0.5,1 Z"
+           id="t"
+           inkscape:connector-curvature="0" />
+        <use
+           id="use4209"
+           transform="scale(-1,1)"
+           xlink:href="#t"
+           x="0"
+           y="0"
+           width="100%"
+           height="100%" />
+      </g>
+      <g
+         id="a">
+        <use
+           id="use4212"
+           transform="matrix(0.30901699,0.95105652,-0.95105652,0.30901699,0,0)"
+           xlink:href="#c"
+           x="0"
+           y="0"
+           width="100%"
+           height="100%" />
+        <use
+           id="use4214"
+           transform="matrix(-0.80901699,0.58778525,-0.58778525,-0.80901699,0,0)"
+           xlink:href="#c"
+           x="0"
+           y="0"
+           width="100%"
+           height="100%" />
+      </g>
+      <use
+         id="use4216"
+         transform="scale(-1,1)"
+         xlink:href="#a"
+         x="0"
+         y="0"
+         width="100%"
+         height="100%" />
+    </g>
+  </defs>
+  <path
+     style="fill:#003399"
+     d="m 0,0 0,468.00112 438.06836,0 L 438.06836,0 0,0 Z"
+     id="rect4218"
+     inkscape:connector-curvature="0" />
+  <path
+     style="fill:none;fill-rule:evenodd;stroke:#ffffff;stroke-width:3.57477522;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+     d="m 221.1941,93.783564 c 0,0 -32.93256,-0.0951 -46.95623,22.095126 -30.69705,48.57328 139.53042,36.28042 105.91199,84.81955 -34.19417,49.3704 -139.85405,99.08134 -139.85405,99.08134"
+     id="path4164"
+     inkscape:connector-curvature="0"
+     sodipodi:nodetypes="cssc" />
+  <path
+     style="fill:none;fill-rule:evenodd;stroke:#ffffff;stroke-width:3.575;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+     d="m 228.59959,105.18611 c 0,0 -16.72413,0.93727 -25.57561,11.44213 -25.22606,29.93808 127.8838,16.67448 117.03473,76.33407 -10.77432,59.24848 -100.72439,129.59436 -100.72439,129.59436"
+     id="path4164-5"
+     inkscape:connector-curvature="0"
+     sodipodi:nodetypes="cssc" />
+  <g
+     id="g4220"
+     transform="matrix(24.337153,0,0,23.078743,219.03418,178.36173)"
+     style="fill:#ffcc00">
+    <use
+       id="use4222"
+       y="-6"
+       xlink:href="#s"
+       x="0"
+       width="100%"
+       height="100%" />
+    <use
+       id="use4224"
+       y="6"
+       xlink:href="#s"
+       x="0"
+       width="100%"
+       height="100%" />
+    <g
+       id="l">
+      <use
+         id="use4227"
+         x="-6"
+         xlink:href="#s"
+         y="0"
+         width="100%"
+         height="100%" />
+      <use
+         id="use4229"
+         transform="matrix(-0.80901699,-0.58778525,0.58778525,-0.80901699,-3,-5.1961524)"
+         xlink:href="#s"
+         x="0"
+         y="0"
+         width="100%"
+         height="100%" />
+      <use
+         id="use4231"
+         transform="matrix(-0.80901699,0.58778525,-0.58778525,-0.80901699,-5.1961524,-3)"
+         xlink:href="#s"
+         x="0"
+         y="0"
+         width="100%"
+         height="100%" />
+      <use
+         id="use4233"
+         transform="matrix(0.30901699,0.95105652,-0.95105652,0.30901699,-5.1961524,3)"
+         xlink:href="#s"
+         x="0"
+         y="0"
+         width="100%"
+         height="100%" />
+      <use
+         id="use4235"
+         transform="matrix(0.30901699,0.95105652,-0.95105652,0.30901699,-3,5.1961524)"
+         xlink:href="#s"
+         x="0"
+         y="0"
+         width="100%"
+         height="100%" />
+    </g>
+    <use
+       id="use4237"
+       transform="scale(-1,1)"
+       xlink:href="#l"
+       x="0"
+       y="0"
+       width="100%"
+       height="100%" />
+  </g>
+  <text
+     xml:space="preserve"
+     style="font-style:normal;font-weight:normal;font-size:93.36519623px;line-height:125%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+     x="65.722534"
+     y="368.14365"
+     id="text4189"
+     sodipodi:linespacing="125%"
+     transform="scale(0.86074002,1.161791)"><tspan
+       sodipodi:role="line"
+       id="tspan4191"
+       x="65.722534"
+       y="368.14365"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'Lobster 1.4';-inkscape-font-specification:'Lobster 1.4, ';fill:#ffffff">StarTrafic</tspan></text>
+  <path
+     style="fill:none;fill-rule:evenodd;stroke:#ffffff;stroke-width:2.79999995;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:2.8, 11.2;stroke-dashoffset:0;stroke-opacity:1"
+     d="m 221.94661,99.558204 c 0,0 -37.35706,6.029586 -37.6495,25.727826 -0.43547,29.33346 140.78105,19.79801 117.67934,74.80896 -23.25302,55.37125 -122.05653,112.02499 -122.05653,112.02499"
+     id="path4164-9"
+     inkscape:connector-curvature="0"
+     sodipodi:nodetypes="cssc" />
+</svg>
