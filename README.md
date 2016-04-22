@@ -1,5 +1,7 @@
-# TSIc
-Final project of TSIc Master.
+# Projet de fin d’études TSIc
+Développement d’un outil de saisie des modifications du réseau routier
+
+
 
 ## Installation
 
