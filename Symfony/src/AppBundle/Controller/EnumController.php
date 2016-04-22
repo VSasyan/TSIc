@@ -64,7 +64,7 @@ class EnumController extends Controller {
 	}
 
 	/**
-	* @Route("/type-objet-terrain/edit/{id}", name="type_objet_terrain_edit")
+	* @Route("/type-perturbation/edit/{id}", name="type_perturbation_edit")
 	*/
 	public function typePerturbationEditAction(Request $request, $id){
 
@@ -93,7 +93,7 @@ class EnumController extends Controller {
 	}
 
 	/**
-	* @Route("/type-objet-terrain/delete/{id}", name="type_objet_terrain_delete")
+	* @Route("/type-perturbation/delete/{id}", name="type_perturbation_delete")
 	*/
 	public function typePerturbationDeleteAction(Request $request, $id){
 
