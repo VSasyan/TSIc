@@ -187,7 +187,7 @@ class TypePerturbation
     protected function getUploadRootDir($type='logoPicture') {
         // the absolute directory path where uploaded
         // documents should be saved
-        echo(__DIR__.'/../../../upload/logo_type_perturbation');
+        //echo(__DIR__.'/../../../upload/logo_type_perturbation');
         return __DIR__.'/../../../upload/logo_type_perturbation';
     }
 
