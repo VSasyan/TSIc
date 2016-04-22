@@ -24,7 +24,7 @@ document.addEventListener("DOMContentLoaded", function() {
 	if (nomSocket != false) {
 
 		// Connection au socket
-		var socket = io.connect('http://localhost:8080');
+		var socket = io.connect(window.location.protocol + '//' + window.location.hostname + ':8080');
 
         socket.on('perturbation', functions_nodeJS[nomSocket]);
 
