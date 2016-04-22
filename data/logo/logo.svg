@@ -49,7 +49,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
+        <dc:title />
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -193,16 +193,16 @@
   <text
      xml:space="preserve"
      style="font-style:normal;font-weight:normal;font-size:93.36519623px;line-height:125%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-     x="65.722534"
+     x="54.96365"
      y="368.14365"
      id="text4189"
      sodipodi:linespacing="125%"
      transform="scale(0.86074002,1.161791)"><tspan
        sodipodi:role="line"
        id="tspan4191"
-       x="65.722534"
+       x="54.96365"
        y="368.14365"
-       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'Lobster 1.4';-inkscape-font-specification:'Lobster 1.4, ';fill:#ffffff">StarTrafic</tspan></text>
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'Lobster 1.4';-inkscape-font-specification:'Lobster 1.4, ';fill:#ffffff">StarTraffic</tspan></text>
   <path
      style="fill:none;fill-rule:evenodd;stroke:#ffffff;stroke-width:2.79999995;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:2.8, 11.2;stroke-dashoffset:0;stroke-opacity:1"
      d="m 221.94661,99.558204 c 0,0 -37.35706,6.029586 -37.6495,25.727826 -0.43547,29.33346 140.78105,19.79801 117.67934,74.80896 -23.25302,55.37125 -122.05653,112.02499 -122.05653,112.02499"
